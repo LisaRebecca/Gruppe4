@@ -1,4 +1,4 @@
-git runterladen
+git runterladen und installieren
 You can download Git here: [https://git-scm.com/downloads](https://git-scm.com/downloads)
 
 ausprobieren ob es funktioniert:
@@ -23,10 +23,14 @@ dir
 Die beiden commands zeigen euch die Folder im Projekt an.
 
 *** Hier einige Commands:***
+in einen Branch wechseln:
+git branch <new-branch-name>
+
+in den master branch wechseln:
+git branch master
 
 Neuen Branch erstellen und auch in diesem Arbeiten:
 git checkout -b new-branch-name
-
 jetzt könnt ihr beliebig Dateien verändern (Im File explorer, Eclipse, Word, ...)
 
 wenn ihr fertig seid committet es in euren Branch:
