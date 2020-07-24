@@ -1,13 +1,13 @@
 import java.sql.*;
 
+import classes.DatabaseConnection;
+import classes.DatabaseConnector;
+
 public class SqlSelect {
 
 	public static void main(String[] args) {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/bookstore?user=root&password=sequel");
-
+			Connection conn = DatabaseConnection.getDBConnection();
 			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM books");
 
 			while (rs.next()) {
