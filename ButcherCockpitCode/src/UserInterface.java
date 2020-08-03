@@ -13,7 +13,7 @@ import classes.DatabaseConnection;
 public class UserInterface extends JFrame{
 	public UserInterface() throws SQLException {
 		Container c = getContentPane();
-//		JScrollPane jsp = new JScrollPane();
+
 		Connection conn = DatabaseConnection.getDBConnection();
 		ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM books");
 		JTable jt = new JTable(
