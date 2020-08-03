@@ -39,3 +39,9 @@ git commit -m "Beschreibung der Änderungen mit Anführungszeichen außenherum"
 
 Jetzt sind die Änderungen aber nur auf eurem PC, wir wollen sie aber in der cloud:
 git push origin your-branch-name
+
+alle remote branches anzeigen:
+git remote show origin
+
+update all remotes:
+git remote update --prune origin
