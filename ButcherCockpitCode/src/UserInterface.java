@@ -14,11 +14,9 @@ public class UserInterface extends JFrame{
 	public UserInterface() throws SQLException {
 		Container c = getContentPane();
 
-		Connection conn = DatabaseConnection.getDBConnection();
-		ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM books");
+		
 		JTable jt = new JTable(
 				buildTableModel(rs));
-		c.add(new JLabel("hello"));
 		c.add(jt);
 		this.setVisible(true);
 		this.setSize(500, 500);		
@@ -27,7 +25,6 @@ public class UserInterface extends JFrame{
 		try {
 			UserInterface ui = new UserInterface();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -55,6 +52,5 @@ public class UserInterface extends JFrame{
 	    }
 
 	    return new DefaultTableModel(data, columnNames);
-
 	}
 }
