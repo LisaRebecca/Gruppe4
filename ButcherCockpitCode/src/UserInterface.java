@@ -9,14 +9,14 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import classes.DatabaseConnection;
+import classes.DatabaseConnector;
 
 public class UserInterface extends JFrame{
 	public UserInterface() throws SQLException {
 		Container c = getContentPane();
-
 		
 		JTable jt = new JTable(
-				buildTableModel(rs));
+				buildTableModel(DatabaseConnector.getTableByName("")));
 		c.add(jt);
 		this.setVisible(true);
 		this.setSize(500, 500);		
@@ -29,19 +29,39 @@ public class UserInterface extends JFrame{
 		}
 		
 	}
-	public static DefaultTableModel buildTableModel(ResultSet rs)
-	        throws SQLException {
-
+	public DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
+//
+//	    ResultSetMetaData metadata = rs.getMetaData();
+//	    
+//	    int columnCount = metadata.getColumnCount();
+//
+//	    Vector<String> attributes = new Vector<String>();
+//	    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+//	    DefaultTableModel tableModel = new DefaultTableModel();
+//	    
+//	    
+//	    for (int column = 1; column <= columnCount; column++) {
+//	    	attributes.add(metadata.getColumnName(column));
+//	    }
+//
+//	    
+//	    while (rs.next()) {
+//	        Vector<Object> vector = new Vector<Object>();
+//	        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+//	            vector.add(rs.getObject(columnIndex));
+//	        }
+//	        data.add(vector);
+//	    }
+//
+//	    return tableModel;
 	    ResultSetMetaData metaData = rs.getMetaData();
 
-	    // names of columns
 	    Vector<String> columnNames = new Vector<String>();
 	    int columnCount = metaData.getColumnCount();
 	    for (int column = 1; column <= columnCount; column++) {
 	        columnNames.add(metaData.getColumnName(column));
 	    }
 
-	    // data of the table
 	    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
 	    while (rs.next()) {
 	        Vector<Object> vector = new Vector<Object>();

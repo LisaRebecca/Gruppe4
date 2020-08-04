@@ -1,19 +1,12 @@
 package classes;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Observable;
 
 public class DatabaseConnector extends Observable{
+	static Connection conn = DatabaseConnection.getDBConnection();
 	
-	
-	private DatabaseConnector() {
-		Connection conn = DatabaseConnection.getDBConnection();		
-	}
-	
-	public Result
-	ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM books");
-	
-	
+	public static ResultSet getTableByName(String name) throws SQLException {
+		// hier für die einzelnen Tabellen reinschreiben
+		return conn.createStatement().executeQuery("SELECT * FROM Produkt;");
+	}	
 }

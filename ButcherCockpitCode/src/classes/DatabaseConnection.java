@@ -11,7 +11,7 @@ public class DatabaseConnection {
 		} catch (ClassNotFoundException e) {}
 		try {
 			connection = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/bookstore?user=root&password=sequel");
+					"jdbc:mysql://localhost:3306/metzgerei?user=root&password=sequel");
 		} catch (SQLException e) {}
 		return connection;
 	}
