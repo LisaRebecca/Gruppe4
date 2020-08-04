@@ -30,47 +30,26 @@ public class UserInterface extends JFrame{
 		
 	}
 	public DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
-//
-//	    ResultSetMetaData metadata = rs.getMetaData();
-//	    
-//	    int columnCount = metadata.getColumnCount();
-//
-//	    Vector<String> attributes = new Vector<String>();
-//	    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
-//	    DefaultTableModel tableModel = new DefaultTableModel();
-//	    
-//	    
-//	    for (int column = 1; column <= columnCount; column++) {
-//	    	attributes.add(metadata.getColumnName(column));
-//	    }
-//
-//	    
-//	    while (rs.next()) {
-//	        Vector<Object> vector = new Vector<Object>();
-//	        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-//	            vector.add(rs.getObject(columnIndex));
-//	        }
-//	        data.add(vector);
-//	    }
-//
-//	    return tableModel;
 	    ResultSetMetaData metaData = rs.getMetaData();
-
 	    Vector<String> columnNames = new Vector<String>();
-	    int columnCount = metaData.getColumnCount();
-	    for (int column = 1; column <= columnCount; column++) {
-	        columnNames.add(metaData.getColumnName(column));
-	    }
 
-	    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+	    for (int col = 1; col <= metaData.getColumnCount(); col++) {
+	        columnNames.add(metaData.getColumnLabel(col));
+	    }
+	    
+	    System.out.println(columnNames);
+
+	    Vector rows = new Vector();
+	    Vector singleRow;
+//	    System.out.println(rs.arr);
 	    while (rs.next()) {
-	        Vector<Object> vector = new Vector<Object>();
-	        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-	            vector.add(rs.getObject(columnIndex));
+	    	singleRow = new Vector();
+	        for (int columnIndex = 1; columnIndex <= metaData.getColumnCount(); columnIndex++) {
+	        	singleRow.add(rs.getObject(columnIndex));
 	        }
-	        data.add(vector);
+	        rows.add(singleRow);
+	        System.out.println(rows);
 	    }
-
-	    return new DefaultTableModel(data, columnNames);
+	    return new DefaultTableModel(rows, columnNames);
 	}
 }
