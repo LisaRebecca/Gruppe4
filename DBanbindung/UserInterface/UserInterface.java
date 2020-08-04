@@ -9,19 +9,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import classes.DatabaseConnection;
-import classes.DatabaseConnector;
 
 public class UserInterface extends JFrame{
 	public UserInterface() throws SQLException {
-
-		
-		
-		JTable jt = new JTable(
-				buildTableModel(DatabaseConnector.getTableByName("")));
-		
-
 		Container con = getContentPane();
-    con.add(jt);
 //		JScrollPane jsp = new JScrollPane();
 		JPanel jp = new JPanel(new GridBagLayout());
 		con.add(jp);
@@ -69,20 +60,19 @@ public class UserInterface extends JFrame{
 		jp.add(jpbestell, c);
 		
 		JPanel jpkuehl = new JPanel();
-		JTextArea kuehl = new JTextArea("KÃ¼hlautomat");
+		JTextArea kuehl = new JTextArea("Kühlautomat");
 		jpkuehl.add(kuehl);
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 2;
 		c.gridy = 2;
 		jp.add(jpkuehl, c);
 		
-//		Connection conn = DatabaseConnection.getDBConnection();
-//		ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM books");
-//		JTable jt = new JTable(
-//				buildTableModel(rs));
-		//c.add(new JLabel("hello"));
-		//c.add(jt);
-
+		Connection conn = DatabaseConnection.getDBConnection();
+		ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM books");
+		JTable jt = new JTable(
+				buildTableModel(rs));
+		c.add(new JLabel("hello"));
+		c.add(jt);
 		this.setVisible(true);
 		this.setSize(500, 500);		
 	}
@@ -93,31 +83,34 @@ public class UserInterface extends JFrame{
 			ui.setVisible(true);
 			ui.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
-	public DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
+	public static DefaultTableModel buildTableModel(ResultSet rs)
+	        throws SQLException {
+
 	    ResultSetMetaData metaData = rs.getMetaData();
+
+	    // names of columns
 	    Vector<String> columnNames = new Vector<String>();
-
-	    for (int col = 1; col <= metaData.getColumnCount(); col++) {
-	        columnNames.add(metaData.getColumnLabel(col));
+	    int columnCount = metaData.getColumnCount();
+	    for (int column = 1; column <= columnCount; column++) {
+	        columnNames.add(metaData.getColumnName(column));
 	    }
-	    
-	    System.out.println(columnNames);
 
-	    Vector rows = new Vector();
-	    Vector singleRow;
-//	    System.out.println(rs.arr);
+	    // data of the table
+	    Vector<Vector<Object>> data = new Vector<Vector<Object>>();
 	    while (rs.next()) {
-	    	singleRow = new Vector();
-	        for (int columnIndex = 1; columnIndex <= metaData.getColumnCount(); columnIndex++) {
-	        	singleRow.add(rs.getObject(columnIndex));
+	        Vector<Object> vector = new Vector<Object>();
+	        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+	            vector.add(rs.getObject(columnIndex));
 	        }
-	        rows.add(singleRow);
-	        System.out.println(rows);
+	        data.add(vector);
 	    }
-	    return new DefaultTableModel(rows, columnNames);
+
+	    return new DefaultTableModel(data, columnNames);
+
 	}
 }
