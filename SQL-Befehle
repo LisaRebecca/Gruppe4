@@ -19,7 +19,10 @@ CREATE TABLE Mitarbeiter (name VARCHAR (50), mitarbeiter_nr INT PRIMARY KEY, ums
 --Tabellen füllen : 
 
 
-INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES (‘Schweinelende‘, 1, 13.99, DATE ‘2020-12-12‘);
+INSERT INTO Produkt (name,produkt_id) VALUES (‘Schweinelende‘, 1);
+INSERT INTO Produkt (name,produkt_id) VALUES (‘Salami‘, 2);
+
+--INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES (‘Schweinelende‘, 1, 13.99, DATE ‘2020-12-12‘);
 
 INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES (‘Salami‘, 2, 8.49, DATE ‘2020-12-30‘);
 
