@@ -67,12 +67,12 @@ public class UserInterface extends JFrame{
 		c.gridy = 2;
 		jp.add(jpkuehl, c);
 		
-//		Connection conn = DatabaseConnection.getDBConnection();
-//		ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM books");
-//		JTable jt = new JTable(
-//				buildTableModel(rs));
-		//c.add(new JLabel("hello"));
-		//c.add(jt);
+		Connection conn = DatabaseConnection.getDBConnection();
+		ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM books");
+		JTable jt = new JTable(
+				buildTableModel(rs));
+		c.add(new JLabel("hello"));
+		c.add(jt);
 		this.setVisible(true);
 		this.setSize(500, 500);		
 	}
