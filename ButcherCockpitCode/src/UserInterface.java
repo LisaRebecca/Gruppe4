@@ -12,76 +12,98 @@ import classes.DatabaseConnection;
 import classes.DatabaseConnector;
 
 public class UserInterface extends JFrame{
+	Font font = new Font("Arial",Font.PLAIN, 18);
 	public UserInterface() throws SQLException {
 
-		
-		
-		JTable jt = new JTable(
-				buildTableModel(DatabaseConnector.getTableByName("")));
+//		JTable jt = new JTable(
+//				buildTableModel(DatabaseConnector.getTableByName("")));
 		
 
-		Container con = getContentPane();
-    con.add(jt);
+		Container c = getContentPane();
+//    con.add(jt);
 //		JScrollPane jsp = new JScrollPane();
 		JPanel jp = new JPanel(new GridBagLayout());
-		con.add(jp);
-		GridBagConstraints c = new GridBagConstraints();
+		c.add(jp);
+		GridBagConstraints gbc = new GridBagConstraints();
 		
-		JPanel jphead = new JPanel();
-		JTextArea butcherheader = new JTextArea("Butcher Cockpit");
-		jphead.add(butcherheader);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.ipady = 40;
-		c.gridx = 0;
-		c.gridy = 0;
-		jp.add(jphead, c);
+//		JPanel jphead = new JPanel();
+////		JTextArea butcherheader = new JTextArea("Butcher Cockpit");
+//		JButton butcherheader = new JButton("Butcher Cockpit");
+//		jphead.add(butcherheader);
+//		gbc.fill = GridBagConstraints.HORIZONTAL;
+////		gbc.ipady = 40;
+//		//Anzahl der Spalten/Zeilen die das Feld breit/hoch sein soll
+//		gbc.gridwidth = 3;
+////		gbc.gridheight =1;
+//		//Positionen
+//		gbc.gridx = 1;
+//		gbc.gridy = 0;
+//		//Freiraum zwischen diesem Feld und anderen
+////		gbc.weightx=1.0;
+////		gbc.weighty=0.5;
+//		jp.add(jphead, gbc);
 		
-		JPanel jpkund = new JPanel();
-		JTextArea kunden = new JTextArea("Kundenstatistiken");
-		jpkund.add(kunden);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 1;
-		jp.add(jpkund, c);
+		JButton kunden = new JButton("Kundenstatistiken");
+		kunden.setPreferredSize(new Dimension(200,100));
+		kunden.setBackground(Color.WHITE);
+		kunden.setFont(font);
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		jp.add(kunden, gbc);
 		
-		JPanel jplager = new JPanel();
-		JTextArea lager = new JTextArea("Lagerbestand");
-		jplager.add(lager);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 1;
-		c.gridy = 1;
-		jp.add(jplager, c);
+		JButton lager = new JButton("Lagerbestand");
+		lager.setPreferredSize(new Dimension(200,100));
+		lager.setBackground(Color.WHITE);
+		lager.setFont(font);
+		gbc.gridx = 1;
+		gbc.gridy = 1;
+		jp.add(lager, gbc);
 		
-		JPanel jpeinkauf = new JPanel();
-		JTextArea einkauf = new JTextArea("Einkauf");
-		jpeinkauf.add(einkauf);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 2;
-		jp.add(jpeinkauf, c);
+		JButton einkauf = new JButton("Einkauf");
+		einkauf.setPreferredSize(new Dimension(200,100));
+		einkauf.setBackground(Color.WHITE);
+		einkauf.setFont(font);
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		jp.add(einkauf, gbc);
 		
-		JPanel jpbestell = new JPanel();
-		JTextArea bestell = new JTextArea("Bestellungen");
-		jpbestell.add(bestell);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 1;
-		c.gridy = 2;
-		jp.add(jpbestell, c);
+		JButton bestell = new JButton("Bestellungen");
+		bestell.setPreferredSize(new Dimension(200,100));
+		bestell.setBackground(Color.WHITE);
+		bestell.setFont(font);
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		jp.add(bestell, gbc);
 		
-		JPanel jpkuehl = new JPanel();
-		JTextArea kuehl = new JTextArea("KÃ¼hlautomat");
-		jpkuehl.add(kuehl);
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 2;
-		c.gridy = 2;
-		jp.add(jpkuehl, c);
+		JButton kuehl = new JButton("Kühlautomat");
+		kuehl.setPreferredSize(new Dimension(200,100));
+		kuehl.setBackground(Color.WHITE);
+		kuehl.setFont(font);
+		gbc.gridx = 2;
+		gbc.gridy = 2;
+		jp.add(kuehl, gbc);
+		
+//		Tile tiletest = new Tile("tiletest");
+//		gbc.gridx = 0;
+//		gbc.gridy = 0;
+//		jp.add(tiletest, gbc);
+//		
+//		Tile tiletest1 = new Tile("tiletest1");
+//		gbc.gridx = 1;
+//		gbc.gridy = 0;
+//		jp.add(tiletest1, gbc);
+//		
+//		Tile tiletest2 = new Tile("tiletest2");
+//		gbc.gridx = 0;
+//		gbc.gridy = 1;
+//		jp.add(tiletest2, gbc);
 		
 //		Connection conn = DatabaseConnection.getDBConnection();
 //		ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM books");
 //		JTable jt = new JTable(
 //				buildTableModel(rs));
-		//c.add(new JLabel("hello"));
-		//c.add(jt);
+//		c.add(new JLabel("hello"));
+//		c.add(jt);
 
 		this.setVisible(true);
 		this.setSize(500, 500);		
@@ -90,34 +112,37 @@ public class UserInterface extends JFrame{
 	public static void main(String[] args) {
 		try {
 			UserInterface ui = new UserInterface();
+			ui.setTitle("ButcherCockpit");
 			ui.setVisible(true);
+			ui.setLocation(200,200);
+			ui.setSize(700, 300);
 			ui.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 	}
-	public DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
-	    ResultSetMetaData metaData = rs.getMetaData();
-	    Vector<String> columnNames = new Vector<String>();
-
-	    for (int col = 1; col <= metaData.getColumnCount(); col++) {
-	        columnNames.add(metaData.getColumnLabel(col));
-	    }
-	    
-	    System.out.println(columnNames);
-
-	    Vector rows = new Vector();
-	    Vector singleRow;
-//	    System.out.println(rs.arr);
-	    while (rs.next()) {
-	    	singleRow = new Vector();
-	        for (int columnIndex = 1; columnIndex <= metaData.getColumnCount(); columnIndex++) {
-	        	singleRow.add(rs.getObject(columnIndex));
-	        }
-	        rows.add(singleRow);
-	        System.out.println(rows);
-	    }
-	    return new DefaultTableModel(rows, columnNames);
-	}
+//	public DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
+//	    ResultSetMetaData metaData = rs.getMetaData();
+//	    Vector<String> columnNames = new Vector<String>();
+//
+//	    for (int col = 1; col <= metaData.getColumnCount(); col++) {
+//	        columnNames.add(metaData.getColumnLabel(col));
+//	    }
+//	    
+//	    System.out.println(columnNames);
+//
+//	    Vector rows = new Vector();
+//	    Vector singleRow;
+////	    System.out.println(rs.arr);
+//	    while (rs.next()) {
+//	    	singleRow = new Vector();
+//	        for (int columnIndex = 1; columnIndex <= metaData.getColumnCount(); columnIndex++) {
+//	        	singleRow.add(rs.getObject(columnIndex));
+//	        }
+//	        rows.add(singleRow);
+//	        System.out.println(rows);
+//	    }
+//	    return new DefaultTableModel(rows, columnNames);
+//	}
 }
