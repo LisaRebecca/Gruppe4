@@ -1,3 +1,4 @@
+package classes;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,8 +18,6 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import classes.DatabaseConnector;
-
 public class Tile extends JPanel {
 	Font font = new Font("Arial",Font.PLAIN, 18);
 	String header;
@@ -29,7 +28,7 @@ public class Tile extends JPanel {
     	this.header = tileheader;
     	
     	JTable jt = new JTable(
-    			buildTableModel(DatabaseConnector.getTableByName("")));
+    			buildTableModel(DatabaseConnector.getTableByName("Produkt")));
     	
 		JLabel title = new JLabel(tileheader);
     	title.setFont(font);

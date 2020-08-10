@@ -1,7 +1,5 @@
+package classes;
 import java.sql.*;
-
-import classes.DatabaseConnection;
-import classes.DatabaseConnector;
 
 public class SqlSelect {
 	public static ResultSet getData() {

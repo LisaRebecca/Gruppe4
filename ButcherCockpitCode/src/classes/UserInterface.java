@@ -1,3 +1,4 @@
+package classes;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -7,9 +8,6 @@ import java.util.Vector;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
-import classes.DatabaseConnection;
-import classes.DatabaseConnector;
 
 public class UserInterface extends JFrame{
 	Font font = new Font("Arial",Font.PLAIN, 18);
