@@ -5,7 +5,7 @@ USE metzgerei;
 --Tabellen erstellen :
 
 
-CREATE TABLE Produkt ( name VARCHAR(30), produkt_id INT PRIMARY KEY, kilopreis NUMERIC (2,2), MHD DATE);
+CREATE TABLE Produkt ( name VARCHAR(30), produkt_id INT PRIMARY KEY, kilopreis NUMERIC (5,2), MHD DATE);
 
 CREATE TABLE Kunden ( name VARCHAR(50), kunden_nr INT PRIMARY KEY, umsatz NUMERIC(5,2), plz CHARACTER (5));
 
@@ -19,30 +19,30 @@ CREATE TABLE Mitarbeiter (name VARCHAR (50), mitarbeiter_nr INT PRIMARY KEY, ums
 --Tabellen füllen : 
 
 
-INSERT INTO Produkt (name,produkt_id) VALUES (‘Schweinelende‘, 1);
-INSERT INTO Produkt (name,produkt_id) VALUES (‘Salami‘, 2);
+INSERT INTO Produkt (name,produkt_id) VALUES ('Schweinelende', 1);
+INSERT INTO Produkt (name,produkt_id) VALUES ('Salami', 2);
 
---INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES (‘Schweinelende‘, 1, 13.99, DATE ‘2020-12-12‘);
+--INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES ('Schweinelende', 1, 13.99, DATE '2020-12-12');
 
-INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES (‘Salami‘, 2, 8.49, DATE ‘2020-12-30‘);
+INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES ('Salami', 2, 8.49, DATE '2020-12-30');
 
-INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES (‘Bratwurst‘, 3, 11.49, DATE ‘2020-11-09‘);
+INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES ('Bratwurst', 3, 11.49, DATE '2020-11-09');
 
-INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES (‘Tofu Schnitzel‘, 4, 10.20, DATE ‘2020-10-11‘);
+INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES ('Tofu Schnitzel', 4, 10.20, DATE '2020-10-11');
 
-INSERT INTO Kunden(name,kunden_nr,umsatz,plz) VALUES (‘Müller‘,2,110.00,'68309');
+INSERT INTO Kunden(name,kunden_nr,umsatz,plz) VALUES ('Müller',2,110.00,'68309');
 
-INSERT INTO Kunden(name,kunden_nr,umsatz,plz) VALUES (‘Schmitt‘,3,85.00,'68167');
+INSERT INTO Kunden(name,kunden_nr,umsatz,plz) VALUES ('Schmitt',3,85.00,'68167');
 
-INSERT INTO Kunden(name,kunden_nr,umsatz,plz) VALUES (‘Meier‘,1,220.00,'68307');
+INSERT INTO Kunden(name,kunden_nr,umsatz,plz) VALUES ('Meier',1,220.00,'68307');
 
-INSERT INTO Kunden(name,kunden_nr,umsatz,plz) VALUES (‘Strauss‘,4,340.00,'68309');
+INSERT INTO Kunden(name,kunden_nr,umsatz,plz) VALUES ('Strauss',4,340.00,'68309');
 
-INSERT INTO Bestellungen (bestell_nr, produkt_id,kunden_nr,bestelldatum,lieferdatum) VALUES (1,1,2, DATE ‘2020-08-01‘,DATE ‘2020-09-11‘);
+INSERT INTO Bestellungen (bestell_nr, produkt_id,kunden_nr,bestelldatum,lieferdatum) VALUES (1,1,2, DATE '2020-08-01',DATE '2020-09-11');
 
-INSERT INTO Bestellungen (bestell_nr, produkt_id,kunden_nr,bestelldatum,lieferdatum) VALUES (2,1,3, DATE ‘2020-08-01‘,DATE ‘2020-09-14‘);
+INSERT INTO Bestellungen (bestell_nr, produkt_id,kunden_nr,bestelldatum,lieferdatum) VALUES (2,1,3, DATE '2020-08-01',DATE '2020-09-14');
 
-INSERT INTO Bestellungen (bestell_nr, produkt_id,kunden_nr,bestelldatum,lieferdatum) VALUES (3,4,1, DATE ‘2020-08-01‘,DATE ‘2020-08-01‘);
+INSERT INTO Bestellungen (bestell_nr, produkt_id,kunden_nr,bestelldatum,lieferdatum) VALUES (3,4,1, DATE '2020-08-01',DATE '2020-08-01');
 
 INSERT INTO Auftragsposten (bestell_nr,produkt_id) VALUES (1,1);
 
