@@ -11,7 +11,7 @@ CREATE TABLE Kunden ( name VARCHAR(50), kunden_nr INT PRIMARY KEY, umsatz NUMERI
 
 CREATE TABLE Bestellungen(bestell_nr INT PRIMARY KEY, produkt_id INT REFERENCES Produkt(produkt_id), kunden_nr INT REFERENCES Kunden(kunden_nr), lieferdatum DATE,  bestelldatum DATE);
 
-CREATE TABLE Auftragsposten (bestell_nr INT REFERENCES Bestellungen(bestell_nr), produkt_id INT REFERENCES Produkt(produkt_id);
+CREATE TABLE Auftragsposten (bestell_nr INT REFERENCES Bestellungen(bestell_nr), produkt_id INT REFERENCES Produkt(produkt_id));
 
 CREATE TABLE Mitarbeiter (name VARCHAR (50), mitarbeiter_nr INT PRIMARY KEY, umsatz NUMERIC(5,2), abmahnungen CHARACTER(2));
 
