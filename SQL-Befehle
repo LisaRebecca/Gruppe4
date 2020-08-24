@@ -15,15 +15,19 @@ CREATE TABLE Auftragsposten (bestell_nr INT REFERENCES Bestellungen(bestell_nr),
 
 CREATE TABLE Mitarbeiter (name VARCHAR (50), mitarbeiter_nr INT PRIMARY KEY, umsatz NUMERIC(5,2), abmahnungen CHARACTER(2));
 
-CREATE TABLE Lagerbestand (produkt_id INT REFERENCES Produkt(produkt_id) PRIMARY KEY (produkt_id), haltbar_bis DATE);
+CREATE TABLE Lagerbestand (produkt_id INT REFERENCES Produkt(produkt_id), haltbar_bis DATE, PRIMARY KEY (produkt_id, haltbar_bis));
 
 
 --Tabellen füllen : 
 
-INSERT INTO Produkt (name,produkt_id) VALUES ('Schweinelende', 1);
-INSERT INTO Produkt (name,produkt_id) VALUES ('Salami', 2);
+INSERT INTO Lagerbestand (produkt_id, haltbar_bis) VALUES ( 2, DATE '2020-12-30');
 
---INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES ('Schweinelende', 1, 13.99, DATE '2020-12-12');
+INSERT INTO Lagerbestand (produkt_id, haltbar_bis) VALUES ( 3, DATE '2020-11-09');
+
+INSERT INTO Lagerbestand (produkt_id, haltbar_bis) VALUES ( 4, DATE '2020-10-11');
+
+
+INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES ('Schweinelende', 1, 13.99, DATE '2020-12-12');
 
 INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES ('Salami', 2, 8.49, DATE '2020-12-30');
 
