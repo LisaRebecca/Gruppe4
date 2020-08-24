@@ -5,7 +5,7 @@ USE metzgerei;
 --Tabellen erstellen :
 
 
-CREATE TABLE Produkt ( name VARCHAR(30), produkt_id INT PRIMARY KEY, kilopreis NUMERIC (5,2), MHD DATE);
+CREATE TABLE Produkt ( name VARCHAR(30), produkt_id INT PRIMARY KEY, kilopreis NUMERIC (5,2));
 
 CREATE TABLE Kunden ( name VARCHAR(50), kunden_nr INT PRIMARY KEY, umsatz NUMERIC(5,2), plz CHARACTER (5));
 
@@ -15,11 +15,10 @@ CREATE TABLE Auftragsposten (bestell_nr INT REFERENCES Bestellungen(bestell_nr),
 
 CREATE TABLE Mitarbeiter (name VARCHAR (50), mitarbeiter_nr INT PRIMARY KEY, umsatz NUMERIC(5,2), abmahnungen CHARACTER(2));
 
-CREATE TABLE Lagerbestand (produkt_id INT REFERENCES Produkt(produkt_id),kilopreis NUMERIC (5,2) REFERENCES Produkt(kilopreis), PRIMARY KEY (produkt_id,kilopreis));
+CREATE TABLE Lagerbestand (produkt_id INT REFERENCES Produkt(produkt_id) PRIMARY KEY (produkt_id), haltbar_bis DATE);
 
 
 --Tabellen füllen : 
-
 
 INSERT INTO Produkt (name,produkt_id) VALUES ('Schweinelende', 1);
 INSERT INTO Produkt (name,produkt_id) VALUES ('Salami', 2);
