@@ -1,4 +1,4 @@
-package classes;
+package trash;
 
 import javax.swing.JFrame;
 

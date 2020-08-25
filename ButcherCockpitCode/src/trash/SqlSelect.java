@@ -1,5 +1,7 @@
-package classes;
+package trash;
 import java.sql.*;
+
+import classes.DatabaseConnection;
 
 public class SqlSelect {
 	public static ResultSet getData() {

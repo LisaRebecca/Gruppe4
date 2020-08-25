@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class Automat extends Geraet {
+public class Automat extends JFrame {
 	Font font = new Font("Arial",Font.PLAIN, 18);
 	JPanel mainPanel;
 	JPanel auswahlPanel;
