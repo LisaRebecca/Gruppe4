@@ -6,7 +6,7 @@ public class DatabaseConnector extends Observable{
 	static Connection conn = DatabaseConnection.getDBConnection();
 	
 	public static ResultSet getTableByName(String name) throws SQLException {
-		return conn.createStatement().executeQuery("SELECT * FROM" +name+";");
+		return conn.createStatement().executeQuery("SELECT * FROM "+name+";");
 	}	
 
 //	public static ResultSet getFieldByName(String tableName, )
