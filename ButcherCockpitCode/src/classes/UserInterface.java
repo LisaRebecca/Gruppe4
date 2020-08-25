@@ -18,17 +18,17 @@ public class UserInterface extends JFrame{
 		JPanel jp = new JPanel(new GridLayout(3,0));
 		c.add(jp);
 		
-		Tile kunden = new Tile("Kundenstatistiken", "Produkte");
-		jp.add(kunden);
+//		Tile kunden = new Tile("Kundenstatistiken", "Kunden");
+//		jp.add(kunden);
 		
-		Tile lager = new Tile("Lagerbestand", "Produkte");
+		Tile lager = new Tile("Lagerbestand", "Lagerbestand");
 		jp.add(lager);
 		
-		Tile einkauf = new Tile("Einkäufe", "Produkte");
-		jp.add(einkauf);
+		Tile produkte = new Tile("Produktportfolio", "Produkte");
+		jp.add(produkte);
 		
-		Tile bestell = new Tile("Bestellungen", "Produkte");
-		jp.add(bestell);
+//		Tile bestell = new Tile("Bestellungen", "Produkte");
+//		jp.add(bestell);
 		
 		Tile kuehl = new Tile("Kühlautomat", "Produkte");
 		jp.add(kuehl);
