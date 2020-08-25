@@ -1,5 +1,7 @@
 package classes;
 
-public abstract class Geraet {
+import javax.swing.JFrame;
+
+public abstract class Geraet extends JFrame{
 
 }

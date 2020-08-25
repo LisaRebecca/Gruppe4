@@ -6,12 +6,7 @@ public class DatabaseConnector extends Observable{
 	static Connection conn = DatabaseConnection.getDBConnection();
 	
 	public static ResultSet getTableByName(String name) throws SQLException {
-		// 1. Alternative: mit einem ActionListener zu arbeiten, 2. mit Switch (Konsoleneingabe) arbeiten
-		return conn.createStatement().executeQuery("SELECT * FROM" +Produkt+";");
-		return conn.createStatement().executeQuery("SELECT * FROM" +Auftragsposten+";");
-		return conn.createStatement().executeQuery("SELECT * FROM" +Bestellungen+";");
-		return conn.createStatement().executeQuery("SELECT * FROM" +Kunden+";");
-		return conn.createStatement().executeQuery("SELECT * FROM" +Mitarbeiter+";");
+		return conn.createStatement().executeQuery("SELECT * FROM" +name+";");
 	}	
 
 //	public static ResultSet getFieldByName(String tableName, )
@@ -27,5 +22,16 @@ public class DatabaseConnector extends Observable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public static ResultSet getProductsByLocation(String location) {
+		ResultSet produkte = null;
+		try {
+			produkte = conn.createStatement().executeQuery(
+					"select name, portionen, haltbar_bis, kilopreis from lagerbestand \r\n" + 
+					"left join produkte on lagerbestand.produkt = produkte.produkt_id\r\n" + 
+					"where lagerort='"+"location"+"';");
+		} catch (SQLException e) {}
+		return produkte;
 	}
 } 

@@ -23,12 +23,13 @@ public class Tile extends JPanel {
 	String header;
     // Panel
 	// DBT Name
+	String tabellenName;
 	// title
-    public Tile (String tileheader) throws SQLException {
+    public Tile (String tileheader, String tabellenName) throws SQLException {
     	this.header = tileheader;
     	
     	JTable jt = new JTable(
-    			buildTableModel(DatabaseConnector.getTableByName("Produkt")));
+    			buildTableModel(DatabaseConnector.getTableByName(tabellenName)));
     	
 		JLabel title = new JLabel(tileheader);
     	title.setFont(font);
@@ -43,7 +44,27 @@ public class Tile extends JPanel {
     	this.add(jt, BorderLayout.SOUTH);
 
     }
-    public DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
+    
+    public Tile(String tileheader, String tabellenName, String restriction) throws SQLException {
+    	this.header = tileheader;
+    	
+    	JTable jt = new JTable(
+    			buildTableModel(DatabaseConnector.getTableByName(tabellenName)));
+    	
+		JLabel title = new JLabel(tileheader);
+    	title.setFont(font);
+    	
+    	this.setLayout(new BorderLayout());
+    	this.setBackground(Color.WHITE);
+    	
+    	Border margin = new LineBorder(Color.gray,1);
+    	this.setBorder(margin);
+    	
+    	this.add(title, BorderLayout.NORTH);
+    	this.add(jt, BorderLayout.SOUTH);
+    }
+    
+    public static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
 	    ResultSetMetaData metaData = rs.getMetaData();
 	    Vector<String> columnNames = new Vector<String>();
 
@@ -68,5 +89,3 @@ public class Tile extends JPanel {
 	}
 
 }
-
-
