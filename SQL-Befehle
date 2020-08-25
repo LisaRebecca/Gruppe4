@@ -2,33 +2,27 @@ CREATE DATABASE metzgerei;
 
 USE metzgerei;
 
---Tabellen erstellen :
+CREATE TABLE Produkte ( name VARCHAR(30), produkt_id INT PRIMARY KEY, kilopreis NUMERIC (5,2), gewicht_portion int);
+CREATE TABLE Lagerbestand (produkt INT REFERENCES Produkte(produkt_id), haltbar_bis DATE, lagerort VARCHAR(20), portionen int, PRIMARY KEY (produkt, lagerort, haltbar_bis));
 
+INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Schweinelende', 1, 13.99, 250);
+INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Salami', 2, 8.49, 50);
+INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Bratwurst', 3, 11.49, 125);
+INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Tofu Schnitzel', 4, 10.20, 150);
 
-CREATE TABLE Produkt ( name VARCHAR(30), produkt_id INT PRIMARY KEY, kilopreis NUMERIC (5,2), MHD DATE);
+INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 2, DATE '2020-12-30', 'metzgerei', 5);
+INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 3, DATE '2020-11-09', 'automat1', 3);
+INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 4, DATE '2020-10-11', 'automat1', 10);
+
+-- alles hiernach ist nicht zwingend notwendig für das Testen des Automats
 
 CREATE TABLE Kunden ( name VARCHAR(50), kunden_nr INT PRIMARY KEY, umsatz NUMERIC(5,2), plz CHARACTER (5));
 
 CREATE TABLE Bestellungen(bestell_nr INT PRIMARY KEY, produkt_id INT REFERENCES Produkt(produkt_id), kunden_nr INT REFERENCES Kunden(kunden_nr), lieferdatum DATE,  bestelldatum DATE);
 
-CREATE TABLE Auftragsposten (bestell_nr INT REFERENCES Bestellungen(bestell_nr), produkt_id INT REFERENCES Produkt(produkt_id));
+CREATE TABLE Auftragsposten (bestell_nr INT REFERENCES Bestellungen(bestell_nr), produkt_id INT REFERENCES Produkt(produkt_id), PRIMARY KEY (bestell_nr,produkt_id));
 
 CREATE TABLE Mitarbeiter (name VARCHAR (50), mitarbeiter_nr INT PRIMARY KEY, umsatz NUMERIC(5,2), abmahnungen CHARACTER(2));
-
-
---Tabellen füllen : 
-
-
-INSERT INTO Produkt (name,produkt_id) VALUES ('Schweinelende', 1);
-INSERT INTO Produkt (name,produkt_id) VALUES ('Salami', 2);
-
---INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES ('Schweinelende', 1, 13.99, DATE '2020-12-12');
-
-INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES ('Salami', 2, 8.49, DATE '2020-12-30');
-
-INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES ('Bratwurst', 3, 11.49, DATE '2020-11-09');
-
-INSERT INTO Produkt (name,produkt_id,kilopreis,MHD) VALUES ('Tofu Schnitzel', 4, 10.20, DATE '2020-10-11');
 
 INSERT INTO Kunden(name,kunden_nr,umsatz,plz) VALUES ('Müller',2,110.00,'68309');
 

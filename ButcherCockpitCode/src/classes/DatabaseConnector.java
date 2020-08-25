@@ -6,8 +6,7 @@ public class DatabaseConnector extends Observable{
 	static Connection conn = DatabaseConnection.getDBConnection();
 	
 	public static ResultSet getTableByName(String name) throws SQLException {
-		// hier für die einzelnen Tabellen reinschreiben
-		return conn.createStatement().executeQuery("SELECT * FROM "+name+";");
+		return conn.createStatement().executeQuery("SELECT * FROM" +name+";");
 	}	
 
 //	public static ResultSet getFieldByName(String tableName, )
@@ -24,7 +23,7 @@ public class DatabaseConnector extends Observable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static ResultSet getProductsByLocation(String location) {
 		ResultSet produkte = null;
 		try {
@@ -36,4 +35,3 @@ public class DatabaseConnector extends Observable{
 		return produkte;
 	}
 } 
-
