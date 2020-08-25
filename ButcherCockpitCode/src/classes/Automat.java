@@ -23,7 +23,7 @@ public class Automat extends JFrame {
 		
 		descr = new JLabel("Was möchtest du aus dem Automaten entnehmen?");
 		descr.setFont(font);
-	
+		mainPanel.add(new Tile("Zur Auswahl stehen: ", "Lagerbestand"));
 		mainPanel.add(descr);
 		
 		auswahlPanel = new JPanel(new GridLayout(0,1));

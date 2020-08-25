@@ -11,7 +11,7 @@ public class Tile extends JPanel {
 	Font font = new Font("Arial",Font.PLAIN, 18);
 	String header;
 	String tabellenName;
-    public Tile (String tileheader, String tabellenName) throws SQLException {
+    public Tile (String tileheader, String tabellenName) {
     	this.header = tileheader;
     	
     	JTable jt = new JTable(
