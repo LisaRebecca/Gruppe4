@@ -17,7 +17,7 @@ public class Produktauswahl extends JPanel {
 	public Produktauswahl () {
 		
 				this.setLayout(new GridLayout(0,3));
-				
+//				DatabaseConnector.getProductsByLocation("automat1");
 				//Teststring statt späteren Objekten mit Name, ID und Preis aus der Datenbank
 				String [] AutomatFleisch = {"Salami", "Schweinelende"};
 				

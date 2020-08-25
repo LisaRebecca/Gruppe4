@@ -24,4 +24,16 @@ public class DatabaseConnector extends Observable{
 			e.printStackTrace();
 		}
 	}
+	
+	public static ResultSet getProductsByLocation(String location) {
+		ResultSet produkte = null;
+		try {
+			produkte = conn.createStatement().executeQuery(
+					"select name, portionen, haltbar_bis, kilopreis from lagerbestand \r\n" + 
+					"left join produkte on lagerbestand.produkt = produkte.produkt_id\r\n" + 
+					"where lagerort='"+"location"+"';");
+		} catch (SQLException e) {}
+		return produkte;
+	}
 } 
+
