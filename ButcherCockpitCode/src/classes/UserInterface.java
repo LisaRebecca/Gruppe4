@@ -15,16 +15,16 @@ public class UserInterface extends JFrame{
 //		Tile kunden = new Tile("Kundenstatistiken", "Kunden");
 //		jp.add(kunden);
 		
-		Tile lager = new Tile("Lagerbestand", "Lagerbestand");
+		Tile lager = new Tile("Lagerbestand", "Lagerbestand", false);
 		jp.add(lager);
 		
-		Tile produkte = new Tile("Produktportfolio", "Produkte");
+		Tile produkte = new Tile("Produktportfolio", "Produkte", false);
 		jp.add(produkte);
 		
 //		Tile bestell = new Tile("Bestellungen", "Produkte");
 //		jp.add(bestell);
 		
-		Tile kuehl = new Tile("Kühlautomat", "Produkte");
+		Tile kuehl = new Tile("Kühlautomat", "Produkte", false);
 		jp.add(kuehl);
 			
 	}

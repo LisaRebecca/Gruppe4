@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 public class DatabaseConnector extends Observable {
 	static Connection conn = DatabaseConnection.getDBConnection();
 
-	public static DefaultTableModel getTableByName(String name){
+	public static DefaultTableModel getTableByName(String name) {
 		DefaultTableModel table = null;
 		try {
 			table = buildTableModel(conn.createStatement().executeQuery("SELECT * FROM " + name + ";"));
@@ -23,19 +23,20 @@ public class DatabaseConnector extends Observable {
 		try {
 			conn.createStatement().execute("UPDATE " + tableName + " SET " + attrName + " = " + attrVal + " WHERE "
 					+ keyAttrName + " = " + keyAttrVal + ";");
-		} catch (SQLException e) {}
-	}
-
-	public static DefaultTableModel getProductsByLocation(String location) throws SQLException {
-		ResultSet produkte = null;
-		try {
-			produkte = conn.createStatement()
-					.executeQuery("select name, portionen, haltbar_bis, kilopreis from lagerbestand \r\n"
-							+ "left join produkte on lagerbestand.produkt = produkte.produkt_id\r\n"
-							+ "where lagerort='" + "location" + "';");
 		} catch (SQLException e) {
 		}
-		return buildTableModel(produkte);
+	}
+
+	public static DefaultTableModel getProductsByLocation(String location) {
+		DefaultTableModel produkte = null;
+		try {
+			produkte = buildTableModel(conn.createStatement().executeQuery(
+					"select name, portionen, haltbar_bis, kilopreis from lagerbestand left join produkte on lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';"));
+			System.out.println(produkte);
+		} catch (SQLException e) {
+			System.out.println("Error while getting Products.");
+		}
+		return produkte;
 	}
 
 	public static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {

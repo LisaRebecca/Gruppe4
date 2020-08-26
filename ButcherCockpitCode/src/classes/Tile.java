@@ -11,11 +11,17 @@ public class Tile extends JPanel {
 	Font font = new Font("Arial",Font.PLAIN, 18);
 	String header;
 	String tabellenName;
-    public Tile (String tileheader, String tabellenName) {
+    public Tile (String tileheader, String tabellenName, boolean isAutomat) {
     	this.header = tileheader;
+    	JTable jt;
+    	if(isAutomat) {
+    		jt = new JTable(
+    				DatabaseConnector.getProductsByLocation("automat1"));
+    	}else{
+    		jt = new JTable(
+        			DatabaseConnector.getTableByName(tabellenName));
+    	}
     	
-    	JTable jt = new JTable(
-    			DatabaseConnector.getTableByName(tabellenName));
     	
 		JLabel title = new JLabel(tileheader);
     	title.setFont(font);
