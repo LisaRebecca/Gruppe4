@@ -32,7 +32,6 @@ public class DatabaseConnector extends Observable {
 		try {
 			produkte = buildTableModel(conn.createStatement().executeQuery(
 					"select name, portionen, haltbar_bis, kilopreis from lagerbestand left join produkte on lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';"));
-			System.out.println(produkte);
 		} catch (SQLException e) {
 			System.out.println("Error while getting Products.");
 		}
@@ -58,7 +57,6 @@ public class DatabaseConnector extends Observable {
 				singleRow.add(rs.getObject(columnIndex));
 			}
 			rows.add(singleRow);
-			System.out.println(rows);
 		}
 		return new DefaultTableModel(rows, columnNames);
 	}

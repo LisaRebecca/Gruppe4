@@ -22,12 +22,13 @@ public class Automat extends JFrame {
 
 		descr = new JLabel("Was möchtest du aus dem Automaten entnehmen?");
 		descr.setFont(font);
-		mainPanel.add(new Tile("Zur Auswahl stehen: ", "Lagerbestand", true));
+		Tile verfuegbare_produkte = new Tile("Zur Auswahl stehen: ", "Lagerbestand", true);
+		mainPanel.add(verfuegbare_produkte);
 		mainPanel.add(descr);
 
 		auswahlPanel = new JPanel(new GridLayout(0, 1));
 
-		Produktauswahl p = new Produktauswahl();
+		Produktauswahl p = new Produktauswahl(verfuegbare_produkte.jt);
 		auswahlPanel.add(p);
 		mainPanel.add(auswahlPanel);
 
@@ -64,7 +65,7 @@ public class Automat extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			JButton jb = (JButton) e.getSource();
 			if (jb == anotherItem) {
-				auswahlPanel.add(new Produktauswahl());
+//				auswahlPanel.add(new Produktauswahl(verfuegbare_produkte.jt));
 			}
 		}
 	}
