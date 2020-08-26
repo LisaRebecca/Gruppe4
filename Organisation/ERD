@@ -1,0 +1,29 @@
+Produkt
+- name
+- id
+- kilopreis
+- haltbakeitsdatum
+
+Kunden
+- name
+- kunden_nr
+- umsatz
+- plz
+
+Bestellungen
+- kundennr
+- bestelldatum
+- lieferdatum
+- bestellnr
+
+Auftragsposten
+- bestellnr
+- produkt_id
+- gewicht oder menge (?)
+
+evtl:
+Mitarbeiter
+- name
+- mitarbeiter_nr
+- umsatz
+- abmahnungen

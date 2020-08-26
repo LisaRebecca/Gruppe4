@@ -1,0 +1,17 @@
+MariaDB zum runterladen
+https://downloads.mariadb.org/
+https://mariadb.com/kb/en/installing-mariadb-on-macos-using-homebrew/ für mac os
+
+Unser Server:
+Your account number is: 436830
+Server: sql7.freemysqlhosting.net
+Name: sql7355636
+Username: sql7355636
+Password: 3NugZsn9rw
+Port number: 3306
+
+In der Command-Line (Command Prompt for MariaDB):
+mysql -u sql7355636 -p -h sql7.freemysqlhosting.net
+
+Hier die MariaDB-Basics:
+https://mariadb.com/kb/en/mariadb-basics/
