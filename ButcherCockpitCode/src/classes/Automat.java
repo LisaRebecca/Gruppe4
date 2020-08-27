@@ -10,8 +10,8 @@ import javax.swing.*;
 public class Automat extends JFrame {
 	Font font = new Font("Arial", Font.PLAIN, 18);
 	JPanel mainPanel, auswahlPanel, barPanel;
-	JLabel descr, sum;
-	JButton anotherItem, eraseItem, buy;
+	JLabel descr_lbl, sum_lbl;
+	JButton anotherItem_btn, eraseItem_btn, buy_btn;
 
 	public Automat() {
 
@@ -20,11 +20,11 @@ public class Automat extends JFrame {
 		mainPanel = new JPanel(new FlowLayout());
 		c.add(mainPanel);
 
-		descr = new JLabel("Was möchtest du aus dem Automaten entnehmen?");
-		descr.setFont(font);
+		descr_lbl = new JLabel("Was möchtest du aus dem Automaten entnehmen?");
+		descr_lbl.setFont(font);
 		Tile verfuegbare_produkte = new Tile("Zur Auswahl stehen: ", "Lagerbestand", true);
 		mainPanel.add(verfuegbare_produkte);
-		mainPanel.add(descr);
+		mainPanel.add(descr_lbl);
 
 		auswahlPanel = new JPanel(new GridLayout(0, 1));
 
@@ -36,41 +36,41 @@ public class Automat extends JFrame {
 		mainPanel.add(barPanel);
 
 		// Button um ein weiteres Produkt herauszunehmen
-		anotherItem = new JButton("Add another item");
-		anotherItem.setBackground(Color.white);
-		AddListener al = new AddListener();
-		anotherItem.addActionListener(al);
-		barPanel.add(anotherItem);
+		anotherItem_btn = new JButton("Add another item");
+		anotherItem_btn.setBackground(Color.white);
+		ActionListener al = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JButton jb = (JButton) e.getSource();
+				if (jb == anotherItem_btn) {
+					auswahlPanel.add(new Produktauswahl(verfuegbare_produkte.jt));
+					auswahlPanel.revalidate(); // works like a reload, refresh
+				}
+			}
+
+		};
+		anotherItem_btn.addActionListener(al);
+		barPanel.add(anotherItem_btn);
 
 		// Button um Produkt zurückzulegen
-//		eraseItem = new JButton("Delete selected item");
-//		eraseItem.setBackground(Color.white);
-//		eraseItem.addActionListener(al);
-//		barPanel.add(eraseItem);
+//		eraseItem_btn = new JButton("Delete selected item");
+//		eraseItem_btn.setBackground(Color.white);
+//		eraseItem_btn.addActionListener(al);
+//		barPanel.add(eraseItem_btn);
 
 		// Anzeige der Gesamtsumme
-		sum = new JLabel("Gesamtpreis: ____€");
-		barPanel.add(sum);
+		sum_lbl = new JLabel("Gesamtpreis: ____€");
+		barPanel.add(sum_lbl);
 
 		// Kaufen Button
-		buy = new JButton("Buy");
-		buy.setBackground(Color.white);
+		buy_btn = new JButton("buy_btn");
+		buy_btn.setBackground(Color.white);
 		BuyButtonListener bl = new BuyButtonListener();
-		buy.addActionListener(bl);
-		barPanel.add(buy);
+		buy_btn.addActionListener(bl);
+		barPanel.add(buy_btn);
 	}
 
-	public class AddListener implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			JButton jb = (JButton) e.getSource();
-			if (jb == anotherItem) {
-//				auswahlPanel.add(new Produktauswahl(verfuegbare_produkte.jt));
-			}
-		}
-	}
-
-	//Ausgeführte Vorgänge an Kasse und Bestand weiterleiten, sodass Kassenbestand erhöht und Lager im Automat gemindert
+	// Ausgeführte Vorgänge an Kasse und Bestand weiterleiten, sodass Kassenbestand
+	// erhöht und Lager im Automat gemindert
 	public class BuyButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
