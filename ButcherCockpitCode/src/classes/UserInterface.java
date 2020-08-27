@@ -15,7 +15,7 @@ public class UserInterface extends JFrame{
 //		Tile kunden = new Tile("Kundenstatistiken", "Kunden");
 //		jp.add(kunden);
 		
-		Tile lager = new Tile("Lagerbestand", "Lagerbestand", false);
+		Tile lager = new Tile("Lagerbestand gesamt", "Lagerbestand", false);
 		jp.add(lager);
 		
 		Tile produkte = new Tile("Produktportfolio", "Produkte", false);
@@ -24,7 +24,7 @@ public class UserInterface extends JFrame{
 //		Tile bestell = new Tile("Bestellungen", "Produkte");
 //		jp.add(bestell);
 		
-		Tile kuehl = new Tile("Kühlautomat", "Produkte", false);
+		Tile kuehl = new Tile("Füllstand Kühlautomat", "", true);
 		jp.add(kuehl);
 			
 	}

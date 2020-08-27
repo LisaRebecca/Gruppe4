@@ -21,8 +21,7 @@ public class Tile extends JPanel {
     	}else{
     		jt = new JTable(
         			DatabaseConnector.getTableByName(tabellenName));
-    	}
-    	
+    	}    	
     	
 		JLabel title = new JLabel(tileheader);
     	title.setFont(font);

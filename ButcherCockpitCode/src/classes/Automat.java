@@ -22,7 +22,7 @@ public class Automat extends JFrame {
 
 		descr_lbl = new JLabel("Was möchtest du aus dem Automaten entnehmen?");
 		descr_lbl.setFont(font);
-		Tile verfuegbare_produkte = new Tile("Zur Auswahl stehen: ", "Lagerbestand", true);
+		Tile verfuegbare_produkte = new Tile("Zur Auswahl stehen: ", "", true);
 		mainPanel.add(verfuegbare_produkte);
 		mainPanel.add(descr_lbl);
 
@@ -43,7 +43,7 @@ public class Automat extends JFrame {
 				JButton jb = (JButton) e.getSource();
 				if (jb == anotherItem_btn) {
 					auswahlPanel.add(new Produktauswahl(verfuegbare_produkte.jt));
-					auswahlPanel.revalidate(); // works like a reload, refresh
+					auswahlPanel.revalidate(); // dont ask why but it works like a reload, refresh
 				}
 			}
 
@@ -62,7 +62,7 @@ public class Automat extends JFrame {
 		barPanel.add(sum_lbl);
 
 		// Kaufen Button
-		buy_btn = new JButton("buy_btn");
+		buy_btn = new JButton("Buy");
 		buy_btn.setBackground(Color.white);
 		BuyButtonListener bl = new BuyButtonListener();
 		buy_btn.addActionListener(bl);
@@ -72,7 +72,6 @@ public class Automat extends JFrame {
 	// Ausgeführte Vorgänge an Kasse und Bestand weiterleiten, sodass Kassenbestand
 	// erhöht und Lager im Automat gemindert
 	public class BuyButtonListener implements ActionListener {
-
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 		}
