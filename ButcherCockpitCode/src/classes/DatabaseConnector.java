@@ -33,7 +33,7 @@ public class DatabaseConnector extends Observable {
 	}
 
 	public static DefaultTableModel getProductsByLocation(String location) {
-		return executeDBQuery("select name, portionen, haltbar_bis, kilopreis from lagerbestand "
+		return executeDBQuery("select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 	}
 

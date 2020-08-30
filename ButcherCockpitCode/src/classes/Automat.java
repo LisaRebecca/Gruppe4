@@ -22,7 +22,12 @@ public class Automat extends JFrame {
 
 		descr_lbl = new JLabel("Was möchtest du aus dem Automaten entnehmen?");
 		descr_lbl.setFont(font);
-		Tile verfuegbare_produkte = new Tile("Zur Auswahl stehen: ", "", "");
+		String cus_sql = "select name, portionen, haltbar_bis, kilopreis from lagerbestand "
+						+"left join produkte on lagerbestand.produkt = produkte.produkt_id "
+						+"WHERE lagerort='automat1';";
+		Tile verfuegbare_produkte = new Tile("Zur Auswahl stehen: ", 
+				"", 
+				cus_sql);
 		mainPanel.add(verfuegbare_produkte);
 		mainPanel.add(descr_lbl);
 

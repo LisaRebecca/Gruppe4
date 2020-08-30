@@ -2,6 +2,8 @@ package classes;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
+
 import javax.swing.*;
 
 public class Produktauswahl extends JPanel {
@@ -14,20 +16,34 @@ public class Produktauswahl extends JPanel {
 	JButton less;
 	int number = 1;
 	int index = 0;
+	
 
 	public Produktauswahl(JTable jt_produkte) {
-
+		
+		
+		class einePortion{
+			String name;
+			double portionspreis;
+			String haltbar;
+			public einePortion(String name, String haltbar_bis, String kilopreis, String gewicht_portion) {
+				this.name = name;
+				this.portionspreis = Double.parseDouble(kilopreis)*Double.parseDouble(gewicht_portion);
+				this.haltbar = haltbar_bis;
+			}
+			@Override
+			public String toString() {
+				return name+", "+portionspreis+"€/pckg, "+haltbar;
+			}
+		}
+//		HashMap<einePortion, Integer>
 		this.setLayout(new GridLayout(0, 3));
-//				DatabaseConnector.getProductsByLocation("automat1");
-		// Teststring statt späteren Objekten mit Name, ID und Preis aus der Datenbank
-//				String [] AutomatFleisch = {"Salami", "Schweinelende"};
 		String[] AutomatFleisch = new String[jt_produkte.getRowCount()];
-
+		
+		// Produkte im Dropdown-Menü anzeigen
 		for (int row = 0; row < jt_produkte.getRowCount(); row++) {
-			AutomatFleisch[row] = ""+jt_produkte.getValueAt(row, 0);
-//			for (int column = 0; column < jt_produkte.getColumnCount(); column++) {
-//				AutomatFleisch[row] += "" + jt_produkte.getValueAt(row, column);
-//			}
+			einePortion ep = new einePortion(""+jt_produkte.getValueAt(row, 0), ""+jt_produkte.getValueAt(row, 2), ""+jt_produkte.getValueAt(row, 3), ""+jt_produkte.getValueAt(row, 4));
+			System.out.println(ep);
+			AutomatFleisch[row] = ep.toString();
 		}
 		System.out.println(AutomatFleisch);
 
