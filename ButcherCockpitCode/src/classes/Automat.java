@@ -22,7 +22,7 @@ public class Automat extends JFrame {
 
 		descr_lbl = new JLabel("Was möchtest du aus dem Automaten entnehmen?");
 		descr_lbl.setFont(font);
-		Tile verfuegbare_produkte = new Tile("Zur Auswahl stehen: ", "", true);
+		Tile verfuegbare_produkte = new Tile("Zur Auswahl stehen: ", "", "");
 		mainPanel.add(verfuegbare_produkte);
 		mainPanel.add(descr_lbl);
 

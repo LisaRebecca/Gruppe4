@@ -8,14 +8,19 @@ import javax.swing.table.DefaultTableModel;
 public class DatabaseConnector extends Observable {
 	static Connection conn = DatabaseConnection.getDBConnection();
 
-	public static DefaultTableModel getTableByName(String name) {
+	public static DefaultTableModel executeDBQuery(String full_select_statement) {
 		DefaultTableModel table = null;
 		try {
-			table = buildTableModel(conn.createStatement().executeQuery("SELECT * FROM " + name + ";"));
+			table = buildTableModel(conn.createStatement().executeQuery(full_select_statement));
 		} catch (SQLException e) {
-			System.out.println("Error while reading from Database...");
+			System.out.println("Error while executing statement: ");
+			System.out.println(full_select_statement);
 		}
 		return table;
+	}
+
+	public static DefaultTableModel getTableByName(String name) {
+		return executeDBQuery("SELECT * FROM " + name + ";");
 	}
 
 	public static void updateTable(String tableName, String keyAttrName, String keyAttrVal, String attrName,
@@ -28,14 +33,8 @@ public class DatabaseConnector extends Observable {
 	}
 
 	public static DefaultTableModel getProductsByLocation(String location) {
-		DefaultTableModel produkte = null;
-		try {
-			produkte = buildTableModel(conn.createStatement().executeQuery(
-					"select name, portionen, haltbar_bis, kilopreis from lagerbestand left join produkte on lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';"));
-		} catch (SQLException e) {
-			System.out.println("Error while getting Products.");
-		}
-		return produkte;
+		return executeDBQuery("select name, portionen, haltbar_bis, kilopreis from lagerbestand "
+				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 	}
 
 	public static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {

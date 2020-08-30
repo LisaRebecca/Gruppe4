@@ -12,16 +12,10 @@ public class Tile extends JPanel {
 	String header;
 	String tabellenName;
 	JTable jt;
-    public Tile (String tileheader, String tabellenName, boolean isAutomat) {
+    public Tile (String tileheader, String tabellenName, String custom_sql) {
     	this.header = tileheader;
-    	
-    	if(isAutomat) {
-    		jt = new JTable(
-    				DatabaseConnector.getProductsByLocation("automat1"));
-    	}else{
-    		jt = new JTable(
-        			DatabaseConnector.getTableByName(tabellenName));
-    	}    	
+    	jt = new JTable(
+    				DatabaseConnector.getProductsByLocation("automat1")); 	
     	
 		JLabel title = new JLabel(tileheader);
     	title.setFont(font);
@@ -37,6 +31,25 @@ public class Tile extends JPanel {
 
     }
     
+    public Tile (String tileheader, String tabellenName) {
+    	this.header = tileheader;
+
+    	jt = new JTable(
+        			DatabaseConnector.getTableByName(tabellenName));  	
+    	
+		JLabel title = new JLabel(tileheader);
+    	title.setFont(font);
+    	
+    	this.setLayout(new BorderLayout());
+    	this.setBackground(Color.WHITE);
+    	
+    	Border margin = new LineBorder(Color.gray,1);
+    	this.setBorder(margin);
+    	
+    	this.add(title, BorderLayout.NORTH);
+    	this.add(jt, BorderLayout.SOUTH);
+
+    }
     
 
 }
