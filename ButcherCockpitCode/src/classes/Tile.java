@@ -11,11 +11,11 @@ public class Tile extends JPanel {
 	Font font = new Font("Arial",Font.PLAIN, 18);
 	String header;
 	String tabellenName;
-    public Tile (String tileheader, String tabellenName) {
+	JTable jt;
+    public Tile (String tileheader, String tabellenName, String custom_sql) {
     	this.header = tileheader;
-    	
-    	JTable jt = new JTable(
-    			DatabaseConnector.getTableByName(tabellenName));
+    	jt = new JTable(
+    				DatabaseConnector.getProductsByLocation("automat1")); 	
     	
 		JLabel title = new JLabel(tileheader);
     	title.setFont(font);
@@ -31,6 +31,25 @@ public class Tile extends JPanel {
 
     }
     
+    public Tile (String tileheader, String tabellenName) {
+    	this.header = tileheader;
+
+    	jt = new JTable(
+        			DatabaseConnector.getTableByName(tabellenName));  	
+    	
+		JLabel title = new JLabel(tileheader);
+    	title.setFont(font);
+    	
+    	this.setLayout(new BorderLayout());
+    	this.setBackground(Color.WHITE);
+    	
+    	Border margin = new LineBorder(Color.gray,1);
+    	this.setBorder(margin);
+    	
+    	this.add(title, BorderLayout.NORTH);
+    	this.add(jt, BorderLayout.SOUTH);
+
+    }
     
 
 }

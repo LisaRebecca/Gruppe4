@@ -4,93 +4,90 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+//TO DO
+//Automatbestand: Datenbank abfragen was von welchen Produkt vorhanden und zu welchem Preis
+
 public class Automat extends JFrame {
-	Font font = new Font("Arial",Font.PLAIN, 18);
-	JPanel mainPanel;
-	JPanel auswahlPanel;
-	JPanel barPanel;
-	JLabel descr;
-	JLabel sum;
-	JButton anotherItem;
-	JButton eraseItem;
-	JButton buy;
-	public Automat () {
-	
+	Font font = new Font("Arial", Font.PLAIN, 18);
+	JPanel mainPanel, auswahlPanel, barPanel;
+	JLabel descr_lbl, sum_lbl;
+	JButton anotherItem_btn, eraseItem_btn, buy_btn;
+
+	public Automat() {
+
 		Container c = getContentPane();
-		
+
 		mainPanel = new JPanel(new FlowLayout());
 		c.add(mainPanel);
-		
-		descr = new JLabel("Was möchtest du aus dem Automaten entnehmen?");
-		descr.setFont(font);
-		mainPanel.add(new Tile("Zur Auswahl stehen: ", "Lagerbestand"));
-		mainPanel.add(descr);
-		
-		auswahlPanel = new JPanel(new GridLayout(0,1));
-		
-		Produktauswahl p = new Produktauswahl();
+
+		descr_lbl = new JLabel("Was möchtest du aus dem Automaten entnehmen?");
+		descr_lbl.setFont(font);
+		String cus_sql = "select name, portionen, haltbar_bis, kilopreis from lagerbestand "
+						+"left join produkte on lagerbestand.produkt = produkte.produkt_id "
+						+"WHERE lagerort='automat1';";
+		Tile verfuegbare_produkte = new Tile("Zur Auswahl stehen: ", 
+				"", 
+				cus_sql);
+		mainPanel.add(verfuegbare_produkte);
+		mainPanel.add(descr_lbl);
+
+		auswahlPanel = new JPanel(new GridLayout(0, 1));
+
+		Produktauswahl p = new Produktauswahl(verfuegbare_produkte.jt);
 		auswahlPanel.add(p);
 		mainPanel.add(auswahlPanel);
-		
-		barPanel = new JPanel(new GridLayout(3,1));
+
+		barPanel = new JPanel(new GridLayout(3, 1));
 		mainPanel.add(barPanel);
-		
-		//Button um ein weiteres Produkt herauszunehmen
-		anotherItem = new JButton("Add another item");
-		anotherItem.setBackground(Color.white);
-		AddListener al = new AddListener();
-		anotherItem.addActionListener(al);
-		barPanel.add(anotherItem);
-		
-		//Button um Produkt zurückzulegen
-//		eraseItem = new JButton("Delete selected item");
-//		eraseItem.setBackground(Color.white);
-//		eraseItem.addActionListener(al);
-//		barPanel.add(eraseItem);
-		
-		//Anzeige der Gesamtsumme
-		sum = new JLabel("Gesamtpreis: ____€");
-		barPanel.add(sum);
-		
-		//Kaufen Button
-		buy = new JButton("Buy");
-		buy.setBackground(Color.white);
-		BuyButtonListener bl = new BuyButtonListener();
-		buy.addActionListener(bl);
-		barPanel.add(buy);
-	}
-	
-	public class AddListener implements ActionListener {
-		
-		public void actionPerformed(ActionEvent e) {
-			JButton jb = (JButton)e.getSource();
-			if (jb == anotherItem) {
-			auswahlPanel.add(new Produktauswahl());
+
+		// Button um ein weiteres Produkt herauszunehmen
+		anotherItem_btn = new JButton("Add another item");
+		anotherItem_btn.setBackground(Color.white);
+		ActionListener al = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JButton jb = (JButton) e.getSource();
+				if (jb == anotherItem_btn) {
+					auswahlPanel.add(new Produktauswahl(verfuegbare_produkte.jt));
+					auswahlPanel.revalidate(); // dont ask why but it works like a reload, refresh
+				}
 			}
-		}
+
+		};
+		anotherItem_btn.addActionListener(al);
+		barPanel.add(anotherItem_btn);
+
+		// Button um Produkt zurückzulegen
+//		eraseItem_btn = new JButton("Delete selected item");
+//		eraseItem_btn.setBackground(Color.white);
+//		eraseItem_btn.addActionListener(al);
+//		barPanel.add(eraseItem_btn);
+
+		// Anzeige der Gesamtsumme
+		sum_lbl = new JLabel("Gesamtpreis: ____€");
+		barPanel.add(sum_lbl);
+
+		// Kaufen Button
+		buy_btn = new JButton("Buy");
+		buy_btn.setBackground(Color.white);
+		BuyButtonListener bl = new BuyButtonListener();
+		buy_btn.addActionListener(bl);
+		barPanel.add(buy_btn);
 	}
 
-//Ausgeführte Vorgänge an Kasse und Bestand weiterleiten, sodass Kassenbestand erhöht und Lager im Automat gemindert
+	// Ausgeführte Vorgänge an Kasse und Bestand weiterleiten, sodass Kassenbestand
+	// erhöht und Lager im Automat gemindert
 	public class BuyButtonListener implements ActionListener {
-
 		public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+			// TODO Auto-generated method stub
 		}
 	}
-	public static void main (String []args ) {
+
+	public static void main(String[] args) {
 		Automat anzeige = new Automat();
 		anzeige.setTitle("Kühlautomat");
 		anzeige.setVisible(true);
-		anzeige.setSize(600,300);
-		anzeige.setLocation(800,100);
+		anzeige.setSize(1500, 500);
+		anzeige.setLocation(800, 100);
 		anzeige.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 }
-
-	//TO DO
-	//Tile Automatfüllstand anzeigen
-	//Automatbestand: Datenbank abfragen was von welchen Produkt vorhanden und zu welchem Preis
-	//Lagerbestandtabelle ProduktID Menge Ort
-
-
