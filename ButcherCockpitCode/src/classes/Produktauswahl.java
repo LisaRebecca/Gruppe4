@@ -35,7 +35,8 @@ public class Produktauswahl extends JPanel {
 				return name+", "+portionspreis+"€/pckg, "+haltbar;
 			}
 		}
-//		HashMap<einePortion, Integer>
+// Warenkorb könnte in etwa so aussehen
+// HashMap<einePortion, Integer>
 		this.setLayout(new GridLayout(0, 3));
 		String[] AutomatFleisch = new String[jt_produkte.getRowCount()];
 		
@@ -73,6 +74,7 @@ public class Produktauswahl extends JPanel {
 		this.add(jpcount);
 
 		// Preisanzeigetest -- später Preis aus Datenbank und number*preis
+		// to do : richtigen Preis anzeigen
 		preis = new JLabel("8,99" + "€");
 		this.add(preis);
 
@@ -81,6 +83,7 @@ public class Produktauswahl extends JPanel {
 	class ButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
+			// in dieser Methode auch bitte den Warenkorb verändern
 			JButton jb = (JButton) e.getSource();
 			if (jb.getText() == "+") {
 				number++;
