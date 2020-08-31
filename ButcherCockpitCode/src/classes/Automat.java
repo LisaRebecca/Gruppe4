@@ -2,6 +2,8 @@ package classes;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
+
 import javax.swing.*;
 
 //TO DO
@@ -12,6 +14,7 @@ public class Automat extends JFrame {
 	JPanel mainPanel, auswahlPanel, barPanel;
 	JLabel descr_lbl, sum_lbl;
 	JButton anotherItem_btn, eraseItem_btn, buy_btn;
+	HashMap<Portion, Integer> warenkorb = new HashMap<Portion, Integer>();
 
 	public Automat() {
 
@@ -33,8 +36,6 @@ public class Automat extends JFrame {
 
 		auswahlPanel = new JPanel(new GridLayout(0, 1));
 
-		Produktauswahl p = new Produktauswahl(verfuegbare_produkte.jt);
-		auswahlPanel.add(p);
 		mainPanel.add(auswahlPanel);
 
 		barPanel = new JPanel(new GridLayout(3, 1));
@@ -47,7 +48,7 @@ public class Automat extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JButton jb = (JButton) e.getSource();
 				if (jb == anotherItem_btn) {
-					auswahlPanel.add(new Produktauswahl(verfuegbare_produkte.jt));
+					auswahlPanel.add(new Produktauswahl(verfuegbare_produkte.jt, warenkorb));
 					auswahlPanel.revalidate(); // dont ask why but it works like a reload, refresh
 				}
 			}
@@ -55,6 +56,9 @@ public class Automat extends JFrame {
 		};
 		anotherItem_btn.addActionListener(al);
 		barPanel.add(anotherItem_btn);
+		
+		// Add first Produktauswahl
+		anotherItem_btn.doClick();
 
 		// Button um Produkt zurückzulegen
 //		eraseItem_btn = new JButton("Delete selected item");

@@ -7,92 +7,78 @@ import java.util.HashMap;
 import javax.swing.*;
 
 public class Produktauswahl extends JPanel {
-	Font font = new Font("Arial", Font.PLAIN, 18);
-	JPanel jpcount;
-	JComboBox<String> selection;
-	JLabel amount;
-	JLabel preis;
-	JButton more;
-	JButton less;
-	int number = 1;
-	int index = 0;
-	
+	static int cb_selectedindex = 0;
+	JPanel jp_count;
+	JComboBox<String> jcb_selection;
+	JLabel jlbl_amount;
+	JLabel jlbl_preis;
+	JButton jb_more;
+	JButton jb_less;
+	Portion[] portionen;
 
-	public Produktauswahl(JTable jt_produkte) {
-		
-		
-		class einePortion{
-			String name;
-			double portionspreis;
-			String haltbar;
-			public einePortion(String name, String haltbar_bis, String kilopreis, String gewicht_portion) {
-				this.name = name;
-				this.portionspreis = Double.parseDouble(kilopreis)*Double.parseDouble(gewicht_portion);
-				this.haltbar = haltbar_bis;
-			}
-			@Override
-			public String toString() {
-				return name+", "+portionspreis+"€/pckg, "+haltbar;
-			}
-		}
-// Warenkorb könnte in etwa so aussehen
-// HashMap<einePortion, Integer>
+	public Produktauswahl(JTable jt_produkte, HashMap<Portion, Integer> warenkorb) {
+		Font arial = new Font("Arial", Font.PLAIN, 18);
+
 		this.setLayout(new GridLayout(0, 3));
-		String[] AutomatFleisch = new String[jt_produkte.getRowCount()];
-		
+		portionen = new Portion[jt_produkte.getRowCount()];
 		// Produkte im Dropdown-Menü anzeigen
+		jcb_selection = new JComboBox<>();
 		for (int row = 0; row < jt_produkte.getRowCount(); row++) {
-			einePortion ep = new einePortion(""+jt_produkte.getValueAt(row, 0), ""+jt_produkte.getValueAt(row, 2), ""+jt_produkte.getValueAt(row, 3), ""+jt_produkte.getValueAt(row, 4));
-			System.out.println(ep);
-			AutomatFleisch[row] = ep.toString();
+			Portion p = new Portion("" + jt_produkte.getValueAt(row, 0), "" + jt_produkte.getValueAt(row, 2),
+					"" + jt_produkte.getValueAt(row, 3), "" + jt_produkte.getValueAt(row, 4));
+			portionen[row] = p;
+			jcb_selection.addItem(p.toString());
 		}
-		System.out.println(AutomatFleisch);
 
 		// Produkt auswählen, das herausgenommen werden soll
-		selection = new JComboBox<>(AutomatFleisch);
-		selection.setSelectedIndex(index);
-		selection.setBackground(Color.white);
-		index++;
-		this.add(selection);
+		jcb_selection.setSelectedIndex(cb_selectedindex);
+		jcb_selection.setBackground(Color.white);
+		cb_selectedindex++;
+		this.add(jcb_selection);
 
 		// JLabel für Anzahl des Produktes
-		jpcount = new JPanel(new GridLayout(1, 3));
-		amount = new JLabel("" + number);
-		amount.setFont(font);
-		jpcount.add(amount);
-
+		jp_count = new JPanel(new GridLayout(1, 3));
+		jlbl_amount = new JLabel("0");
+		jlbl_amount.setFont(arial);
+		jp_count.add(jlbl_amount);
+		
+		
 		// Buttons zum erhöhen/mindern der Anzahl
-		ButtonListener bl = new ButtonListener();
-		more = new JButton("+");
-		more.setBackground(Color.white);
-		more.addActionListener(bl);
-		jpcount.add(more);
-		less = new JButton("-");
-		less.setBackground(Color.white);
-		less.addActionListener(bl);
-		jpcount.add(less);
-		this.add(jpcount);
-
+		ActionListener bl = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// in dieser Methode auch bitte den Warenkorb verändern
+				JButton jb = (JButton) e.getSource();
+				int amount = 0;
+				if (jb.getText() == "+") {
+					amount = Integer.parseInt(jlbl_amount.getText()) + 1;
+				} else {
+					amount = Integer.parseInt(jlbl_amount.getText()) - 1;
+				}
+				jlbl_amount.setText("" + amount);
+				aktualisierePreise();
+			}
+		};
+		
+		jb_more = new JButton("+");
+		jb_more.setBackground(Color.white);
+		jb_more.addActionListener(bl);
+		jp_count.add(jb_more);
+		jb_less = new JButton("-");
+		jb_less.setBackground(Color.white);
+		jb_less.addActionListener(bl);
+		jp_count.add(jb_less);
+		this.add(jp_count);
+		jlbl_preis = new JLabel("");
+		this.add(jlbl_preis);
 		// Preisanzeigetest -- später Preis aus Datenbank und number*preis
 		// to do : richtigen Preis anzeigen
-		preis = new JLabel("8,99" + "€");
-		this.add(preis);
-
+		jb_more.doClick();
+		this.setBackground(Color.LIGHT_GRAY);
 	}
 
-	class ButtonListener implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			// in dieser Methode auch bitte den Warenkorb verändern
-			JButton jb = (JButton) e.getSource();
-			if (jb.getText() == "+") {
-				number++;
-			} else {
-				number--;
-			}
-			amount.setText("" + number);
-		}
+	public void aktualisierePreise() {
+		jlbl_preis.setText("" + (portionen[jcb_selection.getSelectedIndex()].portionspreis
+				* Integer.parseInt(jlbl_amount.getText())));
 
 	}
-
 }
