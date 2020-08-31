@@ -16,20 +16,18 @@ public class Produktauswahl extends JPanel {
 	JButton jb_less;
 	Portion[] portionen;
 
-	public Produktauswahl(JTable jt_produkte, HashMap<Portion, Integer> warenkorb) {
+	public Produktauswahl(Portion[] portionen, HashMap<Portion, Integer> warenkorb) {
+		this.portionen = portionen;
 		Font arial = new Font("Arial", Font.PLAIN, 18);
 
 		this.setLayout(new GridLayout(0, 3));
-		portionen = new Portion[jt_produkte.getRowCount()];
 		// Produkte im Dropdown-Menü anzeigen
 		jcb_selection = new JComboBox<>();
-		for (int row = 0; row < jt_produkte.getRowCount(); row++) {
-			Portion p = new Portion("" + jt_produkte.getValueAt(row, 0), "" + jt_produkte.getValueAt(row, 2),
-					"" + jt_produkte.getValueAt(row, 3), "" + jt_produkte.getValueAt(row, 4));
-			portionen[row] = p;
+		
+		
+		for(Portion p : portionen)
 			jcb_selection.addItem(p.toString());
-		}
-
+			
 		// Produkt auswählen, das herausgenommen werden soll
 		jcb_selection.setSelectedIndex(cb_selectedindex);
 		jcb_selection.setBackground(Color.white);

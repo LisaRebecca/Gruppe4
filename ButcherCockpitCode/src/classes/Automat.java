@@ -40,7 +40,14 @@ public class Automat extends JFrame {
 
 		barPanel = new JPanel(new GridLayout(3, 1));
 		mainPanel.add(barPanel);
-
+		
+		Portion[] portionen = new Portion[verfuegbare_produkte.jt.getRowCount()];
+		for (int row = 0; row < verfuegbare_produkte.jt.getRowCount(); row++) {
+			Portion p = new Portion("" + verfuegbare_produkte.jt.getValueAt(row, 0), "" + verfuegbare_produkte.jt.getValueAt(row, 2),
+					"" + verfuegbare_produkte.jt.getValueAt(row, 3), "" + verfuegbare_produkte.jt.getValueAt(row, 4));
+			portionen[row] = p;
+		}
+		
 		// Button um ein weiteres Produkt herauszunehmen
 		anotherItem_btn = new JButton("Add another item");
 		anotherItem_btn.setBackground(Color.white);
@@ -48,7 +55,7 @@ public class Automat extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JButton jb = (JButton) e.getSource();
 				if (jb == anotherItem_btn) {
-					auswahlPanel.add(new Produktauswahl(verfuegbare_produkte.jt, warenkorb));
+					auswahlPanel.add(new Produktauswahl(portionen, warenkorb));
 					auswahlPanel.revalidate(); // dont ask why but it works like a reload, refresh
 				}
 			}
