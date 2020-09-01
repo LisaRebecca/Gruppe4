@@ -36,6 +36,11 @@ public class DatabaseConnector extends Observable {
 		return executeDBQuery("select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 	}
+	
+	public static DefaultTableModel getFullStock () {
+		return executeDBQuery("SELECT name, produkt_id, haltbar_bis, lagerort, portionen, gewicht_portion from lagerbestand "
+				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id;");
+	}
 
 	public static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
 		ResultSetMetaData metaData = rs.getMetaData();

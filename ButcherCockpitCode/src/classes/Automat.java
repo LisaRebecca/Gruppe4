@@ -2,7 +2,16 @@ package classes;
 
 import java.awt.*;
 import java.awt.event.*;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
+
 import java.util.HashMap;
+
 
 import javax.swing.*;
 
@@ -23,7 +32,7 @@ public class Automat extends JFrame {
 		mainPanel = new JPanel(new FlowLayout());
 		c.add(mainPanel);
 
-		descr_lbl = new JLabel("Was möchtest du aus dem Automaten entnehmen?");
+		descr_lbl = new JLabel("Was mÃ¶chtest du aus dem Automaten entnehmen?");
 		descr_lbl.setFont(font);
 		String cus_sql = "select name, portionen, haltbar_bis, kilopreis from lagerbestand "
 						+"left join produkte on lagerbestand.produkt = produkte.produkt_id "
@@ -67,14 +76,14 @@ public class Automat extends JFrame {
 		// Add first Produktauswahl
 		anotherItem_btn.doClick();
 
-		// Button um Produkt zurückzulegen
+		// Button um Produkt zurÃ¼ckzulegen
 //		eraseItem_btn = new JButton("Delete selected item");
 //		eraseItem_btn.setBackground(Color.white);
 //		eraseItem_btn.addActionListener(al);
 //		barPanel.add(eraseItem_btn);
 
 		// Anzeige der Gesamtsumme
-		sum_lbl = new JLabel("Gesamtpreis: ____€");
+		sum_lbl = new JLabel("Gesamtpreis: ____â‚¬");
 		barPanel.add(sum_lbl);
 
 		// Kaufen Button
@@ -85,17 +94,19 @@ public class Automat extends JFrame {
 		barPanel.add(buy_btn);
 	}
 
-	// Ausgeführte Vorgänge an Kasse und Bestand weiterleiten, sodass Kassenbestand
-	// erhöht und Lager im Automat gemindert
+	// AusgefÃ¼hrte VorgÃ¤nge an Kasse und Bestand weiterleiten, sodass Kassenbestand
+	// erhÃ¶ht und Lager im Automat gemindert
 	public class BuyButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Automat anzeige = new Automat();
-		anzeige.setTitle("Kühlautomat");
+		anzeige.setTitle("KÃ¼hlautomat");
+		BufferedImage image = ImageIO.read(new URL("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
+		anzeige.setIconImage(image);
 		anzeige.setVisible(true);
 		anzeige.setSize(1500, 500);
 		anzeige.setLocation(800, 100);
