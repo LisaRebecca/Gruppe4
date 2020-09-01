@@ -2,6 +2,12 @@ package classes;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 //TO DO
@@ -82,9 +88,11 @@ public class Automat extends JFrame {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Automat anzeige = new Automat();
 		anzeige.setTitle("Kühlautomat");
+		BufferedImage image = ImageIO.read(new URL("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
+		anzeige.setIconImage(image);
 		anzeige.setVisible(true);
 		anzeige.setSize(1500, 500);
 		anzeige.setLocation(800, 100);
