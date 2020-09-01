@@ -2,17 +2,11 @@ package classes;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-
 import javax.imageio.ImageIO;
-
 import java.util.HashMap;
-
-
 import javax.swing.*;
 
 //TO DO
@@ -34,12 +28,10 @@ public class Automat extends JFrame {
 
 		descr_lbl = new JLabel("Was mÃ¶chtest du aus dem Automaten entnehmen?");
 		descr_lbl.setFont(font);
-		String cus_sql = "select name, portionen, haltbar_bis, kilopreis from lagerbestand "
+		String cus_sql = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 						+"left join produkte on lagerbestand.produkt = produkte.produkt_id "
 						+"WHERE lagerort='automat1';";
-		Tile verfuegbare_produkte = new Tile("Zur Auswahl stehen: ", 
-				"", 
-				cus_sql);
+		Tile verfuegbare_produkte = new Tile("Zur Auswahl stehen: ", cus_sql);
 		mainPanel.add(verfuegbare_produkte);
 		mainPanel.add(descr_lbl);
 
@@ -83,7 +75,7 @@ public class Automat extends JFrame {
 //		barPanel.add(eraseItem_btn);
 
 		// Anzeige der Gesamtsumme
-		sum_lbl = new JLabel("Gesamtpreis: ____â‚¬");
+		sum_lbl = new JLabel("Gesamtpreis: ____€");
 		barPanel.add(sum_lbl);
 
 		// Kaufen Button
@@ -104,7 +96,7 @@ public class Automat extends JFrame {
 
 	public static void main(String[] args) throws IOException {
 		Automat anzeige = new Automat();
-		anzeige.setTitle("KÃ¼hlautomat");
+		anzeige.setTitle("Kühlautomat");
 		BufferedImage image = ImageIO.read(new URL("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
 		anzeige.setIconImage(image);
 		anzeige.setVisible(true);
