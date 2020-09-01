@@ -2,12 +2,17 @@ package classes;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+
+import java.util.HashMap;
+
+
 import javax.swing.*;
 
 //TO DO
@@ -18,6 +23,7 @@ public class Automat extends JFrame {
 	JPanel mainPanel, auswahlPanel, barPanel;
 	JLabel descr_lbl, sum_lbl;
 	JButton anotherItem_btn, eraseItem_btn, buy_btn;
+	HashMap<Portion, Integer> warenkorb = new HashMap<Portion, Integer>();
 
 	public Automat() {
 
@@ -26,7 +32,7 @@ public class Automat extends JFrame {
 		mainPanel = new JPanel(new FlowLayout());
 		c.add(mainPanel);
 
-		descr_lbl = new JLabel("Was möchtest du aus dem Automaten entnehmen?");
+		descr_lbl = new JLabel("Was mÃ¶chtest du aus dem Automaten entnehmen?");
 		descr_lbl.setFont(font);
 		String cus_sql = "select name, portionen, haltbar_bis, kilopreis from lagerbestand "
 						+"left join produkte on lagerbestand.produkt = produkte.produkt_id "
@@ -39,13 +45,18 @@ public class Automat extends JFrame {
 
 		auswahlPanel = new JPanel(new GridLayout(0, 1));
 
-		Produktauswahl p = new Produktauswahl(verfuegbare_produkte.jt);
-		auswahlPanel.add(p);
 		mainPanel.add(auswahlPanel);
 
 		barPanel = new JPanel(new GridLayout(3, 1));
 		mainPanel.add(barPanel);
-
+		
+		Portion[] portionen = new Portion[verfuegbare_produkte.jt.getRowCount()];
+		for (int row = 0; row < verfuegbare_produkte.jt.getRowCount(); row++) {
+			Portion p = new Portion("" + verfuegbare_produkte.jt.getValueAt(row, 0), "" + verfuegbare_produkte.jt.getValueAt(row, 2),
+					"" + verfuegbare_produkte.jt.getValueAt(row, 3), "" + verfuegbare_produkte.jt.getValueAt(row, 4));
+			portionen[row] = p;
+		}
+		
 		// Button um ein weiteres Produkt herauszunehmen
 		anotherItem_btn = new JButton("Add another item");
 		anotherItem_btn.setBackground(Color.white);
@@ -53,7 +64,7 @@ public class Automat extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JButton jb = (JButton) e.getSource();
 				if (jb == anotherItem_btn) {
-					auswahlPanel.add(new Produktauswahl(verfuegbare_produkte.jt));
+					auswahlPanel.add(new Produktauswahl(portionen, warenkorb));
 					auswahlPanel.revalidate(); // dont ask why but it works like a reload, refresh
 				}
 			}
@@ -61,15 +72,18 @@ public class Automat extends JFrame {
 		};
 		anotherItem_btn.addActionListener(al);
 		barPanel.add(anotherItem_btn);
+		
+		// Add first Produktauswahl
+		anotherItem_btn.doClick();
 
-		// Button um Produkt zurückzulegen
+		// Button um Produkt zurÃ¼ckzulegen
 //		eraseItem_btn = new JButton("Delete selected item");
 //		eraseItem_btn.setBackground(Color.white);
 //		eraseItem_btn.addActionListener(al);
 //		barPanel.add(eraseItem_btn);
 
 		// Anzeige der Gesamtsumme
-		sum_lbl = new JLabel("Gesamtpreis: ____€");
+		sum_lbl = new JLabel("Gesamtpreis: ____â‚¬");
 		barPanel.add(sum_lbl);
 
 		// Kaufen Button
@@ -80,8 +94,8 @@ public class Automat extends JFrame {
 		barPanel.add(buy_btn);
 	}
 
-	// Ausgeführte Vorgänge an Kasse und Bestand weiterleiten, sodass Kassenbestand
-	// erhöht und Lager im Automat gemindert
+	// AusgefÃ¼hrte VorgÃ¤nge an Kasse und Bestand weiterleiten, sodass Kassenbestand
+	// erhÃ¶ht und Lager im Automat gemindert
 	public class BuyButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
@@ -90,7 +104,7 @@ public class Automat extends JFrame {
 
 	public static void main(String[] args) throws IOException {
 		Automat anzeige = new Automat();
-		anzeige.setTitle("Kühlautomat");
+		anzeige.setTitle("KÃ¼hlautomat");
 		BufferedImage image = ImageIO.read(new URL("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
 		anzeige.setIconImage(image);
 		anzeige.setVisible(true);

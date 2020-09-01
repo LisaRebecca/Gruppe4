@@ -1,3 +1,4 @@
+DROP DATABASE metzgerei;
 CREATE DATABASE metzgerei;
 
 USE metzgerei;
@@ -5,15 +6,15 @@ USE metzgerei;
 CREATE TABLE Produkte ( name VARCHAR(30), produkt_id INT PRIMARY KEY, kilopreis NUMERIC (5,2), gewicht_portion NUMERIC (5,3));
 CREATE TABLE Lagerbestand (produkt INT REFERENCES Produkte(produkt_id), haltbar_bis DATE, lagerort VARCHAR(20), portionen int, PRIMARY KEY (produkt, lagerort, haltbar_bis));
 
-INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Schweinelende', 1, 13.99, 0.250);
-INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Salami', 2, 8.49, 0.50);
-INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Bratwurst', 3, 11.49, 0.125);
-INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Tofu Schnitzel', 4, 10.20, 0.150);
-INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Roastbeef', 5, 27.44, 0.600);
-INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Flanksteak', 6, 14.70, 0.150);
-INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Rinderbraten', 7, 16.90, 0.500);
-INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Schweinefilet', 8, 12.90, 0.200);
-INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Feine Bratwurst', 9, 12.80, 0.400);
+INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Schweinelende', 1, 16.00, 0.250);
+INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Salami', 2, 25.00, 0.100);
+INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Bratwurst', 3, 10.00, 0.125);
+INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Tofu Schnitzel', 4, 8.00, 0.100);
+INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Roastbeef', 5, 40.00, 0.600);
+INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Flanksteak', 6, 45, 0.300);
+INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Rinderbraten', 7, 16.00, 0.500);
+INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Schweinefilet', 8, 22.00, 0.500);
+INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Feine Bratwurst', 9, 16.00, 0.200);
 INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Jagdwurst', 10, 17.00, 0.200);
 
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 1, DATE '2020-12-30', 'metzgerei', 3);
@@ -37,15 +38,15 @@ INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 8,
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 9, DATE '2020-12-29', 'automat1', 7);
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 10, DATE '2021-05-16', 'automat1', 6);
 
-INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 2, DATE '2020-12-31', 'automat1', 5);
-INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 3, DATE '2020-11-12', 'automat1', 3);
-INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 4, DATE '2020-10-18', 'automat1', 10);
-INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 5, DATE '2020-08-21', 'automat1', 8);
-INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 6, DATE '2020-12-09', 'automat1', 3);
-INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 7, DATE '2021-01-16', 'automat1', 4);
-INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 8, DATE '2021-03-11', 'automat1', 2);
-INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 9, DATE '2020-12-24', 'automat1', 7);
-INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 10, DATE '2021-05-13', 'automat1', 6);
+INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 2, DATE '2020-12-31', 'metzgerei', 5);
+INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 3, DATE '2020-11-12', 'metzgerei', 3);
+INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 4, DATE '2020-10-18', 'metzgerei', 10);
+INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 5, DATE '2020-08-21', 'metzgerei', 8);
+INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 6, DATE '2020-12-09', 'metzgerei', 3);
+INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 7, DATE '2021-01-16', 'metzgerei', 4);
+INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 8, DATE '2021-03-11', 'metzgerei', 2);
+INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 9, DATE '2020-12-24', 'metzgerei', 7);
+INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 10, DATE '2021-05-13', 'metzgerei', 6);
 
 
 
