@@ -13,6 +13,6 @@ class Portion {
 
 	@Override
 	public String toString() {
-		return name + ", " + portionspreis + "€/pckg, " + haltbar;
+		return name + ", " + portionspreis + "€/Portion, " + haltbar;
 	}
 }

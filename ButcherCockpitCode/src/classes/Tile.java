@@ -12,11 +12,11 @@ public class Tile extends JScrollPane {
 	String header;
 	String tabellenName;
 	JTable jt;
-    public Tile (String tileheader, String tabellenName, String custom_sql) {
+    public Tile (String tileheader, String select_statement) {
     	this.header = tileheader;
     	
     	jt = new JTable(
-    				DatabaseConnector.getProductsByLocation("automat1")); 
+    				DatabaseConnector.executeDBQuery(select_statement)); 
     	jt.setGridColor(Color.orange);
     	
 		JLabel title = new JLabel(tileheader);
@@ -35,55 +35,4 @@ public class Tile extends JScrollPane {
     	this.setColumnHeader(titlepanel);
     	this.setViewportView(tablepanel);
     }
-    
-    public Tile (String tileheader, String tabellenName) {
-    	this.header = tileheader;
-
-    	jt = new JTable(
-        			DatabaseConnector.getTableByName(tabellenName));  	
-    	jt.setGridColor(Color.orange);
-    	
-		JLabel title = new JLabel(tileheader);
-    	title.setFont(font);
-    	
-    	JViewport titlepanel = new JViewport();
-    	titlepanel.add(title);
-
-    	JViewport tablepanel = new JViewport();
-    	tablepanel.add(jt);
-    	
-    	this.setBackground(Color.WHITE);
-    	Border margin = new LineBorder(Color.gray,1);
-    	this.setBorder(margin);
-    	
-    	this.setColumnHeader(titlepanel);
-    	this.setViewportView(tablepanel);
-
-    }
-    
-    public Tile (String tileheader) {
-    	this.header = tileheader;
-    	
-    	jt = new JTable(
-    				DatabaseConnector.getFullStock()); 
-    	jt.setGridColor(Color.orange);
-    	
-		JLabel title = new JLabel(tileheader);
-    	title.setFont(font);
-    	
-    	JViewport titlepanel = new JViewport();
-    	titlepanel.add(title);
-
-    	JViewport tablepanel = new JViewport();
-    	tablepanel.add(jt);
-    	
-    	this.setBackground(Color.WHITE);
-    	Border margin = new LineBorder(Color.gray,1);
-    	this.setBorder(margin);
-    	
-    	this.setColumnHeader(titlepanel);
-    	this.setViewportView(tablepanel);
-    }
-    
-
 }
