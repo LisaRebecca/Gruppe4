@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.*;
 
@@ -17,6 +19,7 @@ public class Automat extends JFrame {
 	JPanel mainPanel, auswahlPanel, barPanel;
 	JLabel descr_lbl, sum_lbl;
 	JButton anotherItem_btn, eraseItem_btn, buy_btn;
+	ArrayList<Produktauswahl> alleAuswahlen = new ArrayList<Produktauswahl>();
 	HashMap<Portion, Integer> warenkorb = new HashMap<Portion, Integer>();
 
 	public Automat() {
@@ -56,7 +59,9 @@ public class Automat extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JButton jb = (JButton) e.getSource();
 				if (jb == anotherItem_btn) {
-					auswahlPanel.add(new Produktauswahl(portionen, warenkorb));
+					Produktauswahl p = new Produktauswahl(portionen, warenkorb);
+					alleAuswahlen.add(p);
+					auswahlPanel.add(p);
 					auswahlPanel.revalidate(); // dont ask why but it works like a reload, refresh
 				}
 			}

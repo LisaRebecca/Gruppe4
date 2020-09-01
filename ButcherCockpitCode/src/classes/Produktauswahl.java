@@ -7,13 +7,11 @@ import java.util.HashMap;
 import javax.swing.*;
 
 public class Produktauswahl extends JPanel {
-	static int cb_selectedindex = 0;
+	static int nextIndex = 0;
 	JPanel jp_count;
 	JComboBox<String> jcb_selection;
-	JLabel jlbl_amount;
-	JLabel jlbl_preis;
-	JButton jb_more;
-	JButton jb_less;
+	JLabel jlbl_amount, jlbl_preis;
+	JButton jb_more, jb_less;
 	Portion[] portionen;
 
 	public Produktauswahl(Portion[] portionen, HashMap<Portion, Integer> warenkorb) {
@@ -21,6 +19,7 @@ public class Produktauswahl extends JPanel {
 		Font arial = new Font("Arial", Font.PLAIN, 18);
 
 		this.setLayout(new GridLayout(0, 3));
+		
 		// Produkte im Dropdown-Menü anzeigen
 		jcb_selection = new JComboBox<>();
 		
@@ -29,9 +28,8 @@ public class Produktauswahl extends JPanel {
 			jcb_selection.addItem(p.toString());
 			
 		// Produkt auswählen, das herausgenommen werden soll
-		jcb_selection.setSelectedIndex(cb_selectedindex);
+		jcb_selection.setSelectedIndex(nextIndex++);
 		jcb_selection.setBackground(Color.white);
-		cb_selectedindex++;
 		this.add(jcb_selection);
 
 		// JLabel für Anzahl des Produktes
@@ -61,16 +59,19 @@ public class Produktauswahl extends JPanel {
 		jb_more.setBackground(Color.white);
 		jb_more.addActionListener(bl);
 		jp_count.add(jb_more);
+		
 		jb_less = new JButton("-");
 		jb_less.setBackground(Color.white);
 		jb_less.addActionListener(bl);
 		jp_count.add(jb_less);
+		
 		this.add(jp_count);
+		
 		jlbl_preis = new JLabel("");
 		this.add(jlbl_preis);
 		// Preisanzeigetest -- später Preis aus Datenbank und number*preis
 		// to do : richtigen Preis anzeigen
-		jb_more.doClick();
+		jb_more.doClick(); // Mindestanzahl von 1 für Portion
 		this.setBackground(Color.LIGHT_GRAY);
 	}
 
@@ -78,5 +79,8 @@ public class Produktauswahl extends JPanel {
 		jlbl_preis.setText("" + (portionen[jcb_selection.getSelectedIndex()].portionspreis
 				* Integer.parseInt(jlbl_amount.getText())));
 
+	}
+	public Portion getAusgewaehltePortion() {
+		return portionen[jcb_selection.getSelectedIndex()];
 	}
 }
