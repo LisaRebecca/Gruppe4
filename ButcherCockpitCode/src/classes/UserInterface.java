@@ -47,6 +47,6 @@ public class UserInterface extends JFrame {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		
 	}
 }

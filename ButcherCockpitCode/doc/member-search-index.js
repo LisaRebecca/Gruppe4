@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"classes","c":"DatabaseConnection","l":"getDBConnection()"}]
