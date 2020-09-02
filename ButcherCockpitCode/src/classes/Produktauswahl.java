@@ -8,37 +8,24 @@ import javax.swing.*;
 
 public class Produktauswahl extends JPanel {
 	static int nextIndex = 0;
-	JPanel jp_count;
-	JComboBox<String> jcb_selection;
-	JLabel jlbl_amount, jlbl_preis;
+	JLabel jlbl_amount, jlbl_preis, jlbl_portion;
 	JButton jb_more, jb_less;
-	Portion[] portionen;
+	Portion portion;
 
-	public Produktauswahl(Portion[] portionen, HashMap<Portion, Integer> warenkorb) {
-		this.portionen = portionen;
+	public Produktauswahl(Portion portion, HashMap<Portion, Integer> warenkorb) {
+		this.portion = portion;
 		Font arial = new Font("Arial", Font.PLAIN, 18);
+		this.setLayout(new GridLayout(1, 0));
+		this.add(new JLabel(portion.name));
+		this.add(new JLabel(""+portion.portionspreis+"€/Portion"));
+		this.add(new JLabel("haltbar bis "+portion.haltbar));
 
-		this.setLayout(new GridLayout(0, 3));
-		
-		// Produkte im Dropdown-Menü anzeigen
-		jcb_selection = new JComboBox<>();
-		
-		
-		for(Portion p : portionen)
-			jcb_selection.addItem(p.toString());
-			
-		// Produkt auswählen, das herausgenommen werden soll
-		jcb_selection.setSelectedIndex(nextIndex++);
-		jcb_selection.setBackground(Color.white);
-		this.add(jcb_selection);
-
-		// JLabel für Anzahl des Produktes
-		jp_count = new JPanel(new GridLayout(1, 3));
-		jlbl_amount = new JLabel("0");
+		jlbl_amount = new JLabel("0", SwingConstants.CENTER);
 		jlbl_amount.setFont(arial);
-		jp_count.add(jlbl_amount);
-		
-		
+		jlbl_amount.setBackground(Color.white);
+		jlbl_amount.setSize(20, 20);
+		this.add(jlbl_amount);
+
 		// Buttons zum erhöhen/mindern der Anzahl
 		ActionListener bl = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -54,33 +41,27 @@ public class Produktauswahl extends JPanel {
 				aktualisierePreise();
 			}
 		};
-		
+
 		jb_more = new JButton("+");
+		jb_more.setSize(20, 20);
 		jb_more.setBackground(Color.white);
 		jb_more.addActionListener(bl);
-		jp_count.add(jb_more);
-		
+		this.add(jb_more);
+
 		jb_less = new JButton("-");
+		jb_less.setSize(20, 20);
 		jb_less.setBackground(Color.white);
 		jb_less.addActionListener(bl);
-		jp_count.add(jb_less);
-		
-		this.add(jp_count);
-		
-		jlbl_preis = new JLabel("");
+		this.add(jb_less);
+
+		jlbl_preis = new JLabel("", SwingConstants.CENTER);
 		this.add(jlbl_preis);
 		// Preisanzeigetest -- später Preis aus Datenbank und number*preis
 		// to do : richtigen Preis anzeigen
-		jb_more.doClick(); // Mindestanzahl von 1 für Portion
 		this.setBackground(Color.LIGHT_GRAY);
 	}
 
 	public void aktualisierePreise() {
-		jlbl_preis.setText("" + (portionen[jcb_selection.getSelectedIndex()].portionspreis
-				* Integer.parseInt(jlbl_amount.getText())));
-
-	}
-	public Portion getAusgewaehltePortion() {
-		return portionen[jcb_selection.getSelectedIndex()];
+		jlbl_preis.setText("" + portion.portionspreis * Integer.parseInt(jlbl_amount.getText()) + " €");
 	}
 }
