@@ -15,7 +15,7 @@ INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Flank
 INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Rinderbraten', 7, 16.00, 0.500);
 INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Schweinefilet', 8, 22.00, 0.500);
 INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Feine Bratwurst', 9, 16.00, 0.200);
-INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Jagdwurst', 10, 17.00, 0.200);
+INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Jagdwurst', 10, 15.00, 0.200);
 
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 1, DATE '2020-12-30', 'metzgerei', 3);
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 2, DATE '2020-12-30', 'metzgerei', 5);
