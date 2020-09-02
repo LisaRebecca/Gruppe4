@@ -8,25 +8,23 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import javax.swing.*;
 
-//TO DO
-//Automatbestand: Datenbank abfragen was von welchen Produkt vorhanden und zu welchem Preis
-
 public class Automat extends JFrame {
-	
-	Font font = new Font("Arial", Font.PLAIN, 18);
+
+	Font arial = new Font("Arial", Font.PLAIN, 18);
 	JPanel mainPanel, auswahlPanel, barPanel;
 	JLabel descr_lbl, sum_lbl;
 	JButton buy_btn;
 	ArrayList<Produktauswahl> list_produktauswahl = new ArrayList<Produktauswahl>();
-	HashMap<Portion, Integer> warenkorb = new HashMap<Portion, Integer>();
 
 	public Automat() {
+
+		// Design Initializations
 		this.setTitle("K�hlautomat");
 		try {
-			BufferedImage image = ImageIO.read(new URL("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
+			BufferedImage image = ImageIO.read(new URL(
+					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
 			this.setIconImage(image);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -37,37 +35,32 @@ public class Automat extends JFrame {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		Container c = getContentPane();
-
 		mainPanel = new JPanel(new FlowLayout());
 		c.add(mainPanel);
 
 		descr_lbl = new JLabel("Bitte w�hlen Sie ihre Produkte aus:");
-		descr_lbl.setFont(font);
+		descr_lbl.setFont(arial);
+
 		String cus_sql = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
-						+"left join produkte on lagerbestand.produkt = produkte.produkt_id "
-						+"WHERE lagerort='automat1';";
-		Tile verfuegbare_produkte = new Tile("Zur Auswahl stehen: ", cus_sql);
-//		mainPanel.add(verfuegbare_produkte, BorderLayout.WEST);
+				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
+		JTable jt_verfuegbareProdukte = new JTable(DatabaseConnector.executeDBQuery(cus_sql));
 
 		auswahlPanel = new JPanel(new GridLayout(0, 1));
 		auswahlPanel.add(descr_lbl);
 
 		mainPanel.add(auswahlPanel);
-		
-//		Portion[] portionen = new Portion[verfuegbare_produkte.jt.getRowCount()];
-		for (int row = 0; row < verfuegbare_produkte.jt.getRowCount(); row++) {
-			Portion p = new Portion("" + verfuegbare_produkte.jt.getValueAt(row, 0), "" + verfuegbare_produkte.jt.getValueAt(row, 2),
-					"" + verfuegbare_produkte.jt.getValueAt(row, 3), "" + verfuegbare_produkte.jt.getValueAt(row, 4));
-//			portionen[row] = p;
+
+		for (int row = 0; row < jt_verfuegbareProdukte.getRowCount(); row++) {
+			Portion p = new Portion("" + jt_verfuegbareProdukte.getValueAt(row, 0),
+					"" + jt_verfuegbareProdukte.getValueAt(row, 2), "" + jt_verfuegbareProdukte.getValueAt(row, 3),
+					"" + jt_verfuegbareProdukte.getValueAt(row, 4));
 			Produktauswahl produktAuswahl = new Produktauswahl(p);
 			list_produktauswahl.add(produktAuswahl);
 			auswahlPanel.add(produktAuswahl);
 			auswahlPanel.revalidate(); // dont ask why but it works like a reload, refresh
 		}
-		
-		
+
 		barPanel = new JPanel(new GridLayout(3, 1));
-		mainPanel.add(barPanel);
 
 		// Anzeige der Gesamtsumme
 		sum_lbl = new JLabel("Gesamtpreis: ____�");
@@ -79,18 +72,20 @@ public class Automat extends JFrame {
 		BuyButtonListener bl = new BuyButtonListener();
 		buy_btn.addActionListener(bl);
 		barPanel.add(buy_btn);
+
+		mainPanel.add(barPanel);
 	}
 
-	// Ausgeführte Vorgänge an Kasse und Bestand weiterleiten, sodass Kassenbestand
-	// erhöht und Lager im Automat gemindert
 	public class BuyButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			// hier vielleicht nur eine Message-Box?
+			// Ausgeführte Vorgänge an Kasse und Bestand weiterleiten, sodass
+			// Kassenbestand
+			// erhöht und Lager im Automat gemindert
 		}
 	}
 
-	public static void main(String[] args){
-		Automat anzeige = new Automat();
-		
+	public static void main(String[] args) {
+		new Automat();
 	}
 }
