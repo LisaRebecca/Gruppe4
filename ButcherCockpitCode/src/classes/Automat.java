@@ -20,7 +20,7 @@ public class Automat extends JFrame {
 	JPanel mainPanel, auswahlPanel, barPanel;
 	JLabel descr_lbl, sum_lbl;
 	JButton buy_btn;
-	ArrayList<Produktauswahl> alleAuswahlen = new ArrayList<Produktauswahl>();
+	ArrayList<Produktauswahl> list_produktauswahl = new ArrayList<Produktauswahl>();
 	HashMap<Portion, Integer> warenkorb = new HashMap<Portion, Integer>();
 
 	public Automat() {
@@ -59,8 +59,8 @@ public class Automat extends JFrame {
 			Portion p = new Portion("" + verfuegbare_produkte.jt.getValueAt(row, 0), "" + verfuegbare_produkte.jt.getValueAt(row, 2),
 					"" + verfuegbare_produkte.jt.getValueAt(row, 3), "" + verfuegbare_produkte.jt.getValueAt(row, 4));
 //			portionen[row] = p;
-			Produktauswahl produktAuswahl = new Produktauswahl(p, warenkorb);
-			alleAuswahlen.add(produktAuswahl);
+			Produktauswahl produktAuswahl = new Produktauswahl(p);
+			list_produktauswahl.add(produktAuswahl);
 			auswahlPanel.add(produktAuswahl);
 			auswahlPanel.revalidate(); // dont ask why but it works like a reload, refresh
 		}
@@ -68,13 +68,6 @@ public class Automat extends JFrame {
 		
 		barPanel = new JPanel(new GridLayout(3, 1));
 		mainPanel.add(barPanel);
-
-
-		// Button um Produkt zur√ºckzulegen
-//		eraseItem_btn = new JButton("Delete selected item");
-//		eraseItem_btn.setBackground(Color.white);
-//		eraseItem_btn.addActionListener(al);
-//		barPanel.add(eraseItem_btn);
 
 		// Anzeige der Gesamtsumme
 		sum_lbl = new JLabel("Gesamtpreis: ____Ä");
