@@ -55,9 +55,8 @@ public class Automat extends JFrame {
 					"" + jt_verfuegbareProdukte.getValueAt(row, 2), "" + jt_verfuegbareProdukte.getValueAt(row, 3),
 					"" + jt_verfuegbareProdukte.getValueAt(row, 4));
 			Produktauswahl produktAuswahl = new Produktauswahl(p);
-			list_produktauswahl.add(produktAuswahl);
+			list_produktauswahl.add(produktAuswahl); // Warenkorb
 			auswahlPanel.add(produktAuswahl);
-			auswahlPanel.revalidate(); // dont ask why but it works like a reload, refresh
 		}
 
 		barPanel = new JPanel(new GridLayout(3, 1));

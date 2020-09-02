@@ -39,11 +39,9 @@ public class Produktauswahl extends JPanel {
 				} else if (jb_source.getText().equals("-")) {
 					amount--;
 				}
-				if(amount == 0) {
-					jlbl_amount.setText("");
-				}else {
+				
 					jlbl_amount.setText("" + amount);
-				}
+				
 				aktualisierePreise();
 			}
 		};
