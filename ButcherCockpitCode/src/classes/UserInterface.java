@@ -7,13 +7,13 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-/**Die Klasse UserInterface dient der Darstellung des ButcherCockpits, also der internen Benutzeroberfläche für den Metzger.
+/**Die Klasse UserInterface dient der Darstellung des ButcherCockpits, also der internen BenutzeroberflÃ¤che fÃ¼r den Metzger.
  * Darum muss die Klasse UserInterface auch von JFrame erben. 
  */
 public class UserInterface extends JFrame {
 	
-	/**Erzeugt und füllt die ContentPane mit einem JPanel im GridLayout mit 3 Zeilen und 1 Spalte. 
-	 * Diesem werden jeweils Kacheln hinzugefügt, deren Konstruktor ein SQL Statement übergeben wird, über das die benötigten Daten aus der Datenbank selektiert und in
+	/**Erzeugt und fÃ¼llt die ContentPane mit einem JPanel im GridLayout mit 3 Zeilen und 1 Spalte. 
+	 * Diesem werden jeweils Kacheln hinzugefÃ¼gt, deren Konstruktor ein SQL Statement Ã¼bergeben wird, Ã¼ber das die benÃ¶tigten Daten aus der Datenbank selektiert und in
 	 * einer Tabelle angezeigt wird.
 	 * 
 	 */
@@ -23,14 +23,14 @@ public class UserInterface extends JFrame {
 		 */
 		Container c = getContentPane();
 		
-		/** JPanelinstanz bekommt das GridLayout mit 3 Zeilen und 1 Spalte übergeben.
-		 * Diese wird dem Container hinzugefügt. 
+		/** JPanelinstanz bekommt das GridLayout mit 3 Zeilen und 1 Spalte Ã¼bergeben.
+		 * Diese wird dem Container hinzugefÃ¼gt. 
 		 */
 		JPanel jp = new JPanel(new GridLayout(3, 1));
 		c.add(jp);
 
 		/** Tileinstanz mit dem passenden SQL Statement um den gesamten Lagerbestand aus der Datenbank abzufragen
-		 * Diese wird dem JPanel hinzugefügt.
+		 * Diese wird dem JPanel hinzugefÃ¼gt.
 		 */
 		Tile stock = new Tile(	"Lagerbestand Gesamt",
 								"SELECT name, produkt_id, haltbar_bis, lagerort, portionen, gewicht_portion from lagerbestand "
@@ -39,23 +39,23 @@ public class UserInterface extends JFrame {
 
 		
 		/** Tileinstanz mit dem passenden SQL Statement um das Produktportfolio, also die gesamte Produkttabelle aus der Datenbank abzufragen
-		 * Diese wird dem JPanel hinzugefügt.
+		 * Diese wird dem JPanel hinzugefÃ¼gt.
 		 */
 		Tile products = new Tile(	"Produktportfolio", 
 									"SELECT * FROM Produkte;");
 		jp.add(products);
 
-		/** Tileinstanz mit dem passenden SQL Statement um den Füllstand des Kühlautomaten aus der Datenbank abzufragen.
-		 * Diese wird dem JPanel hinzugefügt.
+		/** Tileinstanz mit dem passenden SQL Statement um den FÃ¼llstand des KÃ¼hlautomaten aus der Datenbank abzufragen.
+		 * Diese wird dem JPanel hinzugefÃ¼gt.
 		 */
-		Tile automat = new Tile(		"Füllstand Kühlautomat",
+		Tile automat = new Tile(		"FÃ¼llstand KÃ¼hlautomat",
 									"SELECT name, portionen, haltbar_bis, kilopreis, gewicht_portion FROM lagerbestand "
 								+   "LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 		jp.add(automat);
 
 	}
 	
-/** Erstellt eine Instanz des UserInterfaces, setzt Titel und Icon des Fensters, sowie die Sichtbarkeit, Position, Größe, und DefaultCloseOperation.
+/** Erstellt eine Instanz des UserInterfaces, setzt Titel und Icon des Fensters, sowie die Sichtbarkeit, Position, GrÃ¶ÃŸe, und DefaultCloseOperation.
  * 
  * @throws IOException, wenn das Iconbild, bzw. die dahinterstehende URL nicht gelesen werden konnte
  */
@@ -70,7 +70,5 @@ public class UserInterface extends JFrame {
 			ui.setLocation(200, 200);
 			ui.setSize(700, 400);
 			ui.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-
 	}
 }
