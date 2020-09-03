@@ -7,7 +7,7 @@ import java.util.HashMap;
 import javax.swing.*;
 
 public class Produktauswahl extends JPanel {
-	/*
+	/**
 	 * Label für die ausgewählte Anzahl an Portionen.
 	 */
 	JLabel jlbl_amount;
