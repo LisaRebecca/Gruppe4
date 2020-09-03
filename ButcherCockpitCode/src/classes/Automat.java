@@ -51,9 +51,11 @@ public class Automat extends JFrame {
 		JTable jt_obtainableProducts = new JTable(DatabaseConnector.executeDBQuery(cus_sql));
 
 		for (int row = 0; row < jt_obtainableProducts.getRowCount(); row++) {
-			Portion portion = new Portion("" + jt_obtainableProducts.getValueAt(row, 0),
-					"" + jt_obtainableProducts.getValueAt(row, 2), "" + jt_obtainableProducts.getValueAt(row, 3),
-					"" + jt_obtainableProducts.getValueAt(row, 4));
+			Portion portion = new Portion(  "" + jt_obtainableProducts.getValueAt(row, 0), 
+											"" + jt_obtainableProducts.getValueAt(row, 1),
+											"" + jt_obtainableProducts.getValueAt(row, 2), 
+											"" + jt_obtainableProducts.getValueAt(row, 3),
+											"" + jt_obtainableProducts.getValueAt(row, 4));
 			Produktauswahl productSelection = new Produktauswahl(portion);
 			list_productSelection.add(productSelection); // Warenkorb
 			selectionPanel.add(productSelection);

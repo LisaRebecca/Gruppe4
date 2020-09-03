@@ -41,6 +41,7 @@ public class Produktauswahl extends JPanel {
 		this.add(new JLabel(portion.name));
 		this.add(new JLabel("" + portion.portionspreis + "€/Portion"));
 		this.add(new JLabel("haltbar bis " + portion.haltbar));
+		this.add(new JLabel(""+ portion.lagermenge+" mal auf Lager", SwingConstants.CENTER));
 
 		// Ausgewählte Menge anzeigen
 		jlbl_amount = new JLabel("0", SwingConstants.CENTER);
