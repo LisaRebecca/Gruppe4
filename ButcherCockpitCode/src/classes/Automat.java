@@ -4,7 +4,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+
+import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
 import java.util.ArrayList;
@@ -25,7 +28,13 @@ public class Automat extends JFrame {
 			BufferedImage image = ImageIO.read(new URL(
 					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
 			this.setIconImage(image);
+		} catch (IIOException e) {
+			System.err.println("Icon des Automaten konnte nicht geladen werden.");
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

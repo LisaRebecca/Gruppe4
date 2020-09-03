@@ -20,6 +20,7 @@ public class Produktauswahl extends JPanel {
 	 * Portion.
 	 */
 	Portion portion;
+	JButton jb_more, jb_less;
 
 	/**
 	 * Kontruktor, welcher alle Buttons erstellt und die Beschriftungen mit
@@ -29,7 +30,6 @@ public class Produktauswahl extends JPanel {
 	 *                Eigenschaften des Produktes in sich.
 	 */
 	public Produktauswahl(Portion portion) {
-		JButton jb_more, jb_less;
 		this.portion = portion;
 		Font arial = new Font("Arial", Font.PLAIN, 18);
 
@@ -38,10 +38,10 @@ public class Produktauswahl extends JPanel {
 		/**
 		 * Darstellen der Portion, welche zur Auswahl steht.
 		 */
-		this.add(new JLabel(portion.name));
-		this.add(new JLabel("" + portion.portionspreis + "€/Portion"));
-		this.add(new JLabel("haltbar bis " + portion.haltbar));
-		this.add(new JLabel(""+ portion.lagermenge+" mal auf Lager", SwingConstants.CENTER));
+		this.add(new JLabel(portion.name, SwingConstants.LEFT));
+		this.add(new JLabel("" + portion.portionspreis + " €/Portion", SwingConstants.RIGHT));
+		this.add(new JLabel("  haltbar bis " + portion.haltbar, SwingConstants.RIGHT));
+		this.add(new JLabel("" + portion.lagermenge + " mal auf Lager", SwingConstants.RIGHT));
 
 		// Ausgewählte Menge anzeigen
 		jlbl_amount = new JLabel("0", SwingConstants.CENTER);
@@ -66,6 +66,14 @@ public class Produktauswahl extends JPanel {
 				jlbl_amount.setText("" + amount);
 
 				aktualisierePreise();
+				if (amount <= 0) {
+					jb_less.setVisible(false);
+				} else if (0 < amount & amount < portion.lagermenge) {
+					jb_less.setVisible(true);
+					jb_more.setVisible(true);
+				} else if (amount >= portion.lagermenge) {
+					jb_more.setVisible(false);
+				}
 			}
 		};
 
@@ -85,6 +93,7 @@ public class Produktauswahl extends JPanel {
 		jb_less.setSize(20, 20);
 		jb_less.setBackground(Color.white);
 		jb_less.addActionListener(bl);
+		jb_less.setVisible(false);
 		this.add(jb_less);
 
 		jlbl_preis = new JLabel("", SwingConstants.CENTER);
