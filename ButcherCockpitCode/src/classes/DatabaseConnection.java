@@ -10,10 +10,17 @@ import java.sql.SQLException;
  */
 public class DatabaseConnection {
 	private static Connection connection = null;
-
+	
+	/**
+	 * Ein privater Konstruktor stellt sicher, dass es nur genau eine Verbindung zur Datenbank gibt.
+	 */
 	private DatabaseConnection() {
 	}
 
+	/**
+	 * Die Verbindung zur lokalen Datenbank wird aufgebaut.
+	 * @return Verbindung zur Datenbank
+	 */
 	public static Connection getDBConnection() {
 		if (connection == null) {
 			try {
