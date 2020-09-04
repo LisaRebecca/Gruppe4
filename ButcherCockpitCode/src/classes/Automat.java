@@ -37,7 +37,7 @@ public class Automat extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		this.setTitle("Kühlautomat");
 		this.setVisible(true);
 		this.setSize(1200, 400);
@@ -50,7 +50,7 @@ public class Automat extends JFrame {
 
 		descr_lbl = new JLabel("Bitte wählen Sie Ihre Produkte aus:");
 		descr_lbl.setFont(headerfont);
-		
+
 		selectionPanel = new JPanel(new GridLayout(0, 1));
 		selectionPanel.add(descr_lbl);
 		mainPanel.add(selectionPanel);
@@ -60,11 +60,9 @@ public class Automat extends JFrame {
 		JTable jt_obtainableProducts = new JTable(DatabaseConnector.executeDBQuery(cus_sql));
 
 		for (int row = 0; row < jt_obtainableProducts.getRowCount(); row++) {
-			Portion portion = new Portion(  "" + jt_obtainableProducts.getValueAt(row, 0), 
-											"" + jt_obtainableProducts.getValueAt(row, 1),
-											"" + jt_obtainableProducts.getValueAt(row, 2), 
-											"" + jt_obtainableProducts.getValueAt(row, 3),
-											"" + jt_obtainableProducts.getValueAt(row, 4));
+			Portion portion = new Portion("" + jt_obtainableProducts.getValueAt(row, 0),
+					"" + jt_obtainableProducts.getValueAt(row, 1), "" + jt_obtainableProducts.getValueAt(row, 2),
+					"" + jt_obtainableProducts.getValueAt(row, 3), "" + jt_obtainableProducts.getValueAt(row, 4));
 			Produktauswahl productSelection = new Produktauswahl(portion);
 			list_productSelection.add(productSelection); // Warenkorb
 			selectionPanel.add(productSelection);
@@ -79,21 +77,29 @@ public class Automat extends JFrame {
 		// Kaufen Button
 		buy_btn = new JButton("Kaufen");
 		buy_btn.setBackground(Color.white);
-		BuyButtonListener bl = new BuyButtonListener();
-		buy_btn.addActionListener(bl);
+		ActionListener listener_buy_btn = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String[] options = { "Ja, bezahlen", "Nein, zurück" };
+				int eingabe = JOptionPane.showOptionDialog(null,
+						"Möchten Sie den Kaufvorgang abschließen und bezahlen?", "Bestätigung",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+				System.out.println(eingabe);
+				if (eingabe == 0) {
+					JOptionPane.showMessageDialog(null,
+							"Danke für Ihren Einkauf, der Kassenbetrag wurde von ihrer Gutscheinkarte abgezogen.",
+							"Danke!", JOptionPane.INFORMATION_MESSAGE);
+					System.exit(0);
+				}
+
+			}
+		};
+		buy_btn.addActionListener(listener_buy_btn);
 		barPanel.add(buy_btn);
 		mainPanel.add(barPanel);
-		
-		this.revalidate();
-	}
 
-	public class BuyButtonListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			// hier vielleicht nur eine Message-Box?
-			// AusgefÃ¼hrte VorgÃ¤nge an Kasse und Bestand weiterleiten, sodass
-			// Kassenbestand
-			// erhÃ¶ht und Lager im Automat gemindert
-		}
+		this.revalidate();
 	}
 
 	public static void main(String[] args) {
