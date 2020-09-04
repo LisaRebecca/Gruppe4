@@ -2,6 +2,7 @@ package classes;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.NumberFormat;
 import java.util.HashMap;
 
 import javax.swing.*;
@@ -74,6 +75,7 @@ public class Produktauswahl extends JPanel {
 				} else if (amount >= portion.lagermenge) {
 					jb_more.setVisible(false);
 				}
+				Automat.berechneGesamtpreis();
 			}
 		};
 
@@ -96,7 +98,7 @@ public class Produktauswahl extends JPanel {
 		jb_less.setVisible(false);
 		this.add(jb_less);
 
-		jlbl_preis = new JLabel("", SwingConstants.CENTER);
+		jlbl_preis = new JLabel("0", SwingConstants.LEFT);
 		this.add(jlbl_preis);
 		this.setBackground(Color.LIGHT_GRAY);
 	}
@@ -107,7 +109,12 @@ public class Produktauswahl extends JPanel {
 	public void aktualisierePreise() {
 		// Hier fehlt noch der Fall, dass jlbl_amount leer ist (tritt ein, Falls anzahl
 		// == 0)
-
-		jlbl_preis.setText("" + portion.portionspreis * Integer.parseInt(jlbl_amount.getText()) + " €");
+		NumberFormat formatter = NumberFormat.getInstance();
+		formatter.setMaximumFractionDigits(2);
+		jlbl_preis.setText("" + formatter.format( portion.portionspreis * Integer.parseInt(jlbl_amount.getText())));
+		
+		
 	}
+	
+
 }

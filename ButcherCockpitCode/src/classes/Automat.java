@@ -17,9 +17,9 @@ public class Automat extends JFrame {
 
 	Font headerfont = new Font("Arial", Font.BOLD, 20);
 	JPanel mainPanel, selectionPanel, barPanel;
-	JLabel descr_lbl, sum_lbl;
+	JLabel descr_lbl; static JLabel sum_lbl;
 	JButton buy_btn;
-	ArrayList<Produktauswahl> list_productSelection = new ArrayList<Produktauswahl>();
+	static ArrayList<Produktauswahl> list_productSelection = new ArrayList<Produktauswahl>();
 
 	public Automat() {
 
@@ -71,7 +71,7 @@ public class Automat extends JFrame {
 		barPanel = new JPanel(new GridLayout(3, 1));
 
 		// Anzeige der Gesamtsumme
-		sum_lbl = new JLabel("Gesamtpreis: ____€");
+		sum_lbl = new JLabel("Gesamtpreis:" +gesamtpreis+ "€");
 		barPanel.add(sum_lbl);
 
 		// Kaufen Button
@@ -101,8 +101,17 @@ public class Automat extends JFrame {
 
 		this.revalidate();
 	}
+	
+	static double gesamtpreis = 0.00;
+	public static void berechneGesamtpreis() {
+		for(Produktauswahl jlbl: list_productSelection) {
+			System.out.println(jlbl.jlbl_preis.getText());
+			gesamtpreis = gesamtpreis + Double.parseDouble(jlbl.jlbl_preis.getText());
+			sum_lbl.setText(""+ gesamtpreis);
+		}
+	}
 
 	public static void main(String[] args) {
-		new Automat();
+		Automat automat = new Automat();
 	}
 }
