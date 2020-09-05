@@ -3,6 +3,8 @@ package classes;
 import java.sql.*;
 import java.util.Observable;
 import java.util.Vector;
+
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,7 +28,7 @@ public class DatabaseConnector {
 	 * @param select_statement SQL-SELECT-Statement
 	 * @return die angefragten Daten in der Form eines {@link DefaultTableModel}
 	 */
-	public static DefaultTableModel executeDBQuery(String select_statement) {
+	public static JTable executeDBQuery(String select_statement) {
 		DefaultTableModel table = null;
 		ResultSet result = null;
 		try {
@@ -40,7 +42,7 @@ public class DatabaseConnector {
 		} catch (SQLException sql) {
 			System.err.print("Table Model could not be built.");
 		}
-		return table;
+		return new JTable(table);
 	}
 
 	/**
