@@ -29,7 +29,7 @@ public class DatabaseConnector {
 	 * @return die angefragten Daten in der Form eines {@link DefaultTableModel}
 	 */
 	public static JTable executeDBQuery(String select_statement) {
-		DefaultTableModel table = null;
+		JTable table = null;
 		ResultSet result = null;
 		try {
 			result = conn.createStatement().executeQuery(select_statement);
@@ -38,11 +38,11 @@ public class DatabaseConnector {
 			System.err.println(select_statement);
 		}
 		try {
-			table = buildTableModel(result);
+			table = buildJTable(result);
 		} catch (SQLException sql) {
 			System.err.print("Table Model could not be built.");
 		}
-		return new JTable(table);
+		return table;
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class DatabaseConnector {
 	 *         beinhaltet
 	 * @throws SQLException beim auslesen der Daten kam es zu einem Fehler
 	 */
-	public static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
+	public static JTable buildJTable(ResultSet rs) throws SQLException {
 		
 		/**
 		 * Metadaten des ResultSets
@@ -80,6 +80,6 @@ public class DatabaseConnector {
 			}
 			rows.add(singleRow);
 		}
-		return new DefaultTableModel(rows, columnNames);
+		return new JTable(new DefaultTableModel(rows, columnNames));
 	}
 }
