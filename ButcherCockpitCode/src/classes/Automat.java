@@ -57,6 +57,7 @@ public class Automat extends JFrame {
 
 		String cus_sql = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
+		System.out.println("Automat Tile im Automat");
 		JTable jt_obtainableProducts = DatabaseConnector.executeDBQuery(cus_sql);
 
 		for (int row = 0; row < jt_obtainableProducts.getRowCount(); row++) {
