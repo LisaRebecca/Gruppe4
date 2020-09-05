@@ -80,6 +80,7 @@ public class DatabaseConnector {
 			}
 			rows.add(singleRow);
 		}
+		System.out.println(columnNames);
 		return new JTable(new DefaultTableModel(rows, columnNames));
 	}
 }
