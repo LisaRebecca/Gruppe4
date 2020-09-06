@@ -29,8 +29,8 @@ public class Tile extends JScrollPane {
     	
     	/** Erzeugen der JTable-Instanz inklusive Datenbankabfrage über die Klasse DatabaseConnector
     	 */
-    	JTable jt = new JTable(
-    				DatabaseConnector.executeDBQuery(select_statement)); 
+    	JTable jt = 
+    				DatabaseConnector.executeDBQuery(select_statement); 
     	
     	/** Optische Details: Tabellenrasterfarbe, Kachelhintergrund und Rahmenfarbe/-stärke der Kachel festgelegt
     	 */
@@ -49,6 +49,7 @@ public class Tile extends JScrollPane {
     	 */
     	JViewport titlepanel = new JViewport();
     	titlepanel.add(title);
+    	titlepanel.add(jt.getTableHeader());
     	JViewport tablepanel = new JViewport();
     	tablepanel.add(jt);
 
