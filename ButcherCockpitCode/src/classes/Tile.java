@@ -49,6 +49,7 @@ public class Tile extends JScrollPane {
     	 */
     	JViewport titlepanel = new JViewport();
     	titlepanel.add(title);
+    	titlepanel.add(jt.getTableHeader());
     	JViewport tablepanel = new JViewport();
     	tablepanel.add(jt);
 

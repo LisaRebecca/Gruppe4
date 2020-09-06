@@ -61,26 +61,26 @@ public class DatabaseConnector {
 		/**
 		 * Metadaten des ResultSets
 		 */
-		ResultSetMetaData metaData = rs.getMetaData();
 		/**
 		 * Bezeichner der Spalten des Tabellen-Modells
 		 */
-		Vector<String> columnNames = new Vector<String>();
+		ResultSetMetaData metaData = rs.getMetaData();
+		int columnCount = metaData.getColumnCount();
+		Vector<String> columnLabels = new Vector<String>();
 
-		for (int col = 1; col <= metaData.getColumnCount(); col++) {
-			columnNames.add(metaData.getColumnLabel(col));
+		for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+			columnLabels.add(metaData.getColumnLabel(columnIndex));
 		}
 
-		Vector rows = new Vector();
-		Vector singleRow;
+		Vector<Vector<String>> rows = new Vector<Vector<String>>();
+		Vector<String> singleRow;
 		while (rs.next()) {
-			singleRow = new Vector();
-			for (int columnIndex = 1; columnIndex <= metaData.getColumnCount(); columnIndex++) {
-				singleRow.add(rs.getObject(columnIndex));
+			singleRow = new Vector<String>();
+			for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+				singleRow.add(""+rs.getObject(columnIndex));
 			}
 			rows.add(singleRow);
 		}
-		System.out.println(columnNames);
-		return new JTable(new DefaultTableModel(rows, columnNames));
+		return new JTable(new DefaultTableModel(rows, columnLabels));
 	}
 }

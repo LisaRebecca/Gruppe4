@@ -40,13 +40,11 @@ public class UserInterface extends JFrame {
 		 * Tileinstanz mit dem passenden SQL Statement um den gesamten Lagerbestand aus
 		 * der Datenbank abzufragen Diese wird dem JPanel hinzugefügt.
 		 */
-		System.out.println("Stock Tile:");
 		Tile stock = new Tile("Lagerbestand Gesamt",
 				"SELECT name, produkt_id, haltbar_bis, lagerort, portionen, gewicht_portion from lagerbestand "
 						+ "left join produkte on lagerbestand.produkt = produkte.produkt_id;");
 		jp.add(stock);
 
-		System.out.println("Products tile");
 		/**
 		 * Tileinstanz mit dem passenden SQL Statement um das Produktportfolio, also die
 		 * gesamte Produkttabelle aus der Datenbank abzufragen Diese wird dem JPanel
@@ -55,7 +53,6 @@ public class UserInterface extends JFrame {
 		Tile products = new Tile("Produktportfolio", "SELECT * FROM Produkte;");
 		jp.add(products);
 
-		System.out.println("Automat Tile");
 		/**
 		 * Tileinstanz mit dem passenden SQL Statement um den Füllstand des
 		 * Kühlautomaten aus der Datenbank abzufragen. Diese wird dem JPanel
