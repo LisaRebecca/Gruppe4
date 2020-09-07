@@ -16,14 +16,39 @@ import javax.swing.*;
 public class Automat extends JFrame {
 
 	Font headerfont = new Font("Arial", Font.BOLD, 20);
-	JPanel mainPanel, selectionPanel, barPanel;
-	JLabel descr_lbl, sum_lbl;
+	/**
+	 * Das grundlegende Panel, enthält die anderen Panel.
+	 */
+	JPanel mainPanel;
+
+	JPanel selectionPanel;
+
+	JPanel barPanel;
+
+	/**
+	 * Überschrift
+	 */
+	JLabel descr_lbl;
+
+	/**
+	 * Kassensumme
+	 */
+	JLabel sum_lbl;
+	/**
+	 * Bestätigung der Auswahl, Kauf
+	 */
 	JButton buy_btn;
+
+	/**
+	 * Warenkorb
+	 */
 	ArrayList<Produktauswahl> list_productSelection = new ArrayList<Produktauswahl>();
 
 	public Automat() {
 
-		// Design Initializations
+		/**
+		 * Laden des Fenster-Icons
+		 */
 		try {
 			BufferedImage image = ImageIO.read(new URL(
 					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
@@ -37,7 +62,10 @@ public class Automat extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
+		/**
+		 * Größe, Position und grundlegende Einstellungen des Fensters
+		 */
 		this.setTitle("Kühlautomat");
 		this.setVisible(true);
 		this.setSize(1200, 400);
@@ -57,9 +85,11 @@ public class Automat extends JFrame {
 
 		String cus_sql = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
-		System.out.println("Automat Tile im Automat");
 		JTable jt_obtainableProducts = DatabaseConnector.executeDBQuery(cus_sql);
 
+		/**
+		 * Hinzufügen der Portionen, Darstellung der Eigenschaften in Labels
+		 */
 		for (int row = 0; row < jt_obtainableProducts.getRowCount(); row++) {
 			Portion portion = new Portion("" + jt_obtainableProducts.getValueAt(row, 0),
 					"" + jt_obtainableProducts.getValueAt(row, 1), "" + jt_obtainableProducts.getValueAt(row, 2),
@@ -71,13 +101,21 @@ public class Automat extends JFrame {
 
 		barPanel = new JPanel(new GridLayout(3, 1));
 
-		// Anzeige der Gesamtsumme
+		/**
+		 *  Anzeige der Gesamtsumme
+		 */
 		sum_lbl = new JLabel("Gesamtpreis: ____€");
 		barPanel.add(sum_lbl);
 
-		// Kaufen Button
+		/**
+		 * Button zum Simulieren des Kaufs
+		 */
 		buy_btn = new JButton("Kaufen");
 		buy_btn.setBackground(Color.white);
+		
+		/**
+		 * Abwicklung des Kaufes nach Drücken des Buttons
+		 */
 		ActionListener listener_buy_btn = new ActionListener() {
 
 			@Override
@@ -98,8 +136,8 @@ public class Automat extends JFrame {
 		};
 		buy_btn.addActionListener(listener_buy_btn);
 		barPanel.add(buy_btn);
+		
 		mainPanel.add(barPanel);
-
 		this.revalidate();
 	}
 
