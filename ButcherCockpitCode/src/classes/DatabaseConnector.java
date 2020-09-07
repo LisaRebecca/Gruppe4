@@ -12,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
  * Verfügung. Die Klasse kann Requests an die Datenbank senden und Daten
  * empfangen.
  * 
- * @author I518232
  *
  */
 public class DatabaseConnector {

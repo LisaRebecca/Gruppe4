@@ -3,6 +3,7 @@ package classes;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
@@ -10,15 +11,15 @@ import javax.swing.*;
 
 /**
  * Die Klasse UserInterface dient der Darstellung des ButcherCockpits, also der
- * internen BenutzeroberflÃ¤che fÃ¼r den Metzger. Darum muss die Klasse
+ * internen Benutzeroberfläche für den Metzger. Darum muss die Klasse
  * UserInterface auch von JFrame erben.
  */
 public class UserInterface extends JFrame {
 
 	/**
-	 * Erzeugt und fÃ¼llt die ContentPane mit einem JPanel im GridLayout mit 3
-	 * Zeilen und 1 Spalte. Diesem werden jeweils Kacheln hinzugefÃ¼gt, deren
-	 * Konstruktor ein SQL Statement Ã¼bergeben wird, Ã¼ber das die benÃ¶tigten
+	 * Erzeugt und füllt die ContentPane mit einem JPanel im GridLayout mit 3
+	 * Zeilen und 1 Spalte. Diesem werden jeweils Kacheln hinzugefügt, deren
+	 * Konstruktor ein SQL Statement übergeben wird, über das die benötigten
 	 * Daten aus der Datenbank selektiert und in einer Tabelle angezeigt wird.
 	 * 
 	 */
@@ -30,15 +31,15 @@ public class UserInterface extends JFrame {
 		Container c = getContentPane();
 
 		/**
-		 * JPanelinstanz bekommt das GridLayout mit 3 Zeilen und 1 Spalte Ã¼bergeben.
-		 * Diese wird dem Container hinzugefÃ¼gt.
+		 * JPanelinstanz bekommt das GridLayout mit 3 Zeilen und 1 Spalte übergeben.
+		 * Diese wird dem Container hinzugefügt.
 		 */
 		JPanel jp = new JPanel(new GridLayout(3, 1));
 		c.add(jp);
 
 		/**
 		 * Tileinstanz mit dem passenden SQL Statement um den gesamten Lagerbestand aus
-		 * der Datenbank abzufragen Diese wird dem JPanel hinzugefÃ¼gt.
+		 * der Datenbank abzufragen Diese wird dem JPanel hinzugefügt.
 		 */
 		Tile stock = new Tile("Lagerbestand Gesamt",
 				"SELECT name, produkt_id, haltbar_bis, lagerort, portionen, gewicht_portion from lagerbestand "
@@ -48,17 +49,17 @@ public class UserInterface extends JFrame {
 		/**
 		 * Tileinstanz mit dem passenden SQL Statement um das Produktportfolio, also die
 		 * gesamte Produkttabelle aus der Datenbank abzufragen Diese wird dem JPanel
-		 * hinzugefÃ¼gt.
+		 * hinzugefügt.
 		 */
 		Tile products = new Tile("Produktportfolio", "SELECT * FROM Produkte;");
 		jp.add(products);
 
 		/**
-		 * Tileinstanz mit dem passenden SQL Statement um den FÃ¼llstand des
-		 * KÃ¼hlautomaten aus der Datenbank abzufragen. Diese wird dem JPanel
-		 * hinzugefÃ¼gt.
+		 * Tileinstanz mit dem passenden SQL Statement um den Füllstand des
+		 * Kühlautomaten aus der Datenbank abzufragen. Diese wird dem JPanel
+		 * hinzugefügt.
 		 */
-		Tile automat = new Tile("FÃ¼llstand KÃ¼hlautomat",
+		Tile automat = new Tile("Füllstand Kühlautomat",
 				"SELECT name, portionen, haltbar_bis, kilopreis, gewicht_portion FROM lagerbestand "
 						+ "LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 		jp.add(automat);
@@ -67,20 +68,27 @@ public class UserInterface extends JFrame {
 
 	/**
 	 * Erstellt eine Instanz des UserInterfaces, setzt Titel und Icon des Fensters,
-	 * sowie die Sichtbarkeit, Position, GrÃ¶ÃŸe, und DefaultCloseOperation.
+	 * sowie die Sichtbarkeit, Position, Größe, und DefaultCloseOperation.
 	 * 
-	 * @throws IOException, wenn das Iconbild, bzw. die dahinterstehende URL nicht
-	 *                      gelesen werden konnte
+	 * fängt eine IOException und eine MalformedURLException, wenn das Iconbild, 
+	 * bzw. die dahinterstehende URL nicht gelesen werden konnte
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 
 		UserInterface ui = new UserInterface();
 		ui.setTitle("ButcherCockpit");
-		BufferedImage image = ImageIO.read(new URL(
-				"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
-		ui.setIconImage(image);
+		BufferedImage image;
+		try {
+			image = ImageIO.read(new URL(
+					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
+			ui.setIconImage(image);
+		} catch (MalformedURLException e) {
+			System.err.println("Fehler beim Lesen der URL.");
+		} catch (IOException e) {
+			System.err.println("Icon des Automaten konnte nicht geladen werden.");
+		}
 		ui.setVisible(true);
-		ui.setLocation(200, 200);
+		ui.setLocation(50, 420);
 		ui.setSize(700, 400);
 		ui.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}

@@ -5,6 +5,8 @@ import java.awt.event.*;
 import java.util.HashMap;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 public class Produktauswahl extends JPanel {
 	/**
@@ -20,8 +22,11 @@ public class Produktauswahl extends JPanel {
 	 * Portion.
 	 */
 	Portion portion;
+	/**
+	 * Instanziieren der Plus- und Minus-Buttons zum Auswählen der Menge eines Produkts.
+	 */
 	JButton jb_more, jb_less;
-
+	
 	/**
 	 * Kontruktor, welcher alle Buttons erstellt und die Beschriftungen mit
 	 * Anfangswerten beschriftet.
