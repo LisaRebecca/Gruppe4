@@ -105,12 +105,20 @@ public class Automat extends JFrame {
 	static double gesamtpreis = 0.00;
 	public static void berechneGesamtpreis() {
 		for(Produktauswahl jlbl: list_productSelection) {
-			System.out.println(jlbl.jlbl_preis.getText());
-			gesamtpreis = gesamtpreis + Double.parseDouble(jlbl.jlbl_preis.getText());
+			String preis = jlbl.jlbl_preis.getText();
+			preis= preis.replace(',', '.');
+			gesamtpreis = gesamtpreis + Double.parseDouble(preis);
 			sum_lbl.setText(""+ gesamtpreis);
 		}
 	}
-
+	public static void berechneGesamtpreisminderung() {
+		for(Produktauswahl jlbl: list_productSelection) {
+			String preis = jlbl.jlbl_preis.getText();
+			preis= preis.replace(',', '.');
+			gesamtpreis = gesamtpreis - Double.parseDouble(preis);
+			sum_lbl.setText(""+ gesamtpreis);
+		}
+	}
 	public static void main(String[] args) {
 		Automat automat = new Automat();
 	}

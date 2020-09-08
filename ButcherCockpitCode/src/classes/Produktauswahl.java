@@ -60,13 +60,19 @@ public class Produktauswahl extends JPanel {
 				int amount = Integer.parseInt(jlbl_amount.getText());
 				if (jb_source.getText().equals("+")) {
 					amount++;
+					jlbl_amount.setText("" + amount);
+					aktualisierePreise();
+					Automat.berechneGesamtpreis();
 				} else if (jb_source.getText().equals("-")) {
 					amount--;
+					jlbl_amount.setText("" + amount);
+					aktualisierePreise();
+					Automat.berechneGesamtpreisminderung();
 				}
 
-				jlbl_amount.setText("" + amount);
+				
 
-				aktualisierePreise();
+				
 				if (amount <= 0) {
 					jb_less.setVisible(false);
 				} else if (0 < amount & amount < portion.lagermenge) {
@@ -75,7 +81,7 @@ public class Produktauswahl extends JPanel {
 				} else if (amount >= portion.lagermenge) {
 					jb_more.setVisible(false);
 				}
-				Automat.berechneGesamtpreis();
+				
 			}
 		};
 
