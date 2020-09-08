@@ -28,9 +28,14 @@ public class Automat extends JFrame {
 	 */
 	Font headerfont = new Font("Arial", Font.BOLD, 20);
 
+	//JPanel mainPanel, selectionPanel, barPanel;
+	//JLabel descr_lbl; static JLabel sum_lbl;
+	//JButton buy_btn;
+
+
 	/**
 	 * Warenkorb
-
+*/
 	
 	/** Instanziieren dreier JPanels, um die Automatenbestandteile voneinander abzugrenzen
 	 */
@@ -51,7 +56,7 @@ public class Automat extends JFrame {
 	/** Instanziieren der ArrayList zum Abspeichern des Warenkorbs
 
 	 */
-	ArrayList<Produktauswahl> list_productSelection = new ArrayList<Produktauswahl>();
+	static ArrayList<Produktauswahl> list_productSelection = new ArrayList<Produktauswahl>();
 
 	/** Erzeugt das Automaten-UI inklusive Überschrift, entsprechender Tabelle, GesamtpreisLabel und KaufButton 
 	 * mit entsprechendem ActionListener. 
@@ -129,6 +134,7 @@ public class Automat extends JFrame {
 			jp_selectionPanel.add(productSelection);
 		}
 
+
 		/** Das BarPanel wird mit dem GridLayout mit 2 Zeilen und 1 Spalte erstellt.
 		 */
 		jp_barPanel = new JPanel(new GridLayout(2, 1));
@@ -147,6 +153,7 @@ public class Automat extends JFrame {
 		/** Erstellen eines ActionListeners für den Kauf-Button
 
 		 */
+
 		ActionListener listener_buy_btn = new ActionListener() {
 /**
 		 * Abwicklung des Kaufes nach Drücken des Buttons
@@ -190,10 +197,31 @@ public class Automat extends JFrame {
 		this.revalidate();
 	}
 
+	
+	static double gesamtpreis = 0.00;
+	public static void berechneGesamtpreis() {
+		for(Produktauswahl jlbl: list_productSelection) {
+			String preis = jlbl.jlbl_preis.getText();
+			preis= preis.replace(',', '.');
+			gesamtpreis = gesamtpreis + Double.parseDouble(preis);
+			sum_lbl.setText(""+ gesamtpreis);
+		}
+	}
+	public static void berechneGesamtpreisminderung() {
+		for(Produktauswahl jlbl: list_productSelection) {
+			String preis = jlbl.jlbl_preis.getText();
+			preis= preis.replace(',', '.');
+			gesamtpreis = gesamtpreis - Double.parseDouble(preis);
+			sum_lbl.setText(""+ gesamtpreis);
+		}
+	}
+
+
 	/**
 	 * In der Main Methode wird eine Instanz der Automaten-Klasse erzeugt. 
 	 */
+
 	public static void main(String[] args) {
-		new Automat();
+		Automat automat = new Automat();
 	}
 }
