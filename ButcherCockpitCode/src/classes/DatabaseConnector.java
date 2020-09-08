@@ -3,6 +3,8 @@ package classes;
 import java.sql.*;
 import java.util.Observable;
 import java.util.Vector;
+
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -10,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
  * Verfügung. Die Klasse kann Requests an die Datenbank senden und Daten
  * empfangen.
  * 
- * @author I518232
  *
  */
 public class DatabaseConnector {
@@ -26,8 +27,8 @@ public class DatabaseConnector {
 	 * @param select_statement SQL-SELECT-Statement
 	 * @return die angefragten Daten in der Form eines {@link DefaultTableModel}
 	 */
-	public static DefaultTableModel executeDBQuery(String select_statement) {
-		DefaultTableModel table = null;
+	public static JTable executeDBQuery(String select_statement) {
+		JTable table = null;
 		ResultSet result = null;
 		try {
 			result = conn.createStatement().executeQuery(select_statement);
@@ -36,7 +37,7 @@ public class DatabaseConnector {
 			System.err.println(select_statement);
 		}
 		try {
-			table = buildTableModel(result);
+			table = buildJTable(result);
 		} catch (SQLException sql) {
 			System.err.print("Table Model could not be built.");
 		}
@@ -54,30 +55,31 @@ public class DatabaseConnector {
 	 *         beinhaltet
 	 * @throws SQLException beim auslesen der Daten kam es zu einem Fehler
 	 */
-	public static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
+	public static JTable buildJTable(ResultSet rs) throws SQLException {
 		
 		/**
 		 * Metadaten des ResultSets
 		 */
-		ResultSetMetaData metaData = rs.getMetaData();
 		/**
 		 * Bezeichner der Spalten des Tabellen-Modells
 		 */
-		Vector<String> columnNames = new Vector<String>();
+		ResultSetMetaData metaData = rs.getMetaData();
+		int columnCount = metaData.getColumnCount();
+		Vector<String> columnLabels = new Vector<String>();
 
-		for (int col = 1; col <= metaData.getColumnCount(); col++) {
-			columnNames.add(metaData.getColumnLabel(col));
+		for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+			columnLabels.add(metaData.getColumnLabel(columnIndex));
 		}
 
-		Vector rows = new Vector();
-		Vector singleRow;
+		Vector<Vector<String>> rows = new Vector<Vector<String>>();
+		Vector<String> singleRow;
 		while (rs.next()) {
-			singleRow = new Vector();
-			for (int columnIndex = 1; columnIndex <= metaData.getColumnCount(); columnIndex++) {
-				singleRow.add(rs.getObject(columnIndex));
+			singleRow = new Vector<String>();
+			for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+				singleRow.add(""+rs.getObject(columnIndex));
 			}
 			rows.add(singleRow);
 		}
-		return new DefaultTableModel(rows, columnNames);
+		return new JTable(new DefaultTableModel(rows, columnLabels));
 	}
 }

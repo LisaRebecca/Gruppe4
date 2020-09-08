@@ -29,8 +29,8 @@ public class Tile extends JScrollPane {
     	
     	/** Erzeugen der JTable-Instanz inklusive Datenbankabfrage über die Klasse DatabaseConnector
     	 */
-    	JTable jt = new JTable(
-    				DatabaseConnector.executeDBQuery(select_statement)); 
+    	JTable jt = 
+    				DatabaseConnector.executeDBQuery(select_statement); 
     	
     	/** Optische Details: Tabellenrasterfarbe, Kachelhintergrund und Rahmenfarbe/-stärke der Kachel festgelegt
     	 */
@@ -39,23 +39,24 @@ public class Tile extends JScrollPane {
     	Border margin = new LineBorder(Color.gray,1);
     	this.setBorder(margin);
     	
-    	/** Erzeugen eines JLabels Title, welches die Kachelüberschrift aus dem Konstruktor übergeben bekommt
+    	/** Erzeugen eines JLabels jlbl_title, welches die Kachelüberschrift aus dem Konstruktor übergeben bekommt
     	 * Title wird die vorher definierte Schriftart font zugewiesen
     	 */
-		JLabel title = new JLabel(tileheader);
-    	title.setFont(font);
+		JLabel jlbl_title = new JLabel(tileheader);
+		jlbl_title.setFont(font);
     	
     	/** Jeweils zwei JViewport Instanzen für das Titellabel und die Tabelle der Kachel um beides in einer Kachel anzeigen zu können
     	 */
-    	JViewport titlepanel = new JViewport();
-    	titlepanel.add(title);
-    	JViewport tablepanel = new JViewport();
-    	tablepanel.add(jt);
+    	JViewport jvp_title = new JViewport();
+    	jvp_title.add(jlbl_title);
+    	jvp_title.add(jt.getTableHeader());
+    	JViewport jvp_table = new JViewport();
+    	jvp_table.add(jt);
 
-    	/**Der JViewport titlepanel wird nun dem ColumnHeader hinzugefügt und das tablepanel der View.
+    	/**Der JViewport jvp_title wird nun dem ColumnHeader hinzugefügt und das jvp_table der View.
     	 * So bewegt die vertikale Scollbar lediglich die Tabelle, während der Titel oben stehen bleibt.
     	 */
-    	this.setColumnHeader(titlepanel);
-    	this.setViewportView(tablepanel);
+    	this.setColumnHeader(jvp_title);
+    	this.setViewportView(jvp_table);
     }
 }
