@@ -13,7 +13,7 @@ import javax.swing.*;
  * internen Benutzeroberfläche für den Metzger. Darum muss die Klasse
  * UserInterface auch von JFrame erben.
  */
-public class UserInterface extends JFrame {
+public class Cockpit extends JFrame {
 
 	/**
 	 * Erzeugt und füllt die ContentPane mit einem JPanel im GridLayout mit 3
@@ -22,7 +22,7 @@ public class UserInterface extends JFrame {
 	 * Daten aus der Datenbank selektiert und in einer Tabelle angezeigt wird.
 	 * 
 	 */
-	public UserInterface() {
+	public Cockpit() {
 
 		/**
 		 * Containerinstanz wird als ContentPane gesetzt
@@ -74,7 +74,7 @@ public class UserInterface extends JFrame {
 	 */
 	public static void main(String[] args) throws IOException {
 
-		UserInterface ui = new UserInterface();
+		Cockpit ui = new Cockpit();
 		ui.setTitle("ButcherCockpit");
 		BufferedImage image = ImageIO.read(new URL(
 				"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
