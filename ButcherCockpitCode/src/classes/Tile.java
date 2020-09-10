@@ -14,7 +14,21 @@ public class Tile extends JScrollPane {
 	
 	/** Instanz der Klasse Font um die Titelschriftart auf Arial und Schriftgröße 18 zu setzen
 	 */
-	Font font = new Font("Arial",Font.PLAIN, 18);
+	private Font font = new Font("Arial",Font.PLAIN, 18);
+	
+	/** Instanz der Klasse Border um den Rahmen für die Kacheln festzulegen
+	 */
+	private Border margin = new LineBorder(Color.gray,1);
+	
+	/** Titel-JLabel
+	 */
+	JLabel jlbl_title;
+	
+	/** Jeweils eine JViewport Instanz für das Titellabel und die Tabelle der Kachel um beides in einer Kachel anzeigen zu können
+	 */
+	JViewport jvp_title;
+	JViewport jvp_table;
+	
 	
 	/** Erzeugt eine Kachel mit Tabelleninhalt und dazugehöriger Überschrift, sowie festgelegter Hintergrundfarbe und Rahmen
 	 * 
@@ -36,21 +50,20 @@ public class Tile extends JScrollPane {
     	 */
     	jt.setGridColor(Color.orange);
     	this.setBackground(Color.WHITE);
-    	Border margin = new LineBorder(Color.gray,1);
     	this.setBorder(margin);
     	
-    	/** Erzeugen eines JLabels jlbl_title, welches die Kachelüberschrift aus dem Konstruktor übergeben bekommt
+    	/** Titel-JLabel bekommt die Kachelüberschrift aus dem Konstruktor übergeben
     	 * Title wird die vorher definierte Schriftart font zugewiesen
     	 */
-		JLabel jlbl_title = new JLabel(tileheader);
+		jlbl_title = new JLabel(tileheader);
 		jlbl_title.setFont(font);
     	
-    	/** Jeweils zwei JViewport Instanzen für das Titellabel und die Tabelle der Kachel um beides in einer Kachel anzeigen zu können
-    	 */
-    	JViewport jvp_title = new JViewport();
+		/** Den JViewPorts werden die jeweiligen Elemente zugewiesen
+		 */
+    	jvp_title = new JViewport();
     	jvp_title.add(jlbl_title);
     	jvp_title.add(jt.getTableHeader());
-    	JViewport jvp_table = new JViewport();
+    	jvp_table = new JViewport();
     	jvp_table.add(jt);
 
     	/**Der JViewport jvp_title wird nun dem ColumnHeader hinzugefügt und das jvp_table der View.

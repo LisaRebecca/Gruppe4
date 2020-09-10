@@ -26,27 +26,37 @@ public class Automat extends JFrame {
 
 	/** Instanz der Klasse Font um die Titelschriftart auf Arial, Fett und Schriftgröße 20 zu setzen
 	 */
-	Font headerfont = new Font("Arial", Font.BOLD, 20);
+	private Font headerfont = new Font("Arial", Font.BOLD, 20);
 	
 	/** Instanziieren dreier JPanels, um die Automatenbestandteile voneinander abzugrenzen
 	 */
-	JPanel jp_mainPanel, jp_selectionPanel, jp_barPanel;
+	private JPanel jp_mainPanel, jp_selectionPanel, jp_barPanel;
 	
 	/** Instanziieren zweier JLabels für die UI-Beschreibung und der Berechnung des Gesamtbetrages der Bestellung
 	 */
-	JLabel jlbl_desc, jlbl_sum;
+	private JLabel jlbl_desc, jlbl_sum;
 	
 	/** Instanziieren eines Kaufbuttons
 	 */
-	JButton jb_buy;
+	private JButton jb_buy;
 	
 	/** Rahmeneinstellungen für die spätere ProductSelection-Instanz/den Warenkorb
 	 */
-	Border border = new LineBorder(Color.orange,1);
+	private Border border = new LineBorder(Color.orange,1);
 	
 	/** Instanziieren der ArrayList zum Abspeichern des Warenkorbs
 	 */
-	ArrayList<Produktauswahl> list_productSelection = new ArrayList<Produktauswahl>();
+	private ArrayList<Produktauswahl> list_productSelection = new ArrayList<Produktauswahl>();
+	
+	/** Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der Produkte (und ihrer Daten), die sich 
+	 * im Automaten befinden, darstellt
+	 */
+	private final String cus_sql = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
+			+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
+	
+	/** Erzeugen der JTable-Instanz inklusive Datenbankabfrage über die Klasse DatabaseConnector
+	 */
+	private JTable jt_obtainableProducts = DatabaseConnector.executeDBQuery(cus_sql);
 
 	/** Erzeugt das Automaten-UI inklusive Überschrift, entsprechender Tabelle, GesamtpreisLabel und KaufButton 
 	 * mit entsprechendem ActionListener. 
@@ -57,7 +67,7 @@ public class Automat extends JFrame {
 		 * Fängt eine IOException wenn das Iconbild, bzw. die dahinterstehende URL nicht gelesen werden konnte
 		 */
 		try {
-			BufferedImage image = ImageIO.read(new URL(
+			final BufferedImage image = ImageIO.read(new URL(
 					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
 			this.setIconImage(image);
 		} catch (IOException e1) {
@@ -96,15 +106,6 @@ public class Automat extends JFrame {
 		 */
 		jp_mainPanel.add(jp_selectionPanel);
 
-		/** Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der Produkte (und ihrer Daten), die sich 
-		 * im Automaten befinden, darstellt
-		 */
-		String cus_sql = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
-				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
-		
-		/** Erzeugen der JTable-Instanz inklusive Datenbankabfrage über die Klasse DatabaseConnector
-		 */
-		JTable jt_obtainableProducts = DatabaseConnector.executeDBQuery(cus_sql);
 
 		/** 
 		 */

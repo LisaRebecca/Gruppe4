@@ -5,10 +5,10 @@ package classes;
  * Metzgerei oder im Kühlautomat auf Lager befinden kann.
  */
 class Portion {
-	String name;
-	int lagermenge;
-	double portionspreis;
-	String haltbar;
+	public String name;
+	public int lagermenge;
+	public double portionspreis;
+	public String haltbar;
 	
 
 	public Portion(String name, String lagermenge, String haltbar_bis, String kilopreis, String gewicht_portion) {

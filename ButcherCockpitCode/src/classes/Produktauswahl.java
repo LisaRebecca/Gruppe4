@@ -12,20 +12,25 @@ public class Produktauswahl extends JPanel {
 	/**
 	 * Label für die ausgewählte Anzahl an Portionen.
 	 */
-	JLabel jlbl_amount;
+	private JLabel jlbl_amount;
 	/**
 	 * Der gesamte Preis für die ausgewählte Menge des Produkt.
 	 */
-	JLabel jlbl_preis;
+	private JLabel jlbl_preis;
 	/**
 	 * Das Produkt, welches in dieser Produktauswahl dargestellt wird ist eine
 	 * Portion.
 	 */
-	Portion portion;
+	private Portion portion;
 	/**
 	 * Instanziieren der Plus- und Minus-Buttons zum Auswählen der Menge eines Produkts.
 	 */
-	JButton jb_more, jb_less;
+	private JButton jb_more, jb_less;
+	
+	/** Instanziieren der Schriftart/-größe der Mengenanzeige
+	 */
+	private Font arial = new Font("Arial", Font.PLAIN, 18);
+	
 	
 	/**
 	 * Kontruktor, welcher alle Buttons erstellt und die Beschriftungen mit
@@ -36,7 +41,6 @@ public class Produktauswahl extends JPanel {
 	 */
 	public Produktauswahl(Portion portion) {
 		this.portion = portion;
-		Font arial = new Font("Arial", Font.PLAIN, 18);
 
 		this.setLayout(new GridLayout(1, 0));
 

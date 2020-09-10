@@ -17,6 +17,33 @@ import javax.swing.*;
 public class UserInterface extends JFrame {
 
 	/**
+	 * JPanelinstanz bekommt das GridLayout mit 3 Zeilen und 1 Spalte übergeben.
+	 */
+	private JPanel jp = new JPanel(new GridLayout(3, 1));
+	
+	/**
+	 * Tileinstanz mit dem passenden SQL Statement um den gesamten Lagerbestand aus
+	 * der Datenbank abzufragen
+	 */
+	Tile stock = new Tile("Lagerbestand Gesamt",
+			"SELECT name, produkt_id, haltbar_bis, lagerort, portionen, gewicht_portion from lagerbestand "
+					+ "left join produkte on lagerbestand.produkt = produkte.produkt_id;");
+	
+	/**
+	 * Tileinstanz mit dem passenden SQL Statement um das Produktportfolio, also die
+	 * gesamte Produkttabelle aus der Datenbank abzufragen 
+	 */
+	Tile products = new Tile("Produktportfolio", "SELECT * FROM Produkte;");
+	
+	/**
+	 * Tileinstanz mit dem passenden SQL Statement um den Füllstand des
+	 * Kühlautomaten aus der Datenbank abzufragen
+	 */
+	Tile automat = new Tile("Füllstand Kühlautomat",
+			"SELECT name, portionen, haltbar_bis, kilopreis, gewicht_portion FROM lagerbestand "
+					+ "LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
+	
+	/**
 	 * Erzeugt und füllt die ContentPane mit einem JPanel im GridLayout mit 3
 	 * Zeilen und 1 Spalte. Diesem werden jeweils Kacheln hinzugefügt, deren
 	 * Konstruktor ein SQL Statement übergeben wird, über das die benötigten
@@ -26,46 +53,20 @@ public class UserInterface extends JFrame {
 	public UserInterface() {
 
 		/**
-		 * Containerinstanz wird als ContentPane gesetzt
+		 * Containerinstanz wird als ContentPane gesetzt. 
+		 * Diesem wird das JPanel hinzugefügt
 		 */
 		Container c = getContentPane();
-
-		/**
-		 * JPanelinstanz bekommt das GridLayout mit 3 Zeilen und 1 Spalte übergeben.
-		 * Diese wird dem Container hinzugefügt.
-		 */
-		JPanel jp = new JPanel(new GridLayout(3, 1));
 		c.add(jp);
 
 		/**
-		 * Tileinstanz mit dem passenden SQL Statement um den gesamten Lagerbestand aus
-		 * der Datenbank abzufragen Diese wird dem JPanel hinzugefügt.
+		 * Hinzufügen der Tile-Instanzen zum JPanel
 		 */
-		Tile stock = new Tile("Lagerbestand Gesamt",
-				"SELECT name, produkt_id, haltbar_bis, lagerort, portionen, gewicht_portion from lagerbestand "
-						+ "left join produkte on lagerbestand.produkt = produkte.produkt_id;");
 		jp.add(stock);
-
-		/**
-		 * Tileinstanz mit dem passenden SQL Statement um das Produktportfolio, also die
-		 * gesamte Produkttabelle aus der Datenbank abzufragen Diese wird dem JPanel
-		 * hinzugefügt.
-		 */
-		Tile products = new Tile("Produktportfolio", "SELECT * FROM Produkte;");
 		jp.add(products);
-
-		/**
-		 * Tileinstanz mit dem passenden SQL Statement um den Füllstand des
-		 * Kühlautomaten aus der Datenbank abzufragen. Diese wird dem JPanel
-		 * hinzugefügt.
-		 */
-		Tile automat = new Tile("Füllstand Kühlautomat",
-				"SELECT name, portionen, haltbar_bis, kilopreis, gewicht_portion FROM lagerbestand "
-						+ "LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 		jp.add(automat);
 
 	}
-
 	/**
 	 * Erstellt eine Instanz des UserInterfaces, setzt Titel und Icon des Fensters,
 	 * sowie die Sichtbarkeit, Position, Größe, und DefaultCloseOperation.
@@ -77,7 +78,7 @@ public class UserInterface extends JFrame {
 
 		UserInterface ui = new UserInterface();
 		ui.setTitle("ButcherCockpit");
-		BufferedImage image;
+		final BufferedImage image;
 		try {
 			image = ImageIO.read(new URL(
 					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
