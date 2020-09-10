@@ -2,13 +2,18 @@ package classes;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.NumberFormat;
 import java.util.HashMap;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-public class Produktauswahl extends JPanel {
+public class Panel_Selection extends JPanel {
+	/**
+	 * Referenz auf den Automat welcher dieses Panel enthält.
+	 */
+	Automat automat;
 	/**
 	 * Label für die ausgewählte Anzahl an Portionen.
 	 */
@@ -23,10 +28,11 @@ public class Produktauswahl extends JPanel {
 	 */
 	Portion portion;
 	/**
-	 * Instanziieren der Plus- und Minus-Buttons zum Auswählen der Menge eines Produkts.
+	 * Instanziieren der Plus- und Minus-Buttons zum Auswählen der Menge eines
+	 * Produkts.
 	 */
 	JButton jb_more, jb_less;
-	
+
 	/**
 	 * Kontruktor, welcher alle Buttons erstellt und die Beschriftungen mit
 	 * Anfangswerten beschriftet.
@@ -34,8 +40,9 @@ public class Produktauswahl extends JPanel {
 	 * @param portion die zugehörige Instanz der Klasse Portion trägt die
 	 *                Eigenschaften des Produktes in sich.
 	 */
-	public Produktauswahl(Portion portion) {
+	public Panel_Selection(Portion portion, Automat automat) {
 		this.portion = portion;
+		this.automat = automat;
 		Font arial = new Font("Arial", Font.PLAIN, 18);
 
 		this.setLayout(new GridLayout(1, 0));
@@ -44,8 +51,8 @@ public class Produktauswahl extends JPanel {
 		 * Darstellen der Portion, welche zur Auswahl steht.
 		 */
 		this.add(new JLabel(portion.name, SwingConstants.LEFT));
-		this.add(new JLabel("" + portion.portionspreis + " €/Portion", SwingConstants.RIGHT));
-		this.add(new JLabel("  haltbar bis " + portion.haltbar, SwingConstants.RIGHT));
+		this.add(new JLabel("" + portion.kilopreis + " €/kg", SwingConstants.RIGHT));
+//		this.add(new JLabel("  haltbar bis " + portion.haltbar, SwingConstants.RIGHT));
 		this.add(new JLabel("" + portion.lagermenge + " mal auf Lager", SwingConstants.RIGHT));
 
 		// Ausgewählte Menge anzeigen
@@ -64,13 +71,15 @@ public class Produktauswahl extends JPanel {
 				int amount = Integer.parseInt(jlbl_amount.getText());
 				if (jb_source.getText().equals("+")) {
 					amount++;
+
 				} else if (jb_source.getText().equals("-")) {
 					amount--;
 				}
 
 				jlbl_amount.setText("" + amount);
-
 				aktualisierePreise();
+				automat.berechneGesamtpreis();
+
 				if (amount <= 0) {
 					jb_less.setVisible(false);
 				} else if (0 < amount & amount < portion.lagermenge) {
@@ -79,6 +88,7 @@ public class Produktauswahl extends JPanel {
 				} else if (amount >= portion.lagermenge) {
 					jb_more.setVisible(false);
 				}
+
 			}
 		};
 
@@ -86,7 +96,6 @@ public class Produktauswahl extends JPanel {
 		 * Button zum Erhöhen der Menge
 		 */
 		jb_more = new JButton("+");
-		jb_more.setSize(20, 20);
 		jb_more.setBackground(Color.white);
 		jb_more.addActionListener(bl);
 		this.add(jb_more);
@@ -95,13 +104,12 @@ public class Produktauswahl extends JPanel {
 		 * Button zum Vermindern der Menge
 		 */
 		jb_less = new JButton("-");
-		jb_less.setSize(20, 20);
 		jb_less.setBackground(Color.white);
 		jb_less.addActionListener(bl);
 		jb_less.setVisible(false);
 		this.add(jb_less);
 
-		jlbl_preis = new JLabel("", SwingConstants.CENTER);
+		jlbl_preis = new JLabel("0", SwingConstants.LEFT);
 		this.add(jlbl_preis);
 		this.setBackground(Color.LIGHT_GRAY);
 	}
@@ -110,9 +118,8 @@ public class Produktauswahl extends JPanel {
 	 * der gesamte Preis der ausgewälten Portionen wird aktualisiert
 	 */
 	public void aktualisierePreise() {
-		// Hier fehlt noch der Fall, dass jlbl_amount leer ist (tritt ein, Falls anzahl
-		// == 0)
-
-		jlbl_preis.setText("" + portion.portionspreis * Integer.parseInt(jlbl_amount.getText()) + " €");
+		NumberFormat formatter = NumberFormat.getInstance();
+		formatter.setMaximumFractionDigits(2);
+		jlbl_preis.setText("" + formatter.format(portion.portionspreis * Integer.parseInt(jlbl_amount.getText())));
 	}
 }
