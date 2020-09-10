@@ -43,7 +43,8 @@ public class Automat extends JFrame {
 	
 	/** Instanziieren zweier JLabels für die UI-Beschreibung und der Berechnung des Gesamtbetrages der Bestellung
 	 */
-	JLabel jlbl_desc, jlbl_sum;
+	JLabel jlbl_desc;
+	static JLabel jlbl_sum;
 	
 	/** Instanziieren eines Kaufbuttons
 	 */
@@ -204,7 +205,7 @@ public class Automat extends JFrame {
 			String preis = jlbl.jlbl_preis.getText();
 			preis= preis.replace(',', '.');
 			gesamtpreis = gesamtpreis + Double.parseDouble(preis);
-			sum_lbl.setText(""+ gesamtpreis);
+			jlbl_sum.setText(""+ gesamtpreis);
 		}
 	}
 	public static void berechneGesamtpreisminderung() {
@@ -212,7 +213,7 @@ public class Automat extends JFrame {
 			String preis = jlbl.jlbl_preis.getText();
 			preis= preis.replace(',', '.');
 			gesamtpreis = gesamtpreis - Double.parseDouble(preis);
-			sum_lbl.setText(""+ gesamtpreis);
+			jlbl_sum.setText(""+ gesamtpreis);
 		}
 	}
 
