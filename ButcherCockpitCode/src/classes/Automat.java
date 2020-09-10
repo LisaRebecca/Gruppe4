@@ -6,12 +6,17 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
 import java.util.ArrayList;
+import java.util.Date;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -186,6 +191,8 @@ public class Automat extends JFrame {
 			 * gedrückt, soll das Fenster geschlossen werden.
 			 * 
 			 */
+			
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String[] options = { "Ja, bezahlen", "Nein, zurück" };
@@ -197,6 +204,10 @@ public class Automat extends JFrame {
 					JOptionPane.showMessageDialog(null,
 							"Danke für Ihren Einkauf, der Kassenbetrag wurde von ihrer Gutscheinkarte abgezogen.",
 							"Danke!", JOptionPane.INFORMATION_MESSAGE);
+					Date date = new Date();
+					SimpleDateFormat simpleDateFormat = new SimpleDateFormat ("dd.MM.yyyy HH:mm:ss");
+					simpleDateFormat.format(date);
+					DatabaseConnector.executeDBQuery("(INSERT INTO Verkaeufe(verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( 1,'2020-09-10', '16:33:10', 10.23);");
 					System.exit(0);
 				}
 
