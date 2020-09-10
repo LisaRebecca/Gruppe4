@@ -1,4 +1,4 @@
-package classes;
+package view;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
