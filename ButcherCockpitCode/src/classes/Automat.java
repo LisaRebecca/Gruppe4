@@ -57,7 +57,7 @@ public class Automat extends JFrame {
 	/** Instanziieren der ArrayList zum Abspeichern des Warenkorbs
 
 	 */
-	static ArrayList<Produktauswahl> list_productSelection = new ArrayList<Produktauswahl>();
+	static ArrayList<Panel_Selection> list_productSelection = new ArrayList<Panel_Selection>();
 
 	/** Erzeugt das Automaten-UI inklusive Überschrift, entsprechender Tabelle, GesamtpreisLabel und KaufButton 
 	 * mit entsprechendem ActionListener. 
@@ -129,7 +129,7 @@ public class Automat extends JFrame {
 			Portion portion = new Portion("" + jt_obtainableProducts.getValueAt(row, 0),
 					"" + jt_obtainableProducts.getValueAt(row, 1), "" + jt_obtainableProducts.getValueAt(row, 2),
 					"" + jt_obtainableProducts.getValueAt(row, 3), "" + jt_obtainableProducts.getValueAt(row, 4));
-			Produktauswahl productSelection = new Produktauswahl(portion);
+			Panel_Selection productSelection = new Panel_Selection(portion);
 			productSelection.setBorder(border);
 			list_productSelection.add(productSelection); // Warenkorb
 			jp_selectionPanel.add(productSelection);
@@ -201,7 +201,7 @@ public class Automat extends JFrame {
 	
 	static double gesamtpreis = 0.00;
 	public static void berechneGesamtpreis() {
-		for(Produktauswahl jlbl: list_productSelection) {
+		for(Panel_Selection jlbl: list_productSelection) {
 			String preis = jlbl.jlbl_preis.getText();
 			preis= preis.replace(',', '.');
 			gesamtpreis = gesamtpreis + Double.parseDouble(preis);
@@ -209,7 +209,7 @@ public class Automat extends JFrame {
 		}
 	}
 	public static void berechneGesamtpreisminderung() {
-		for(Produktauswahl jlbl: list_productSelection) {
+		for(Panel_Selection jlbl: list_productSelection) {
 			String preis = jlbl.jlbl_preis.getText();
 			preis= preis.replace(',', '.');
 			gesamtpreis = gesamtpreis - Double.parseDouble(preis);

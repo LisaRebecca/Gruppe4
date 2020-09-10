@@ -9,7 +9,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-public class Produktauswahl extends JPanel {
+public class Panel_Selection extends JPanel {
 	/**
 	 * Label für die ausgewählte Anzahl an Portionen.
 	 */
@@ -35,7 +35,7 @@ public class Produktauswahl extends JPanel {
 	 * @param portion die zugehörige Instanz der Klasse Portion trägt die
 	 *                Eigenschaften des Produktes in sich.
 	 */
-	public Produktauswahl(Portion portion) {
+	public Panel_Selection(Portion portion) {
 		this.portion = portion;
 		Font arial = new Font("Arial", Font.PLAIN, 18);
 
