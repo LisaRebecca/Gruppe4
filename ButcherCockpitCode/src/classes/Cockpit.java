@@ -11,15 +11,15 @@ import javax.swing.*;
 
 /**
  * Die Klasse UserInterface dient der Darstellung des ButcherCockpits, also der
- * internen Benutzeroberfläche für den Metzger. Darum muss die Klasse
+ * internen BenutzeroberflÃ¤che fÃ¼r den Metzger. Darum muss die Klasse
  * UserInterface auch von JFrame erben.
  */
 public class Cockpit extends JFrame {
 
 	/**
-	 * Erzeugt und füllt die ContentPane mit einem JPanel im GridLayout mit 3
-	 * Zeilen und 1 Spalte. Diesem werden jeweils Kacheln hinzugefügt, deren
-	 * Konstruktor ein SQL Statement übergeben wird, über das die benötigten
+	 * Erzeugt und fÃ¼llt die ContentPane mit einem JPanel im GridLayout mit 3
+	 * Zeilen und 1 Spalte. Diesem werden jeweils Kacheln hinzugefÃ¼gt, deren
+	 * Konstruktor ein SQL Statement Ã¼bergeben wird, Ã¼ber das die benÃ¶tigten
 	 * Daten aus der Datenbank selektiert und in einer Tabelle angezeigt wird.
 	 * 
 	 */
@@ -34,9 +34,10 @@ public class Cockpit extends JFrame {
 		c.add(tabbedPane,BorderLayout.CENTER);
 
 		/**
-		 * JPanelinstanz bekommt das GridLayout mit 3 Zeilen und 1 Spalte übergeben.
-		 * Diese wird dem Container hinzugefügt.
+		 * JPanelinstanz bekommt das GridLayout mit 3 Zeilen und 1 Spalte Ã¼bergeben.
+		 * Diese wird dem Container hinzugefÃ¼gt.
 		 */
+
 		JPanel jp_1 = new JPanel();
 		jp_1.setBackground(Color.WHITE);
 		JPanel jp_2 = new JPanel();
@@ -46,13 +47,14 @@ public class Cockpit extends JFrame {
 		tabbedPane.add(jp_1);
 		tabbedPane.add(jp_2);
 		tabbedPane.add(jp_3);
-		
 
 		/**
 		 * Tileinstanz mit dem passenden SQL Statement um den gesamten Lagerbestand aus
-		 * der Datenbank abzufragen Diese wird dem JPanel hinzugefügt.
+		 * der Datenbank abzufragen Diese wird dem JPanel hinzugefÃ¼gt.
 		 */
-		Tile stock = new Tile("Lagerbestand Gesamt",
+		JLabel label_stock = new JLabel("Lagerbestand Gesamt");
+		jp.add(label_stock);
+		Tile stock = new Tile(
 				"SELECT name, produkt_id, haltbar_bis, lagerort, portionen, gewicht_portion from lagerbestand "
 						+ "left join produkte on lagerbestand.produkt = produkte.produkt_id;");
 		jp_1.add(stock);
@@ -60,17 +62,27 @@ public class Cockpit extends JFrame {
 		/**
 		 * Tileinstanz mit dem passenden SQL Statement um das Produktportfolio, also die
 		 * gesamte Produkttabelle aus der Datenbank abzufragen Diese wird dem JPanel
-		 * hinzugefügt.
+		 * hinzugefÃ¼gt.
 		 */
-		Tile products = new Tile("Produktportfolio", "SELECT * FROM Produkte;");
+
+
+		JLabel label_products = new JLabel("Produktportfolio");
+		jp.add(label_products);
+		Tile products = new Tile("SELECT * FROM Produkte;");
+		jp.add(products);
+
 		jp_2.add(products);
 
+
 		/**
-		 * Tileinstanz mit dem passenden SQL Statement um den Füllstand des
-		 * Kühlautomaten aus der Datenbank abzufragen. Diese wird dem JPanel
-		 * hinzugefügt.
+		 * Tileinstanz mit dem passenden SQL Statement um den FÃ¼llstand des
+		 * KÃ¼hlautomaten aus der Datenbank abzufragen. Diese wird dem JPanel
+		 * hinzugefÃ¼gt.
 		 */
-		Tile automat = new Tile("Füllstand Kühlautomat",
+
+		JLabel label_automat = new JLabel("FÃ¼llstand KÃ¼hlautomat");
+		jp.add(label_automat);
+		Tile automat = new Tile(
 				"SELECT name, portionen, haltbar_bis, kilopreis, gewicht_portion FROM lagerbestand "
 						+ "LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 		jp_3.add(automat);
@@ -85,9 +97,9 @@ public class Cockpit extends JFrame {
 
 	/**
 	 * Erstellt eine Instanz des UserInterfaces, setzt Titel und Icon des Fensters,
-	 * sowie die Sichtbarkeit, Position, Größe, und DefaultCloseOperation.
+	 * sowie die Sichtbarkeit, Position, GrÃ¶ÃŸe, und DefaultCloseOperation.
 	 * 
-	 * fängt eine IOException und eine MalformedURLException, wenn das Iconbild, 
+	 * fÃ¤ngt eine IOException und eine MalformedURLException, wenn das Iconbild, 
 	 * bzw. die dahinterstehende URL nicht gelesen werden konnte
 	 */
 	public static void main(String[] args) {
