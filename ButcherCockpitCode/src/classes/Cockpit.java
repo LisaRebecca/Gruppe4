@@ -34,14 +34,16 @@ public class Cockpit extends JFrame {
 		 * JPanelinstanz bekommt das GridLayout mit 3 Zeilen und 1 Spalte übergeben.
 		 * Diese wird dem Container hinzugefügt.
 		 */
-		JPanel jp = new JPanel(new GridLayout(3, 1));
+		JPanel jp = new JPanel(new GridLayout(6, 1));
 		c.add(jp);
 
 		/**
 		 * Tileinstanz mit dem passenden SQL Statement um den gesamten Lagerbestand aus
 		 * der Datenbank abzufragen Diese wird dem JPanel hinzugefügt.
 		 */
-		Tile stock = new Tile("Lagerbestand Gesamt",
+		JLabel label_stock = new JLabel("Lagerbestand Gesamt");
+		jp.add(label_stock);
+		Tile stock = new Tile(
 				"SELECT name, produkt_id, haltbar_bis, lagerort, portionen, gewicht_portion from lagerbestand "
 						+ "left join produkte on lagerbestand.produkt = produkte.produkt_id;");
 		jp.add(stock);
@@ -51,7 +53,10 @@ public class Cockpit extends JFrame {
 		 * gesamte Produkttabelle aus der Datenbank abzufragen Diese wird dem JPanel
 		 * hinzugefügt.
 		 */
-		Tile products = new Tile("Produktportfolio", "SELECT * FROM Produkte;");
+
+		JLabel label_products = new JLabel("Produktportfolio");
+		jp.add(label_products);
+		Tile products = new Tile("SELECT * FROM Produkte;");
 		jp.add(products);
 
 		/**
@@ -59,7 +64,10 @@ public class Cockpit extends JFrame {
 		 * Kühlautomaten aus der Datenbank abzufragen. Diese wird dem JPanel
 		 * hinzugefügt.
 		 */
-		Tile automat = new Tile("Füllstand Kühlautomat",
+
+		JLabel label_automat = new JLabel("Füllstand Kühlautomat");
+		jp.add(label_automat);
+		Tile automat = new Tile(
 				"SELECT name, portionen, haltbar_bis, kilopreis, gewicht_portion FROM lagerbestand "
 						+ "LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 		jp.add(automat);

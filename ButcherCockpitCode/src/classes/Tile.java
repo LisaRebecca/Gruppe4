@@ -22,7 +22,7 @@ public class Tile extends JScrollPane {
 	 * @param select_statement legt das SQL-Statement fest, das den Tabelleninhalt der Kachel bestimmt
 	 */
 	
-    public Tile (String tileheader, String select_statement) {
+    public Tile (String select_statement) {
     	
     	/** der header Variablen wird der zugehörige String aus dem Konstruktoraufruf übergeben
     	 */
@@ -42,13 +42,10 @@ public class Tile extends JScrollPane {
     	/** Erzeugen eines JLabels jlbl_title, welches die Kachelüberschrift aus dem Konstruktor übergeben bekommt
     	 * Title wird die vorher definierte Schriftart font zugewiesen
     	 */
-		JLabel jlbl_title = new JLabel(tileheader);
-		jlbl_title.setFont(font);
     	
     	/** Jeweils zwei JViewport Instanzen für das Titellabel und die Tabelle der Kachel um beides in einer Kachel anzeigen zu können
     	 */
     	JViewport jvp_title = new JViewport();
-    	jvp_title.add(jlbl_title);
     	jvp_title.add(jt.getTableHeader());
     	JViewport jvp_table = new JViewport();
     	jvp_table.add(jt);
