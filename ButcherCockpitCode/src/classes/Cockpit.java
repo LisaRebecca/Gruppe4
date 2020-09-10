@@ -29,13 +29,24 @@ public class Cockpit extends JFrame {
 		 * Containerinstanz wird als ContentPane gesetzt
 		 */
 		Container c = getContentPane();
+		c.setLayout(new BorderLayout());
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
+		c.add(tabbedPane,BorderLayout.CENTER);
 
 		/**
 		 * JPanelinstanz bekommt das GridLayout mit 3 Zeilen und 1 Spalte übergeben.
 		 * Diese wird dem Container hinzugefügt.
 		 */
-		JPanel jp = new JPanel(new GridLayout(3, 1));
-		c.add(jp);
+		JPanel jp_1 = new JPanel();
+		jp_1.setBackground(Color.WHITE);
+		JPanel jp_2 = new JPanel();
+		jp_2.setBackground(Color.WHITE);
+		JPanel jp_3 = new JPanel();
+		jp_3.setBackground(Color.WHITE);
+		tabbedPane.add(jp_1);
+		tabbedPane.add(jp_2);
+		tabbedPane.add(jp_3);
+		
 
 		/**
 		 * Tileinstanz mit dem passenden SQL Statement um den gesamten Lagerbestand aus
@@ -44,7 +55,7 @@ public class Cockpit extends JFrame {
 		Tile stock = new Tile("Lagerbestand Gesamt",
 				"SELECT name, produkt_id, haltbar_bis, lagerort, portionen, gewicht_portion from lagerbestand "
 						+ "left join produkte on lagerbestand.produkt = produkte.produkt_id;");
-		jp.add(stock);
+		jp_1.add(stock);
 
 		/**
 		 * Tileinstanz mit dem passenden SQL Statement um das Produktportfolio, also die
@@ -52,7 +63,7 @@ public class Cockpit extends JFrame {
 		 * hinzugefügt.
 		 */
 		Tile products = new Tile("Produktportfolio", "SELECT * FROM Produkte;");
-		jp.add(products);
+		jp_2.add(products);
 
 		/**
 		 * Tileinstanz mit dem passenden SQL Statement um den Füllstand des
@@ -62,8 +73,14 @@ public class Cockpit extends JFrame {
 		Tile automat = new Tile("Füllstand Kühlautomat",
 				"SELECT name, portionen, haltbar_bis, kilopreis, gewicht_portion FROM lagerbestand "
 						+ "LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
-		jp.add(automat);
-
+		jp_3.add(automat);
+		
+		/** Der JTabbedPane die erstellten JPanels hinzufuegen
+		 * 
+		 */
+		tabbedPane.add("Stock",jp_1);
+		tabbedPane.add("Products",jp_2);
+		tabbedPane.add("Automat",jp_3);
 	}
 
 	/**

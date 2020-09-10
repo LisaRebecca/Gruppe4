@@ -23,6 +23,7 @@ public class Panel_Selection extends JPanel {
 	 * Portion.
 	 */
 	Portion portion;
+	Automat automat;
 	/**
 	 * Instanziieren der Plus- und Minus-Buttons zum Auswählen der Menge eines Produkts.
 	 */
@@ -35,8 +36,9 @@ public class Panel_Selection extends JPanel {
 	 * @param portion die zugehörige Instanz der Klasse Portion trägt die
 	 *                Eigenschaften des Produktes in sich.
 	 */
-	public Panel_Selection(Portion portion) {
+	public Panel_Selection(Portion portion, Automat automat) {
 		this.portion = portion;
+		this.automat= automat;
 		Font arial = new Font("Arial", Font.PLAIN, 18);
 
 		this.setLayout(new GridLayout(1, 0));
@@ -65,16 +67,14 @@ public class Panel_Selection extends JPanel {
 				int amount = Integer.parseInt(jlbl_amount.getText());
 				if (jb_source.getText().equals("+")) {
 					amount++;
-					jlbl_amount.setText("" + amount);
-					aktualisierePreise();
-					Automat.berechneGesamtpreis();
+					
 				} else if (jb_source.getText().equals("-")) {
 					amount--;
-					jlbl_amount.setText("" + amount);
-					aktualisierePreise();
-					Automat.berechneGesamtpreisminderung();
 				}
-
+				
+				jlbl_amount.setText("" + amount);
+				aktualisierePreise();
+				automat.berechneGesamtpreis();
 				
 
 				
