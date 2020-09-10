@@ -9,6 +9,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import classes.Automat;
+
 public class Panel_Selection extends JPanel {
 	/**
 	 * Referenz auf den Automat welcher dieses Panel enthält.

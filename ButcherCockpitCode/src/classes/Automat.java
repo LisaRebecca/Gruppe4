@@ -1,4 +1,4 @@
-package view;
+package classes;
 import controller.DatabaseConnector;
 import controller.Portion;
 import java.awt.*;
