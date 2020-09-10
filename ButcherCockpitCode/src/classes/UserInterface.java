@@ -88,8 +88,7 @@ public class UserInterface extends JFrame {
 			System.err.println("Icon des Automaten konnte nicht geladen werden.");
 		}
 		ui.setVisible(true);
-		ui.setLocation(50, 420);
-		ui.setSize(700, 400);
+		ui.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		ui.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 }
