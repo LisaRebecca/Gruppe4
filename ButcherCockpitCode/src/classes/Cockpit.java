@@ -44,9 +44,12 @@ public class Cockpit extends JFrame {
 		jp_2.setBackground(Color.WHITE);
 		JPanel jp_3 = new JPanel();
 		jp_3.setBackground(Color.WHITE);
+		JPanel jp_4 = new JPanel();
+		jp_4.setBackground(Color.WHITE);
 		tabbedPane.add(jp_1);
 		tabbedPane.add(jp_2);
 		tabbedPane.add(jp_3);
+		tabbedPane.add(jp_4);
 
 		/**
 		 * Tileinstanz mit dem passenden SQL Statement um den gesamten Lagerbestand aus
@@ -83,6 +86,11 @@ public class Cockpit extends JFrame {
 		Tile automat = new Tile("SELECT name, portionen, haltbar_bis, kilopreis, gewicht_portion FROM lagerbestand "
 				+ "LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 		jp_3.add(automat);
+		
+		JLabel label_verkaeufe = new JLabel("Verkäufe Kühlautomat");
+		jp_4.add(label_verkaeufe);
+		Tile verkaeufe = new Tile ("SELECT * FROM Verkaeufe;");
+		jp_4.add(verkaeufe);
 
 		/**
 		 * Der JTabbedPane die erstellten JPanels hinzufuegen
@@ -91,6 +99,7 @@ public class Cockpit extends JFrame {
 		tabbedPane.add("Stock", jp_1);
 		tabbedPane.add("Products", jp_2);
 		tabbedPane.add("Automat", jp_3);
+		tabbedPane.add("Verkäufe", jp_4);
 	}
 
 	/**
