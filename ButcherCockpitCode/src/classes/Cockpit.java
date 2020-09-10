@@ -31,7 +31,7 @@ public class Cockpit extends JFrame {
 		Container c = getContentPane();
 		c.setLayout(new BorderLayout());
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
-		c.add(tabbedPane,BorderLayout.CENTER);
+		c.add(tabbedPane, BorderLayout.CENTER);
 
 		/**
 		 * JPanelinstanz bekommt das GridLayout mit 3 Zeilen und 1 Spalte übergeben.
@@ -53,7 +53,7 @@ public class Cockpit extends JFrame {
 		 * der Datenbank abzufragen Diese wird dem JPanel hinzugefügt.
 		 */
 		JLabel label_stock = new JLabel("Lagerbestand Gesamt");
-		jp.add(label_stock);
+		jp_1.add(label_stock);
 		Tile stock = new Tile(
 				"SELECT name, produkt_id, haltbar_bis, lagerort, portionen, gewicht_portion from lagerbestand "
 						+ "left join produkte on lagerbestand.produkt = produkte.produkt_id;");
@@ -65,14 +65,12 @@ public class Cockpit extends JFrame {
 		 * hinzugefügt.
 		 */
 
-
 		JLabel label_products = new JLabel("Produktportfolio");
-		jp.add(label_products);
+		jp_2.add(label_products);
 		Tile products = new Tile("SELECT * FROM Produkte;");
-		jp.add(products);
-
 		jp_2.add(products);
 
+		jp_2.add(products);
 
 		/**
 		 * Tileinstanz mit dem passenden SQL Statement um den Füllstand des
@@ -80,26 +78,26 @@ public class Cockpit extends JFrame {
 		 * hinzugefügt.
 		 */
 
-		JLabel label_automat = new JLabel("Füllstand Kühlautomat");
-		jp.add(label_automat);
-		Tile automat = new Tile(
-				"SELECT name, portionen, haltbar_bis, kilopreis, gewicht_portion FROM lagerbestand "
-						+ "LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
+		JLabel label_automat = new JLabel("F�llstand K�hlautomat");
+		jp_3.add(label_automat);
+		Tile automat = new Tile("SELECT name, portionen, haltbar_bis, kilopreis, gewicht_portion FROM lagerbestand "
+				+ "LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 		jp_3.add(automat);
-		
-		/** Der JTabbedPane die erstellten JPanels hinzufuegen
+
+		/**
+		 * Der JTabbedPane die erstellten JPanels hinzufuegen
 		 * 
 		 */
-		tabbedPane.add("Stock",jp_1);
-		tabbedPane.add("Products",jp_2);
-		tabbedPane.add("Automat",jp_3);
+		tabbedPane.add("Stock", jp_1);
+		tabbedPane.add("Products", jp_2);
+		tabbedPane.add("Automat", jp_3);
 	}
 
 	/**
 	 * Erstellt eine Instanz des UserInterfaces, setzt Titel und Icon des Fensters,
 	 * sowie die Sichtbarkeit, Position, Größe, und DefaultCloseOperation.
 	 * 
-	 * fängt eine IOException und eine MalformedURLException, wenn das Iconbild, 
+	 * fängt eine IOException und eine MalformedURLException, wenn das Iconbild,
 	 * bzw. die dahinterstehende URL nicht gelesen werden konnte
 	 */
 	public static void main(String[] args) {
@@ -117,7 +115,7 @@ public class Cockpit extends JFrame {
 			System.err.println("Icon des Automaten konnte nicht geladen werden.");
 		}
 		ui.setVisible(true);
-		ui.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		ui.setSize(500, 550);
 		ui.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 }
