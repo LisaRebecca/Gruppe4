@@ -8,6 +8,7 @@ class Portion {
 	String name;
 	int lagermenge;
 	double portionspreis;
+	double kilopreis;
 	/**
 	 * Das Mindesthaltbarkeitsdatum
 	 */
@@ -25,6 +26,7 @@ class Portion {
 	public Portion(String name, String lagermenge, String haltbar_bis, String kilopreis, String gewicht_portion) {
 		this.name = name;
 		this.haltbar = haltbar_bis;
+		this.kilopreis = Double.parseDouble(kilopreis);
 		try {
 			this.portionspreis = Double.parseDouble(kilopreis) * Double.parseDouble(gewicht_portion);
 			this.lagermenge = Integer.parseInt(lagermenge);

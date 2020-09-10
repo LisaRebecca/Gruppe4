@@ -34,14 +34,6 @@ public class Automat extends JFrame {
 	 */
 	Font headerfont = new Font("Arial", Font.BOLD, 20);
 
-	// JPanel mainPanel, selectionPanel, barPanel;
-	// JLabel descr_lbl; static JLabel sum_lbl;
-	// JButton buy_btn;
-
-	/**
-	 * Warenkorb
-	 */
-
 	/**
 	 * Instanziieren dreier JPanels, um die Automatenbestandteile voneinander
 	 * abzugrenzen
@@ -94,9 +86,9 @@ public class Automat extends JFrame {
 		 * Automaten-Windows festgelegt
 		 * 
 		 */
-		this.setTitle("KÃ¼hlautomat");
+		this.setTitle("Kühlautomat");
 		this.setVisible(true);
-		this.setSize(1400, 400);
+		this.setSize(1200, 400);
 		this.setLocation(50, 20);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -144,12 +136,16 @@ public class Automat extends JFrame {
 		JTable jt_obtainableProducts = DatabaseConnector.executeDBQuery(cus_sql);
 
 		/**
-		 * HinzufÃ¼gen der Portionen, Darstellung der Eigenschaften in Labels
+		 * Hinzufügen der Portionen, Darstellung der Eigenschaften in Labels
 		 */
 		for (int row = 0; row < jt_obtainableProducts.getRowCount(); row++) {
-			Portion portion = new Portion("" + jt_obtainableProducts.getValueAt(row, 0),
-					"" + jt_obtainableProducts.getValueAt(row, 1), "" + jt_obtainableProducts.getValueAt(row, 2),
-					"" + jt_obtainableProducts.getValueAt(row, 3), "" + jt_obtainableProducts.getValueAt(row, 4));
+			Portion portion = new Portion(
+					"" + jt_obtainableProducts.getValueAt(row, 0), 	//name
+					"" + jt_obtainableProducts.getValueAt(row, 1), 	//portionen
+					"" + jt_obtainableProducts.getValueAt(row, 2), 	//haltbar_bis
+					"" + jt_obtainableProducts.getValueAt(row, 3), 	//kilopreis
+					"" + jt_obtainableProducts.getValueAt(row, 4)	//gewicht_portion
+					);
 			Panel_Selection productSelection = new Panel_Selection(portion, this);
 			productSelection.setBorder(border);
 			list_productSelection.add(productSelection); // Warenkorb
@@ -234,7 +230,7 @@ public class Automat extends JFrame {
 			gesamtpreis += Double.parseDouble(preis);
 			NumberFormat formatter = NumberFormat.getInstance();
 			formatter.setMaximumFractionDigits(2);
-			jlbl_sum.setText("" +formatter.format(gesamtpreis ) + " €");
+			jlbl_sum.setText("" + formatter.format(gesamtpreis) + " €");
 		}
 	}
 
