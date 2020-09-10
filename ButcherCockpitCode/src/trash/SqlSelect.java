@@ -1,7 +1,7 @@
 package trash;
 import java.sql.*;
 
-import classes.DatabaseConnection;
+import controller.DatabaseConnection;
 
 public class SqlSelect {
 	public static ResultSet getData() {

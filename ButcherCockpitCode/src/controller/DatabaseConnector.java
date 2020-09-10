@@ -1,4 +1,4 @@
-package classes;
+package controller;
 
 import java.sql.*;
 import java.util.Observable;

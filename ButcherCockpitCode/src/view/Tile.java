@@ -1,4 +1,4 @@
-package classes;
+package view;
 
 import java.awt.*;
 import java.sql.*;
@@ -7,6 +7,8 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.table.DefaultTableModel;
+
+import controller.DatabaseConnector;
 
 /**
  * Die Klasse Tile dient der einheitlichen Darstellungweise der im UserInterface
