@@ -1,5 +1,5 @@
-package classes;
-
+package view;
+import controller.Portion;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.NumberFormat;
@@ -8,6 +8,8 @@ import java.util.HashMap;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+
+import classes.Automat;
 
 public class Panel_Selection extends JPanel {
 	/**
@@ -50,10 +52,10 @@ public class Panel_Selection extends JPanel {
 		/**
 		 * Darstellen der Portion, welche zur Auswahl steht.
 		 */
-		this.add(new JLabel(portion.name, SwingConstants.LEFT));
-		this.add(new JLabel("" + portion.kilopreis + " €/kg", SwingConstants.RIGHT));
+		this.add(new JLabel(portion.getName(), SwingConstants.LEFT));
+		this.add(new JLabel("" + portion.getKilopreis() + " €/kg", SwingConstants.RIGHT));
 //		this.add(new JLabel("  haltbar bis " + portion.haltbar, SwingConstants.RIGHT));
-		this.add(new JLabel("" + portion.lagermenge + " mal auf Lager", SwingConstants.RIGHT));
+		this.add(new JLabel("" + portion.getLagermenge() + " mal auf Lager", SwingConstants.RIGHT));
 
 		// Ausgewählte Menge anzeigen
 		jlbl_amount = new JLabel("0", SwingConstants.CENTER);
@@ -82,10 +84,10 @@ public class Panel_Selection extends JPanel {
 
 				if (amount <= 0) {
 					jb_less.setVisible(false);
-				} else if (0 < amount & amount < portion.lagermenge) {
+				} else if (0 < amount & amount < portion.getLagermenge()) {
 					jb_less.setVisible(true);
 					jb_more.setVisible(true);
-				} else if (amount >= portion.lagermenge) {
+				} else if (amount >= portion.getLagermenge()) {
 					jb_more.setVisible(false);
 				}
 
@@ -120,6 +122,6 @@ public class Panel_Selection extends JPanel {
 	public void aktualisierePreise() {
 		NumberFormat formatter = NumberFormat.getInstance();
 		formatter.setMaximumFractionDigits(2);
-		jlbl_preis.setText("" + formatter.format(portion.portionspreis * Integer.parseInt(jlbl_amount.getText())));
+		jlbl_preis.setText("" + formatter.format(portion.getPortionspreis() * Integer.parseInt(jlbl_amount.getText())));
 	}
 }

@@ -1,7 +1,9 @@
-package classes;
+package controller;
 
 import java.awt.*;
 import javax.swing.*;
+
+import view.Tile;
 
 public class DatabaseConnectorTest extends JFrame{
 	public DatabaseConnectorTest() {

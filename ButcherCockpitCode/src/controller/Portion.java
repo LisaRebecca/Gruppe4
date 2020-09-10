@@ -1,10 +1,11 @@
-package classes;
+package controller;
 
 /**
  * Die Klasse Portion modelliert ein abgepacktes Produkt, welches sich in der
  * Metzgerei oder im Kühlautomat auf Lager befinden kann.
  */
-class Portion {
+public class Portion {
+
 	String name;
 	int lagermenge;
 	double portionspreis;
@@ -40,6 +41,40 @@ class Portion {
 	 */
 	@Override
 	public String toString() {
-		return name + ",  " + portionspreis + "€/Portion,  " + haltbar;
+		return getName() + ",  " + portionspreis + "€/Portion,  " + haltbar;
+	}
+/**
+ * 
+ * @return name den Produktname
+ */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * @return the lagermenge
+	 */
+	public int getLagermenge() {
+		return lagermenge;
+	}
+	
+	/**
+	 * @return the portionspreis
+	 */
+	public double getPortionspreis() {
+		return portionspreis;
+	}
+	
+	/**
+	 * @return the kilopreis
+	 */
+	public double getKilopreis() {
+		return kilopreis;
+	}
+	
+	/**
+	 * @return the haltbar
+	 */
+	public String getHaltbar() {
+		return haltbar;
 	}
 }

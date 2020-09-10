@@ -1,4 +1,4 @@
-package classes;
+package controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,7 +26,7 @@ public class DatabaseConnection {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				connection = DriverManager
-						.getConnection("jdbc:mysql://localhost:3306/metzgerei?user=root&password=HFleischer");
+						.getConnection("jdbc:mysql://localhost:3306/metzgerei?user=root&password=sequel");
 			} catch (ClassNotFoundException cnf) {
 				cnf.printStackTrace();
 				System.err.println("MySQL-Driver not found.");
