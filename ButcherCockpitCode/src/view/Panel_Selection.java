@@ -53,7 +53,7 @@ public class Panel_Selection extends JPanel {
 		this.add(new JLabel(portion.getName(), SwingConstants.LEFT));
 		this.add(new JLabel("" + portion.getKilopreis() + " €/kg", SwingConstants.RIGHT));
 //		this.add(new JLabel("  haltbar bis " + portion.haltbar, SwingConstants.RIGHT));
-		this.add(new JLabel("" + portion.getLagermenge() + " mal auf Lager", SwingConstants.RIGHT));
+		this.add(new JLabel("" + portion.getLagermenge() + " Portionen á "+ this.portion.getPortionsgewichtGramm() + "g auf Lager", SwingConstants.RIGHT));
 
 		// Ausgewählte Menge anzeigen
 		jlbl_amount = new JLabel("0", SwingConstants.CENTER);
