@@ -58,9 +58,7 @@ public class Cockpit extends JFrame {
 		JLabel label_stock = new JLabel("Lagerbestand Gesamt");
 		jp_1.add(label_stock);
 		Tile stock = new Tile(
-				"SELECT name as Produktname, produkt_id as 'Produkt-ID', haltbar_bis as Haltbarkeitsdatum, lagerort as Lagerort, "
-				+ "portionen as Portion, gewicht_portion as Portionsgewicht from lagerbestand "
-						+ "left join produkte on lagerbestand.produkt = produkte.produkt_id;");
+				"SELECT name as Produktname, produkt_id as 'Produkt-ID', haltbar_bis as Haltbarkeit, lagerort as Lagerort, portionen as Vorraetig, gewicht_portion as '[kg/Portion]' from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id;");
 		jp_1.add(stock);
 
 		/**
@@ -71,7 +69,8 @@ public class Cockpit extends JFrame {
 
 		JLabel label_products = new JLabel("Produktportfolio");
 		jp_2.add(label_products);
-		Tile products = new Tile("SELECT name as Produktname, produkt_id as 'Produkt-ID' , kilopreis as 'Kilopreis [€/kg]', gewicht_portion as Portionsgewicht FROM Produkte;");
+		Tile products = new Tile(
+				"SELECT name as Produktname, produkt_id as 'Produkt-ID' , kilopreis as '[€/kg]', gewicht_portion as '[kg/Portion]' FROM Produkte;");
 		jp_2.add(products);
 
 		jp_2.add(products);
@@ -84,13 +83,13 @@ public class Cockpit extends JFrame {
 
 		JLabel label_automat = new JLabel("Füllstand Kühlautomat");
 		jp_3.add(label_automat);
-		Tile automat = new Tile("SELECT name as Produktname, portionen as Portion, haltbar_bis as Haltbarkeitsdatum, kilopreis 'Kilopreis [€/kg]', gewicht_portion 'Gewicht [kg/Portion]' FROM lagerbestand "
-						+ "LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
+		Tile automat = new Tile(
+				"SELECT name as Produktname, produkt_id as 'Produkt-ID', haltbar_bis as Haltbarkeit, lagerort as Lagerort, portionen as Vorraetig, gewicht_portion as '[kg/Portion]' from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 		jp_3.add(automat);
-		
+
 		JLabel label_verkaeufe = new JLabel("Verkäufe Kühlautomat");
 		jp_4.add(label_verkaeufe);
-		Tile verkaeufe = new Tile ("SELECT * FROM Verkaeufe;");
+		Tile verkaeufe = new Tile("SELECT * FROM Verkaeufe;");
 		jp_4.add(verkaeufe);
 
 		/**
