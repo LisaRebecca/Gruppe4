@@ -120,6 +120,9 @@ public class Panel_Selection extends JPanel {
 	public void aktualisierePreise() {
 		NumberFormat formatter = NumberFormat.getInstance();
 		formatter.setMaximumFractionDigits(2);
-		jlbl_preis.setText("" + formatter.format(portion.getPortionspreis() * Integer.parseInt(jlbl_amount.getText())));
+		jlbl_preis.setText("" + formatter.format(portion.getPortionspreis() * Integer.parseInt(jlbl_amount.getText()))); //€ anfügen
+	}
+	public double getPreis() {
+		return 0.00; //€ abschneiden
 	}
 }
