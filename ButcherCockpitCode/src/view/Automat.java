@@ -165,7 +165,7 @@ public class Automat extends JFrame {
 		/**
 		 * Anzeige der Gesamtsumme
 		 */
-		jlbl_sum = new JLabel("Gesamtpreis: ____â‚¬");
+		jlbl_sum = new JLabel("0.00€");
 		jp_barPanel.add(jlbl_sum);
 
 		/**
@@ -238,8 +238,8 @@ public class Automat extends JFrame {
 	public void berechneGesamtpreis() {
 		gesamtpreis = 0.00;
 		for (Panel_Selection selection : list_productSelection) {
-			String preis = selection.jlbl_preis.getText().replace(',', '.'); // getPreis() aufrufen
-			gesamtpreis += Double.parseDouble(preis);
+			double preis = selection.getPreis();
+			gesamtpreis += preis;
 			NumberFormat formatter = NumberFormat.getInstance();
 			formatter.setMaximumFractionDigits(2);
 			jlbl_sum.setText("" + formatter.format(gesamtpreis) + " €");
