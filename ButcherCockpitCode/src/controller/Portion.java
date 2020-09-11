@@ -8,24 +8,22 @@ import java.text.NumberFormat;
  */
 public class Portion {
 
-	String name;
-	int lagermenge;
-	double portionspreis;
-	double kilopreis;
-	double portionsgewicht;
-	/**
-	 * Das Mindesthaltbarkeitsdatum
-	 */
-	String haltbar;
+	public String name;
+	public int lagermenge;
+	public double portionspreis;
+	public double kilopreis;
+	public double portionsgewicht;
+	public String haltbar;
 
 	/**
-	 * Konstruktor, welcher
+	 * Konstruktor, welcher Produktname, Lagermenge, Mindesthaltbarkeit, Kilopreis
+	 * und Portionsgewicht übergeben bekommt 
 	 * 
-	 * @param name
-	 * @param lagermenge
-	 * @param haltbar_bis
-	 * @param kilopreis
-	 * @param gewicht_portion
+	 * @param name Produktname
+	 * @param lagermenge zurzeit gelagerte Menge eines Produkts
+	 * @param haltbar_bis Mindesthaltbarkeitsdatum eines Produkts
+	 * @param kilopreis Preis pro Kilo des Produkts
+	 * @param gewicht_portion Gewicht das bei einem speziellen Produkt eine Portion ausmacht
 	 */
 	public Portion(String name, String lagermenge, String haltbar_bis, String kilopreis, String gewicht_portion) {
 		this.name = name;
