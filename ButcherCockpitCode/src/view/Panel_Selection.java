@@ -1,69 +1,66 @@
 package view;
+
 import controller.Portion;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.NumberFormat;
-import java.util.HashMap;
-
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 
+@SuppressWarnings("serial")
 public class Panel_Selection extends JPanel {
 	/**
-	 * Referenz auf den Automat welcher dieses Panel enth‰lt.
+	 * Automat welcher dieses Panel enth√§lt.
 	 */
 	Automat automat;
 	/**
-	 * Label f¸r die ausgew‰hlte Anzahl an Portionen.
+	 * Label f√ºr die ausgew√§hlte Anzahl an Portionen.
 	 */
 	JLabel jlbl_amount;
 	/**
-	 * Der gesamte Preis f¸r die ausgew‰hlte Menge des Produkt.
+	 * Der gesamte Preis f√ºr die ausgew√§hlte Menge des Produkts.
 	 */
 	JLabel jlbl_preis;
 	/**
-	 * Das Produkt, welches in dieser Produktauswahl dargestellt wird ist eine
-	 * Portion.
+	 * Das Produkt kann als einzelne {@link Portion} ausgew√§hlt werden.
 	 */
 	Portion portion;
 	/**
-	 * Instanziieren der Plus- und Minus-Buttons zum Ausw‰hlen der Menge eines
-	 * Produkts.
+	 * Buttons zum Ver√§ndern der ausgew√§hlten Menge des Produktes.
 	 */
 	JButton jb_more, jb_less;
 
 	/**
-	 * Kontruktor, welcher alle Buttons erstellt und die Beschriftungen mit
-	 * Anfangswerten beschriftet.
+	 * Kontruktor, welcher alle Buttons erstellt und die Labels mit Initialwerten
+	 * beschriftet.
 	 * 
-	 * @param portion die zugehˆrige Instanz der Klasse Portion tr‰gt die
-	 *                Eigenschaften des Produktes in sich.
+	 * @param portion das darzustellende Produkt als einzelne {@link Portion}
 	 */
 	public Panel_Selection(Portion portion, Automat automat) {
 		this.portion = portion;
 		this.automat = automat;
-		Font arial = new Font("Arial", Font.PLAIN, 18);
 
 		this.setLayout(new GridLayout(1, 0));
+		this.setBackground(Color.LIGHT_GRAY);
 
 		/**
 		 * Darstellen der Portion, welche zur Auswahl steht.
 		 */
 		this.add(new JLabel(portion.getName(), SwingConstants.LEFT));
-		this.add(new JLabel("" + portion.getKilopreis() + " Ä/kg", SwingConstants.RIGHT));
+		this.add(new JLabel("" + portion.getKilopreis() + " ‚Ç¨/kg", SwingConstants.RIGHT));
 //		this.add(new JLabel("  haltbar bis " + portion.haltbar, SwingConstants.RIGHT));
-		this.add(new JLabel("" + portion.getLagermenge() + " Portionen · "+ this.portion.getPortionsgewichtGramm() + "g auf Lager", SwingConstants.RIGHT));
+		this.add(new JLabel("" + portion.getLagermenge() + " Portionen √° ", SwingConstants.RIGHT));
+		this.add(new JLabel("" + this.portion.getPortionsgewichtGramm() + "g auf Lager", SwingConstants.LEFT));
 
-		// Ausgew‰hlte Menge anzeigen
+		/**
+		 * Ausgew√§hlte Menge anzeigen
+		 */
 		jlbl_amount = new JLabel("0", SwingConstants.CENTER);
-		jlbl_amount.setFont(arial);
 		jlbl_amount.setBackground(Color.white);
 		jlbl_amount.setSize(20, 20);
 		this.add(jlbl_amount);
 
 		/**
-		 * ButtonsListener, welcher die ƒnderungen der Menge steuert
+		 * ButtonsListener, welcher die √Ñnderungen der Menge steuert
 		 */
 		ActionListener bl = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -93,7 +90,7 @@ public class Panel_Selection extends JPanel {
 		};
 
 		/**
-		 * Button zum Erhˆhen der Menge
+		 * Button zum Erh√∂hen der Menge
 		 */
 		jb_more = new JButton("+");
 		jb_more.setBackground(Color.white);
@@ -106,25 +103,28 @@ public class Panel_Selection extends JPanel {
 		jb_less = new JButton("-");
 		jb_less.setBackground(Color.white);
 		jb_less.addActionListener(bl);
+		/**
+		 * Anzahl ist zu Anfang 0, der Nutzer soll die Anzahl nur erh√∂hen k√∂nnen.
+		 */
 		jb_less.setVisible(false);
 		this.add(jb_less);
 
-		jlbl_preis = new JLabel("0.00Ä", SwingConstants.LEFT);
+		jlbl_preis = new JLabel("0.00‚Ç¨", SwingConstants.LEFT);
 		this.add(jlbl_preis);
-		this.setBackground(Color.LIGHT_GRAY);
 	}
 
 	/**
-	 * der gesamte Preis der ausgew‰lten Portionen wird aktualisiert
+	 * der gesamte Preis der ausgew√§lten Portionen wird aktualisiert
 	 */
 	public void aktualisierePreise() {
 		NumberFormat formatter = NumberFormat.getInstance();
 		formatter.setMaximumFractionDigits(2);
-		jlbl_preis.setText("" + formatter.format(portion.getPortionspreis() * getAmount())+"Ä");
+		jlbl_preis.setText("" + formatter.format(portion.getPortionspreis() * getAmount())+"‚Ç¨");
 	}
+
 	public double getPreis() {
 		String preis = jlbl_preis.getText().replace(',','.');
-		int index = preis.indexOf("Ä");
+		int index = preis.indexOf("‚Ç¨");
 		if( index == -1 ) {
 		}else {
 			preis = preis.substring(0, index); 
