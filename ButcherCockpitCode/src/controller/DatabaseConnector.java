@@ -16,7 +16,7 @@ public class DatabaseConnector {
 	/**
 	 * Verbindung zur Datenbank
 	 */
-	static Connection conn = DatabaseConnection.getDBConnection();
+	private static Connection conn = DatabaseConnection.getDBConnection();
 
 	/**
 	 * Eine Anfrage an die in {@link DatabaseConnection} angebundene Datenbank kann

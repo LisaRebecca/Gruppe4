@@ -11,23 +11,23 @@ public class Panel_Selection extends JPanel {
 	/**
 	 * Automat welcher dieses Panel enthält.
 	 */
-	Automat automat;
+	public Automat automat;
 	/**
 	 * Label für die ausgewählte Anzahl an Portionen.
 	 */
-	JLabel jlbl_amount;
+	private JLabel jlbl_amount;
 	/**
 	 * Der gesamte Preis für die ausgewählte Menge des Produkts.
 	 */
-	JLabel jlbl_preis;
+	private JLabel jlbl_preis;
 	/**
 	 * Das Produkt kann als einzelne {@link Portion} ausgewählt werden.
 	 */
-	Portion portion;
+	private Portion portion;
 	/**
 	 * Buttons zum Verändern der ausgewählten Menge des Produktes.
 	 */
-	JButton jb_more, jb_less;
+	private JButton jb_more, jb_less;
 
 	/**
 	 * Kontruktor, welcher alle Buttons erstellt und die Labels mit Initialwerten

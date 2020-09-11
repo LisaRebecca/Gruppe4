@@ -23,7 +23,16 @@ public class Tile extends JScrollPane {
 //	 * zu setzen
 //	 */
 //	Font font = new Font("Arial", Font.PLAIN, 18);
+	
+	/** Instanz der Klasse Border um den Kachelrahmen festzulegen
+	 */
+	Border margin = new LineBorder(Color.gray, 1);
 
+	/** JViewports zur korrekten Anzeige der Tabellentitel und -inhalte
+	 */
+	JViewport jvp_title;
+	JViewport jvp_table;
+	
 	/**
 	 * Erzeugt eine Kachel mit Tabelleninhalt und dazugehöriger Überschrift, sowie
 	 * festgelegter Hintergrundfarbe und Rahmen
@@ -44,7 +53,6 @@ public class Tile extends JScrollPane {
 		 */
 		jt.setGridColor(Color.orange);
 		this.setBackground(Color.WHITE);
-		Border margin = new LineBorder(Color.gray, 1);
 		this.setBorder(margin);
 
 		/**
@@ -52,14 +60,14 @@ public class Tile extends JScrollPane {
 		 * Hinweis: Da sich die Kopfzeile und Inhalt der Tabelle in unterschiedlichen
 		 * ViewPorts befinden, bleibt die Kopfzeile beim vertikalen Scrollen unbewegt.
 		 */
-		JViewport jvp_title = new JViewport();
+		jvp_title = new JViewport();
 		jvp_title.add(jt.getTableHeader());
 		this.setColumnHeader(jvp_title);
 
 		/**
 		 * <code>JViewPort</code> für den Inhalt der Tabelle.
 		 */
-		JViewport jvp_table = new JViewport();
+		jvp_table = new JViewport();
 		jvp_table.add(jt);
 		this.setViewportView(jvp_table);
 	}
