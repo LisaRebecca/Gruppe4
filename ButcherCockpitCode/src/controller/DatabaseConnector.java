@@ -9,10 +9,8 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * Der {@link DatabaseConnector} stellt die Schnittstelle zur Datenbank zur
- * Verfügung. Die Klasse kann Requests an die Datenbank senden und Daten
- * empfangen.
- * 
- *
+ * Verfügung. Die Klasse kann Requests an die Datenbank senden um Daten
+ * auszulesen. Zusätzlich kann diese Klasse auch Tupel in Tabellen einfügen.
  */
 public class DatabaseConnector {
 	/**
@@ -24,8 +22,8 @@ public class DatabaseConnector {
 	 * Eine Anfrage an die in {@link DatabaseConnection} angebundene Datenbank kann
 	 * gesendet werden.
 	 * 
-	 * @param select_statement SQL-SELECT-Statement
-	 * @return die angefragten Daten in der Form eines {@link DefaultTableModel}
+	 * @param select_statement Eine Datenbankanfrage im MySQL-Syntax
+	 * @return die angefragten Daten in der Form eines {@link JTable}
 	 */
 	public static JTable executeDBQuery(String select_statement) {
 		JTable table = null;
@@ -45,25 +43,27 @@ public class DatabaseConnector {
 	}
 
 	/**
-	 * Hilfsmethode, welche ein <code>ResultSet</code> in ein
-	 * <code>DefaultTableModel</code> umwandelt. Diese Methode erlaubt es, das
-	 * Ergebnis einer Datenbankabfrage mithilfe von <code>JTables</code> zu
-	 * visualisieren.
+	 * Hilfsmethode, welche ein <code>ResultSet</code> in einen <code>JTable</code>
+	 * umwandelt. Diese Methode erlaubt es, das Ergebnis einer Datenbankabfrage
+	 * mithilfe von <code>JTables</code> für den Anwender zu visualisieren. Die
+	 * Spalten des JTables werden mit dem jeweiligen Bezeichner des Attributs der
+	 * Datenbanktabelle benannt. Falls ein Aliasname für ein Attribut gesetzt wurde
+	 * wird jedoch dieser bevorzugt.
 	 * 
-	 * @param rs ein ResultSet, das Ergebnis einer Datenbankabfrage
+	 * @param result das Ergebnis einer Datenbankabfrage
 	 * @return ein {@link DefaultTableModel} welches Daten aus der Datenbank
 	 *         beinhaltet
 	 * @throws SQLException beim auslesen der Daten kam es zu einem Fehler
 	 */
-	public static JTable buildJTable(ResultSet rs) throws SQLException {
-		
+	public static JTable buildJTable(ResultSet result) throws SQLException {
+
 		/**
 		 * Metadaten des ResultSets
 		 */
+		ResultSetMetaData metaData = result.getMetaData();
 		/**
 		 * Bezeichner der Spalten des Tabellen-Modells
 		 */
-		ResultSetMetaData metaData = rs.getMetaData();
 		int columnCount = metaData.getColumnCount();
 		Vector<String> columnLabels = new Vector<String>();
 
@@ -73,10 +73,10 @@ public class DatabaseConnector {
 
 		Vector<Vector<String>> rows = new Vector<Vector<String>>();
 		Vector<String> singleRow;
-		while (rs.next()) {
+		while (result.next()) {
 			singleRow = new Vector<String>();
 			for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-				singleRow.add(""+rs.getObject(columnIndex));
+				singleRow.add("" + result.getObject(columnIndex));
 			}
 			rows.add(singleRow);
 		}

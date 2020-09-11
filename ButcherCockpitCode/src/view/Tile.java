@@ -1,48 +1,40 @@
 package view;
 
 import java.awt.*;
-import java.sql.*;
-import java.util.Vector;
-
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JViewport;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 import controller.DatabaseConnector;
 
 /**
- * Die Klasse Tile dient der einheitlichen Darstellungweise der im UserInterface
- * erzeugten Kachelinstanzen. Sie erbt von der Klasse JScrollPane, um die
- * Übersichtlichkeit der Tabellen auf den Kacheln zu gewährleisten.
+ * Die Klasse <code>Tile</code> stellt die Komponenten des {@link Cockpit} dar.
+ * Sie ist ein <code>JScrollPane</code>, um die vollständige Darstellung der
+ * Tabellen auf den Kacheln zu gewährleisten.
  */
+
+@SuppressWarnings("serial")
 public class Tile extends JScrollPane {
 
-	/**
-	 * Instanz der Klasse Font um die Titelschriftart auf Arial und Schriftgröße 18
-	 * zu setzen
-	 */
-	Font font = new Font("Arial", Font.PLAIN, 18);
+//	/**
+//	 * Instanz der Klasse Font um die Titelschriftart auf Arial und Schriftgröße 18
+//	 * zu setzen
+//	 */
+//	Font font = new Font("Arial", Font.PLAIN, 18);
 
 	/**
 	 * Erzeugt eine Kachel mit Tabelleninhalt und dazugehöriger Überschrift, sowie
 	 * festgelegter Hintergrundfarbe und Rahmen
 	 * 
-	 * @param tileheader       definiert die dem Konstruktor zu übergebene
-	 *                         Kachelüberschrift
-	 * @param select_statement legt das SQL-Statement fest, das den Tabelleninhalt
-	 *                         der Kachel bestimmt
+	 * @param select_statement MySQL-Statement, welches den Tabelleninhalt dieser
+	 *                         Kachel bestimmt
 	 */
-
 	public Tile(String select_statement) {
-
 		/**
-		 * der header Variablen wird der zugehörige String aus dem Konstruktoraufruf
-		 * übergeben
-		 */
-
-		/**
-		 * Erzeugen der JTable-Instanz inklusive Datenbankabfrage über die Klasse
-		 * DatabaseConnector
+		 * Ein <code>JTable</code> wird mit Daten aus der Datenbank gemäß des
+		 * <code>select_statement</code>s gefüllt.
 		 */
 		JTable jt = DatabaseConnector.executeDBQuery(select_statement);
 
@@ -56,26 +48,23 @@ public class Tile extends JScrollPane {
 		this.setBorder(margin);
 
 		/**
-		 * Erzeugen eines JLabels jlbl_title, welches die Kachelüberschrift aus dem
-		 * Konstruktor übergeben bekommt Title wird die vorher definierte Schriftart
-		 * font zugewiesen
-		 */
-
-		/**
 		 * Jeweils zwei JViewport Instanzen für das Titellabel und die Tabelle der
 		 * Kachel um beides in einer Kachel anzeigen zu können
 		 */
+		/**
+		 * <code>JViewPort</code> um die Spaltenbezeichner der Tabelle darzustellen.
+		 * Hinweis: Da sich die Kopfzeile und Inhalt der Tabelle in unterschiedlichen
+		 * ViewPorts befinden, bleibt die Kopfzeile beim vertikalen Scrollen unbewegt.
+		 */
 		JViewport jvp_title = new JViewport();
 		jvp_title.add(jt.getTableHeader());
-		JViewport jvp_table = new JViewport();
-		jvp_table.add(jt);
+		this.setColumnHeader(jvp_title);
 
 		/**
-		 * Der JViewport jvp_title wird nun dem ColumnHeader hinzugefügt und das
-		 * jvp_table der View. So bewegt die vertikale Scollbar lediglich die Tabelle,
-		 * während der Titel oben stehen bleibt.
+		 * <code>JViewPort</code> für den Inhalt der Tabelle.
 		 */
-		this.setColumnHeader(jvp_title);
+		JViewport jvp_table = new JViewport();
+		jvp_table.add(jt);
 		this.setViewportView(jvp_table);
 	}
 }
