@@ -5,7 +5,7 @@ USE metzgerei;
 
 CREATE TABLE Produkte ( name VARCHAR(30), produkt_id INT PRIMARY KEY, kilopreis NUMERIC (5,2), gewicht_portion NUMERIC (5,3));
 CREATE TABLE Lagerbestand (produkt INT REFERENCES Produkte(produkt_id), haltbar_bis DATE, lagerort VARCHAR(20), portionen int, PRIMARY KEY (produkt, lagerort, haltbar_bis));
-CREATE TABLE Verkaeufe ( verkauf_id INT PRIMARY KEY, datum DATE, uhrzeit TIME, gesamtpreis NUMERIC (5,2));
+CREATE TABLE Verkaeufe ( verkauf_id INT PRIMARY KEY AUTO_INCREMENT, datum DATE, uhrzeit TIME, gesamtpreis NUMERIC (5,2));
 
 INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Schweinelende', 1, 16.00, 0.250);
 INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Salami', 2, 25.00, 0.100);
