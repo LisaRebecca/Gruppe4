@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.NumberFormat;
 import javax.swing.*;
+import javax.swing.text.Utilities;
+import Tools.MyTools;
 
 @SuppressWarnings("serial")
 public class Panel_Selection extends JPanel {
@@ -109,7 +111,7 @@ public class Panel_Selection extends JPanel {
 		jb_less.setVisible(false);
 		this.add(jb_less);
 
-		jlbl_preis = new JLabel("0.00€", SwingConstants.LEFT);
+		jlbl_preis = new JLabel(MyTools.formatAsCurrency(0), SwingConstants.LEFT);
 		this.add(jlbl_preis);
 	}
 
@@ -117,14 +119,13 @@ public class Panel_Selection extends JPanel {
 	 * der gesamte Preis der ausgewälten Portionen wird aktualisiert
 	 */
 	public void aktualisierePreise() {
-		NumberFormat formatter = NumberFormat.getInstance();
-		formatter.setMaximumFractionDigits(2);
-		jlbl_preis.setText("" + formatter.format(portion.getPortionspreis() * getAmount())+"€");
+		
+		jlbl_preis.setText("" + MyTools.formatAsCurrency((portion.getPortionspreis() * getAmount())));
 	}
 
 	public double getPreis() {
 		String preis = jlbl_preis.getText().replace(',','.');
-		int index = preis.indexOf("€");
+		int index = preis.indexOf("�");
 		if( index == -1 ) {
 		}else {
 			preis = preis.substring(0, index); 

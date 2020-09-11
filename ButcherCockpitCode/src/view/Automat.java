@@ -22,6 +22,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import Tools.MyTools;
+
 /**
  * Die Klasse Automat erbt von JFrame und dient der Anzeige des Kaufbildschirms.
  * Der Kunde kann mit Hilfe dieser Klasse also sehen, welche Produkte noch zu
@@ -240,9 +242,8 @@ public class Automat extends JFrame {
 		for (Panel_Selection selection : list_productSelection) {
 			double preis = selection.getPreis();
 			gesamtpreis += preis;
-			NumberFormat formatter = NumberFormat.getInstance();
-			formatter.setMaximumFractionDigits(2);
-			jlbl_sum.setText("" + formatter.format(gesamtpreis) + " €");
+			
+			jlbl_sum.setText(MyTools.formatAsCurrency(gesamtpreis));
 		}
 	}
 
