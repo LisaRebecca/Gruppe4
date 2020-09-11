@@ -8,6 +8,7 @@ import Tools.MyTools;
 
 @SuppressWarnings("serial")
 public class Panel_Selection extends JPanel {
+	public static final int initialAmount = 0;
 	/**
 	 * Automat welcher dieses Panel enthält.
 	 */
@@ -46,7 +47,7 @@ public class Panel_Selection extends JPanel {
 		 * Darstellen der Portion, welche zur Auswahl steht.
 		 */
 		this.add(new JLabel(portion.getName(), SwingConstants.LEFT));
-		this.add(new JLabel("" + portion.getKilopreis() + " €/kg", SwingConstants.RIGHT));
+		this.add(new JLabel("" + portion.getKilopreis() + " �/kg", SwingConstants.RIGHT));
 //		this.add(new JLabel("  haltbar bis " + portion.haltbar, SwingConstants.RIGHT));
 		this.add(new JLabel("" + portion.getLagermenge() + " Portionen á ", SwingConstants.RIGHT));
 		this.add(new JLabel("" + this.portion.getPortionsgewichtGramm() + "g auf Lager", SwingConstants.LEFT));
@@ -54,40 +55,14 @@ public class Panel_Selection extends JPanel {
 		/**
 		 * Ausgewählte Menge anzeigen
 		 */
-		jlbl_amount = new JLabel("0", SwingConstants.CENTER);
+		jlbl_amount = new JLabel(""+initialAmount, SwingConstants.CENTER);
 		jlbl_amount.setBackground(Color.white);
-		jlbl_amount.setSize(20, 20);
 		this.add(jlbl_amount);
 
 		/**
 		 * ButtonsListener, welcher die Änderungen der Menge steuert
 		 */
-		ActionListener bl = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JButton jb_source = (JButton) e.getSource();
-				int amount = getAmount();
-				if (jb_source.getText().equals("+")) {
-					amount++;
-
-				} else if (jb_source.getText().equals("-")) {
-					amount--;
-				}
-
-				jlbl_amount.setText("" + amount);
-				aktualisierePreise();
-				automat.berechneGesamtpreis();
-
-				if (amount <= 0) {
-					jb_less.setVisible(false);
-				} else if (0 < amount & amount < portion.getLagermenge()) {
-					jb_less.setVisible(true);
-					jb_more.setVisible(true);
-				} else if (amount >= portion.getLagermenge()) {
-					jb_more.setVisible(false);
-				}
-
-			}
-		};
+		ActionListener bl = new ActionListener_Amount();
 
 		/**
 		 * Button zum Erhöhen der Menge
