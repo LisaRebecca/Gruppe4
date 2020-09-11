@@ -48,10 +48,6 @@ public class Tile extends JScrollPane {
 		this.setBorder(margin);
 
 		/**
-		 * Jeweils zwei JViewport Instanzen für das Titellabel und die Tabelle der
-		 * Kachel um beides in einer Kachel anzeigen zu können
-		 */
-		/**
 		 * <code>JViewPort</code> um die Spaltenbezeichner der Tabelle darzustellen.
 		 * Hinweis: Da sich die Kopfzeile und Inhalt der Tabelle in unterschiedlichen
 		 * ViewPorts befinden, bleibt die Kopfzeile beim vertikalen Scrollen unbewegt.

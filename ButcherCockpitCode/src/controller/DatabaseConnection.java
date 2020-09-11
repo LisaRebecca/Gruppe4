@@ -10,15 +10,17 @@ import java.sql.SQLException;
  */
 public class DatabaseConnection {
 	private static Connection connection = null;
-	
+
 	/**
-	 * Ein privater Konstruktor stellt sicher, dass es nur genau eine Verbindung zur Datenbank gibt.
+	 * Ein privater Konstruktor stellt sicher, dass es nur genau eine Verbindung zur
+	 * Datenbank gibt.
 	 */
 	private DatabaseConnection() {
 	}
 
 	/**
 	 * Die Verbindung zur lokalen Datenbank wird aufgebaut.
+	 * 
 	 * @return Verbindung zur Datenbank
 	 */
 	public static Connection getDBConnection() {
@@ -26,7 +28,7 @@ public class DatabaseConnection {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				connection = DriverManager
-						.getConnection("jdbc:mysql://localhost:3306/metzgerei?user=root&password=pups");
+						.getConnection("jdbc:mysql://localhost:3306/metzgerei?user=root&password=sequel");
 			} catch (ClassNotFoundException cnf) {
 				cnf.printStackTrace();
 				System.err.println("MySQL-Driver not found.");

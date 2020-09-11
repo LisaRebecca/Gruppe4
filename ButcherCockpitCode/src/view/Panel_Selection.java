@@ -3,9 +3,7 @@ package view;
 import controller.Portion;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.NumberFormat;
 import javax.swing.*;
-import javax.swing.text.Utilities;
 import Tools.MyTools;
 
 @SuppressWarnings("serial")

@@ -14,6 +14,7 @@ import javax.swing.*;
  * internen Benutzeroberfläche für den Metzger. Darum muss die Klasse
  * UserInterface auch von JFrame erben.
  */
+@SuppressWarnings("serial")
 public class Cockpit extends JFrame {
 
 	/**
