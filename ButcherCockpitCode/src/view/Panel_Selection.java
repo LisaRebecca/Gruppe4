@@ -68,7 +68,7 @@ public class Panel_Selection extends JPanel {
 		ActionListener bl = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JButton jb_source = (JButton) e.getSource();
-				int amount = Integer.parseInt(jlbl_amount.getText());
+				int amount = getAmount();
 				if (jb_source.getText().equals("+")) {
 					amount++;
 
@@ -109,7 +109,7 @@ public class Panel_Selection extends JPanel {
 		jb_less.setVisible(false);
 		this.add(jb_less);
 
-		jlbl_preis = new JLabel("0", SwingConstants.LEFT);
+		jlbl_preis = new JLabel("0.00€", SwingConstants.LEFT);
 		this.add(jlbl_preis);
 		this.setBackground(Color.LIGHT_GRAY);
 	}
@@ -120,11 +120,18 @@ public class Panel_Selection extends JPanel {
 	public void aktualisierePreise() {
 		NumberFormat formatter = NumberFormat.getInstance();
 		formatter.setMaximumFractionDigits(2);
-		jlbl_preis.setText("" + formatter.format(portion.getPortionspreis() * Integer.parseInt(jlbl_amount.getText()))+"€"); //€ anfügen
+		jlbl_preis.setText("" + formatter.format(portion.getPortionspreis() * getAmount())+"€");
 	}
 	public double getPreis() {
 		String preis = jlbl_preis.getText().replace(',','.');
-		preis.substring(0,preis.indexOf("€")); 
-		return Double.parseDouble(preis); //€ abschneiden
+		int index = preis.indexOf("€");
+		if( index == -1 ) {
+		}else {
+			preis = preis.substring(0, index); 
+		}
+		return Double.parseDouble(preis);
+	}
+	public int getAmount() {
+		return Integer.parseInt(jlbl_amount.getText());
 	}
 }

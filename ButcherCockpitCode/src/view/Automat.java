@@ -238,7 +238,7 @@ public class Automat extends JFrame {
 	public void berechneGesamtpreis() {
 		gesamtpreis = 0.00;
 		for (Panel_Selection selection : list_productSelection) {
-			double preis = selection.getPreis();// getPreis() aufrufen
+			double preis = selection.getPreis();
 			gesamtpreis += preis;
 			NumberFormat formatter = NumberFormat.getInstance();
 			formatter.setMaximumFractionDigits(2);
