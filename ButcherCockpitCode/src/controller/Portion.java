@@ -1,5 +1,7 @@
 package controller;
 
+import java.text.NumberFormat;
+
 /**
  * Die Klasse Portion modelliert ein abgepacktes Produkt, welches sich in der
  * Metzgerei oder im Kühlautomat auf Lager befinden kann.
@@ -10,6 +12,7 @@ public class Portion {
 	int lagermenge;
 	double portionspreis;
 	double kilopreis;
+	double portionsgewicht;
 	/**
 	 * Das Mindesthaltbarkeitsdatum
 	 */
@@ -28,6 +31,7 @@ public class Portion {
 		this.name = name;
 		this.haltbar = haltbar_bis;
 		this.kilopreis = Double.parseDouble(kilopreis);
+		this.portionsgewicht = Double.parseDouble(gewicht_portion);
 		try {
 			this.portionspreis = Double.parseDouble(kilopreis) * Double.parseDouble(gewicht_portion);
 			this.lagermenge = Integer.parseInt(lagermenge);
@@ -36,6 +40,7 @@ public class Portion {
 		}
 	}
 	
+
 	/**
 	 * Ausgabe des Produktes inklusive Eigenschaften als Text
 	 */
@@ -49,6 +54,15 @@ public class Portion {
  */
 	public String getName() {
 		return name;
+	}
+	public double getPortionsgewichtKG() {
+		return portionsgewicht;
+	}
+	public int getPortionsgewichtGramm() {
+		NumberFormat formatter = NumberFormat.getInstance();
+		formatter.setMaximumFractionDigits(2);
+		formatter.format(portionsgewicht * 1000);
+		return Integer.parseInt(formatter.format(portionsgewicht * 1000));
 	}
 	/**
 	 * @return the lagermenge
