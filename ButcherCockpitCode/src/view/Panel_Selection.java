@@ -1,17 +1,15 @@
 package view;
+
 import controller.Portion;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.NumberFormat;
-import java.util.HashMap;
-
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 
+@SuppressWarnings("serial")
 public class Panel_Selection extends JPanel {
 	/**
-	 * Referenz auf den Automat welcher dieses Panel enthält.
+	 * Automat welcher dieses Panel enthält.
 	 */
 	Automat automat;
 	/**
@@ -19,33 +17,30 @@ public class Panel_Selection extends JPanel {
 	 */
 	JLabel jlbl_amount;
 	/**
-	 * Der gesamte Preis für die ausgewählte Menge des Produkt.
+	 * Der gesamte Preis für die ausgewählte Menge des Produkts.
 	 */
 	JLabel jlbl_preis;
 	/**
-	 * Das Produkt, welches in dieser Produktauswahl dargestellt wird ist eine
-	 * Portion.
+	 * Das Produkt kann als einzelne {@link Portion} ausgewählt werden.
 	 */
 	Portion portion;
 	/**
-	 * Instanziieren der Plus- und Minus-Buttons zum Auswählen der Menge eines
-	 * Produkts.
+	 * Buttons zum Verändern der ausgewählten Menge des Produktes.
 	 */
 	JButton jb_more, jb_less;
 
 	/**
-	 * Kontruktor, welcher alle Buttons erstellt und die Beschriftungen mit
-	 * Anfangswerten beschriftet.
+	 * Kontruktor, welcher alle Buttons erstellt und die Labels mit Initialwerten
+	 * beschriftet.
 	 * 
-	 * @param portion die zugehörige Instanz der Klasse Portion trägt die
-	 *                Eigenschaften des Produktes in sich.
+	 * @param portion das darzustellende Produkt als einzelne {@link Portion}
 	 */
 	public Panel_Selection(Portion portion, Automat automat) {
 		this.portion = portion;
 		this.automat = automat;
-		Font arial = new Font("Arial", Font.PLAIN, 18);
 
 		this.setLayout(new GridLayout(1, 0));
+		this.setBackground(Color.LIGHT_GRAY);
 
 		/**
 		 * Darstellen der Portion, welche zur Auswahl steht.
@@ -53,11 +48,13 @@ public class Panel_Selection extends JPanel {
 		this.add(new JLabel(portion.getName(), SwingConstants.LEFT));
 		this.add(new JLabel("" + portion.getKilopreis() + " €/kg", SwingConstants.RIGHT));
 //		this.add(new JLabel("  haltbar bis " + portion.haltbar, SwingConstants.RIGHT));
-		this.add(new JLabel("" + portion.getLagermenge() + " Portionen á "+ this.portion.getPortionsgewichtGramm() + "g auf Lager", SwingConstants.RIGHT));
+		this.add(new JLabel("" + portion.getLagermenge() + " Portionen á ", SwingConstants.RIGHT));
+		this.add(new JLabel("" + this.portion.getPortionsgewichtGramm() + "g auf Lager", SwingConstants.LEFT));
 
-		// Ausgewählte Menge anzeigen
+		/**
+		 * Ausgewählte Menge anzeigen
+		 */
 		jlbl_amount = new JLabel("0", SwingConstants.CENTER);
-		jlbl_amount.setFont(arial);
 		jlbl_amount.setBackground(Color.white);
 		jlbl_amount.setSize(20, 20);
 		this.add(jlbl_amount);
@@ -106,12 +103,14 @@ public class Panel_Selection extends JPanel {
 		jb_less = new JButton("-");
 		jb_less.setBackground(Color.white);
 		jb_less.addActionListener(bl);
+		/**
+		 * Anzahl ist zu Anfang 0, der Nutzer soll die Anzahl nur erhöhen können.
+		 */
 		jb_less.setVisible(false);
 		this.add(jb_less);
 
 		jlbl_preis = new JLabel("0", SwingConstants.LEFT);
 		this.add(jlbl_preis);
-		this.setBackground(Color.LIGHT_GRAY);
 	}
 
 	/**
@@ -120,9 +119,11 @@ public class Panel_Selection extends JPanel {
 	public void aktualisierePreise() {
 		NumberFormat formatter = NumberFormat.getInstance();
 		formatter.setMaximumFractionDigits(2);
-		jlbl_preis.setText("" + formatter.format(portion.getPortionspreis() * Integer.parseInt(jlbl_amount.getText()))); //€ anfügen
+		jlbl_preis.setText("" + formatter.format(portion.getPortionspreis() * Integer.parseInt(jlbl_amount.getText()))); // €
+																															// anfügen
 	}
+
 	public double getPreis() {
-		return 0.00; //€ abschneiden
+		return 0.00; // € abschneiden
 	}
 }
