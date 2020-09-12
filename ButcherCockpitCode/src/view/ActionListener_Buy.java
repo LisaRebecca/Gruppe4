@@ -44,13 +44,13 @@ public class ActionListener_Buy implements ActionListener {
 					JOptionPane.INFORMATION_MESSAGE);
 			Date date = new Date();
 			Date time = new Date();
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("'yyyy.MM.dd'");
-			simpleDateFormat.format(date);
-			SimpleDateFormat simpleTimeFormat = new SimpleDateFormat ("'HH:mm:ss'");
-			simpleTimeFormat.format(time);
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String sql_date = simpleDateFormat.format(date);
+			SimpleDateFormat simpleTimeFormat = new SimpleDateFormat ("HH:mm:ss");
+			String sql_time = simpleTimeFormat.format(time);
 			DatabaseConnector.executeDBInsert(
-					"INSERT INTO Verkaeufe( datum, uhrzeit, gesamtpreis) VALUES ("+date+","+time+","+ gesamtpreis+");");
-			System.out.println("Insert comlete");
+					"INSERT INTO Verkaeufe( datum, uhrzeit, gesamtpreis) VALUES ('"+sql_date+"' , '"+sql_time+"',"+ gesamtpreis+");");
+			System.out.println("Insert complete");
 			System.exit(0);
 		}
 
