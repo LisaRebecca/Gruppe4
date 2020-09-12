@@ -109,8 +109,8 @@ public class Cockpit extends JFrame {
 		 * Der JTabbedPane die erstellten JPanels hinzufuegen
 		 * 
 		 */
-		tabbedPane.add("Stock", jp_1);
-		tabbedPane.add("Products", jp_2);
+		tabbedPane.add("Lager", jp_1);
+		tabbedPane.add("Produkte", jp_2);
 		tabbedPane.add("Automat", jp_3);
 		tabbedPane.add("Verkäufe", jp_4);
 	}

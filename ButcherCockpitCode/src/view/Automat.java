@@ -99,7 +99,7 @@ public class Automat extends JFrame {
 		 */
 		this.setTitle("K�hlautomat");
 		this.setVisible(true);
-		this.setSize(1200, 400);
+		this.setSize(800, 400);
 		this.setLocation(50, 20);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -118,7 +118,7 @@ public class Automat extends JFrame {
 		 * Das Beschreibungslabel wird mit dem zugehörigen String erstellt und ihre
 		 * Schriftart auf die headerfont gesetzt
 		 */
-		jlbl_desc = new JLabel("Bitte wählen Sie Ihre Produkte aus:");
+		jlbl_desc = new JLabel("Bitte waehlen Sie Ihre Produkte aus:");
 		jlbl_desc.setFont(headerfont);
 
 		/**
@@ -145,6 +145,7 @@ public class Automat extends JFrame {
 			);
 			Panel_Selection productSelection = new Panel_Selection(portion, this);
 			productSelection.setBorder(border);
+			productSelection.setBackground(Color.white);
 			list_productSelection.add(productSelection); // Warenkorb
 			jp_selectionPanel.add(productSelection);
 		}
@@ -203,4 +204,16 @@ public class Automat extends JFrame {
 			jlbl_sum.setText(MyTools.formatAsCurrency(gesamtpreis));
 		}
 	}
-}
+	
+
+	public static void main(String[] args) {
+			/**
+			 * Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
+			 * Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
+			 */
+		String cus_sql = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
+					+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
+
+		new Automat(DatabaseConnector.executeDBQuery(cus_sql));
+		}
+	}
