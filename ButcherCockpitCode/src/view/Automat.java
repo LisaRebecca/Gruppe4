@@ -23,8 +23,8 @@ import Tools.MyTools;
  * Die Klasse Automat erbt von JFrame und dient der Anzeige des Kaufbildschirms.
  * Der Kunde kann mit Hilfe dieser Klasse also sehen, welche Produkte noch zu
  * welchen Mengen im Automaten vorhanden sind, was diese kosten und wann sie
- * ablaufen. Der Kunde hat mit Hilfe dieser Klasse die Möglichkeit, eine
- * bestimmte Menge eines oder mehrerer Produkte auszuwählen und schließlich zu
+ * ablaufen. Der Kunde hat mit Hilfe dieser Klasse die Moeglichkeit, eine
+ * bestimmte Menge eines oder mehrerer Produkte auszuwaehlen und schliesslich zu
  * kaufen.
  * 
  */
@@ -33,8 +33,7 @@ import Tools.MyTools;
 public class Automat extends JFrame {
 
 	/**
-	 * Instanz der Klasse Font um die Titelschriftart auf Arial, Fett und
-	 * Schriftgröße 20 zu setzen
+	 * Instanz der Klasse Font um die �berschrift durch die Schriftart hervorzuheben
 	 */
 	private Font headerfont = new Font("Arial", Font.BOLD, 20);
 
@@ -45,7 +44,7 @@ public class Automat extends JFrame {
 	private JPanel jp_mainPanel, jp_selectionPanel, jp_barPanel;
 
 	/**
-	 * Instanziieren zweier JLabels für die UI-Beschreibung und der Berechnung des
+	 * Instanziieren zweier JLabels f�uer die UI-Beschreibung und der Berechnung des
 	 * Gesamtbetrages der Bestellung
 	 */
 	private JLabel jlbl_desc;
@@ -57,7 +56,7 @@ public class Automat extends JFrame {
 	private JButton jb_buy;
 
 	/**
-	 * Rahmeneinstellungen für die spätere ProductSelection-Instanz/den Warenkorb
+	 * Rahmeneinstellungen fuer die spaetere ProductSelection-Instanz/den Warenkorb
 	 */
 	private Border border = new LineBorder(Color.orange, 1);
 
@@ -67,9 +66,13 @@ public class Automat extends JFrame {
 	 */
 	public ArrayList<Panel_Selection> list_productSelection = new ArrayList<Panel_Selection>();
 
+	/**
+	 * speichert die Summe der Preise der ausgew�hlten Produkte
+	 */
+	private double gesamtpreis;
 	
 	/**
-	 * Erzeugen der JTable-Instanz inklusive Datenbankabfrage über die Klasse
+	 * Erzeugen der JTable-Instanz inklusive Datenbankabfrage ueber die Klasse
 	 * DatabaseConnector
 	 */
 	JTable jt_obtainableProducts;
@@ -93,7 +96,7 @@ public class Automat extends JFrame {
 		}
 
 		/**
-		 * Hier werden Titel, Sichtbarkeit, Größe, Position und Close-Operation des
+		 * Hier werden Titel, Sichtbarkeit, Groesse, Position und Close-Operation des
 		 * Automaten-Windows festgelegt
 		 * 
 		 */
@@ -189,12 +192,16 @@ public class Automat extends JFrame {
 		this.revalidate();
 	}
 
-	private double gesamtpreis;
-
+	/**
+	 * @return gibt die Summe der Preise zurueck
+	 */
 	public double getGesamtpreis() {
 		return gesamtpreis;
 	}
-
+	
+	/**
+	 * rechnet die einzelnen Preise der Produkte multipliziert mit der ausgew�hlten Menge aus
+	 */
 	public void berechneGesamtpreis() {
 		gesamtpreis = 0.00;
 		for (Panel_Selection selection : list_productSelection) {
@@ -205,7 +212,9 @@ public class Automat extends JFrame {
 		}
 	}
 	
-
+	/**
+	 * Anzeige des Automaten-UIs inklusive der Automatenbestandstabelle
+	 */
 	public static void main(String[] args) {
 			/**
 			 * Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der

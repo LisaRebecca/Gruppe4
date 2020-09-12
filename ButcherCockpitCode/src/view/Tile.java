@@ -17,12 +17,6 @@ import controller.DatabaseConnector;
 
 @SuppressWarnings("serial")
 public class Tile extends JScrollPane {
-
-//	/**
-//	 * Instanz der Klasse Font um die Titelschriftart auf Arial und Schriftgröße 18
-//	 * zu setzen
-//	 */
-//	Font font = new Font("Arial", Font.PLAIN, 18);
 	
 	/** Instanz der Klasse Border um den Kachelrahmen festzulegen
 	 */
@@ -38,7 +32,7 @@ public class Tile extends JScrollPane {
 	 * festgelegter Hintergrundfarbe und Rahmen
 	 * 
 	 * @param select_statement MySQL-Statement, welches den Tabelleninhalt dieser
-	 *                         Kachel bestimmt
+	 * Kachel bestimmt
 	 */
 	public Tile(String select_statement) {
 		/**

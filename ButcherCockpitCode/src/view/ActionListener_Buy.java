@@ -12,28 +12,20 @@ import javax.swing.SwingUtilities;
 
 import controller.DatabaseConnector;
 
+/**
+ * ActionListener, der das Event-Handlung f�r den KaufButton �bernimmt. 
+ * Hierbei wird ein neues Fenster mit weiteren Buttons eingeblendet, um aus Kundensicht
+ * entweder den Kaufvorgang abzuschlie�en oder abzubrechen. 
+ *
+ */
+
 public class ActionListener_Buy implements ActionListener {
-	/**
-	 * Wenn der Button gedrückt wird, sollen eine OptionPane angezeigt werden, mit
-	 * zwei Buttons die jeweils die Texte "Ja, bezahlen" oder "Nein, zurück"
-	 * enthalten. Sowie darüber die Frage: "Möchten Sie den Kaufvorgang
-	 * abschließen und bezahlen". Wird der Ja-Button gedrückt, soll der Benutzer
-	 * eine Bestätigung über die Bestellung erhalten. Wird der Nein-Button
-	 * gedrückt, soll das Fenster geschlossen werden.
-	 * 
-	 */
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton jb_source = (JButton) e.getSource();
 		Automat at = (Automat) SwingUtilities.getRoot(jb_source);
-//		Object parent;
-//		do {
-//			parent = jb_source.getParent();
-//			System.out.println(parent.getClass());
-//		} while ( !(parent instanceof JFrame));
-//		System.out.println("Parent found");
-//		Automat at = (Automat) parent;
+		
 		double gesamtpreis = at.getGesamtpreis();
 		String[] options = { "Ja, bezahlen", "Nein, zurück" };
 		int eingabe = JOptionPane.showOptionDialog(null, "Möchten Sie den Kaufvorgang abschließen und bezahlen?",

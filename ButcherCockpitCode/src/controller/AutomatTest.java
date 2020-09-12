@@ -7,6 +7,11 @@ import org.junit.Test;
 
 import view.Automat;
 
+/**
+ * Mit Hilfe der Klasse AutomatTest soll bestätigt werden, dass die einzelnen Preise der ausgewählten Produkte
+ * korrekt zum Gesamtpreis aufsummiert werden.
+ *
+ */
 public class AutomatTest {
 	Object[][] data = {{"Lendchen", "5", "2021-12-31", "15.00", "0.5"}};
 	Object[] colNames = {"","","","",""};

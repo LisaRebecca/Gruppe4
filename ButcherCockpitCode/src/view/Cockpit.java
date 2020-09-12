@@ -11,12 +11,15 @@ import javax.swing.*;
 
 /**
  * Die Klasse UserInterface dient der Darstellung des ButcherCockpits, also der
- * internen Benutzeroberfläche für den Metzger. Darum muss die Klasse
+ * internen Benutzeroberflaeche fuer den Metzger. Darum muss die Klasse
  * UserInterface auch von JFrame erben.
  */
 @SuppressWarnings("serial")
 public class Cockpit extends JFrame {
 	
+	/**
+	 * Menuzeile unten im Cockpit-UI um zwischen den Tabellen/Kacheln zu wechseln
+	 */
 	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
 
 	private JPanel jp_1 = new JPanel();
@@ -54,12 +57,11 @@ public class Cockpit extends JFrame {
 	 *  Verk�ufe durch den K�hlautomaten aus der Datenbank abzufragen
 	 */
 	private JLabel label_verkaeufe = new JLabel("Verk�ufe K�hlautomat");
-//	public Tile verkaeufe = new Tile("SELECT * FROM Verkaeufe;");
 	private Tile verkaeufe = new Tile ("SELECT verkauf_id as 'Verkauf-ID', datum as Datum, uhrzeit as Uhrzeit, gesamtpreis as Gesamtpreis FROM Verkaeufe;");
 	/**
-	 * Erzeugt und füllt die ContentPane mit einem JPanel im GridLayout mit 3
-	 * Zeilen und 1 Spalte. Diesem werden jeweils Kacheln hinzugefügt, deren
-	 * Konstruktor ein SQL Statement übergeben wird, über das die benötigten
+	 * Erzeugt und faellt die ContentPane mit einem JPanel im GridLayout mit 3
+	 * Zeilen und 1 Spalte. Diesem werden jeweils Kacheln hinzugefuegt, deren
+	 * Konstruktor ein SQL Statement uebergeben wird, ueber das die benoetigten
 	 * Daten aus der Datenbank selektiert und in einer Tabelle angezeigt wird.
 	 * 
 	 */
@@ -117,9 +119,9 @@ public class Cockpit extends JFrame {
 
 	/**
 	 * Erstellt eine Instanz des UserInterfaces, setzt Titel und Icon des Fensters,
-	 * sowie die Sichtbarkeit, Position, Größe, und DefaultCloseOperation.
+	 * sowie die Sichtbarkeit, Position, Groesse, und DefaultCloseOperation.
 	 * 
-	 * fängt eine IOException und eine MalformedURLException, wenn das Iconbild,
+	 * faengt eine IOException und eine MalformedURLException, wenn das Iconbild,
 	 * bzw. die dahinterstehende URL nicht gelesen werden konnte
 	 */
 	public static void main(String[] args) {

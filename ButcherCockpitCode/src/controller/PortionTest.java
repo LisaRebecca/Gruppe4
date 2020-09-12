@@ -2,6 +2,12 @@ package controller;
 
 import org.junit.Test;
 
+/**
+ * Mit Hilfe der Klasse PortionTest werden die Get-Methoden der Klasse Portion geprüft,
+ * sowie sichergestellt, dass Exceptions nur in den gewollten Szenarien geworfen werden.
+ *
+ */
+
 import junit.framework.Assert;
 
 public class PortionTest {
