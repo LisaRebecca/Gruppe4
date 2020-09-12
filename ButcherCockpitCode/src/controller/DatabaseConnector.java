@@ -41,6 +41,15 @@ public class DatabaseConnector {
 		}
 		return table;
 	}
+	
+	public static void executeDBInsert (String insert_statement) {
+		try {
+			conn.createStatement().executeQuery(insert_statement);
+		} catch (SQLException e) {
+			System.err.print("Error while executing statement: ");
+			System.err.println(insert_statement);
+		}
+	}
 
 	/**
 	 * Hilfsmethode, welche ein <code>ResultSet</code> in einen <code>JTable</code>

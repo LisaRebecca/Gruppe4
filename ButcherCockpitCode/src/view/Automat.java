@@ -196,6 +196,10 @@ public class Automat extends JFrame {
 	}
 
 	private double gesamtpreis;
+	
+	public double getGesamtpreis() {
+		return gesamtpreis;
+	}
 
 	public void berechneGesamtpreis() {
 		gesamtpreis = 0.00;
