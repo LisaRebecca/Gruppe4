@@ -5,7 +5,9 @@ import controller.Portion;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import javax.imageio.ImageIO;
@@ -43,6 +45,7 @@ public class Automat extends JFrame {
 	 * abzugrenzen
 	 */
 	private JPanel jp_mainPanel, jp_selectionPanel, jp_barPanel;
+	public JPanel jp_backgroundPanel;
 
 	/**
 	 * Instanziieren zweier JLabels für die UI-Beschreibung und der Berechnung des
@@ -73,6 +76,14 @@ public class Automat extends JFrame {
 	 */
 	private final String cus_sql = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 			+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
+	
+	
+	/**
+	 * speichert die addierten Preise der ausgew�hlten Produkte
+	 */
+	private double gesamtpreis;
+	
+	BufferedImage img;
 	
 	/**
 	 * Erzeugen der JTable-Instanz inklusive Datenbankabfrage über die Klasse
@@ -117,8 +128,41 @@ public class Automat extends JFrame {
 		/**
 		 * Das MainPanel wird mit dem FlowLayout erstellt und dem Container hinzugefügt
 		 */
+		jp_backgroundPanel = new JPanel(new BorderLayout());
+//		jp_backgroundPanel.setOpaque(true);
+		
+		try {
+			img = ImageIO
+					.read(new URL(
+							"https://images.freeimages.com/images/large-previews/76e/green-field-landscape-1337336.jpg"));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+//        try {
+//            File f = new File("./ButcherCockpitCode/wiese.jpg");
+//            img = ImageIO.read(f);
+//            System.out.println("File " + f.toString());
+//       } catch (Exception e) {
+//           System.out.println("Cannot read file: " + e);
+//       }
+//        
+//       test background = new test(img, test.TILED, 0.50f, 0.5f);
+//       jp_backgroundPanel.add(background);
+		
+		
+//		JLabel background = new JLabel(new ImageIcon(img));
+//		jp_backgroundPanel.add(background);
 		jp_mainPanel = new JPanel(new FlowLayout());
-		c.add(jp_mainPanel);
+		
+		
+		test t = new test(img);
+		jp_backgroundPanel.add(t);
+		jp_backgroundPanel.add(jp_mainPanel);
+		
+		c.add(jp_backgroundPanel);
 
 		/**
 		 * Das Beschreibungslabel wird mit dem zugehörigen String erstellt und ihre
@@ -152,6 +196,7 @@ public class Automat extends JFrame {
 			);
 			Panel_Selection productSelection = new Panel_Selection(portion, this);
 			productSelection.setBorder(border);
+			productSelection.setBackground(Color.white);
 			list_productSelection.add(productSelection); // Warenkorb
 			jp_selectionPanel.add(productSelection);
 		}
@@ -195,7 +240,6 @@ public class Automat extends JFrame {
 		this.revalidate();
 	}
 
-	private double gesamtpreis;
 	
 	public double getGesamtpreis() {
 		return gesamtpreis;
