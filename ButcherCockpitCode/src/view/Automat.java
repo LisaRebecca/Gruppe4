@@ -65,7 +65,7 @@ public class Automat extends JFrame {
 	 * Instanziieren der ArrayList zum Abspeichern des Warenkorbs
 	 * 
 	 */
-	public static ArrayList<Panel_Selection> list_productSelection = new ArrayList<Panel_Selection>();
+	public ArrayList<Panel_Selection> list_productSelection = new ArrayList<Panel_Selection>();
 
 	
 	/**
