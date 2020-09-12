@@ -33,6 +33,7 @@ public class DatabaseConnector {
 			result = conn.createStatement().executeQuery(select_statement);
 			return buildJTable(result);
 		} catch (SQLException sql) {
+			sql.printStackTrace();
 			System.err.println("Error in MySQL Synax: "+select_statement);
 			return emptyTable;
 		}
@@ -43,8 +44,7 @@ public class DatabaseConnector {
 			conn.createStatement().executeQuery(insert_statement);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.err.print("Error while executing statement: ");
-			System.err.println(insert_statement);
+			System.err.println("Error while executing statement: '"+insert_statement+"'");
 		}
 	}
 
