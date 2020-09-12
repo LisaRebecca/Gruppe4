@@ -12,7 +12,7 @@ public class Portion {
 	public int lagermenge;
 	public double portionspreis;
 	public double kilopreis;
-	public double portionsgewicht;
+	public double portionsgewichtKG;
 	public String haltbar;
 
 	/**
@@ -29,22 +29,13 @@ public class Portion {
 		this.name = name;
 		this.haltbar = haltbar_bis;
 		this.kilopreis = Double.parseDouble(kilopreis);
-		this.portionsgewicht = Double.parseDouble(gewicht_portion);
-		try {
-			this.portionspreis = Double.parseDouble(kilopreis) * Double.parseDouble(gewicht_portion);
-			this.lagermenge = Integer.parseInt(lagermenge);
-		} catch (NumberFormatException e) {
-			// TODO: handle exception
+		this.portionsgewichtKG = Double.parseDouble(gewicht_portion);
+		this.portionspreis = Double.parseDouble(kilopreis) * Double.parseDouble(gewicht_portion);
+		this.lagermenge = Integer.parseInt(lagermenge);
+		
 		}
-	}
+	
 
-//	/**
-//	 * Ausgabe des Produktes inklusive Eigenschaften als Text
-//	 */
-//	@Override
-//	public String toString() {
-//		return getName() + ",  " + portionspreis + "€/Portion,  " + haltbar;
-//	}
 
 	/**
 	 * 
@@ -55,14 +46,14 @@ public class Portion {
 	}
 
 	public double getPortionsgewichtKG() {
-		return portionsgewicht;
+		return portionsgewichtKG;
 	}
 
 	public int getPortionsgewichtGramm() {
 		NumberFormat formatter = NumberFormat.getInstance();
 		formatter.setMaximumFractionDigits(2);
-		formatter.format(portionsgewicht * 1000);
-		return Integer.parseInt(formatter.format(portionsgewicht * 1000));
+		formatter.format(portionsgewichtKG * 1000);
+		return Integer.parseInt(formatter.format(portionsgewichtKG * 1000));
 	}
 
 	/**
