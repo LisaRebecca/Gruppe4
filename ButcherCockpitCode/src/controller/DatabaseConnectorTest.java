@@ -13,11 +13,16 @@ public class DatabaseConnectorTest extends JFrame {
 
 	@Test
 	public void executeDBQueryTest() {
-		assertNotNull(DatabaseConnector.executeDBQuery(""));
+		assertNotNull(DatabaseConnector.executeDBQuery("fehlerhafter SQL-Ausdruck"));
 	}
 
-	@Test
-	public void buildJTableTest() throws SQLException {
+	/**
+	 * Der SQL-Ausdruck ist zwar syntaktisch korrekt, jedoch keine Anfrage.
+	 * 
+	 * @throws SQLException
+	 */
+	@Test //(expected = SQLException.class)
+	public void buildJTableTest() throws SQLException{
 		ResultSet rs = DatabaseConnection.getDBConnection().createStatement().executeQuery("use metzgerei;");
 		assertNotNull(DatabaseConnector.buildJTable(rs));
 	}
