@@ -5,7 +5,7 @@ USE metzgerei;
 
 CREATE TABLE Produkte ( name VARCHAR(30), produkt_id INT PRIMARY KEY, kilopreis NUMERIC (5,2), gewicht_portion NUMERIC (5,3));
 CREATE TABLE Lagerbestand (produkt INT REFERENCES Produkte(produkt_id), haltbar_bis DATE, lagerort VARCHAR(20), portionen int, PRIMARY KEY (produkt, lagerort, haltbar_bis));
-CREATE TABLE Verkaeufe ( verkauf_id INT PRIMARY KEY, datum DATE, uhrzeit TIME, gesamtpreis NUMERIC (5,2));
+CREATE TABLE Verkaeufe ( verkauf_id INT PRIMARY KEY AUTO_INCREMENT, datum DATE, uhrzeit TIME, gesamtpreis NUMERIC (5,2));
 
 INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Schweinelende', 1, 16.00, 0.250);
 INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Salami', 2, 25.00, 0.100);
@@ -48,6 +48,13 @@ INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 7,
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 8, DATE '2021-03-11', 'metzgerei', 2);
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 9, DATE '2020-12-24', 'metzgerei', 7);
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 10, DATE '2021-05-13', 'metzgerei', 6);
+
+INSERT INTO Verkaeufe (datum, uhrzeit, gesamtpreis) VALUES ('2020-09-10', '21:21:21', 25.6);
+INSERT INTO Verkaeufe (datum, uhrzeit, gesamtpreis) VALUES ('2020-09-13', '19:35:56', 6.25);
+INSERT INTO Verkaeufe (datum, uhrzeit, gesamtpreis) VALUES ('2020-09-4', '05:11:49', 8.5);
+
+
+
 
 
 

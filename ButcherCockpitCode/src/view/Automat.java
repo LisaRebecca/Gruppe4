@@ -1,17 +1,13 @@
-package classes;
+package view;
 
+import controller.DatabaseConnector;
+import controller.Portion;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-
-import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
 import java.util.ArrayList;
@@ -20,6 +16,8 @@ import java.util.Date;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+
+import Tools.MyTools;
 
 /**
  * Die Klasse Automat erbt von JFrame und dient der Anzeige des Kaufbildschirms.
@@ -31,42 +29,56 @@ import javax.swing.border.LineBorder;
  * 
  */
 
+@SuppressWarnings("serial")
 public class Automat extends JFrame {
 
 	/**
 	 * Instanz der Klasse Font um die Titelschriftart auf Arial, Fett und
 	 * Schriftgröße 20 zu setzen
 	 */
-	Font headerfont = new Font("Arial", Font.BOLD, 20);
+	private Font headerfont = new Font("Arial", Font.BOLD, 20);
 
 	/**
 	 * Instanziieren dreier JPanels, um die Automatenbestandteile voneinander
 	 * abzugrenzen
 	 */
-	JPanel jp_mainPanel, jp_selectionPanel, jp_barPanel;
+	private JPanel jp_mainPanel, jp_selectionPanel, jp_barPanel;
 
 	/**
 	 * Instanziieren zweier JLabels für die UI-Beschreibung und der Berechnung des
 	 * Gesamtbetrages der Bestellung
 	 */
-	JLabel jlbl_desc;
-	static JLabel jlbl_sum;
+	private JLabel jlbl_desc;
+	public static JLabel jlbl_sum;
 
 	/**
 	 * Instanziieren eines Kaufbuttons
 	 */
-	JButton jb_buy;
+	private JButton jb_buy;
 
 	/**
 	 * Rahmeneinstellungen für die spätere ProductSelection-Instanz/den Warenkorb
 	 */
-	Border border = new LineBorder(Color.orange, 1);
+	private Border border = new LineBorder(Color.orange, 1);
 
 	/**
 	 * Instanziieren der ArrayList zum Abspeichern des Warenkorbs
 	 * 
 	 */
-	static ArrayList<Panel_Selection> list_productSelection = new ArrayList<Panel_Selection>();
+	public static ArrayList<Panel_Selection> list_productSelection = new ArrayList<Panel_Selection>();
+	
+	/**
+	 * Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
+	 * Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
+	 */
+	private final String cus_sql = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
+			+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
+	
+	/**
+	 * Erzeugen der JTable-Instanz inklusive Datenbankabfrage über die Klasse
+	 * DatabaseConnector
+	 */
+	JTable jt_obtainableProducts = DatabaseConnector.executeDBQuery(cus_sql);
 
 	/**
 	 * Erzeugt das Automaten-UI inklusive Überschrift, entsprechender Tabelle,
@@ -79,7 +91,7 @@ public class Automat extends JFrame {
 		 * Iconbild, bzw. die dahinterstehende URL nicht gelesen werden konnte
 		 */
 		try {
-			BufferedImage image = ImageIO.read(new URL(
+			final BufferedImage image = ImageIO.read(new URL(
 					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
 			this.setIconImage(image);
 		} catch (IOException e1) {
@@ -127,30 +139,17 @@ public class Automat extends JFrame {
 		 */
 		jp_mainPanel.add(jp_selectionPanel);
 
-		/**
-		 * Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
-		 * Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
-		 */
-		String cus_sql = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
-				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
-
-		/**
-		 * Erzeugen der JTable-Instanz inklusive Datenbankabfrage über die Klasse
-		 * DatabaseConnector
-		 */
-		JTable jt_obtainableProducts = DatabaseConnector.executeDBQuery(cus_sql);
 
 		/**
 		 * Hinzuf�gen der Portionen, Darstellung der Eigenschaften in Labels
 		 */
 		for (int row = 0; row < jt_obtainableProducts.getRowCount(); row++) {
-			Portion portion = new Portion(
-					"" + jt_obtainableProducts.getValueAt(row, 0), 	//name
-					"" + jt_obtainableProducts.getValueAt(row, 1), 	//portionen
-					"" + jt_obtainableProducts.getValueAt(row, 2), 	//haltbar_bis
-					"" + jt_obtainableProducts.getValueAt(row, 3), 	//kilopreis
-					"" + jt_obtainableProducts.getValueAt(row, 4)	//gewicht_portion
-					);
+			Portion portion = new Portion("" + jt_obtainableProducts.getValueAt(row, 0), // name
+					"" + jt_obtainableProducts.getValueAt(row, 1), // portionen
+					"" + jt_obtainableProducts.getValueAt(row, 2), // haltbar_bis
+					"" + jt_obtainableProducts.getValueAt(row, 3), // kilopreis
+					"" + jt_obtainableProducts.getValueAt(row, 4) // gewicht_portion
+			);
 			Panel_Selection productSelection = new Panel_Selection(portion, this);
 			productSelection.setBorder(border);
 			list_productSelection.add(productSelection); // Warenkorb
@@ -164,7 +163,7 @@ public class Automat extends JFrame {
 		/**
 		 * Anzeige der Gesamtsumme
 		 */
-		jlbl_sum = new JLabel("Gesamtpreis: ____€");
+		jlbl_sum = new JLabel("0.00�");
 		jp_barPanel.add(jlbl_sum);
 
 		/**
@@ -178,46 +177,10 @@ public class Automat extends JFrame {
 		 * 
 		 */
 
-		ActionListener listener_buy_btn = new ActionListener() {
-			/**
-			 * Abwicklung des Kaufes nach Drücken des Buttons
-			 */
-			/**
-			 * Wenn der Button gedrückt wird, sollen eine OptionPane angezeigt werden, mit
-			 * zwei Buttons die jeweils die Texte "Ja, bezahlen" oder "Nein, zurück"
-			 * enthalten. Sowie darüber die Frage: "Möchten Sie den Kaufvorgang
-			 * abschließen und bezahlen". Wird der Ja-Button gedrückt, soll der Benutzer
-			 * eine Bestätigung über die Bestellung erhalten. Wird der Nein-Button
-			 * gedrückt, soll das Fenster geschlossen werden.
-			 * 
-			 */
-			
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String[] options = { "Ja, bezahlen", "Nein, zurück" };
-				int eingabe = JOptionPane.showOptionDialog(null,
-						"Möchten Sie den Kaufvorgang abschließen und bezahlen?", "Bestätigung",
-						JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-				System.out.println(eingabe);
-				if (eingabe == 0) {
-					JOptionPane.showMessageDialog(null,
-							"Danke für Ihren Einkauf, der Kassenbetrag wurde von ihrer Gutscheinkarte abgezogen.",
-							"Danke!", JOptionPane.INFORMATION_MESSAGE);
-					Date date = new Date();
-					SimpleDateFormat simpleDateFormat = new SimpleDateFormat ("dd.MM.yyyy HH:mm:ss");
-					simpleDateFormat.format(date);
-					DatabaseConnector.executeDBQuery("(INSERT INTO Verkaeufe(verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( 1,'2020-09-10', '16:33:10', 10.23);");
-					System.exit(0);
-				}
-
-			}
-		};
-
 		/**
 		 * Dem Kauf-Button wird der ActionListener hinzugefügt
 		 */
-		jb_buy.addActionListener(listener_buy_btn);
+		jb_buy.addActionListener(new ActionListener_Buy());
 
 		/**
 		 * Der Kauf-Button wird dem Bar-Panel hinzugefügt und das Bar-Panel wiederrum
@@ -232,16 +195,15 @@ public class Automat extends JFrame {
 		this.revalidate();
 	}
 
-	double gesamtpreis;
+	private double gesamtpreis;
 
 	public void berechneGesamtpreis() {
 		gesamtpreis = 0.00;
 		for (Panel_Selection selection : list_productSelection) {
-			String preis = selection.jlbl_preis.getText().replace(',', '.');
-			gesamtpreis += Double.parseDouble(preis);
-			NumberFormat formatter = NumberFormat.getInstance();
-			formatter.setMaximumFractionDigits(2);
-			jlbl_sum.setText("" + formatter.format(gesamtpreis) + " �");
+			double preis = selection.getPreis();
+			gesamtpreis += preis;
+
+			jlbl_sum.setText(MyTools.formatAsCurrency(gesamtpreis));
 		}
 	}
 
@@ -250,6 +212,6 @@ public class Automat extends JFrame {
 	 */
 
 	public static void main(String[] args) {
-		Automat automat = new Automat();
+		new Automat();
 	}
 }

@@ -1,4 +1,4 @@
-package classes;
+package view;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,8 +14,47 @@ import javax.swing.*;
  * internen BenutzeroberflÃ¤che fÃ¼r den Metzger. Darum muss die Klasse
  * UserInterface auch von JFrame erben.
  */
+@SuppressWarnings("serial")
 public class Cockpit extends JFrame {
+	
+	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
 
+	private JPanel jp_1 = new JPanel();
+	private JPanel jp_2 = new JPanel();
+	private JPanel jp_3 = new JPanel();
+	private JPanel jp_4 = new JPanel();
+	
+	/**
+	  Tilelabel mit passendem SQL Statement um den gesamten Lagerbestand aus
+	 	der Datenbank abzufragen
+	 */
+	private JLabel label_stock = new JLabel("Lagerbestand Gesamt");
+	public Tile stock = new Tile(
+			"SELECT name as Produktname, produkt_id as 'Produkt-ID', haltbar_bis as Haltbarkeit, lagerort as Lagerort, portionen as Vorraetig, gewicht_portion as '[kg/Portion]' from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id;");
+	
+	/**
+	 * Tilelabel mit dem passenden SQL Statement um das Produktportfolio, also die
+	 * gesamte Produkttabelle aus der Datenbank abzufragen
+	 */
+	private JLabel label_products = new JLabel("Produktportfolio");
+	public Tile products = new Tile(
+			"SELECT name as Produktname, produkt_id as 'Produkt-ID' , kilopreis as '[€/kg]', gewicht_portion as '[kg/Portion]' FROM Produkte;");
+	
+	/**
+	 * Tilelabel mit dem passenden SQL Statement um den FÃ¼llstand des
+	 * KÃ¼hlautomaten aus der Datenbank abzufragen
+	 */
+	
+	private JLabel label_automat = new JLabel("Füllstand Kühlautomat");
+	public Tile automat = new Tile(
+			"SELECT name as Produktname, produkt_id as 'Produkt-ID', haltbar_bis as Haltbarkeit, lagerort as Lagerort, portionen as Vorraetig, gewicht_portion as '[kg/Portion]' from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
+	
+	/**
+	 *  Tilelabel mit dem passenden SQL Statement um die gesamten
+	 *  Verkäufe durch den Kühlautomaten aus der Datenbank abzufragen
+	 */
+	private JLabel label_verkaeufe = new JLabel("Verkäufe Kühlautomat");
+	public Tile verkaeufe = new Tile("SELECT * FROM Verkaeufe;");
 	/**
 	 * Erzeugt und fÃ¼llt die ContentPane mit einem JPanel im GridLayout mit 3
 	 * Zeilen und 1 Spalte. Diesem werden jeweils Kacheln hinzugefÃ¼gt, deren
@@ -26,70 +65,43 @@ public class Cockpit extends JFrame {
 	public Cockpit() {
 
 		/**
-		 * Containerinstanz wird als ContentPane gesetzt
+		 * Containerinstanz wird als ContentPane gesetzt,
+		 * Tabs werden hinzugefügt
 		 */
 		Container c = getContentPane();
 		c.setLayout(new BorderLayout());
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
 		c.add(tabbedPane, BorderLayout.CENTER);
 
 		/**
-		 * JPanelinstanz bekommt das GridLayout mit 3 Zeilen und 1 Spalte Ã¼bergeben.
-		 * Diese wird dem Container hinzugefÃ¼gt.
+		 * den Tabs werden geweils weiße JPanels hinzugefügt
 		 */
-
-		JPanel jp_1 = new JPanel();
 		jp_1.setBackground(Color.WHITE);
-		JPanel jp_2 = new JPanel();
 		jp_2.setBackground(Color.WHITE);
-		JPanel jp_3 = new JPanel();
 		jp_3.setBackground(Color.WHITE);
-		JPanel jp_4 = new JPanel();
 		jp_4.setBackground(Color.WHITE);
 		tabbedPane.add(jp_1);
 		tabbedPane.add(jp_2);
 		tabbedPane.add(jp_3);
 		tabbedPane.add(jp_4);
 
-		/**
-		 * Tileinstanz mit dem passenden SQL Statement um den gesamten Lagerbestand aus
-		 * der Datenbank abzufragen Diese wird dem JPanel hinzugefÃ¼gt.
+		/** Lagerbestandtabelle und Label werden dem JPanel hinzugefÃ¼gt.
 		 */
-		JLabel label_stock = new JLabel("Lagerbestand Gesamt");
 		jp_1.add(label_stock);
-		Tile stock = new Tile(
-				"SELECT name, produkt_id, haltbar_bis, lagerort, portionen, gewicht_portion from lagerbestand "
-						+ "left join produkte on lagerbestand.produkt = produkte.produkt_id;");
 		jp_1.add(stock);
-
-		/**
-		 * Tileinstanz mit dem passenden SQL Statement um das Produktportfolio, also die
-		 * gesamte Produkttabelle aus der Datenbank abzufragen Diese wird dem JPanel
-		 * hinzugefÃ¼gt.
-		 */
-
-		JLabel label_products = new JLabel("Produktportfolio");
-		jp_2.add(label_products);
-		Tile products = new Tile("SELECT * FROM Produkte;");
-		jp_2.add(products);
-
-		jp_2.add(products);
-
-		/**
-		 * Tileinstanz mit dem passenden SQL Statement um den FÃ¼llstand des
-		 * KÃ¼hlautomaten aus der Datenbank abzufragen. Diese wird dem JPanel
-		 * hinzugefÃ¼gt.
-		 */
-
-		JLabel label_automat = new JLabel("Füllstand Kühlautomat");
-		jp_3.add(label_automat);
-		Tile automat = new Tile("SELECT name, portionen, haltbar_bis, kilopreis, gewicht_portion FROM lagerbestand "
-				+ "LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
-		jp_3.add(automat);
 		
-		JLabel label_verkaeufe = new JLabel("Verkäufe Kühlautomat");
+		/** Produkttabelle und Label werden dem JPanel hinzugefÃ¼gt.
+		 */
+		jp_2.add(label_products);
+		jp_2.add(products);
+
+		/** Automatenbestandstabelle und Label werden dem JPanel hinzugefÃ¼gt.
+		 */
+		jp_3.add(label_automat);
+		jp_3.add(automat);
+
+		/** Verkaufstabelle und Label werden dem JPanel hinzugefÃ¼gt.
+		 */
 		jp_4.add(label_verkaeufe);
-		Tile verkaeufe = new Tile ("SELECT * FROM Verkaeufe;");
 		jp_4.add(verkaeufe);
 
 		/**
