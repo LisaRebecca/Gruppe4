@@ -8,6 +8,12 @@ import java.sql.SQLException;
 import javax.swing.*;
 import org.junit.Test;
 
+/**
+ * Mit Hilfe der Klasse DatabaseConnectorTest wird getestet, ob die Datenbankanfragen im richtigen
+ * Format erfolgen und ob Tabellen korrekt aus der Datenbank gelesen werden.
+ *
+ */
+
 @SuppressWarnings("serial")
 public class DatabaseConnectorTest extends JFrame {
 

@@ -23,7 +23,7 @@ public class Portion {
 	 * @param lagermenge zurzeit gelagerte Menge eines Produkts
 	 * @param haltbar_bis Mindesthaltbarkeitsdatum eines Produkts
 	 * @param kilopreis Preis pro Kilo des Produkts
-	 * @param gewicht_portion Gewicht das bei einem speziellen Produkt eine Portion ausmacht
+	 * @param gewicht_portion Gewicht in Kilogramm, das bei einem speziellen Produkt eine Portion ausmacht
 	 */
 	public Portion(String name, String lagermenge, String haltbar_bis, String kilopreis, String gewicht_portion) {
 		this.name = name;
@@ -34,20 +34,25 @@ public class Portion {
 		this.lagermenge = Integer.parseInt(lagermenge);
 		
 		}
-	
-
 
 	/**
-	 * 
 	 * @return name den Produktname
 	 */
 	public String getName() {
 		return name;
 	}
+	
+	/**
+	 * @return das Gewicht in Kilogramm
+	 */
 
 	public double getPortionsgewichtKG() {
 		return portionsgewichtKG;
 	}
+	
+	/**
+	 * @return das Gewicht in Kilogramm, das eine Portion ausmacht
+	 */
 
 	public int getPortionsgewichtGramm() {
 		NumberFormat formatter = NumberFormat.getInstance();

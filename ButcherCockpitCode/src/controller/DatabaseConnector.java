@@ -38,6 +38,11 @@ public class DatabaseConnector {
 			return emptyTable;
 		}
 	}
+	/**
+	 * Die Datenbank wird befüllt.
+	 * 
+	 * @param insert_statement beschreibt, welche Daten in die Tabelle geschrieben werden
+	 */
 	
 	public static void executeDBInsert (String insert_statement) {
 		try {
