@@ -66,26 +66,20 @@ public class Automat extends JFrame {
 	 * 
 	 */
 	public static ArrayList<Panel_Selection> list_productSelection = new ArrayList<Panel_Selection>();
-	
-	/**
-	 * Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
-	 * Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
-	 */
-	private final String cus_sql = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
-			+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
+
 	
 	/**
 	 * Erzeugen der JTable-Instanz inklusive Datenbankabfrage über die Klasse
 	 * DatabaseConnector
 	 */
-	JTable jt_obtainableProducts = DatabaseConnector.executeDBQuery(cus_sql);
+	JTable jt_obtainableProducts;
 
 	/**
 	 * Erzeugt das Automaten-UI inklusive Überschrift, entsprechender Tabelle,
 	 * GesamtpreisLabel und KaufButton mit entsprechendem ActionListener.
 	 */
-	public Automat() {
-
+	public Automat(JTable products) {
+		this.jt_obtainableProducts = products;
 		/**
 		 * Try-Catch-Block zum Einlesen der Icon-URL Fängt eine IOException wenn das
 		 * Iconbild, bzw. die dahinterstehende URL nicht gelesen werden konnte
@@ -138,7 +132,6 @@ public class Automat extends JFrame {
 		 * Das SelectionPanel wird dem MainPanel hinzugefügt
 		 */
 		jp_mainPanel.add(jp_selectionPanel);
-
 
 		/**
 		 * Hinzuf�gen der Portionen, Darstellung der Eigenschaften in Labels
@@ -196,7 +189,7 @@ public class Automat extends JFrame {
 	}
 
 	private double gesamtpreis;
-	
+
 	public double getGesamtpreis() {
 		return gesamtpreis;
 	}
@@ -209,13 +202,5 @@ public class Automat extends JFrame {
 
 			jlbl_sum.setText(MyTools.formatAsCurrency(gesamtpreis));
 		}
-	}
-
-	/**
-	 * In der Main Methode wird eine Instanz der Automaten-Klasse erzeugt.
-	 */
-
-	public static void main(String[] args) {
-		new Automat();
 	}
 }
