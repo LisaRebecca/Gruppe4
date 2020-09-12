@@ -1,18 +1,22 @@
+package Tools;
+
+import org.junit.Assert;
+import org.junit.Test;
+
 public class MyToolsTest {
 	
 	@Test
-	public void testFormatAsCurrency() {
-	assertEquals("350.00â‚¬", new MyTools().formatAsCurrency(350.0000));
+	public void testFormatAsCurrency1() {
+	Assert.assertEquals("350,00€", MyTools.formatAsCurrency(350.0000));
 	}
 	
 	@Test
-	public void testFormatAsCurrency() {
-	assertEquals("175.00â‚¬", new MyTools().formatAsCurrency(175));
+	public void testFormatAsCurrency2() {
+	Assert.assertEquals("175,00€", MyTools.formatAsCurrency(175));
 	}
 	
 	@Test
-	public void testFormatAsCurrency() {
-	assertEquals("89.90â‚¬", new MyTools().formatAsCurrency(0089.0));
+	public void testFormatAsCurrency3() {
+	Assert.assertEquals("89,90€", MyTools.formatAsCurrency(89.9));
 	}
-
 }
