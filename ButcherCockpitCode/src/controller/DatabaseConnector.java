@@ -1,7 +1,6 @@
 package controller;
 
 import java.sql.*;
-import java.util.Observable;
 import java.util.Vector;
 
 import javax.swing.JTable;
@@ -17,6 +16,9 @@ public class DatabaseConnector {
 	 * Verbindung zur Datenbank
 	 */
 	private static Connection conn = DatabaseConnection.getDBConnection();
+	private static Object[][] emptyRowData = {{"###"}};
+	private static Object[] emptyColumnNames = {"###"};
+	private static JTable emptyTable = new JTable(emptyRowData, emptyColumnNames);
 
 	/**
 	 * Eine Anfrage an die in {@link DatabaseConnection} angebundene Datenbank kann
@@ -26,20 +28,24 @@ public class DatabaseConnector {
 	 * @return die angefragten Daten in der Form eines {@link JTable}
 	 */
 	public static JTable executeDBQuery(String select_statement) {
-		JTable table = null;
 		ResultSet result = null;
 		try {
 			result = conn.createStatement().executeQuery(select_statement);
+			return buildJTable(result);
 		} catch (SQLException sql) {
-			System.err.print("Error while executing statement: ");
-			System.err.println(select_statement);
+			sql.printStackTrace();
+			System.err.println("Error in MySQL Synax: "+select_statement);
+			return emptyTable;
 		}
+	}
+	
+	public static void executeDBInsert (String insert_statement) {
 		try {
-			table = buildJTable(result);
-		} catch (SQLException sql) {
-			System.err.print("Table Model could not be built.");
+			conn.createStatement().executeQuery(insert_statement);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.err.println("Error while executing statement: '"+insert_statement+"'");
 		}
-		return table;
 	}
 
 	/**
@@ -55,30 +61,38 @@ public class DatabaseConnector {
 	 *         beinhaltet
 	 * @throws SQLException beim auslesen der Daten kam es zu einem Fehler
 	 */
-	public static JTable buildJTable(ResultSet result) throws SQLException {
+	public static JTable buildJTable(ResultSet result) {
+		Vector<Vector<String>> rows;
+		Vector<String> columnLabels;
+		
+		try {
 
-		/**
-		 * Metadaten des ResultSets
-		 */
-		ResultSetMetaData metaData = result.getMetaData();
-		/**
-		 * Bezeichner der Spalten des Tabellen-Modells
-		 */
-		int columnCount = metaData.getColumnCount();
-		Vector<String> columnLabels = new Vector<String>();
+			/**
+			 * Metadaten des ResultSets
+			 */
+			ResultSetMetaData metaData = result.getMetaData();
+			/**
+			 * Bezeichner der Spalten des Tabellen-Modells
+			 */
+			int columnCount = metaData.getColumnCount();
+			columnLabels = new Vector<String>();
 
-		for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-			columnLabels.add(metaData.getColumnLabel(columnIndex));
-		}
-
-		Vector<Vector<String>> rows = new Vector<Vector<String>>();
-		Vector<String> singleRow;
-		while (result.next()) {
-			singleRow = new Vector<String>();
 			for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-				singleRow.add("" + result.getObject(columnIndex));
+				columnLabels.add(metaData.getColumnLabel(columnIndex));
 			}
-			rows.add(singleRow);
+
+			rows = new Vector<Vector<String>>();
+			Vector<String> singleRow;
+			while (result.next()) {
+				singleRow = new Vector<String>();
+				for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+					singleRow.add("" + result.getObject(columnIndex));
+				}
+				rows.add(singleRow);
+			}
+		} catch (SQLException e) {
+			System.err.print("Table could not be built from empty ResultSet.");
+			return emptyTable;
 		}
 		return new JTable(new DefaultTableModel(rows, columnLabels));
 	}

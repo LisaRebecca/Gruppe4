@@ -5,7 +5,10 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import controller.DatabaseConnector;
 
@@ -22,6 +25,16 @@ public class ActionListener_Buy implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		JButton jb_source = (JButton) e.getSource();
+		Automat at = (Automat) SwingUtilities.getRoot(jb_source);
+//		Object parent;
+//		do {
+//			parent = jb_source.getParent();
+//			System.out.println(parent.getClass());
+//		} while ( !(parent instanceof JFrame));
+//		System.out.println("Parent found");
+//		Automat at = (Automat) parent;
+		double gesamtpreis = at.getGesamtpreis();
 		String[] options = { "Ja, bezahlen", "Nein, zurück" };
 		int eingabe = JOptionPane.showOptionDialog(null, "Möchten Sie den Kaufvorgang abschließen und bezahlen?",
 				"Bestätigung", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
@@ -30,10 +43,14 @@ public class ActionListener_Buy implements ActionListener {
 					"Danke für Ihren Einkauf, der Kassenbetrag wurde von ihrer Gutscheinkarte abgezogen.", "Danke!",
 					JOptionPane.INFORMATION_MESSAGE);
 			Date date = new Date();
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-			simpleDateFormat.format(date);
-			DatabaseConnector.executeDBQuery(
-					"(INSERT INTO Verkaeufe(verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( 1,'2020-09-10', '16:33:10', 10.23);");
+			Date time = new Date();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String sql_date = simpleDateFormat.format(date);
+			SimpleDateFormat simpleTimeFormat = new SimpleDateFormat ("HH:mm:ss");
+			String sql_time = simpleTimeFormat.format(time);
+			DatabaseConnector.executeDBInsert(
+					"INSERT INTO Verkaeufe( datum, uhrzeit, gesamtpreis) VALUES ('"+sql_date+"' , '"+sql_time+"',"+ gesamtpreis+");");
+			System.out.println("Insert complete");
 			System.exit(0);
 		}
 

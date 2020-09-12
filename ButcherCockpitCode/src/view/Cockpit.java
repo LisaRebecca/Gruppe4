@@ -54,7 +54,8 @@ public class Cockpit extends JFrame {
 	 *  Verkäufe durch den Kühlautomaten aus der Datenbank abzufragen
 	 */
 	private JLabel label_verkaeufe = new JLabel("Verkäufe Kühlautomat");
-	public Tile verkaeufe = new Tile("SELECT * FROM Verkaeufe;");
+//	public Tile verkaeufe = new Tile("SELECT * FROM Verkaeufe;");
+	private Tile verkaeufe = new Tile ("SELECT verkauf_id as 'Verkauf-ID', datum as Datum, uhrzeit as Uhrzeit, gesamtpreis as Gesamtpreis FROM Verkaeufe;");
 	/**
 	 * Erzeugt und fÃ¼llt die ContentPane mit einem JPanel im GridLayout mit 3
 	 * Zeilen und 1 Spalte. Diesem werden jeweils Kacheln hinzugefÃ¼gt, deren
