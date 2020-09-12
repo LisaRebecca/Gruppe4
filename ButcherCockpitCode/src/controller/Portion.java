@@ -38,13 +38,13 @@ public class Portion {
 		}
 	}
 
-	/**
-	 * Ausgabe des Produktes inklusive Eigenschaften als Text
-	 */
-	@Override
-	public String toString() {
-		return getName() + ",  " + portionspreis + "€/Portion,  " + haltbar;
-	}
+//	/**
+//	 * Ausgabe des Produktes inklusive Eigenschaften als Text
+//	 */
+//	@Override
+//	public String toString() {
+//		return getName() + ",  " + portionspreis + "€/Portion,  " + haltbar;
+//	}
 
 	/**
 	 * 

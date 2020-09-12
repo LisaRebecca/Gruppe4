@@ -37,7 +37,7 @@ public class Panel_Selection extends JPanel {
 	 * @param portion das darzustellende Produkt als einzelne {@link Portion}
 	 */
 	public Panel_Selection(Portion portion, Automat automat) {
-		this.portion = portion;
+		this.setPortion(portion);
 		this.automat = automat;
 
 		this.setLayout(new GridLayout(1, 0));
@@ -49,15 +49,15 @@ public class Panel_Selection extends JPanel {
 		this.add(new JLabel(portion.getName(), SwingConstants.LEFT));
 		this.add(new JLabel("" + portion.getKilopreis() + " �/kg", SwingConstants.RIGHT));
 //		this.add(new JLabel("  haltbar bis " + portion.haltbar, SwingConstants.RIGHT));
-		this.add(new JLabel("" + portion.getLagermenge() + " Portionen á ", SwingConstants.RIGHT));
-		this.add(new JLabel("" + this.portion.getPortionsgewichtGramm() + "g auf Lager", SwingConstants.LEFT));
+		this.add(new JLabel("" + portion.getLagermenge() + " Portionen � ", SwingConstants.RIGHT));
+		this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + "g auf Lager", SwingConstants.LEFT));
 
 		/**
 		 * Ausgewählte Menge anzeigen
 		 */
-		jlbl_amount = new JLabel(""+initialAmount, SwingConstants.CENTER);
-		jlbl_amount.setBackground(Color.white);
-		this.add(jlbl_amount);
+		setJlbl_amount(new JLabel(""+initialAmount, SwingConstants.CENTER));
+		getJlbl_amount().setBackground(Color.white);
+		this.add(getJlbl_amount());
 
 		/**
 		 * ButtonsListener, welcher die Änderungen der Menge steuert
@@ -67,24 +67,24 @@ public class Panel_Selection extends JPanel {
 		/**
 		 * Button zum Erhöhen der Menge
 		 */
-		jb_more = new JButton("+");
-		jb_more.setBackground(Color.white);
-		jb_more.addActionListener(bl);
-		this.add(jb_more);
+		setJb_more(new JButton("+"));
+		getJb_more().setBackground(Color.white);
+		getJb_more().addActionListener(bl);
+		this.add(getJb_more());
 
 		/**
 		 * Button zum Vermindern der Menge
 		 */
-		jb_less = new JButton("-");
-		jb_less.setBackground(Color.white);
-		jb_less.addActionListener(bl);
+		setJb_less(new JButton("-"));
+		getJb_less().setBackground(Color.white);
+		getJb_less().addActionListener(bl);
 		/**
 		 * Anzahl ist zu Anfang 0, der Nutzer soll die Anzahl nur erhöhen können.
 		 */
-		jb_less.setVisible(false);
-		this.add(jb_less);
+		getJb_less().setVisible(false);
+		this.add(getJb_less());
 
-		jlbl_preis = new JLabel(MyTools.formatAsCurrency(0), SwingConstants.LEFT);
+		jlbl_preis = new JLabel(MyTools.formatAsCurrency(0), SwingConstants.RIGHT);
 		this.add(jlbl_preis);
 	}
 
@@ -92,8 +92,7 @@ public class Panel_Selection extends JPanel {
 	 * der gesamte Preis der ausgewälten Portionen wird aktualisiert
 	 */
 	public void aktualisierePreise() {
-		
-		jlbl_preis.setText("" + MyTools.formatAsCurrency((portion.getPortionspreis() * getAmount())));
+		jlbl_preis.setText("" + MyTools.formatAsCurrency((getPortion().getPortionspreis() * getAmount())));
 	}
 
 	public double getPreis() {
@@ -106,6 +105,38 @@ public class Panel_Selection extends JPanel {
 		return Double.parseDouble(preis);
 	}
 	public int getAmount() {
-		return Integer.parseInt(jlbl_amount.getText());
+		return Integer.parseInt(getJlbl_amount().getText());
+	}
+
+	public JLabel getJlbl_amount() {
+		return jlbl_amount;
+	}
+
+	public void setJlbl_amount(JLabel jlbl_amount) {
+		this.jlbl_amount = jlbl_amount;
+	}
+
+	public JButton getJb_less() {
+		return jb_less;
+	}
+
+	public void setJb_less(JButton jb_less) {
+		this.jb_less = jb_less;
+	}
+
+	public Portion getPortion() {
+		return portion;
+	}
+
+	public void setPortion(Portion portion) {
+		this.portion = portion;
+	}
+
+	public JButton getJb_more() {
+		return jb_more;
+	}
+
+	public void setJb_more(JButton jb_more) {
+		this.jb_more = jb_more;
 	}
 }

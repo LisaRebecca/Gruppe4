@@ -20,17 +20,17 @@ public class ActionListener_Amount implements ActionListener{
 			amount--;
 		}
 
-		ps.jlbl_amount.setText("" + amount);
+		ps.getJlbl_amount().setText("" + amount);
 		ps.aktualisierePreise();
 		ps.automat.berechneGesamtpreis();
 
 		if (amount <= 0) {
-			ps.jb_less.setVisible(false);
-		} else if (0 < amount & amount < ps.portion.getLagermenge()) {
-			ps.jb_less.setVisible(true);
-			ps.jb_more.setVisible(true);
-		} else if (amount >= ps.portion.getLagermenge()) {
-			ps.jb_more.setVisible(false);
+			ps.getJb_less().setVisible(false);
+		} else if (0 < amount & amount < ps.getPortion().getLagermenge()) {
+			ps.getJb_less().setVisible(true);
+			ps.getJb_more().setVisible(true);
+		} else if (amount >= ps.getPortion().getLagermenge()) {
+			ps.getJb_more().setVisible(false);
 		}
 
 	}
