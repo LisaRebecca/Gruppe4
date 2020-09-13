@@ -1,10 +1,9 @@
-package controller;
+package view;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import view.Automat;
-import view.Panel_Selection;
+import controller.Portion;
 
 /**
  * Mit Hilfe der Klasse Panel_SelectionTest soll bestaetigt werden, dass die die richtigen Preise und Menge zurueckgegeben werden. 
@@ -18,7 +17,9 @@ public class Panel_SelectionTest {
 	
 	@Test
 	public void testGetAmount() {
-		Einkauf.setAmount(3);
+		Einkauf.getJb_more().doClick();
+		Einkauf.getJb_more().doClick();
+		Einkauf.getJb_more().doClick();
 		Assert.assertEquals(Einkauf.getAmount(), 3);
 	}
 	
