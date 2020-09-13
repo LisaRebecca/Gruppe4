@@ -33,7 +33,7 @@ public class Cockpit extends JFrame {
 	 */
 	private JLabel label_stock = new JLabel("Lagerbestand Gesamt");
 	public Tile stock = new Tile(
-			"SELECT name as Produktname, produkt_id as 'Produkt-ID', haltbar_bis as Haltbarkeit, lagerort as Lagerort, portionen as Vorraetig, gewicht_portion as '[kg/Portion]' from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id;");
+			"SELECT name as Produktname, haltbar_bis as Haltbarkeit, lagerort as Lagerort, portionen as Vorraetig from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id;");
 	
 	/**
 	 * Tilelabel mit dem passenden SQL Statement um das Produktportfolio, also die
@@ -50,7 +50,7 @@ public class Cockpit extends JFrame {
 	
 	private JLabel label_automat = new JLabel("Füllstand Kühlautomat");
 	public Tile automat = new Tile(
-			"SELECT name as Produktname, produkt_id as 'Produkt-ID', haltbar_bis as Haltbarkeit, lagerort as Lagerort, portionen as Vorraetig, gewicht_portion as '[kg/Portion]' from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
+			"SELECT name as Produktname, haltbar_bis as Haltbarkeit, portionen as Vorraetig from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 	
 	/**
 	 *  Tilelabel mit dem passenden SQL Statement um die gesamten
