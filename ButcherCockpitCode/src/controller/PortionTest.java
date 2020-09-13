@@ -1,5 +1,7 @@
 package controller;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 
 /**
@@ -11,59 +13,69 @@ import org.junit.Test;
 import junit.framework.Assert;
 
 public class PortionTest {
-	
+
+	/**
+	 * --------------- Testing Getter ---------------
+	 */
+	Portion portion = new Portion("Schnitzel", "5", "16.09.2020", "16.90", "0.3");
+
 	@Test
-	public void testName () {
-		Portion portion = new Portion("Schnitzel", "5","16.09.2020", "16.90", "0.3");
+	public void testName() {
 		Assert.assertEquals("Schnitzel", portion.getName());
 	}
+
 	@Test
-	public void testLagermenge () {
-	Portion portion = new Portion("Schnitzel", "5","16.09.2020", "16.90", "0.3");
-	Assert.assertEquals(5, portion.getLagermenge());
+	public void testLagermenge() {
+		Assert.assertEquals(5, portion.getLagermenge());
 	}
+
 	@Test
-	public void testHaltbarkeit () {
-	Portion portion = new Portion("Schnitzel", "5","16.09.2020", "16.90", "0.3");
-	Assert.assertEquals("16.09.2020", portion.getHaltbar());
+	public void testHaltbarkeit() {
+		Assert.assertEquals("16.09.2020", portion.getHaltbarBis());
 	}
-	
+
 	@Test
-	public void testKilopreis () {
-	Portion portion = new Portion("Schnitzel", "5","16.09.2020", "16.90", "0.3");
-	Assert.assertEquals(16.90, portion.getKilopreis());
+	public void testKilopreis() {
+		Assert.assertEquals(16.90, portion.getKilopreis());
 	}
-	
+
 	@Test
-	public void testPortionsgewicht () {
-	Portion portion = new Portion("Schnitzel", "5","16.09.2020", "16.90", "0.3");
-	Assert.assertEquals(0.3, portion.getPortionsgewichtKG());
+	public void testPortionsgewicht() {
+		Assert.assertEquals(0.3, portion.getPortionsgewichtKG());
 	}
+
 	@Test
-	public void testPortionspreis () {
-	Portion portion = new Portion("Schnitzel", "5","16.09.2020", "16.90", "0.3");
-	Assert.assertEquals(Double.parseDouble("16.90") * Double.parseDouble("0.3"), portion.getPortionspreis());
+	public void testPortionspreis() {
+		Assert.assertEquals(16.90 * 0.3, portion.getPortionspreis());
 	}
-	
-	@Test(expected=NumberFormatException.class)
-	public void testWrongKilopreisThrowsException() {
-		Portion portion = new Portion("Schnitzel", "5","16.09.2020", "abc", "0.3");
-	}
-	@Test(expected=NumberFormatException.class)
-	public void testWrongPortionsgewichtThrowsException() {
-		Portion portion = new Portion("Schnitzel", "5","16.09.2020", "16.90", "ab");
-	}
-	@Test(expected=NumberFormatException.class)
-	public void testWrongPortionspreisThrowsException() {
-		Portion portion = new Portion("Schnitzel", "5","16.09.2020", "abc", "0.3");
-	}
-	@Test(expected=NumberFormatException.class)
-	public void testWrongLagermengeThrowsException() {
-		Portion portion = new Portion("Schnitzel", "?.)?","16.09.2020", "abc", "0.3");
-	}
+
 	@Test
 	public void testgetPortionsgewichtGramm() {
-		Portion portion = new Portion("Schnitzel", "5","16.09.2020", "16.90", "0.3");
 		Assert.assertEquals(300, portion.getPortionsgewichtGramm());
 	}
+
+	
+	/**
+	 * --------------- Testing Setter ---------------
+	 */
+	Portion newPortion = new Portion();
+
+	@Test(expected = NumberFormatException.class)
+	public void testWrongKilopreisThrowsException() {
+		newPortion.setKilopreis("kein Double");
+		Assert.assertNotNull(portion.getKilopreis());
+	}
+
+	@Test(expected = NumberFormatException.class)
+	public void testWrongPortionsgewichtKGThrowsException() {
+		newPortion.setPortionsgewichtKG("auch kein Double");
+		Assert.assertNotNull(portion.getPortionsgewichtKG());
+	}
+
+	@Test(expected = NumberFormatException.class)
+	public void testWrongLagermengeThrowsException() {
+		newPortion.setLagermenge("kein int");
+		Assert.assertNotNull(portion.getLagermenge());
+	}
+
 }

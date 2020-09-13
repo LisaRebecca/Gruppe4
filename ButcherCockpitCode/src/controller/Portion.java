@@ -8,50 +8,64 @@ import java.text.NumberFormat;
  */
 public class Portion {
 
-	public String name;
-	public int lagermenge;
-	public double portionspreis;
-	public double kilopreis;
-	public double portionsgewichtKG;
-	public String haltbar;
+	private String name;
+	private int lagermenge;
+	private double kilopreis;
+	private double portionsgewichtKG;
+	private String haltbarBis;
 
 	/**
-	 * Konstruktor, welcher Produktname, Lagermenge, Mindesthaltbarkeit, Kilopreis
-	 * und Portionsgewicht übergeben bekommt 
+	 * Der Standard-Konstruktor setzt die Instanzvariablen auf Standard-Werte, damit
+	 * keine <code>NullPointerException</code> auftritt, falls in einer der
+	 * set-Methoden oder dem anderen Konstruktor eine
+	 * <code>NumberFormatException</code> eintrat.
+	 */
+	public Portion() {
+		this.name = "no product name specified";
+		this.lagermenge = 0;
+		this.kilopreis = 0;
+		this.portionsgewichtKG = 0;
+		this.haltbarBis = "0000-00-00";
+	}
+
+	/**
+	 * Konstruktor, welcher die Instanzvariablen aus String-Objekten ausliest.
 	 * 
-	 * @param name Produktname
-	 * @param lagermenge zurzeit gelagerte Menge eines Produkts
-	 * @param haltbar_bis Mindesthaltbarkeitsdatum eines Produkts
-	 * @param kilopreis Preis pro Kilo des Produkts
-	 * @param gewicht_portion Gewicht in Kilogramm, das bei einem speziellen Produkt eine Portion ausmacht
+	 * @throws NumberFormatException falls lagermenge, kilopreis oder
+	 *                               portionsgewichtKG keine Zahl repräsentieren. In
+	 *                               diesem Fall wird behält die betroffene Variable
+	 *                               ihren Default-Wert, welcher im
+	 *                               Standard-Konstruktor gesetzt wurde.
+	 * 
+	 * @param name              Produktname
+	 * @param lagermenge        zurzeit gelagerte Menge eines Produkts
+	 * @param kilopreis         Preis pro Kilo des Produkts
+	 * @param portionsgewichtKG Gewicht in Kilogramm, das bei einem speziellen
+	 *                          Produkt eine Portion ausmacht
+	 * @param haltbarBis        Mindesthaltbarkeitsdatum eines Produkts
 	 */
-	public Portion(String name, String lagermenge, String haltbar_bis, String kilopreis, String gewicht_portion) {
-		this.name = name;
-		this.haltbar = haltbar_bis;
-		this.kilopreis = Double.parseDouble(kilopreis);
-		this.portionsgewichtKG = Double.parseDouble(gewicht_portion);
-		this.portionspreis = Double.parseDouble(kilopreis) * Double.parseDouble(gewicht_portion);
-		this.lagermenge = Integer.parseInt(lagermenge);
-		
-		}
+	public Portion(String name, String lagermenge, String haltbarBis, String kilopreis, String portionsgewichtKG) {
+		setName(name);
+		setLagermenge(lagermenge);
+		setHaltbarBis(haltbarBis);
+		setKilopreis(kilopreis);
+		setPortionsgewichtKG(portionsgewichtKG);
+	}
 
-	/**
-	 * @return name den Produktname
-	 */
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
-	 * @return das Gewicht in Kilogramm
+	 * @return das Gewicht einer Portion in Kilogramm
 	 */
 
 	public double getPortionsgewichtKG() {
 		return portionsgewichtKG;
 	}
-	
+
 	/**
-	 * @return das Gewicht in Kilogramm, das eine Portion ausmacht
+	 * @return das Gewicht einer Portion in Gramm
 	 */
 
 	public int getPortionsgewichtGramm() {
@@ -61,31 +75,52 @@ public class Portion {
 		return Integer.parseInt(formatter.format(portionsgewichtKG * 1000));
 	}
 
-	/**
-	 * @return the lagermenge
-	 */
 	public int getLagermenge() {
 		return lagermenge;
 	}
 
-	/**
-	 * @return the portionspreis
-	 */
 	public double getPortionspreis() {
-		return portionspreis;
+		return this.kilopreis * this.portionsgewichtKG;
 	}
 
-	/**
-	 * @return the kilopreis
-	 */
 	public double getKilopreis() {
 		return kilopreis;
 	}
 
-	/**
-	 * @return the haltbar
-	 */
-	public String getHaltbar() {
-		return haltbar;
+	public String getHaltbarBis() {
+		return haltbarBis;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setLagermenge(int lagermenge) {
+		this.lagermenge = lagermenge;
+	}
+
+	public void setLagermenge(String lagermenge) {
+		this.lagermenge = Integer.parseInt(lagermenge);
+	}
+
+	public void setKilopreis(double kilopreis) {
+		this.kilopreis = kilopreis;
+	}
+
+	public void setKilopreis(String kilopreis) {
+		this.kilopreis = Double.parseDouble(kilopreis);
+	}
+
+	public void setPortionsgewichtKG(double portionsgewichtKG) {
+		this.portionsgewichtKG = portionsgewichtKG;
+	}
+
+	public void setPortionsgewichtKG(String portionsgewichtKG) {
+		this.portionsgewichtKG = Double.parseDouble(portionsgewichtKG);
+	}
+
+	public void setHaltbarBis(String haltbarBis) {
+		this.haltbarBis = haltbarBis;
+	}
+
 }
