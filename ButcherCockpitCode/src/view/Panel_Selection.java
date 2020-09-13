@@ -4,6 +4,9 @@ import controller.Portion;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+
 import Tools.MyTools;
 
 @SuppressWarnings("serial")
@@ -44,7 +47,8 @@ public class Panel_Selection extends JPanel {
 		this.automat = automat;
 
 		this.setLayout(new GridLayout(1, 0));
-		this.setBackground(Color.LIGHT_GRAY);
+		this.setBackground(Color.WHITE);
+		this.setBorder(new LineBorder(Color.orange, 1));
 
 		/**
 		 * Darstellen der Portion, welche zur Auswahl steht.
