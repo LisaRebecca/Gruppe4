@@ -46,7 +46,7 @@ public class DatabaseConnector {
 	
 	public static void executeDBInsert (String insert_statement) {
 		try {
-			conn.createStatement().executeQuery(insert_statement);
+			conn.createStatement().execute(insert_statement);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println("Error while executing statement: '"+insert_statement+"'");

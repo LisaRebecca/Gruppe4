@@ -41,8 +41,7 @@ public class ActionListener_Buy implements ActionListener {
 			SimpleDateFormat simpleTimeFormat = new SimpleDateFormat ("HH:mm:ss");
 			String sql_time = simpleTimeFormat.format(time);
 			DatabaseConnector.executeDBInsert(
-					"INSERT INTO Verkaeufe( datum, uhrzeit, gesamtpreis) VALUES ('"+sql_date+"' , '"+sql_time+"',"+ gesamtpreis+");");
-			System.out.println("Insert complete");
+					"INSERT INTO Verkaeufe( datum, uhrzeit, gesamtpreis) VALUES ('"+sql_date+"', '"+sql_time+"',"+ gesamtpreis+");");
 			System.exit(0);
 		}
 
