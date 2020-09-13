@@ -56,11 +56,6 @@ public class Automat extends JFrame {
 	private JButton jb_buy;
 
 	/**
-	 * Rahmeneinstellungen fuer die spaetere ProductSelection-Instanz/den Warenkorb
-	 */
-	private Border border = new LineBorder(Color.orange, 1);
-
-	/**
 	 * Instanziieren der ArrayList zum Abspeichern des Warenkorbs
 	 * 
 	 */
@@ -147,8 +142,6 @@ public class Automat extends JFrame {
 					"" + jt_obtainableProducts.getValueAt(row, 4) // gewicht_portion
 			);
 			Panel_Selection productSelection = new Panel_Selection(portion, this);
-			productSelection.setBorder(border);
-			productSelection.setBackground(Color.white);
 			list_productSelection.add(productSelection); // Warenkorb
 			jp_selectionPanel.add(productSelection);
 		}
