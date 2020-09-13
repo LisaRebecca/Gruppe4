@@ -3,29 +3,23 @@ package view;
 import controller.DatabaseConnector;
 import controller.Portion;
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import javax.imageio.ImageIO;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 
 import Tools.MyTools;
 
 /**
- * Die Klasse Automat erbt von JFrame und dient der Anzeige des Kaufbildschirms.
- * Der Kunde kann mit Hilfe dieser Klasse also sehen, welche Produkte noch zu
- * welchen Mengen im Automaten vorhanden sind, was diese kosten und wann sie
- * ablaufen. Der Kunde hat mit Hilfe dieser Klasse die Moeglichkeit, eine
- * bestimmte Menge eines oder mehrerer Produkte auszuwaehlen und schliesslich zu
- * kaufen.
+ * Die Klasse Automat dient der Anzeige des Kaufbildschirms. Der Kunde kann mit
+ * Hilfe dieser Klasse sehen, welche Produkte zu welchen Mengen im Automaten
+ * vorhanden sind, was diese kosten und wann sie ablaufen. Der Kunde hat mit
+ * Hilfe dieser Klasse die Moeglichkeit, eines oder mehrerer Produkte
+ * auszuwaehlen und zu kaufen.
  * 
  */
 
@@ -33,31 +27,25 @@ import Tools.MyTools;
 public class Automat extends JFrame {
 
 	/**
-	 * Instanz der Klasse Font um die Überschrift durch die Schriftart hervorzuheben
+	 * Schriftart für die Überschrift
 	 */
 	private Font headerfont = new Font("Arial", Font.BOLD, 20);
 
-	/**
-	 * Instanziieren dreier JPanels, um die Automatenbestandteile voneinander
-	 * abzugrenzen
-	 */
-	private JPanel jp_mainPanel, jp_selectionPanel, jp_barPanel;
+	private JPanel jp_mainPanel;
 
-	/**
-	 * Instanziieren zweier JLabels fÃuer die UI-Beschreibung und der Berechnung des
-	 * Gesamtbetrages der Bestellung
-	 */
-	private JLabel jlbl_desc;
-	public static JLabel jlbl_sum;
+	private JPanel jp_selectionPanel;
 
-	/**
-	 * Instanziieren eines Kaufbuttons
-	 */
+	private JPanel jp_buyPanel;
+
+	private JLabel jlbl_title;
+
+	private JLabel jlbl_total;
+
 	private JButton jb_buy;
 
 	/**
-	 * Instanziieren der ArrayList zum Abspeichern des Warenkorbs
-	 * 
+	 * Warenkorb, enthält alle ausgewählten Produkte in Form von
+	 * {@link Panel_Selection}
 	 */
 	public ArrayList<Panel_Selection> list_productSelection = new ArrayList<Panel_Selection>();
 
@@ -65,119 +53,89 @@ public class Automat extends JFrame {
 	 * speichert die Summe der Preise der ausgewählten Produkte
 	 */
 	private double gesamtpreis;
-	
+
 	/**
-	 * Erzeugen der JTable-Instanz inklusive Datenbankabfrage ueber die Klasse
-	 * DatabaseConnector
+	 * Tabelle der verfügbaren Produkte
 	 */
 	JTable jt_obtainableProducts;
 
 	/**
-	 * Erzeugt das Automaten-UI inklusive Ãœberschrift, entsprechender Tabelle,
-	 * GesamtpreisLabel und KaufButton mit entsprechendem ActionListener.
+	 * Erzeugen des Automaten-UI inklusive Ueberschrift, Tabelle, GesamtpreisLabel
+	 * und KaufButton mit ActionListener.
+	 * 
+	 * @param products die verfügbaren Produkte
 	 */
 	public Automat(JTable products) {
 		this.jt_obtainableProducts = products;
-		/**
-		 * Try-Catch-Block zum Einlesen der Icon-URL FÃ¤ngt eine IOException wenn das
-		 * Iconbild, bzw. die dahinterstehende URL nicht gelesen werden konnte
-		 */
-		try {
-			final BufferedImage image = ImageIO.read(new URL(
-					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
-			this.setIconImage(image);
-		} catch (IOException e1) {
-			System.err.println("Icon des Automaten konnte nicht geladen werden.");
-		}
 
+		/**
+		 * ------------------------------- Konfiguration JFrame
+		 * -------------------------------
+		 */
 		/**
 		 * Hier werden Titel, Sichtbarkeit, Groesse, Position und Close-Operation des
 		 * Automaten-Windows festgelegt
-		 * 
 		 */
 		this.setTitle("Kühlautomat");
 		this.setVisible(true);
 		this.setSize(800, 400);
 		this.setLocation(50, 20);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setIcon();
 
-		/**
-		 * Containerinstanz wird als ContentPane gesetzt
-		 */
 		Container c = getContentPane();
 
 		/**
-		 * Das MainPanel wird mit dem FlowLayout erstellt und dem Container hinzugefÃ¼gt
+		 * Erzeugen des Hintergrund-Panels
 		 */
 		jp_mainPanel = new JPanel(new FlowLayout());
 		c.add(jp_mainPanel);
 
 		/**
-		 * Das Beschreibungslabel wird mit dem zugehÃ¶rigen String erstellt und ihre
-		 * Schriftart auf die headerfont gesetzt
+		 * ----------------------------------- Auswahl-Panel
+		 * -----------------------------------
 		 */
-		jlbl_desc = new JLabel("Bitte waehlen Sie Ihre Produkte aus:");
-		jlbl_desc.setFont(headerfont);
 
 		/**
-		 * Das SelectionPanel wird mit dem GridLayout mit unbegrenzten Zeilen und 1
-		 * Spalte erstellt. Diesem wird die das Beschreibungslabel hinzugefÃ¼gt
+		 * Erstellen der Überschrift
+		 */
+		jlbl_title = new JLabel("Bitte waehlen Sie Ihre Produkte aus:");
+		jlbl_title.setFont(headerfont);
+
+		/**
+		 * Panel, welches alle auswählbaren Produkte beinhaltet
 		 */
 		jp_selectionPanel = new JPanel(new GridLayout(0, 1));
-		jp_selectionPanel.add(jlbl_desc);
-
-		/**
-		 * Das SelectionPanel wird dem MainPanel hinzugefÃ¼gt
-		 */
+		jp_selectionPanel.add(jlbl_title);
 		jp_mainPanel.add(jp_selectionPanel);
 
 		/**
-		 * Hinzufügen der Portionen, Darstellung der Eigenschaften in Labels
+		 * Füllen des Auswahlpanels mit den Produkten
 		 */
-		for (int row = 0; row < jt_obtainableProducts.getRowCount(); row++) {
-			Portion portion = new Portion("" + jt_obtainableProducts.getValueAt(row, 0), // name
-					"" + jt_obtainableProducts.getValueAt(row, 1), // portionen
-					"" + jt_obtainableProducts.getValueAt(row, 2), // haltbar_bis
-					"" + jt_obtainableProducts.getValueAt(row, 3), // kilopreis
-					"" + jt_obtainableProducts.getValueAt(row, 4) // gewicht_portion
-			);
-			Panel_Selection productSelection = new Panel_Selection(portion, this);
-			list_productSelection.add(productSelection); // Warenkorb
-			jp_selectionPanel.add(productSelection);
-		}
+		loadProductsFromTable();
 
 		/**
-		 * Das BarPanel wird mit dem GridLayout mit 2 Zeilen und 1 Spalte erstellt.
+		 * ----------------------------------- Kaufen-Panel
+		 * -----------------------------------
 		 */
-		jp_barPanel = new JPanel(new GridLayout(2, 1));
+
+		jp_buyPanel = new JPanel(new GridLayout(2, 1));
 		/**
 		 * Anzeige der Gesamtsumme
 		 */
-		jlbl_sum = new JLabel("0.00€");
-		jp_barPanel.add(jlbl_sum);
+		jlbl_total = new JLabel();
+		berechneGesamtpreis();
+		jp_buyPanel.add(jlbl_total);
 
 		/**
-		 * Button zum Simulieren des Kaufs
+		 * Button zum Kaufen wird erstellt
 		 */
 		jb_buy = new JButton("Kaufen");
 		jb_buy.setBackground(Color.white);
-
-		/**
-		 * Erstellen eines ActionListeners fÃ¼r den Kauf-Button
-		 * 
-		 */
-
-		/**
-		 * Dem Kauf-Button wird der ActionListener hinzugefÃ¼gt
-		 */
 		jb_buy.addActionListener(new ActionListener_Buy());
+		jp_buyPanel.add(jb_buy);
 
-		/**
-		 * Der Kauf-Button wird dem Bar-Panel hinzugefÃ¼gt und das Bar-Panel wiederrum
-		 * dem Main-Panel.
-		 */
-		jp_barPanel.add(jb_buy);
-		jp_mainPanel.add(jp_barPanel);
+		jp_mainPanel.add(jp_buyPanel);
 
 		/**
 		 * Eine Funktion zur korrekten Anzeige des Automaten-UIs.
@@ -186,36 +144,70 @@ public class Automat extends JFrame {
 	}
 
 	/**
-	 * @return gibt die Summe der Preise zurueck
+	 * @return Gesamtpreise dieses Einkaufs
 	 */
 	public double getGesamtpreis() {
 		return gesamtpreis;
 	}
-	
+
 	/**
-	 * rechnet die einzelnen Preise der Produkte multipliziert mit der ausgewählten Menge aus
+	 * Berechnung des Gesamtpreises dieses Einkaufs, aktualisieren der Anzeige
 	 */
 	public void berechneGesamtpreis() {
 		gesamtpreis = 0.00;
 		for (Panel_Selection selection : list_productSelection) {
-			double preis = selection.getPreis();
-			gesamtpreis += preis;
+			gesamtpreis += selection.getPreis();
+		}
+		jlbl_total.setText(MyTools.formatAsCurrency(gesamtpreis));
+	}
 
-			jlbl_sum.setText(MyTools.formatAsCurrency(gesamtpreis));
+	/**
+	 * Setzen des Fenster-Icons. <br>
+	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
+	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
+	 */
+	private void setIcon() {
+		try {
+			BufferedImage image = ImageIO.read(new URL(
+					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
+			this.setIconImage(image);
+		} catch (IOException e) {
+			System.err.println("Icon des Automaten konnte nicht geladen werden.");
 		}
 	}
-	
+
+	private void loadProductsFromTable() {
+		/**
+		 * Hinzufügen der Portionen, Darstellung der Eigenschaften in Labels
+		 */
+		for (int row = 0; row < jt_obtainableProducts.getRowCount(); row++) {
+			Portion portion = new Portion();
+			portion.setName("" + jt_obtainableProducts.getValueAt(row, 0));
+			portion.setLagermenge("" + jt_obtainableProducts.getValueAt(row, 1));
+			portion.setHaltbarBis("" + jt_obtainableProducts.getValueAt(row, 2));
+			portion.setKilopreis("" + jt_obtainableProducts.getValueAt(row, 3));
+			portion.setPortionsgewichtKG("" + jt_obtainableProducts.getValueAt(row, 4));
+
+			Panel_Selection productSelection = new Panel_Selection(portion, this);
+			/*
+			 * Hinzufügen zum Warenkorb
+			 */
+			list_productSelection.add(productSelection); 
+			jp_selectionPanel.add(productSelection);
+		}
+	}
+
 	/**
 	 * Anzeige des Automaten-UIs inklusive der Automatenbestandstabelle
 	 */
 	public static void main(String[] args) {
-			/**
-			 * Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
-			 * Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
-			 */
+		/**
+		 * Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
+		 * Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
+		 */
 		String cus_sql = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
-					+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
+				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
 
 		new Automat(DatabaseConnector.executeDBQuery(cus_sql));
-		}
 	}
+}
