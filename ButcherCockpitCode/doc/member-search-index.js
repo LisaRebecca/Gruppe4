@@ -1,1 +1,1 @@
-memberSearchIndex = [{"p":"classes","c":"DatabaseConnection","l":"getDBConnection()"}]
+memberSearchIndex = [{"p":"view","c":"Automat","l":"Automat(JTable)","url":"%3Cinit%3E(javax.swing.JTable)"},{"p":"view","c":"Automat","l":"berechneGesamtpreis()"},{"p":"view","c":"Automat","l":"getGesamtpreis()"},{"p":"view","c":"Automat","l":"list_productSelection"},{"p":"view","c":"Automat","l":"main(String[])","url":"main(java.lang.String[])"}]
