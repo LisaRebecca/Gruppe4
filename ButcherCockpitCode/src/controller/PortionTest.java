@@ -1,7 +1,5 @@
 package controller;
 
-import static org.junit.Assert.assertNotNull;
-
 import org.junit.Test;
 
 /**
@@ -12,6 +10,7 @@ import org.junit.Test;
 
 import junit.framework.Assert;
 
+@SuppressWarnings("deprecation")
 public class PortionTest {
 
 	/**
@@ -54,7 +53,6 @@ public class PortionTest {
 		Assert.assertEquals(300, portion.getPortionsgewichtGramm());
 	}
 
-	
 	/**
 	 * --------------- Testing Setter ---------------
 	 */
