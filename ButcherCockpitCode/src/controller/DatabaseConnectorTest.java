@@ -9,8 +9,9 @@ import javax.swing.*;
 import org.junit.Test;
 
 /**
- * Mit Hilfe der Klasse DatabaseConnectorTest wird getestet, ob die Datenbankanfragen im richtigen
- * Format erfolgen und ob Tabellen korrekt aus der Datenbank gelesen werden.
+ * Mit Hilfe der Klasse DatabaseConnectorTest wird getestet, ob die
+ * Datenbankanfragen im richtigen Format erfolgen und ob Tabellen korrekt aus
+ * der Datenbank gelesen werden.
  *
  */
 
@@ -23,12 +24,12 @@ public class DatabaseConnectorTest extends JFrame {
 	}
 
 	/**
-	 * Der SQL-Ausdruck ist zwar syntaktisch korrekt, jedoch keine Anfrage.
-	 * 
-	 * @throws SQLException
+	 * Der SQL-Ausdruck ist zwar syntaktisch korrekt, jedoch keine Anfrage. <br>
+	 * Hinweis: Hier wird keine SQL-Exception geworfen, jedoch wird eine
+	 * Fehlermeldung und der Stacktrace ausgegeben.
 	 */
-	@Test //(expected = SQLException.class)
-	public void buildJTableTest() throws SQLException{
+	@Test
+	public void buildJTableTest() throws SQLException {
 		ResultSet rs = DatabaseConnection.getDBConnection().createStatement().executeQuery("use metzgerei;");
 		assertNotNull(DatabaseConnector.buildJTable(rs));
 	}

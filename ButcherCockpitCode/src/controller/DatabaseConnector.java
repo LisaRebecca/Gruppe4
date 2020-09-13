@@ -96,6 +96,7 @@ public class DatabaseConnector {
 				rows.add(singleRow);
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			System.err.print("Table could not be built from empty ResultSet.");
 			return emptyTable;
 		}
