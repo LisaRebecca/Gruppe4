@@ -1,5 +1,7 @@
 package view;
 
+import javax.swing.JTable;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,21 +13,18 @@ import controller.Portion;
  */
 
 public class Panel_SelectionTest {
-	private Portion portion = new Portion("Bockwurst", "10", "2020-11-08", "15.0", "0.100");
-	private Automat automat;
-	private Panel_Selection selection = new Panel_Selection(portion, automat);
-	
-//	@Test
-//	public void testGetAmount() {
-//		Einkauf.getJb_more().doClick();
-//		Einkauf.getJb_more().doClick();
-//		Einkauf.getJb_more().doClick();
-//		Assert.assertEquals(Einkauf.getAmount(), 3);
-//	}
 	
 	@Test
 	public void testGetPreis() {
+		Portion portion = new Portion();
+		portion.setKilopreis(5.00);
+		portion.setPortionsgewichtKG(0.5);
+		
+		Automat automat = new Automat(new JTable());
+		
+		Panel_Selection selection = new Panel_Selection(portion, automat);
+		
 		selection.getJb_more().doClick();
-		Assert.assertEquals(selection.getPreis(), 1.50, 1);
+		Assert.assertEquals(selection.getPreis(), 2.50, 1);
 	}
 }
