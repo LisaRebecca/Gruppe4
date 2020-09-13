@@ -69,8 +69,7 @@ public class Automat extends JFrame {
 		this.jt_obtainableProducts = products;
 
 		/**
-		 * ------------------------------- Konfiguration JFrame
-		 * -------------------------------
+		 * ------------------------------- Konfiguration JFrame -------------------------------
 		 */
 		/**
 		 * Hier werden Titel, Sichtbarkeit, Groesse, Position und Close-Operation des
@@ -92,8 +91,7 @@ public class Automat extends JFrame {
 		c.add(jp_mainPanel);
 
 		/**
-		 * ----------------------------------- Auswahl-Panel
-		 * -----------------------------------
+		 * ----------------------------------- Auswahl-Panel -----------------------------------
 		 */
 
 		/**
@@ -115,8 +113,7 @@ public class Automat extends JFrame {
 		loadProductsFromTable();
 
 		/**
-		 * ----------------------------------- Kaufen-Panel
-		 * -----------------------------------
+		 * ----------------------------------- Kaufen-Panel -----------------------------------
 		 */
 
 		jp_buyPanel = new JPanel(new GridLayout(2, 1));
@@ -138,7 +135,7 @@ public class Automat extends JFrame {
 		jp_mainPanel.add(jp_buyPanel);
 
 		/**
-		 * Eine Funktion zur korrekten Anzeige des Automaten-UIs.
+		 * Nach dem Einfügen der Elemente wird der JFrame noch einmal aktualisiert.
 		 */
 		this.revalidate();
 	}
@@ -192,7 +189,7 @@ public class Automat extends JFrame {
 			/*
 			 * Hinzufügen zum Warenkorb
 			 */
-			list_productSelection.add(productSelection); 
+			list_productSelection.add(productSelection);
 			jp_selectionPanel.add(productSelection);
 		}
 	}

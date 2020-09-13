@@ -27,7 +27,7 @@ public class ActionListener_Amount implements ActionListener{
 
 		ps.getJlbl_amount().setText("" + amount);
 		ps.aktualisierePreise();
-		ps.automat.berechneGesamtpreis();
+		ps.getAutomat().berechneGesamtpreis();
 
 		if (amount <= 0) {
 			ps.getJb_less().setVisible(false);

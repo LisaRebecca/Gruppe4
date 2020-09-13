@@ -18,7 +18,7 @@ public class Panel_Selection extends JPanel {
 	/**
 	 * Automat welcher dieses Panel enthÃ¤lt.
 	 */
-	public Automat automat;
+	private Automat automat;
 	/**
 	 * Label fuer die ausgewÃ¤hlte Anzahl an Portionen.
 	 */
@@ -61,7 +61,7 @@ public class Panel_Selection extends JPanel {
 		/**
 		 * Ausgewaehlte Menge anzeigen
 		 */
-		setJlbl_amount(new JLabel(""+initialAmount, SwingConstants.CENTER));
+		setJlbl_amount(new JLabel("" + initialAmount, SwingConstants.CENTER));
 		getJlbl_amount().setBackground(Color.white);
 		this.add(getJlbl_amount());
 
@@ -100,20 +100,24 @@ public class Panel_Selection extends JPanel {
 	public void aktualisierePreise() {
 		jlbl_preis.setText("" + MyTools.formatAsCurrency((getPortion().getPortionspreis() * getAmount())));
 	}
-	
+
+	public Automat getAutomat() {
+		return this.automat;
+	}
+
 	/**
 	 * @return Preis als reine Kommazahl
 	 */
 	public double getPreis() {
-		String preis = jlbl_preis.getText().replace(',','.');
+		String preis = jlbl_preis.getText().replace(',', '.');
 		int index = preis.indexOf("€");
-		if( index == -1 ) {
-		}else {
-			preis = preis.substring(0, index); 
+		if (index == -1) {
+		} else {
+			preis = preis.substring(0, index);
 		}
 		return Double.parseDouble(preis);
 	}
-	
+
 	/**
 	 * @return ausgewählte Menge als natürliche Zahl
 	 */
@@ -127,7 +131,7 @@ public class Panel_Selection extends JPanel {
 	public JLabel getJlbl_amount() {
 		return jlbl_amount;
 	}
-	
+
 	/**
 	 * @param jlbl_amount Zahl, auf die das MengenJLabel gesetzt werden soll
 	 */
@@ -138,11 +142,11 @@ public class Panel_Selection extends JPanel {
 	public Portion getPortion() {
 		return portion;
 	}
-	
+
 	public void setPortion(Portion portion) {
 		this.portion = portion;
 	}
-	
+
 	public JButton getJb_less() {
 		return jb_less;
 	}
@@ -150,7 +154,6 @@ public class Panel_Selection extends JPanel {
 	public void setJb_less(JButton jb_less) {
 		this.jb_less = jb_less;
 	}
-
 
 	public JButton getJb_more() {
 		return jb_more;
