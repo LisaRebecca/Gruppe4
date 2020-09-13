@@ -16,6 +16,9 @@ public class AutomatTest {
 	
 	Automat automat = new Automat(new JTable(data, colNames));
 
+	/**
+	 * Testet, ob der Gesamtpreis korrekt berechnet wird.
+	 */
 	@Test
 	public void testBerechneGesamtpreis() {
 		automat.list_productSelection.get(0).getJb_more().doClick();

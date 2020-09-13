@@ -50,7 +50,7 @@ public class Automat extends JFrame {
 	public ArrayList<Panel_Selection> list_productSelection = new ArrayList<Panel_Selection>();
 
 	/**
-	 * speichert die Summe der Preise der ausgewählten Produkte
+	 * Gesamtpreis dieses Einkaufs
 	 */
 	private double gesamtpreis;
 
@@ -186,6 +186,7 @@ public class Automat extends JFrame {
 			portion.setPortionsgewichtKG("" + jt_obtainableProducts.getValueAt(row, 4));
 
 			Panel_Selection productSelection = new Panel_Selection(portion, this);
+			
 			/*
 			 * Hinzufügen zum Warenkorb
 			 */
@@ -202,9 +203,9 @@ public class Automat extends JFrame {
 		 * Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
 		 * Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
 		 */
-		String cus_sql = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
+		String select = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
-
-		new Automat(DatabaseConnector.executeDBQuery(cus_sql));
+		JTable products = DatabaseConnector.executeDBQuery(select);
+		new Automat(products);
 	}
 }

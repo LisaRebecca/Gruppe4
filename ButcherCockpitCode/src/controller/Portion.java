@@ -38,11 +38,10 @@ public class Portion {
 	 *                               Standard-Konstruktor gesetzt wurde.
 	 * 
 	 * @param name              Produktname
-	 * @param lagermenge        zurzeit gelagerte Menge eines Produkts
-	 * @param kilopreis         Preis pro Kilo des Produkts
-	 * @param portionsgewichtKG Gewicht in Kilogramm, das bei einem speziellen
-	 *                          Produkt eine Portion ausmacht
-	 * @param haltbarBis        Mindesthaltbarkeitsdatum eines Produkts
+	 * @param lagermenge        zurzeit gelagerte Menge
+	 * @param kilopreis         Preis pro Kilo
+	 * @param portionsgewichtKG das Gewicht einer Portion des Pordukts in Kilogramm
+	 * @param haltbarBis        Mindesthaltbarkeitsdatum
 	 */
 	public Portion(String name, String lagermenge, String haltbarBis, String kilopreis, String portionsgewichtKG) {
 		setName(name);

@@ -18,6 +18,10 @@ import org.junit.Test;
 @SuppressWarnings("serial")
 public class DatabaseConnectorTest extends JFrame {
 
+	/**
+	 * Auch wenn der SQL-Ausdruck fehlerhaft ist, soll kein null-Ergebnis übergeben
+	 * werden.
+	 */
 	@Test
 	public void executeDBQueryTest() {
 		assertNotNull(DatabaseConnector.executeDBQuery("fehlerhafter SQL-Ausdruck"));
@@ -25,7 +29,7 @@ public class DatabaseConnectorTest extends JFrame {
 
 	/**
 	 * Der SQL-Ausdruck ist zwar syntaktisch korrekt, jedoch keine Anfrage. <br>
-	 * Hinweis: Hier wird keine SQL-Exception geworfen, jedoch wird eine
+	 * Hinweis: Hier tritt keine SQL-Exception auf, jedoch wird eine
 	 * Fehlermeldung und der Stacktrace ausgegeben.
 	 */
 	@Test
