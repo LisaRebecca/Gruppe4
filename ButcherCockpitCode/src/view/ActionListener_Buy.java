@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -52,24 +53,24 @@ public class ActionListener_Buy implements ActionListener {
 					"Danke fÃ¼r Ihren Einkauf, der Kassenbetrag wurde von ihrer Gutscheinkarte abgezogen.", "Danke!",
 					JOptionPane.INFORMATION_MESSAGE);
 
-			/**
-			 * Speichern des aktuellen Zeitstempels
-			 */
+			// generieren eines Universally Unique Identifiers für jeden Einkauf
+			UUID uuid = UUID.randomUUID();
+			
+			// Speichern des aktuellen Zeitstempels
+			
 			Date date = new Date();
-			Date time = new Date();
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			String sql_date = simpleDateFormat.format(date);
+
+			Date time = new Date();
 			SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
 			String sql_time = simpleTimeFormat.format(time);
 
-			/**
-			 * Der Einkauf wird als Statistik in der Datenbank hinterlegt.
-			 */
-			DatabaseConnector.executeDBInsert("INSERT INTO Verkaeufe( datum, uhrzeit, gesamtpreis) VALUES ('" + sql_date
+			// Der Einkauf wird als Statistik in der Datenbank hinterlegt.
+			DatabaseConnector.executeDBInsert("INSERT INTO Verkaeufe( id, datum, uhrzeit, gesamtpreis) VALUES ('"+uuid.toString()+", " + sql_date
 					+ "', '" + sql_time + "'," + gesamtpreis + ");");
-			/**
-			 * Der Automat wird geschlossen, der Einkauf ist beendet.
-			 */
+			
+			// Der Automat wird geschlossen, der Einkauf ist beendet
 			System.exit(0);
 		}
 	}
