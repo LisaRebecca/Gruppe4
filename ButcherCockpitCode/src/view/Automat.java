@@ -173,10 +173,10 @@ public class Automat extends JFrame {
 		}
 	}
 
+	/**
+	 * Hinzufügen der Portionen, Darstellung der Eigenschaften in Labels
+	 */
 	private void loadProductsFromTable() {
-		/**
-		 * Hinzufügen der Portionen, Darstellung der Eigenschaften in Labels
-		 */
 		for (int row = 0; row < jt_obtainableProducts.getRowCount(); row++) {
 			Portion portion = new Portion();
 			portion.setName("" + jt_obtainableProducts.getValueAt(row, 0));
@@ -187,9 +187,7 @@ public class Automat extends JFrame {
 
 			Panel_Selection productSelection = new Panel_Selection(portion, this);
 			
-			/*
-			 * Hinzufügen zum Warenkorb
-			 */
+			// Hinzufügen zum Warenkorb
 			list_productSelection.add(productSelection);
 			jp_selectionPanel.add(productSelection);
 		}
@@ -199,10 +197,9 @@ public class Automat extends JFrame {
 	 * Anzeige des Automaten-UIs inklusive der Automatenbestandstabelle
 	 */
 	public static void main(String[] args) {
-		/**
-		 * Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
-		 * Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
-		 */
+		
+		 // Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
+		 // Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
 		String select = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
 		JTable products = DatabaseConnector.executeDBQuery(select);

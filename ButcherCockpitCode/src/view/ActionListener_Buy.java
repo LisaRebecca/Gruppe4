@@ -25,36 +25,26 @@ public class ActionListener_Buy implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		JButton jb_source = (JButton) e.getSource();
 
-		/**
-		 * Finden des Automaten, welcher den Kaufen-Button enth‰lt.
-		 */
+		// Finden des Automaten, welcher den Kaufen-Button enth‰lt.
 		Automat at = (Automat) SwingUtilities.getRoot(jb_source);
 
 		double gesamtpreis = at.getGesamtpreis();
 
-		/**
-		 * Zuerst wird der Kunde nach Best‰tigung gefragt.
-		 */
-		String[] options = { "Ja, bezahlen", "Nein, zur√ºck" };
-		int eingabe = JOptionPane.showOptionDialog(null, "M√∂chten Sie den Kaufvorgang abschlie√üen und bezahlen?",
+		// Zuerst wird der Kunde nach Best‰tigung gefragt.
+		String[] options = { "Ja, bezahlen", "Nein, zurueck" };
+		int eingabe = JOptionPane.showOptionDialog(null, "Moechten Sie den Kaufvorgang abschliessen und bezahlen?",
 				"Best‰tigung", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
-		/**
-		 * Der Dialog schlieﬂt sich, der Kunde kann weiter einkaufen
-		 */
+		// Der Dialog schlieﬂt sich, der Kunde kann weiter einkaufen
 		if (eingabe == 1) {
 		}
-		/**
-		 * Nur falls er den Vorgang abschlieﬂen will erscheint ein neuer Dialog.
-		 */
+		// Nur falls er den Vorgang abschlieﬂen will erscheint ein neuer Dialog.
 		if (eingabe == 0) {
 			JOptionPane.showMessageDialog(null,
-					"Danke f√ºr Ihren Einkauf, der Kassenbetrag wurde von ihrer Gutscheinkarte abgezogen.", "Danke!",
+					"Danke fuer Ihren Einkauf, der Kassenbetrag wurde von ihrer Gutscheinkarte abgezogen.", "Danke!",
 					JOptionPane.INFORMATION_MESSAGE);
 
-			/**
-			 * Speichern des aktuellen Zeitstempels
-			 */
+			// Speichern des aktuellen Zeitstempels
 			Date date = new Date();
 			Date time = new Date();
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -62,14 +52,11 @@ public class ActionListener_Buy implements ActionListener {
 			SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
 			String sql_time = simpleTimeFormat.format(time);
 
-			/**
-			 * Der Einkauf wird als Statistik in der Datenbank hinterlegt.
-			 */
+			// Der Einkauf wird als Statistik in der Datenbank hinterlegt.
 			DatabaseConnector.executeDBInsert("INSERT INTO Verkaeufe( datum, uhrzeit, gesamtpreis) VALUES ('" + sql_date
 					+ "', '" + sql_time + "'," + gesamtpreis + ");");
-			/**
-			 * Der Automat wird geschlossen, der Einkauf ist beendet.
-			 */
+			
+			// Der Automat wird geschlossen, der Einkauf ist beendet.
 			System.exit(0);
 		}
 	}

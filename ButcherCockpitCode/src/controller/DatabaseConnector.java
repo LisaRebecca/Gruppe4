@@ -72,13 +72,8 @@ public class DatabaseConnector {
 		
 		try {
 
-			/**
-			 * Metadaten des ResultSets
-			 */
 			ResultSetMetaData metaData = result.getMetaData();
-			/**
-			 * Bezeichner der Spalten des Tabellen-Modells
-			 */
+
 			int columnCount = metaData.getColumnCount();
 			columnLabels = new Vector<String>();
 
