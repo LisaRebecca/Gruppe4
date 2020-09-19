@@ -4,10 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
@@ -54,7 +52,7 @@ public class ActionListener_Buy implements ActionListener {
 					JOptionPane.INFORMATION_MESSAGE);
 
 			// generieren eines Universally Unique Identifiers für jeden Einkauf
-			String uuid = UUID.randomUUID().toString();
+			String uuid = java.util.UUID.randomUUID().toString();
 			uuid = uuid.replace("-", "");
 			
 			// Speichern des aktuellen Zeitstempels
@@ -68,10 +66,8 @@ public class ActionListener_Buy implements ActionListener {
 			String sql_time = simpleTimeFormat.format(time);
 
 			// Der Einkauf wird als Statistik in der Datenbank hinterlegt.
-			String sql = "INSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('"+uuid+"'), '" + sql_date
-					+ "', '" + sql_time + "', " + gesamtpreis + ");";
-			System.out.println(sql);
-			DatabaseConnector.executeDBInsert(sql);
+			DatabaseConnector.executeDBInsert("INSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('"+uuid+"'), '" + sql_date
+					+ "', '" + sql_time + "', " + gesamtpreis + ");");
 			
 			
 			// Der Automat wird geschlossen, der Einkauf ist beendet
