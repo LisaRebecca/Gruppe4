@@ -55,6 +55,8 @@ public class Cockpit extends JFrame {
 	private Tile verkaeufe = new Tile(
 			"SELECT verkauf_id as 'Verkauf-ID', datum as Datum, uhrzeit as Uhrzeit, gesamtpreis as Gesamtpreis FROM Verkaeufe;");
 
+	
+	
 	/**
 	 * Konstruktor erzeugt alle anzuzeigenden Objekte
 	 */
@@ -73,42 +75,51 @@ public class Cockpit extends JFrame {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setIcon();
 
-		/**
-		 * den Tabs werden geweils weiße JPanels hinzugefügt
-		 */
-		jp_1.setBackground(Color.WHITE);
-		jp_2.setBackground(Color.WHITE);
-		jp_3.setBackground(Color.WHITE);
-		jp_4.setBackground(Color.WHITE);
-		tabbedPane.add(jp_1);
-		tabbedPane.add(jp_2);
-		tabbedPane.add(jp_3);
-		tabbedPane.add(jp_4);
+		createStockPane();
+		createProductPane();
+		createAutomatPane();
+		createSalesPane();
+	}
+	
 
-		/**
-		 * Lagerbestandtabelle und Label werden dem JPanel hinzugefÃ¼gt.
-		 */
+	/** Hinzufuegen eines weißen Panels zum Tab, dem wiederum Lagertabelle und Label
+	 * hinzugefügt werden
+	 */
+	public void createStockPane() {
+		jp_1.setBackground(Color.WHITE);
+		tabbedPane.add(jp_1);
 		jp_1.add(label_stock);
 		jp_1.add(stock);
 		tabbedPane.add("Lager", jp_1);
-
-		/**
-		 * Produkttabelle und Label werden dem JPanel hinzugefÃ¼gt.
-		 */
+	}
+	/** Hinzufuegen eines weißen Panels zum Tab, dem wiederum Produkttabelle und Label
+	 * hinzugefügt werden
+	 */
+	public void createProductPane() {
+		jp_2.setBackground(Color.WHITE);
+		tabbedPane.add(jp_2);
 		jp_2.add(label_products);
 		jp_2.add(products);
 		tabbedPane.add("Produkte", jp_2);
-
-		/**
-		 * Automatenbestandstabelle und Label werden dem JPanel hinzugefÃ¼gt.
-		 */
+	}
+	
+	/** Hinzufuegen eines weißen Panels zum Tab, dem wiederum Automatenbestandstabelle und Label
+	 * hinzugefügt werden
+	 */
+	public void createAutomatPane() {
+		jp_3.setBackground(Color.WHITE);
+		tabbedPane.add(jp_3);
 		jp_3.add(label_automat);
 		jp_3.add(automat);
 		tabbedPane.add("Automat", jp_3);
-
-		/**
-		 * Verkaufstabelle und Label werden dem JPanel hinzugefÃ¼gt.
-		 */
+	}
+	
+	/** Hinzufuegen eines weißen Panels zum Tab, dem wiederum Verkaufstabelle und Label
+	 * hinzugefügt werden
+	 */
+	public void createSalesPane() {
+		jp_4.setBackground(Color.WHITE);
+		tabbedPane.add(jp_4);
 		jp_4.add(label_verkaeufe);
 		jp_4.add(verkaeufe);
 		tabbedPane.add("Verkäufe", jp_4);

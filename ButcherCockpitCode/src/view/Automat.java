@@ -32,13 +32,10 @@ public class Automat extends JFrame {
 	private Font headerfont = new Font("Arial", Font.BOLD, 20);
 
 	private JPanel jp_mainPanel;
-
 	private JPanel jp_selectionPanel;
-
 	private JPanel jp_buyPanel;
 
 	private JLabel jlbl_title;
-
 	private JLabel jlbl_total;
 
 	private JButton jb_buy;
@@ -59,6 +56,9 @@ public class Automat extends JFrame {
 	 */
 	JTable jt_obtainableProducts;
 
+	private Container c = getContentPane();
+	
+	
 	/**
 	 * Erzeugen des Automaten-UI inklusive Ueberschrift, Tabelle, GesamtpreisLabel
 	 * und KaufButton mit ActionListener.
@@ -81,65 +81,62 @@ public class Automat extends JFrame {
 		this.setLocation(50, 20);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setIcon();
-
-		Container c = getContentPane();
-
-		/**
-		 * Erzeugen des Hintergrund-Panels
-		 */
-		jp_mainPanel = new JPanel(new FlowLayout());
-		c.add(jp_mainPanel);
-
-		/**
-		 * ----------------------------------- Auswahl-Panel -----------------------------------
-		 */
-
-		/**
-		 * Erstellen der Überschrift
-		 */
-		jlbl_title = new JLabel("Bitte waehlen Sie Ihre Produkte aus:");
-		jlbl_title.setFont(headerfont);
-
-		/**
-		 * Panel, welches alle auswählbaren Produkte beinhaltet
-		 */
-		jp_selectionPanel = new JPanel(new GridLayout(0, 1));
-		jp_selectionPanel.add(jlbl_title);
-		jp_mainPanel.add(jp_selectionPanel);
-
-		/**
-		 * Füllen des Auswahlpanels mit den Produkten
-		 */
+		
+		createBuyButton();
+		createBuyPanel();
+		
+		createSelectionPanel();
+		// Füllen des Auswahlpanels mit den Produkten
 		loadProductsFromTable();
+		
+		createMainPanel();
 
-		/**
-		 * ----------------------------------- Kaufen-Panel -----------------------------------
-		 */
-
-		jp_buyPanel = new JPanel(new GridLayout(2, 1));
-		/**
-		 * Anzeige der Gesamtsumme
-		 */
-		jlbl_total = new JLabel();
-		berechneGesamtpreis();
-		jp_buyPanel.add(jlbl_total);
-
-		/**
-		 * Button zum Kaufen wird erstellt
-		 */
-		jb_buy = new JButton("Kaufen");
-		jb_buy.setBackground(Color.white);
-		jb_buy.addActionListener(new ActionListener_Buy());
-		jp_buyPanel.add(jb_buy);
-
-		jp_mainPanel.add(jp_buyPanel);
-
-		/**
-		 * Nach dem Einfügen der Elemente wird der JFrame noch einmal aktualisiert.
-		 */
+		//Nach dem Einfügen der Elemente wird der JFrame noch einmal aktualisiert.
 		this.revalidate();
 	}
 
+	/**
+	 * Button zum Kaufen wird erstellt
+	 */
+	public void createBuyButton() {
+		jb_buy = new JButton("Kaufen");
+		jb_buy.setBackground(Color.white);
+		jb_buy.addActionListener(new ActionListener_Buy());
+	}
+	
+	/**
+	 * Panel zur Anzeige der Gesamtsumme und des Kaufenbuttons
+	 */
+	public void createBuyPanel() {
+		jp_buyPanel = new JPanel(new GridLayout(2, 1));
+		
+		//Anzeige der Gesamtsumme
+		jlbl_total = new JLabel();
+		berechneGesamtpreis();
+		
+		jp_buyPanel.add(jlbl_total);
+		jp_buyPanel.add(jb_buy);
+	}
+	
+	/**
+	 * Panel, welches die Überschrift und alle auswählbaren Produkte beinhaltet
+	 */
+	public void createSelectionPanel() {
+		jlbl_title = new JLabel("Bitte waehlen Sie Ihre Produkte aus:");
+		jlbl_title.setFont(headerfont);
+		jp_selectionPanel = new JPanel(new GridLayout(0, 1));
+		jp_selectionPanel.add(jlbl_title);
+	}
+	
+	/**
+	 * Erzeugen des Hintergrund-Panels
+	 */
+	public void createMainPanel() {
+		jp_mainPanel = new JPanel(new FlowLayout());
+		c.add(jp_mainPanel);
+		jp_mainPanel.add(jp_selectionPanel);
+		jp_mainPanel.add(jp_buyPanel);
+	}
 	/**
 	 * @return Gesamtpreise dieses Einkaufs
 	 */

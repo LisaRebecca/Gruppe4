@@ -37,11 +37,18 @@ public class Panel_Selection extends JPanel {
 	private JButton jb_more, jb_less;
 
 	/**
+	 * ButtonsListener, welcher die Aenderungen der Menge steuert
+	 */
+	ActionListener bl = new ActionListener_Amount();
+	
+	/**
 	 * Kontruktor, welcher alle Buttons erstellt und die Labels mit Initialwerten
 	 * beschriftet.
 	 * 
 	 * @param portion das darzustellende Produkt als einzelne {@link Portion}
+	 * @return 
 	 */
+	
 	public Panel_Selection(Portion portion, Automat automat) {
 		this.setPortion(portion);
 		this.automat = automat;
@@ -50,50 +57,61 @@ public class Panel_Selection extends JPanel {
 		this.setBackground(Color.WHITE);
 		this.setBorder(new LineBorder(Color.orange, 1));
 
-		/**
-		 * Darstellen der Portion, welche zur Auswahl steht.
-		 */
+		setPortionInfo();
+		setAmountInfo();
+
+		setPlusButton();
+		setMinusButton();
+		
+		setPreisLabel();
+	}
+
+	
+	/**
+	 * Darstellen der Portion, welche zur Auswahl steht.
+	 */
+	public void setPortionInfo() {
 		this.add(new JLabel(portion.getName(), SwingConstants.LEFT));
 		this.add(new JLabel("" + portion.getKilopreis() + " €/kg", SwingConstants.RIGHT));
 		this.add(new JLabel("" + portion.getLagermenge() + " Portionen à ", SwingConstants.RIGHT));
 		this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + "g auf Lager", SwingConstants.LEFT));
-
-		/**
-		 * Ausgewaehlte Menge anzeigen
-		 */
+	}
+	
+	/**
+	 * Ausgewaehlte Menge anzeigen
+	 */
+	public void setAmountInfo() {
 		setJlbl_amount(new JLabel("" + initialAmount, SwingConstants.CENTER));
 		getJlbl_amount().setBackground(Color.white);
 		this.add(getJlbl_amount());
-
-		/**
-		 * ButtonsListener, welcher die Aenderungen der Menge steuert
-		 */
-		ActionListener bl = new ActionListener_Amount();
-
-		/**
-		 * Button zum Erhoehen der Menge
-		 */
+	}
+	
+	/**
+	 * Button zum Erhoehen der Menge
+	 */
+	public void setPlusButton() {
 		setJb_more(new JButton("+"));
 		getJb_more().setBackground(Color.white);
 		getJb_more().addActionListener(bl);
 		this.add(getJb_more());
-
-		/**
-		 * Button zum Vermindern der Menge
-		 */
+	}
+	
+	/**
+	 * Button zum Vermindern der Menge
+	 */
+	public void setMinusButton() {
 		setJb_less(new JButton("-"));
 		getJb_less().setBackground(Color.white);
 		getJb_less().addActionListener(bl);
-		/**
-		 * Anzahl ist zu Anfang 0, der Nutzer soll die Anzahl nur erhoehen koennen.
-		 */
+		//Anzahl ist zu Anfang 0, der Nutzer soll die Anzahl nur erhoehen koennen.
 		getJb_less().setVisible(false);
 		this.add(getJb_less());
-
+	}
+	
+	public void setPreisLabel() {
 		jlbl_preis = new JLabel(MyTools.formatAsCurrency(0), SwingConstants.RIGHT);
 		this.add(jlbl_preis);
 	}
-
 	/**
 	 * der gesamte Preis der ausgewaelten Portionen wird aktualisiert
 	 */
