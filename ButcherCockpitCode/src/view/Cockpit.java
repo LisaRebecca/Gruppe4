@@ -9,6 +9,8 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import controller.Password_Screen;
+
 /**
  * Die Klasse UserInterface dient der Darstellung des ButcherCockpits, also der
  * internen Benutzeroberflaeche fuer den Metzger.
@@ -38,20 +40,20 @@ public class Cockpit extends JFrame {
 	 */
 	private JLabel label_products = new JLabel("Produktportfolio");
 	public Tile products = new Tile(
-			"SELECT name as Produktname, produkt_id as 'Produkt-ID' , kilopreis as '[€/kg]', gewicht_portion as '[kg/Portion]' FROM Produkte;");
+			"SELECT name as Produktname, produkt_id as 'Produkt-ID' , kilopreis as '[ï¿½/kg]', gewicht_portion as '[kg/Portion]' FROM Produkte;");
 
 	/**
-	 * Anzeige des Füllstandes des Kühlautomaten
+	 * Anzeige des Fï¿½llstandes des Kï¿½hlautomaten
 	 */
 
-	private JLabel label_automat = new JLabel("Füllstand Kühlautomat");
+	private JLabel label_automat = new JLabel("Fï¿½llstand Kï¿½hlautomat");
 	public Tile automat = new Tile(
 			"SELECT name as Produktname, haltbar_bis as Haltbarkeit, portionen as Vorraetig from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 
 	/**
-	 * Anzeige der Verkaufsstatistiken für den Kühlautomat
+	 * Anzeige der Verkaufsstatistiken fï¿½r den Kï¿½hlautomat
 	 */
-	private JLabel label_verkaeufe = new JLabel("Verkäufe Kühlautomat");
+	private JLabel label_verkaeufe = new JLabel("Verkï¿½ufe Kï¿½hlautomat");
 	private Tile verkaeufe = new Tile(
 			"SELECT verkauf_id as 'Verkauf-ID', datum as Datum, uhrzeit as Uhrzeit, gesamtpreis as Gesamtpreis FROM Verkaeufe;");
 
@@ -61,7 +63,7 @@ public class Cockpit extends JFrame {
 	public Cockpit() {
 
 		/**
-		 * Containerinstanz wird als ContentPane gesetzt, Tabs werden hinzugefügt
+		 * Containerinstanz wird als ContentPane gesetzt, Tabs werden hinzugefï¿½gt
 		 */
 		Container c = getContentPane();
 		c.setLayout(new BorderLayout());
@@ -74,7 +76,7 @@ public class Cockpit extends JFrame {
 		this.setIcon();
 
 		/**
-		 * den Tabs werden geweils weiße JPanels hinzugefügt
+		 * den Tabs werden geweils weiï¿½e JPanels hinzugefï¿½gt
 		 */
 		jp_1.setBackground(Color.WHITE);
 		jp_2.setBackground(Color.WHITE);
@@ -111,13 +113,13 @@ public class Cockpit extends JFrame {
 		 */
 		jp_4.add(label_verkaeufe);
 		jp_4.add(verkaeufe);
-		tabbedPane.add("Verkäufe", jp_4);
+		tabbedPane.add("Verkï¿½ufe", jp_4);
 	}
 
 	/**
 	 * Setzen des Fenster-Icons. <br>
 	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
-	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
+	 * Warnung, da das Bild nicht nï¿½tig fï¿½r das Funktionieren der Anwendung ist.
 	 */
 	private void setIcon() {
 		try {
@@ -130,6 +132,6 @@ public class Cockpit extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		Cockpit ui = new Cockpit();
+		Password_Screen screen = new Password_Screen();
 	}
 }
