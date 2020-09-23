@@ -38,30 +38,32 @@ public class Cockpit extends JFrame {
 	 */
 	private JLabel label_products = new JLabel("Produktportfolio");
 	public Tile products = new Tile(
-			"SELECT name as Produktname, produkt_id as 'Produkt-ID' , kilopreis as '[€/kg]', gewicht_portion as '[kg/Portion]' FROM Produkte;");
+			"SELECT name as Produktname, produkt_id as 'Produkt-ID' , kilopreis as '[â‚¬/kg]', gewicht_portion as '[kg/Portion]' FROM Produkte;");
 
 	/**
-	 * Anzeige des Füllstandes des Kühlautomaten
+	 * Anzeige des FÃ¼llstandes des KÃ¼hlautomaten
 	 */
 
-	private JLabel label_automat = new JLabel("Füllstand Kühlautomat");
+	private JLabel label_automat = new JLabel("FÃ¼llstand KÃ¼hlautomat");
 	public Tile automat = new Tile(
 			"SELECT name as Produktname, haltbar_bis as Haltbarkeit, portionen as Vorraetig from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 
 	/**
-	 * Anzeige der Verkaufsstatistiken für den Kühlautomat
+	 * Anzeige der Verkaufsstatistiken fÃ¼r den KÃ¼hlautomat
 	 */
-	private JLabel label_verkaeufe = new JLabel("Verkäufe Kühlautomat");
+	private JLabel label_verkaeufe = new JLabel("VerkÃ¤ufe KÃ¼hlautomat");
 	private Tile verkaeufe = new Tile(
 			"SELECT HEX(verkauf_id) as 'Verkauf-ID', datum as Datum, uhrzeit as Uhrzeit, gesamtpreis as Gesamtpreis FROM Verkaeufe;");
 
+	
+	
 	/**
 	 * Konstruktor erzeugt alle anzuzeigenden Objekte
 	 */
 	public Cockpit() {
 
 		/**
-		 * Containerinstanz wird als ContentPane gesetzt, Tabs werden hinzugefügt
+		 * Containerinstanz wird als ContentPane gesetzt, Tabs werden hinzugefÃ¼gt
 		 */
 		Container c = getContentPane();
 		c.setLayout(new BorderLayout());
@@ -73,51 +75,61 @@ public class Cockpit extends JFrame {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setIcon();
 
-		/**
-		 * den Tabs werden geweils weiße JPanels hinzugefügt
-		 */
-		jp_1.setBackground(Color.WHITE);
-		jp_2.setBackground(Color.WHITE);
-		jp_3.setBackground(Color.WHITE);
-		jp_4.setBackground(Color.WHITE);
-		tabbedPane.add(jp_1);
-		tabbedPane.add(jp_2);
-		tabbedPane.add(jp_3);
-		tabbedPane.add(jp_4);
+		createStockPane();
+		createProductPane();
+		createAutomatPane();
+		createSalesPane();
+	}
+	
 
-		/**
-		 * Lagerbestandtabelle und Label werden dem JPanel hinzugefÃ¼gt.
-		 */
+	/** Hinzufuegen eines weißen Panels zum Tab, dem wiederum Lagertabelle und Label
+	 * hinzugefügt werden
+	 */
+	public void createStockPane() {
+
+		jp_1.setBackground(Color.WHITE);
+		tabbedPane.add(jp_1);
 		jp_1.add(label_stock);
 		jp_1.add(stock);
 		tabbedPane.add("Lager", jp_1);
-
-		/**
-		 * Produkttabelle und Label werden dem JPanel hinzugefÃ¼gt.
-		 */
+	}
+	/** Hinzufuegen eines weißen Panels zum Tab, dem wiederum Produkttabelle und Label
+	 * hinzugefügt werden
+	 */
+	public void createProductPane() {
+		jp_2.setBackground(Color.WHITE);
+		tabbedPane.add(jp_2);
 		jp_2.add(label_products);
 		jp_2.add(products);
 		tabbedPane.add("Produkte", jp_2);
-
-		/**
-		 * Automatenbestandstabelle und Label werden dem JPanel hinzugefÃ¼gt.
-		 */
+	}
+	
+	/** Hinzufuegen eines weißen Panels zum Tab, dem wiederum Automatenbestandstabelle und Label
+	 * hinzugefügt werden
+	 */
+	public void createAutomatPane() {
+		jp_3.setBackground(Color.WHITE);
+		tabbedPane.add(jp_3);
 		jp_3.add(label_automat);
 		jp_3.add(automat);
 		tabbedPane.add("Automat", jp_3);
-
-		/**
-		 * Verkaufstabelle und Label werden dem JPanel hinzugefÃ¼gt.
-		 */
+	}
+	
+	/** Hinzufuegen eines weißen Panels zum Tab, dem wiederum Verkaufstabelle und Label
+	 * hinzugefügt werden
+	 */
+	public void createSalesPane() {
+		jp_4.setBackground(Color.WHITE);
+		tabbedPane.add(jp_4);
 		jp_4.add(label_verkaeufe);
 		jp_4.add(verkaeufe);
-		tabbedPane.add("Verkäufe", jp_4);
+		tabbedPane.add("VerkÃ¤ufe", jp_4);
 	}
 
 	/**
 	 * Setzen des Fenster-Icons. <br>
 	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
-	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
+	 * Warnung, da das Bild nicht nÃ¶tig fÃ¼r das Funktionieren der Anwendung ist.
 	 */
 	private void setIcon() {
 		try {

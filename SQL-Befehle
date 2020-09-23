@@ -4,9 +4,6 @@ CREATE DATABASE metzgerei;
 USE metzgerei;
 
 CREATE TABLE Produkte ( name VARCHAR(30), produkt_id INT PRIMARY KEY, kilopreis NUMERIC (5,2), gewicht_portion NUMERIC (5,3));
-CREATE TABLE Lagerbestand (produkt INT REFERENCES Produkte(produkt_id), haltbar_bis DATE, lagerort VARCHAR(20), portionen int, PRIMARY KEY (produkt, lagerort, haltbar_bis));
-CREATE TABLE Verkaeufe ( verkauf_id BINARY(16) PRIMARY KEY, datum DATE, uhrzeit TIME, gesamtpreis NUMERIC (5,2));
-
 INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Schweinelende', 1, 16.00, 0.250);
 INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Salami', 2, 25.00, 0.100);
 INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Bratwurst', 3, 10.00, 0.125);
@@ -18,6 +15,7 @@ INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Schwe
 INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Feine Bratwurst', 9, 16.00, 0.200);
 INSERT INTO Produkte (name,produkt_id,kilopreis, gewicht_portion) VALUES ('Jagdwurst', 10, 15.00, 0.200);
 
+CREATE TABLE Lagerbestand (produkt INT REFERENCES Produkte(produkt_id), haltbar_bis DATE, lagerort VARCHAR(20), portionen int, PRIMARY KEY (produkt, lagerort, haltbar_bis));
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 1, DATE '2020-12-30', 'metzgerei', 3);
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 2, DATE '2020-12-30', 'metzgerei', 5);
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 3, DATE '2020-11-09', 'metzgerei', 3);
@@ -28,7 +26,6 @@ INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 7,
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 8, DATE '2021-03-15', 'metzgerei', 2);
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 9, DATE '2020-12-29', 'metzgerei', 7);
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 10, DATE '2021-05-16', 'metzgerei1', 6);
-
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 2, DATE '2020-12-30', 'automat1', 5);
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 3, DATE '2020-11-09', 'automat1', 3);
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 4, DATE '2020-10-11', 'automat1', 10);
@@ -38,7 +35,6 @@ INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 7,
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 8, DATE '2021-03-15', 'automat1', 2);
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 9, DATE '2020-12-29', 'automat1', 7);
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 10, DATE '2021-05-16', 'automat1', 6);
-
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 2, DATE '2020-12-31', 'metzgerei', 5);
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 3, DATE '2020-11-12', 'metzgerei', 3);
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 4, DATE '2020-10-18', 'metzgerei', 10);
@@ -49,43 +45,4 @@ INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 8,
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 9, DATE '2020-12-24', 'metzgerei', 7);
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 10, DATE '2021-05-13', 'metzgerei', 6);
 
---INSERT INTO Verkaeufe (datum, uhrzeit, gesamtpreis) VALUES ('2020-09-10', '21:21:21', 25.6);
---INSERT INTO Verkaeufe (datum, uhrzeit, gesamtpreis) VALUES ('2020-09-13', '19:35:56', 6.25);
---INSERT INTO Verkaeufe (datum, uhrzeit, gesamtpreis) VALUES ('2020-09-4', '05:11:49', 8.5);
-
-
-
-
-
-
--- alles hiernach ist nicht zwingend notwendig für das Testen des Automats
-
-CREATE TABLE Kunden ( name VARCHAR(50), kunden_nr INT PRIMARY KEY, umsatz NUMERIC(5,2), plz CHARACTER (5));
-
-CREATE TABLE Bestellungen(bestell_nr INT PRIMARY KEY, produkt_id INT REFERENCES Produkt(produkt_id), kunden_nr INT REFERENCES Kunden(kunden_nr), lieferdatum DATE,  bestelldatum DATE);
-
-CREATE TABLE Auftragsposten (bestell_nr INT REFERENCES Bestellungen(bestell_nr), produkt_id INT REFERENCES Produkt(produkt_id), PRIMARY KEY (bestell_nr,produkt_id));
-
-CREATE TABLE Mitarbeiter (name VARCHAR (50), mitarbeiter_nr INT PRIMARY KEY, umsatz NUMERIC(5,2), abmahnungen CHARACTER(2));
-
-INSERT INTO Kunden(name,kunden_nr,umsatz,plz) VALUES ('Müller',2,110.00,'68309');
-
-INSERT INTO Kunden(name,kunden_nr,umsatz,plz) VALUES ('Schmitt',3,85.00,'68167');
-
-INSERT INTO Kunden(name,kunden_nr,umsatz,plz) VALUES ('Meier',1,220.00,'68307');
-
-INSERT INTO Kunden(name,kunden_nr,umsatz,plz) VALUES ('Strauss',4,340.00,'68309');
-
-INSERT INTO Bestellungen (bestell_nr, produkt_id,kunden_nr,bestelldatum,lieferdatum) VALUES (1,1,2, DATE '2020-08-01',DATE '2020-09-11');
-
-INSERT INTO Bestellungen (bestell_nr, produkt_id,kunden_nr,bestelldatum,lieferdatum) VALUES (2,1,3, DATE '2020-08-01',DATE '2020-09-14');
-
-INSERT INTO Bestellungen (bestell_nr, produkt_id,kunden_nr,bestelldatum,lieferdatum) VALUES (3,4,1, DATE '2020-08-01',DATE '2020-08-01');
-
-INSERT INTO Auftragsposten (bestell_nr,produkt_id) VALUES (1,1);
-
-INSERT INTO Auftragsposten (bestell_nr,produkt_id) VALUES (2,1);
-
-INSERT INTO Auftragsposten (bestell_nr,produkt_id) VALUES (3,4);
-
-
+CREATE TABLE Verkaeufe ( verkauf_id INT PRIMARY KEY AUTO_INCREMENT, datum DATE, uhrzeit TIME, gesamtpreis NUMERIC (5,2));
