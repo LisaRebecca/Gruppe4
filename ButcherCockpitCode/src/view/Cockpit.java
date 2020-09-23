@@ -38,22 +38,22 @@ public class Cockpit extends JFrame {
 	 */
 	private JLabel label_products = new JLabel("Produktportfolio");
 	public Tile products = new Tile(
-			"SELECT name as Produktname, produkt_id as 'Produkt-ID' , kilopreis as '[€/kg]', gewicht_portion as '[kg/Portion]' FROM Produkte;");
+			"SELECT name as Produktname, produkt_id as 'Produkt-ID' , kilopreis as '[Ã¢â€šÂ¬/kg]', gewicht_portion as '[kg/Portion]' FROM Produkte;");
 
 	/**
-	 * Anzeige des Füllstandes des Kühlautomaten
+	 * Anzeige des FÃƒÂ¼llstandes des KÃƒÂ¼hlautomaten
 	 */
 
-	private JLabel label_automat = new JLabel("Füllstand Kühlautomat");
+	private JLabel label_automat = new JLabel("FÃƒÂ¼llstand KÃƒÂ¼hlautomat");
 	public Tile automat = new Tile(
 			"SELECT name as Produktname, haltbar_bis as Haltbarkeit, portionen as Vorraetig from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 
 	/**
-	 * Anzeige der Verkaufsstatistiken für den Kühlautomat
+	 * Anzeige der Verkaufsstatistiken fÃƒÂ¼r den KÃƒÂ¼hlautomat
 	 */
-	private JLabel label_verkaeufe = new JLabel("Verkäufe Kühlautomat");
+	private JLabel label_verkaeufe = new JLabel("VerkÃƒÂ¤ufe KÃƒÂ¼hlautomat");
 	private Tile verkaeufe = new Tile(
-			"SELECT verkauf_id as 'Verkauf-ID', datum as Datum, uhrzeit as Uhrzeit, gesamtpreis as Gesamtpreis FROM Verkaeufe;");
+			"SELECT HEX(verkauf_id) as 'Verkauf-ID', datum as Datum, uhrzeit as Uhrzeit, gesamtpreis as Gesamtpreis FROM Verkaeufe;");
 
 	
 	
@@ -63,7 +63,7 @@ public class Cockpit extends JFrame {
 	public Cockpit() {
 
 		/**
-		 * Containerinstanz wird als ContentPane gesetzt, Tabs werden hinzugefügt
+		 * Containerinstanz wird als ContentPane gesetzt, Tabs werden hinzugefÃƒÂ¼gt
 		 */
 		Container c = getContentPane();
 		c.setLayout(new BorderLayout());
@@ -82,18 +82,19 @@ public class Cockpit extends JFrame {
 	}
 	
 
-	/** Hinzufuegen eines weißen Panels zum Tab, dem wiederum Lagertabelle und Label
-	 * hinzugefügt werden
+	/** Hinzufuegen eines weiÃŸen Panels zum Tab, dem wiederum Lagertabelle und Label
+	 * hinzugefÃ¼gt werden
 	 */
 	public void createStockPane() {
+
 		jp_1.setBackground(Color.WHITE);
 		tabbedPane.add(jp_1);
 		jp_1.add(label_stock);
 		jp_1.add(stock);
 		tabbedPane.add("Lager", jp_1);
 	}
-	/** Hinzufuegen eines weißen Panels zum Tab, dem wiederum Produkttabelle und Label
-	 * hinzugefügt werden
+	/** Hinzufuegen eines weiÃŸen Panels zum Tab, dem wiederum Produkttabelle und Label
+	 * hinzugefÃ¼gt werden
 	 */
 	public void createProductPane() {
 		jp_2.setBackground(Color.WHITE);
@@ -103,8 +104,8 @@ public class Cockpit extends JFrame {
 		tabbedPane.add("Produkte", jp_2);
 	}
 	
-	/** Hinzufuegen eines weißen Panels zum Tab, dem wiederum Automatenbestandstabelle und Label
-	 * hinzugefügt werden
+	/** Hinzufuegen eines weiÃŸen Panels zum Tab, dem wiederum Automatenbestandstabelle und Label
+	 * hinzugefÃ¼gt werden
 	 */
 	public void createAutomatPane() {
 		jp_3.setBackground(Color.WHITE);
@@ -114,21 +115,21 @@ public class Cockpit extends JFrame {
 		tabbedPane.add("Automat", jp_3);
 	}
 	
-	/** Hinzufuegen eines weißen Panels zum Tab, dem wiederum Verkaufstabelle und Label
-	 * hinzugefügt werden
+	/** Hinzufuegen eines weiÃŸen Panels zum Tab, dem wiederum Verkaufstabelle und Label
+	 * hinzugefÃ¼gt werden
 	 */
 	public void createSalesPane() {
 		jp_4.setBackground(Color.WHITE);
 		tabbedPane.add(jp_4);
 		jp_4.add(label_verkaeufe);
 		jp_4.add(verkaeufe);
-		tabbedPane.add("Verkäufe", jp_4);
+		tabbedPane.add("VerkÃƒÂ¤ufe", jp_4);
 	}
 
 	/**
 	 * Setzen des Fenster-Icons. <br>
 	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
-	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
+	 * Warnung, da das Bild nicht nÃƒÂ¶tig fÃƒÂ¼r das Funktionieren der Anwendung ist.
 	 */
 	private void setIcon() {
 		try {
