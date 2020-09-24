@@ -9,6 +9,8 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import controller.Password_Screen;
+
 /**
  * Die Klasse UserInterface dient der Darstellung des ButcherCockpits, also der
  * internen Benutzeroberflaeche fuer den Metzger.
@@ -38,6 +40,7 @@ public class Cockpit extends JFrame {
 	 */
 	private JLabel label_products = new JLabel("Produktportfolio");
 	public Tile products = new Tile(
+
 			"SELECT name as Produktname, produkt_id as 'Produkt-ID' , kilopreis as '[â‚¬/kg]', gewicht_portion as '[kg/Portion]' FROM Produkte;");
 
 	/**
@@ -45,13 +48,16 @@ public class Cockpit extends JFrame {
 	 */
 
 	private JLabel label_automat = new JLabel("Füllstand Kühlautomat");
+
 	public Tile automat = new Tile(
 			"SELECT name as Produktname, haltbar_bis as Haltbarkeit, portionen as Vorraetig from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 
 	/**
+
 	 * Anzeige der Verkaufsstatistiken für den Kühlautomat
 	 */
 	private JLabel label_verkaeufe = new JLabel("VerkÃ¤ufe Kühlautomat");
+
 	private Tile verkaeufe = new Tile(
 			"SELECT HEX(verkauf_id) as 'Verkauf-ID', datum as Datum, uhrzeit as Uhrzeit, gesamtpreis as Gesamtpreis FROM Verkaeufe;");
 
@@ -86,7 +92,6 @@ public class Cockpit extends JFrame {
 	 * hinzugefügt werden
 	 */
 	public void createStockPane() {
-
 		jp_1.setBackground(Color.WHITE);
 		tabbedPane.add(jp_1);
 		jp_1.add(label_stock);
@@ -142,6 +147,7 @@ public class Cockpit extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		Cockpit ui = new Cockpit();
+		Password_Screen screen = new Password_Screen();
+		
 	}
 }
