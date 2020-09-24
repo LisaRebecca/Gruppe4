@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
- * ActionListener, der das Event-Handlung für die +/- Buttons übernimmt. Dies
+ * ActionListener, der das Event-Handlung fÃ¼r die +/- Buttons Ã¼bernimmt. Dies
  * beinhaltet die Mengenanzeige, das Anpassen der Preise an die Produktanzahl
  * und das .
  */
@@ -13,7 +13,7 @@ public class ActionListener_Amount implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		JButton jb_source = (JButton) e.getSource();
 
-		 // Finden des Panels <code>Panel_Selection</code> in welchem der zugehörige
+		 // Finden des Panels <code>Panel_Selection</code> in welchem der zugehï¿½rige
 		 // Button liegt.
 		Object parent;
 		do {
@@ -22,7 +22,7 @@ public class ActionListener_Amount implements ActionListener {
 		Panel_Selection ps = (Panel_Selection) parent;
 
 		// Mengenanzeige im Label der <code>Panel_Selection</code> dem Button entsprechend 
-		// erhöhen oder vermindern
+		// erhï¿½hen oder vermindern
 		int amount = ps.getAmount();
 		if (jb_source.getText().equals("+")) {
 			amount++;
@@ -32,7 +32,7 @@ public class ActionListener_Amount implements ActionListener {
 
 		ps.getJlbl_amount().setText("" + amount);
 
-		 // Verändern des Preises dieser einzelnen Produktauswahl.
+		 // Verï¿½ndern des Preises dieser einzelnen Produktauswahl.
 		ps.aktualisierePreise();
 		
 		// Aktualisieren des Gesamtpreises dieses Einkaufs.

@@ -27,24 +27,21 @@ import Tools.MyTools;
 public class Automat extends JFrame {
 
 	/**
-	 * Schriftart für die Überschrift
+	 * Schriftart fï¿½r die ï¿½berschrift
 	 */
 	private Font headerfont = new Font("Arial", Font.BOLD, 20);
 
 	private JPanel jp_mainPanel;
-
 	private JPanel jp_selectionPanel;
-
 	private JPanel jp_buyPanel;
 
 	private JLabel jlbl_title;
-
 	private JLabel jlbl_total;
 
 	private JButton jb_buy;
 
 	/**
-	 * Warenkorb, enthält alle ausgewählten Produkte in Form von
+	 * Warenkorb, enthï¿½lt alle ausgewï¿½hlten Produkte in Form von
 	 * {@link Panel_Selection}
 	 */
 	public ArrayList<Panel_Selection> list_productSelection = new ArrayList<Panel_Selection>();
@@ -55,15 +52,18 @@ public class Automat extends JFrame {
 	private double gesamtpreis;
 
 	/**
-	 * Tabelle der verfügbaren Produkte
+	 * Tabelle der verfï¿½gbaren Produkte
 	 */
 	JTable jt_obtainableProducts;
 
+	private Container c = getContentPane();
+	
+	
 	/**
 	 * Erzeugen des Automaten-UI inklusive Ueberschrift, Tabelle, GesamtpreisLabel
 	 * und KaufButton mit ActionListener.
 	 * 
-	 * @param products die verfügbaren Produkte
+	 * @param products die verfï¿½gbaren Produkte
 	 */
 	public Automat(JTable products) {
 		this.jt_obtainableProducts = products;
@@ -75,71 +75,68 @@ public class Automat extends JFrame {
 		 * Hier werden Titel, Sichtbarkeit, Groesse, Position und Close-Operation des
 		 * Automaten-Windows festgelegt
 		 */
-		this.setTitle("Kühlautomat");
+		this.setTitle("KÃ¼hlautomat");
 		this.setVisible(true);
 		this.setSize(800, 400);
 		this.setLocation(50, 20);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setIcon();
-
-		Container c = getContentPane();
-
-		/**
-		 * Erzeugen des Hintergrund-Panels
-		 */
-		jp_mainPanel = new JPanel(new FlowLayout());
-		c.add(jp_mainPanel);
-
-		/**
-		 * ----------------------------------- Auswahl-Panel -----------------------------------
-		 */
-
-		/**
-		 * Erstellen der Überschrift
-		 */
-		jlbl_title = new JLabel("Bitte waehlen Sie Ihre Produkte aus:");
-		jlbl_title.setFont(headerfont);
-
-		/**
-		 * Panel, welches alle auswählbaren Produkte beinhaltet
-		 */
-		jp_selectionPanel = new JPanel(new GridLayout(0, 1));
-		jp_selectionPanel.add(jlbl_title);
-		jp_mainPanel.add(jp_selectionPanel);
-
-		/**
-		 * Füllen des Auswahlpanels mit den Produkten
-		 */
+		
+		createBuyButton();
+		createBuyPanel();
+		
+		createSelectionPanel();
+		// FÃ¼llen des Auswahlpanels mit den Produkten
 		loadProductsFromTable();
+		
+		createMainPanel();
 
-		/**
-		 * ----------------------------------- Kaufen-Panel -----------------------------------
-		 */
-
-		jp_buyPanel = new JPanel(new GridLayout(2, 1));
-		/**
-		 * Anzeige der Gesamtsumme
-		 */
-		jlbl_total = new JLabel();
-		berechneGesamtpreis();
-		jp_buyPanel.add(jlbl_total);
-
-		/**
-		 * Button zum Kaufen wird erstellt
-		 */
-		jb_buy = new JButton("Kaufen");
-		jb_buy.setBackground(Color.white);
-		jb_buy.addActionListener(new ActionListener_Buy());
-		jp_buyPanel.add(jb_buy);
-
-		jp_mainPanel.add(jp_buyPanel);
-
-		/**
-		 * Nach dem Einfügen der Elemente wird der JFrame noch einmal aktualisiert.
-		 */
+		//Nach dem Einfï¿½gen der Elemente wird der JFrame noch einmal aktualisiert.
 		this.revalidate();
 	}
 
+	/**
+	 * Button zum Kaufen wird erstellt
+	 */
+	public void createBuyButton() {
+		jb_buy = new JButton("Kaufen");
+		jb_buy.setBackground(Color.white);
+		jb_buy.addActionListener(new ActionListener_Buy());
+	}
+	
+	/**
+	 * Panel zur Anzeige der Gesamtsumme und des Kaufenbuttons
+	 */
+	public void createBuyPanel() {
+		jp_buyPanel = new JPanel(new GridLayout(2, 1));
+		
+		//Anzeige der Gesamtsumme
+		jlbl_total = new JLabel();
+		berechneGesamtpreis();
+		
+		jp_buyPanel.add(jlbl_total);
+		jp_buyPanel.add(jb_buy);
+	}
+	
+	/**
+	 * Panel, welches die ï¿½berschrift und alle auswï¿½hlbaren Produkte beinhaltet
+	 */
+	public void createSelectionPanel() {
+		jlbl_title = new JLabel("Bitte waehlen Sie Ihre Produkte aus:");
+		jlbl_title.setFont(headerfont);
+		jp_selectionPanel = new JPanel(new GridLayout(0, 1));
+		jp_selectionPanel.add(jlbl_title);
+	}
+	
+	/**
+	 * Erzeugen des Hintergrund-Panels
+	 */
+	public void createMainPanel() {
+		jp_mainPanel = new JPanel(new FlowLayout());
+		c.add(jp_mainPanel);
+		jp_mainPanel.add(jp_selectionPanel);
+		jp_mainPanel.add(jp_buyPanel);
+	}
 	/**
 	 * @return Gesamtpreise dieses Einkaufs
 	 */
@@ -161,7 +158,7 @@ public class Automat extends JFrame {
 	/**
 	 * Setzen des Fenster-Icons. <br>
 	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
-	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
+	 * Warnung, da das Bild nicht nÃ¶tig fÃ¼r das Funktionieren der Anwendung ist.
 	 */
 	private void setIcon() {
 		try {
@@ -174,7 +171,7 @@ public class Automat extends JFrame {
 	}
 
 	/**
-	 * Hinzufügen der Portionen, Darstellung der Eigenschaften in Labels
+	 * HinzufÃ¼gen der Portionen, Darstellung der Eigenschaften in Labels
 	 */
 	private void loadProductsFromTable() {
 		for (int row = 0; row < jt_obtainableProducts.getRowCount(); row++) {
@@ -187,7 +184,7 @@ public class Automat extends JFrame {
 
 			Panel_Selection productSelection = new Panel_Selection(portion, this);
 			
-			// Hinzufügen zum Warenkorb
+			// Hinzufï¿½gen zum Warenkorb
 			list_productSelection.add(productSelection);
 			jp_selectionPanel.add(productSelection);
 		}

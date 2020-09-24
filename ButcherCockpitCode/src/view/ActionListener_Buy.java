@@ -4,18 +4,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import controller.DatabaseConnector;
 
 /**
- * ActionListener, der das Event-Handlung f¸r den KaufButton ¸bernimmt. Hierbei
+ * ActionListener, der das Event-Handlung f√ºr den KaufButton √ºbernimmt. Hierbei
  * wird ein neues Fenster mit weiteren Buttons eingeblendet, um aus Kundensicht
- * entweder den Kaufvorgang abzuschlieﬂen oder abzubrechen.
+ * entweder den Kaufvorgang abzuschlie√üen oder abzubrechen.
  *
  */
 
@@ -25,38 +25,43 @@ public class ActionListener_Buy implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		JButton jb_source = (JButton) e.getSource();
 
-		// Finden des Automaten, welcher den Kaufen-Button enth‰lt.
+		// Finden des Automaten, welcher den Kaufen-Button enth√§lt.
 		Automat at = (Automat) SwingUtilities.getRoot(jb_source);
 
 		double gesamtpreis = at.getGesamtpreis();
 
-		// Zuerst wird der Kunde nach Best‰tigung gefragt.
+		// Zuerst wird der Kunde nach Best√§tigung gefragt.
 		String[] options = { "Ja, bezahlen", "Nein, zurueck" };
 		int eingabe = JOptionPane.showOptionDialog(null, "Moechten Sie den Kaufvorgang abschliessen und bezahlen?",
-				"Best‰tigung", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+				"Best√§tigung", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
-		// Der Dialog schlieﬂt sich, der Kunde kann weiter einkaufen
+		// Der Dialog schlie√üt sich, der Kunde kann weiter einkaufen
 		if (eingabe == 1) {
 		}
-		// Nur falls er den Vorgang abschlieﬂen will erscheint ein neuer Dialog.
+		// Nur falls er den Vorgang abschlie√üen will erscheint ein neuer Dialog.
 		if (eingabe == 0) {
 			JOptionPane.showMessageDialog(null,
 					"Danke fuer Ihren Einkauf, der Kassenbetrag wurde von ihrer Gutscheinkarte abgezogen.", "Danke!",
 					JOptionPane.INFORMATION_MESSAGE);
 
+			// generieren eines Universally Unique Identifiers f√ºr jeden Einkauf
+			String uuid = UUID.randomUUID().toString();
+			uuid = uuid.replace("-", "");
+
 			// Speichern des aktuellen Zeitstempels
 			Date date = new Date();
-			Date time = new Date();
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			String sql_date = simpleDateFormat.format(date);
+
+			Date time = new Date();
 			SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
 			String sql_time = simpleTimeFormat.format(time);
 
 			// Der Einkauf wird als Statistik in der Datenbank hinterlegt.
-			DatabaseConnector.executeDBInsert("INSERT INTO Verkaeufe( datum, uhrzeit, gesamtpreis) VALUES ('" + sql_date
-					+ "', '" + sql_time + "'," + gesamtpreis + ");");
+			DatabaseConnector.executeDBInsert("INSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('"+uuid+"'), '" + sql_date
+					+ "', '" + sql_time + "', " + gesamtpreis + ");");
 			
-			// Der Automat wird geschlossen, der Einkauf ist beendet.
+      // Der Automat wird geschlossen, der Einkauf ist beendet
 			System.exit(0);
 		}
 	}
