@@ -11,8 +11,8 @@ import controller.DatabaseConnector;
 
 /**
  * Die Klasse <code>Tile</code> stellt die Komponenten des {@link Cockpit} dar.
- * Sie ist ein <code>JScrollPane</code>, um die vollständige Darstellung der
- * Tabellen auf den Kacheln zu gewährleisten.
+ * Sie ist ein <code>JScrollPane</code>, um die vollstÃ¤ndige Darstellung der
+ * Tabellen auf den Kacheln zu gewÃ¤hrleisten.
  */
 
 @SuppressWarnings("serial")
@@ -28,7 +28,7 @@ public class Tile extends JScrollPane {
 	JViewport jvp_table;
 	
 	/**
-	 * Erzeugt eine Kachel mit Tabelleninhalt und dazugehöriger Überschrift, sowie
+	 * Erzeugt eine Kachel mit Tabelleninhalt und dazugehï¿½riger Ã¼berschrift, sowie
 	 * festgelegter Hintergrundfarbe und Rahmen
 	 * 
 	 * @param select_statement MySQL-Statement, welches den Tabelleninhalt dieser
@@ -36,14 +36,14 @@ public class Tile extends JScrollPane {
 	 */
 	public Tile(String select_statement) {
 		/**
-		 * Ein <code>JTable</code> wird mit Daten aus der Datenbank gemäß des
-		 * <code>select_statement</code>s gefüllt.
+		 * Ein <code>JTable</code> wird mit Daten aus der Datenbank gemÃ¤ÃŸ des
+		 * <code>select_statement</code>s gefÃ¼llt.
 		 */
 		JTable jt = DatabaseConnector.executeDBQuery(select_statement);
 
 		/**
 		 * Optische Details: Tabellenrasterfarbe, Kachelhintergrund und
-		 * Rahmenfarbe/-stärke der Kachel festgelegt
+		 * Rahmenfarbe/-stÃ¤rke der Kachel festgelegt
 		 */
 		jt.setGridColor(Color.orange);
 		this.setBackground(Color.WHITE);
@@ -59,7 +59,7 @@ public class Tile extends JScrollPane {
 		this.setColumnHeader(jvp_title);
 
 		/**
-		 * <code>JViewPort</code> für den Inhalt der Tabelle.
+		 * <code>JViewPort</code> fÃ¼r den Inhalt der Tabelle.
 		 */
 		jvp_table = new JViewport();
 		jvp_table.add(jt);

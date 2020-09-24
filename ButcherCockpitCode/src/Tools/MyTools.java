@@ -6,13 +6,13 @@ public class MyTools {
 	public static final NumberFormat currencyFormatter = NumberFormat.getInstance();
 
 	/**
-	 * Formatiert Zahlen in eine Währung
-	 * @param d Wert, der in Währung umgewandelt werden soll
-	 * @return den Eingabewert formatiert als Währung
+	 * Formatiert Zahlen in eine WÃ¤hrung
+	 * @param d Wert, der in WÃ¤hrung umgewandelt werden soll
+	 * @return den Eingabewert formatiert als WÃ¤hrung
 	 */
 	public static String formatAsCurrency(double d) {
 		currencyFormatter.setMaximumFractionDigits(2);
 		currencyFormatter.setMinimumFractionDigits(2);
-		return currencyFormatter.format(d) + "€";
+		return currencyFormatter.format(d) + "â‚¬";
 	}
 }

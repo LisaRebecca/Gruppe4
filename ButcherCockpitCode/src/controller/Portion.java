@@ -4,7 +4,7 @@ import java.text.NumberFormat;
 
 /**
  * Die Klasse Portion modelliert ein abgepacktes Produkt, welches sich in der
- * Metzgerei oder im Kühlautomat auf Lager befinden kann.
+ * Metzgerei oder im KÃ¼hlautomat auf Lager befinden kann.
  */
 public class Portion {
 
@@ -32,8 +32,8 @@ public class Portion {
 	 * Konstruktor, welcher die Instanzvariablen aus String-Objekten ausliest.
 	 * 
 	 * @throws NumberFormatException falls lagermenge, kilopreis oder
-	 *                               portionsgewichtKG keine Zahl repräsentieren. In
-	 *                               diesem Fall wird behält die betroffene Variable
+	 *                               portionsgewichtKG keine Zahl reprï¿½sentieren. In
+	 *                               diesem Fall wird behÃ¤lt die betroffene Variable
 	 *                               ihren Default-Wert, welcher im
 	 *                               Standard-Konstruktor gesetzt wurde.
 	 * 
