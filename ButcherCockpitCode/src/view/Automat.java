@@ -27,7 +27,7 @@ import Tools.MyTools;
 public class Automat extends JFrame {
 
 	/**
-	 * Schriftart für die Überschrift
+	 * Schriftart fï¿½r die ï¿½berschrift
 	 */
 	private Font headerfont = new Font("Arial", Font.BOLD, 20);
 
@@ -41,7 +41,7 @@ public class Automat extends JFrame {
 	private JButton jb_buy;
 
 	/**
-	 * Warenkorb, enthält alle ausgewählten Produkte in Form von
+	 * Warenkorb, enthï¿½lt alle ausgewï¿½hlten Produkte in Form von
 	 * {@link Panel_Selection}
 	 */
 	public ArrayList<Panel_Selection> list_productSelection = new ArrayList<Panel_Selection>();
@@ -52,7 +52,7 @@ public class Automat extends JFrame {
 	private double gesamtpreis;
 
 	/**
-	 * Tabelle der verfügbaren Produkte
+	 * Tabelle der verfï¿½gbaren Produkte
 	 */
 	JTable jt_obtainableProducts;
 
@@ -63,7 +63,7 @@ public class Automat extends JFrame {
 	 * Erzeugen des Automaten-UI inklusive Ueberschrift, Tabelle, GesamtpreisLabel
 	 * und KaufButton mit ActionListener.
 	 * 
-	 * @param products die verfügbaren Produkte
+	 * @param products die verfï¿½gbaren Produkte
 	 */
 	public Automat(JTable products) {
 		this.jt_obtainableProducts = products;
@@ -75,7 +75,7 @@ public class Automat extends JFrame {
 		 * Hier werden Titel, Sichtbarkeit, Groesse, Position und Close-Operation des
 		 * Automaten-Windows festgelegt
 		 */
-		this.setTitle("Kühlautomat");
+		this.setTitle("KÃ¼hlautomat");
 		this.setVisible(true);
 		this.setSize(800, 400);
 		this.setLocation(50, 20);
@@ -86,12 +86,12 @@ public class Automat extends JFrame {
 		createBuyPanel();
 		
 		createSelectionPanel();
-		// Füllen des Auswahlpanels mit den Produkten
+		// FÃ¼llen des Auswahlpanels mit den Produkten
 		loadProductsFromTable();
 		
 		createMainPanel();
 
-		//Nach dem Einfügen der Elemente wird der JFrame noch einmal aktualisiert.
+		//Nach dem Einfï¿½gen der Elemente wird der JFrame noch einmal aktualisiert.
 		this.revalidate();
 	}
 
@@ -119,7 +119,7 @@ public class Automat extends JFrame {
 	}
 	
 	/**
-	 * Panel, welches die Überschrift und alle auswählbaren Produkte beinhaltet
+	 * Panel, welches die ï¿½berschrift und alle auswï¿½hlbaren Produkte beinhaltet
 	 */
 	public void createSelectionPanel() {
 		jlbl_title = new JLabel("Bitte waehlen Sie Ihre Produkte aus:");
@@ -158,7 +158,7 @@ public class Automat extends JFrame {
 	/**
 	 * Setzen des Fenster-Icons. <br>
 	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
-	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
+	 * Warnung, da das Bild nicht nÃ¶tig fÃ¼r das Funktionieren der Anwendung ist.
 	 */
 	private void setIcon() {
 		try {
@@ -171,7 +171,7 @@ public class Automat extends JFrame {
 	}
 
 	/**
-	 * Hinzufügen der Portionen, Darstellung der Eigenschaften in Labels
+	 * HinzufÃ¼gen der Portionen, Darstellung der Eigenschaften in Labels
 	 */
 	private void loadProductsFromTable() {
 		for (int row = 0; row < jt_obtainableProducts.getRowCount(); row++) {
@@ -184,7 +184,7 @@ public class Automat extends JFrame {
 
 			Panel_Selection productSelection = new Panel_Selection(portion, this);
 			
-			// Hinzufügen zum Warenkorb
+			// Hinzufï¿½gen zum Warenkorb
 			list_productSelection.add(productSelection);
 			jp_selectionPanel.add(productSelection);
 		}

@@ -8,8 +8,8 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * Der {@link DatabaseConnector} stellt die Schnittstelle zur Datenbank zur
- * Verfügung. Die Klasse kann Requests an die Datenbank senden um Daten
- * auszulesen. Zusätzlich kann diese Klasse auch Tupel in Tabellen einfügen.
+ * VerfÃ¼gung. Die Klasse kann Requests an die Datenbank senden um Daten
+ * auszulesen. ZusÃ¤tzlich kann diese Klasse auch Tupel in Tabellen einfï¿½gen.
  */
 public class DatabaseConnector {
 	/**
@@ -39,7 +39,7 @@ public class DatabaseConnector {
 		}
 	}
 	/**
-	 * Die Datenbank wird befüllt.
+	 * Die Datenbank wird befï¿½llt.
 	 * 
 	 * @param insert_statement beschreibt, welche Daten in die Tabelle geschrieben werden
 	 */
@@ -56,9 +56,9 @@ public class DatabaseConnector {
 	/**
 	 * Hilfsmethode, welche ein <code>ResultSet</code> in einen <code>JTable</code>
 	 * umwandelt. Diese Methode erlaubt es, das Ergebnis einer Datenbankabfrage
-	 * mithilfe von <code>JTables</code> für den Anwender zu visualisieren. Die
+	 * mithilfe von <code>JTables</code> fÃ¼r Anwender zu visualisieren. Die
 	 * Spalten des JTables werden mit dem jeweiligen Bezeichner des Attributs der
-	 * Datenbanktabelle benannt. Falls ein Aliasname für ein Attribut gesetzt wurde
+	 * Datenbanktabelle benannt. Falls ein Aliasname fÃ¼r ein Attribut gesetzt wurde
 	 * wird jedoch dieser bevorzugt.
 	 * 
 	 * @param result das Ergebnis einer Datenbankabfrage

@@ -41,17 +41,17 @@ public class Cockpit extends JFrame {
 			"SELECT name as Produktname, produkt_id as 'Produkt-ID' , kilopreis as '[â‚¬/kg]', gewicht_portion as '[kg/Portion]' FROM Produkte;");
 
 	/**
-	 * Anzeige des FÃ¼llstandes des KÃ¼hlautomaten
+	 * Anzeige des Füllstandes des Kühlautomaten
 	 */
 
-	private JLabel label_automat = new JLabel("FÃ¼llstand KÃ¼hlautomat");
+	private JLabel label_automat = new JLabel("Füllstand Kühlautomat");
 	public Tile automat = new Tile(
 			"SELECT name as Produktname, haltbar_bis as Haltbarkeit, portionen as Vorraetig from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
 
 	/**
-	 * Anzeige der Verkaufsstatistiken fÃ¼r den KÃ¼hlautomat
+	 * Anzeige der Verkaufsstatistiken für den Kühlautomat
 	 */
-	private JLabel label_verkaeufe = new JLabel("VerkÃ¤ufe KÃ¼hlautomat");
+	private JLabel label_verkaeufe = new JLabel("VerkÃ¤ufe Kühlautomat");
 	private Tile verkaeufe = new Tile(
 			"SELECT HEX(verkauf_id) as 'Verkauf-ID', datum as Datum, uhrzeit as Uhrzeit, gesamtpreis as Gesamtpreis FROM Verkaeufe;");
 
@@ -63,7 +63,7 @@ public class Cockpit extends JFrame {
 	public Cockpit() {
 
 		/**
-		 * Containerinstanz wird als ContentPane gesetzt, Tabs werden hinzugefÃ¼gt
+		 * Containerinstanz wird als ContentPane gesetzt, Tabs werden hinzugefügt
 		 */
 		Container c = getContentPane();
 		c.setLayout(new BorderLayout());
@@ -129,7 +129,7 @@ public class Cockpit extends JFrame {
 	/**
 	 * Setzen des Fenster-Icons. <br>
 	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
-	 * Warnung, da das Bild nicht nÃ¶tig fÃ¼r das Funktionieren der Anwendung ist.
+	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
 	 */
 	private void setIcon() {
 		try {

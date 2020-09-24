@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Mit Hilfe der Klasse AutomatTest soll bestätigt werden, dass die einzelnen Preise der ausgewählten Produkte
+ * Mit Hilfe der Klasse AutomatTest soll bestÃ¤tigt werden, dass die einzelnen Preise der ausgewï¿½hlten Produkte
  * korrekt zum Gesamtpreis aufsummiert werden.
  *
  */

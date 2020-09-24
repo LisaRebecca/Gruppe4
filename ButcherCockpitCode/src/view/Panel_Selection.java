@@ -12,7 +12,7 @@ import Tools.MyTools;
 @SuppressWarnings("serial")
 public class Panel_Selection extends JPanel {
 	/**
-	 * ursprünglich sind keine Produkte ausgewählt, Menge = 0
+	 * ursprï¿½nglich sind keine Produkte ausgewÃ¤hlt, Menge = 0
 	 */
 	public static final int initialAmount = 0;
 	/**
@@ -72,8 +72,8 @@ public class Panel_Selection extends JPanel {
 	 */
 	public void setPortionInfo() {
 		this.add(new JLabel(portion.getName(), SwingConstants.LEFT));
-		this.add(new JLabel("" + portion.getKilopreis() + " €/kg", SwingConstants.RIGHT));
-		this.add(new JLabel("" + portion.getLagermenge() + " Portionen à ", SwingConstants.RIGHT));
+		this.add(new JLabel("" + portion.getKilopreis() + " ï¿½/kg", SwingConstants.RIGHT));
+		this.add(new JLabel("" + portion.getLagermenge() + " Portionen ï¿½ ", SwingConstants.RIGHT));
 		this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + "g auf Lager", SwingConstants.LEFT));
 	}
 	
@@ -128,7 +128,7 @@ public class Panel_Selection extends JPanel {
 	 */
 	public double getPreis() {
 		String preis = jlbl_preis.getText().replace(',', '.');
-		int index = preis.indexOf("€");
+		int index = preis.indexOf("ï¿½");
 		if (index == -1) {
 		} else {
 			preis = preis.substring(0, index);
@@ -137,7 +137,7 @@ public class Panel_Selection extends JPanel {
 	}
 
 	/**
-	 * @return ausgewählte Menge als natürliche Zahl
+	 * @return ausgewï¿½hlte Menge als natï¿½rliche Zahl
 	 */
 	public int getAmount() {
 		return Integer.parseInt(getJlbl_amount().getText());
