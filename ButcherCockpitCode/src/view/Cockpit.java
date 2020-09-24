@@ -133,5 +133,6 @@ public class Cockpit extends JFrame {
 
 	public static void main(String[] args) {
 		Password_Screen screen = new Password_Screen();
+		
 	}
 }

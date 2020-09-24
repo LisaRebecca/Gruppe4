@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
+import view.Automat;
 import view.Cockpit;
 
 public class Password_Screen extends JFrame implements ActionListener {
@@ -23,8 +24,6 @@ public class Password_Screen extends JFrame implements ActionListener {
 	static String password;
 	static String username;
 
-	Dimension dTextField = new Dimension(100, 25);
-
 	public Password_Screen() {
 		c = getContentPane();
 		c.setLayout(new GridLayout(3, 2));
@@ -33,7 +32,6 @@ public class Password_Screen extends JFrame implements ActionListener {
 		user_field = new JTextField("");
 		password_label = new JLabel("Password : ");
 		password_field = new JPasswordField("");
-		password_field.setPreferredSize(dTextField);
 		button = new JButton("Enter");
 		button.addActionListener(this);
 
@@ -44,7 +42,7 @@ public class Password_Screen extends JFrame implements ActionListener {
 		c.add(button);
 
 		this.setTitle("Login");
-		this.setSize(250, 150);
+		this.setSize(250, 125);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -55,6 +53,7 @@ public class Password_Screen extends JFrame implements ActionListener {
 
 		password = password_field.getText();
 		username = user_field.getText();
+
 		Cockpit ui = new Cockpit();
 
 		this.dispose();
