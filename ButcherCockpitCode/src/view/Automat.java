@@ -1,11 +1,14 @@
 package view;
 
+import controller.Database;
 import controller.DatabaseConnector;
 import controller.Portion;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+
 import javax.imageio.ImageIO;
 
 import java.util.ArrayList;
@@ -199,7 +202,13 @@ public class Automat extends JFrame {
 		 // Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
 		String select = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
-		JTable products = DatabaseConnector.executeDBQuery(select);
+		JTable products = null;
+		try {
+			products = Database.get().executeDBQuery(select);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		new Automat(products);
 	}
 }

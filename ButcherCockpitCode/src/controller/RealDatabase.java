@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -18,7 +19,19 @@ public class RealDatabase extends Database {
 	/**
 	 * Verbindung zur Datenbank
 	 */
-	private static Connection conn = DatabaseConnection.getDBConnection();
+	Connection conn;
+
+	public RealDatabase() {
+		new Password_Screen();
+		String userName = Credentials.getUsername();
+		String password = Credentials.getPassword();
+		try {
+			conn =  DriverManager.getConnection("jdbc:mysql://localhost:3306/metzgerei?user="
+					+ userName + "&password=" + password);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Eine Anfrage an die in {@link DatabaseConnection} angebundene Datenbank kann
@@ -40,7 +53,7 @@ public class RealDatabase extends Database {
 	 * 
 	 * @param insert_statement beschreibt, welche Daten in die Tabelle geschrieben
 	 *                         werden
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	@Override
 	public void executeDBInsert(String insert_statement) throws SQLException {

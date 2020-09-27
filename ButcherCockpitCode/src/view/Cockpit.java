@@ -3,13 +3,10 @@ package view;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import controller.Password_Screen;
 
 /**
  * Die Klasse UserInterface dient der Darstellung des ButcherCockpits, also der
@@ -144,9 +141,5 @@ public class Cockpit extends JFrame {
 		} catch (IOException e) {
 			System.err.println("Icon des Automaten konnte nicht geladen werden.");
 		}
-	}
-
-	public static void main(String[] args) {
-		new Password_Screen();
 	}
 }

@@ -16,8 +16,8 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLInvalidAuthorizationSpecException;
 public class DatabaseConnection {
 	private static Connection connection = null;
 	
-	private static String userName = Password_Screen.getUsername();
-	private static String password = Password_Screen.getPassword();
+	private static String userName = Credentials.getUsername();
+	private static String password = Credentials.getPassword();
 
 	/**
 	 * Ein privater Konstruktor stellt sicher, dass es nur genau eine Verbindung zur
@@ -39,7 +39,8 @@ public class DatabaseConnection {
 						+ userName + "&password=" + password);
 			} catch (ClassNotFoundException cnf) {
 				cnf.printStackTrace();
-				System.err.println("MySQL-Driver not found.");
+				JOptionPane.showMessageDialog(null, "MySQL-Driver not found.", "Warning",
+						JOptionPane.WARNING_MESSAGE);
 			}
 
 			catch (SQLException s) {

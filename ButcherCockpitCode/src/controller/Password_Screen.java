@@ -21,8 +21,6 @@ public class Password_Screen extends JFrame implements ActionListener {
 	JLabel user_label;
 	JLabel password_label;
 	JButton button;
-	static String password;
-	static String username;
 
 	public Password_Screen() {
 		c = getContentPane();
@@ -49,23 +47,8 @@ public class Password_Screen extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
-		password = password_field.getText();
-		username = user_field.getText();
-
-		Cockpit ui = new Cockpit();
-
+		Credentials.setPassword(password_field.getText());
+		Credentials.setUsername(user_field.getText());
 		this.dispose();
 	}
-
-	public static String getPassword() {
-
-		return password;
-	}
-
-	public static String getUsername() {
-		return username;
-	}
-
 }

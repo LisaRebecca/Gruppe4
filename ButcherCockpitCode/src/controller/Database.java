@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import javax.swing.JTable;
 
 public abstract class Database {
-	private static Database database = new MockDatabase();
+	private static Database database;
 
 	public static Database get() {
 		return Database.database;
