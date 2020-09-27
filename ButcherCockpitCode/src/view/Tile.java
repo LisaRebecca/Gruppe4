@@ -1,12 +1,15 @@
 package view;
 
 import java.awt.*;
+import java.sql.SQLException;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JViewport;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import controller.Database;
 import controller.DatabaseConnector;
 
 /**
@@ -39,7 +42,13 @@ public class Tile extends JScrollPane {
 		 * Ein <code>JTable</code> wird mit Daten aus der Datenbank gemäß des
 		 * <code>select_statement</code>s gefüllt.
 		 */
-		JTable jt = DatabaseConnector.executeDBQuery(select_statement);
+		JTable jt = null;
+		try {
+			jt = Database.get().executeDBQuery(select_statement);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		/**
 		 * Optische Details: Tabellenrasterfarbe, Kachelhintergrund und
