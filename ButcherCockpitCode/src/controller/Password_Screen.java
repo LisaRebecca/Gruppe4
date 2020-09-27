@@ -50,5 +50,6 @@ public class Password_Screen extends JFrame implements ActionListener {
 		Credentials.setPassword(password_field.getText());
 		Credentials.setUsername(user_field.getText());
 		this.dispose();
+		LoginController.get().establishConnection();
 	}
 }

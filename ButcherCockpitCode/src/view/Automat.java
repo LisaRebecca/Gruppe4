@@ -1,7 +1,6 @@
 package view;
 
 import controller.Database;
-import controller.DatabaseConnector;
 import controller.Portion;
 import java.awt.*;
 import java.awt.image.BufferedImage;

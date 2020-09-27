@@ -1,8 +1,9 @@
 package controller;
 
-public class MainCockpit {
+public class MainAutomat {
 	public static void main(String[] args) {
-		LoginController.set(new LoginControllerStandard());
+		
+		LoginController.set(new LoginControllerAutomat());
 		Database.set(new RealDatabase());
 	}
 }
