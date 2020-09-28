@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -25,7 +26,7 @@ public class RealDatabase extends Database {
 	}
 
 	public RealDatabase() {
-		LoginController.get().startLoginProcess();
+		isConnected = false;
 	}
 
 	/**
@@ -93,5 +94,19 @@ public class RealDatabase extends Database {
 		}
 		return new JTable(new DefaultTableModel(rows, columnLabels));
 
+	}
+
+	public void establishConnection() {
+		String userName = Credentials.getUsername();
+		String password = Credentials.getPassword();
+
+		try {
+			((RealDatabase) Database.get()).setConn(DriverManager
+					.getConnection("jdbc:mysql://localhost:3306/metzgerei?user=" + userName + "&password=" + password));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		isConnected = true;
+		LoginController.get().giveControl();
 	}
 }
