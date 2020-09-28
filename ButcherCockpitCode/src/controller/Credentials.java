@@ -3,6 +3,7 @@ package controller;
 public class Credentials {
 	private static String username;
 	private static String password;
+	private static boolean isSet;
 
 	public static void setUsername(String username) {
 		Credentials.username = username;
@@ -18,5 +19,8 @@ public class Credentials {
 
 	public static void setPassword(String password) {
 		Credentials.password = password;
+	}
+	public static boolean getIsSet() {
+		return !(password == null && username == null);
 	}
 }
