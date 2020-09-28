@@ -29,7 +29,7 @@ import Tools.MyTools;
 public class Automat extends JFrame {
 
 	/**
-	 * Schriftart f�r die �berschrift
+	 * Schriftart für die Überschrift
 	 */
 	private Font headerfont = new Font("Arial", Font.BOLD, 20);
 
@@ -67,8 +67,8 @@ public class Automat extends JFrame {
 	 * 
 	 * @param products die verf�gbaren Produkte
 	 */
-	public Automat(JTable products) {
-		this.jt_obtainableProducts = products;
+	public Automat() {
+		this.jt_obtainableProducts = this.readProductsFormDB();
 
 		/**
 		 * ------------------------------- Konfiguration JFrame -------------------------------
@@ -191,12 +191,7 @@ public class Automat extends JFrame {
 			jp_selectionPanel.add(productSelection);
 		}
 	}
-
-	/**
-	 * Anzeige des Automaten-UIs inklusive der Automatenbestandstabelle
-	 */
-	public static void main(String[] args) {
-		
+	private JTable readProductsFormDB() {
 		 // Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
 		 // Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
 		String select = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
@@ -208,6 +203,7 @@ public class Automat extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		new Automat(products);
+		return products;
 	}
+
 }
