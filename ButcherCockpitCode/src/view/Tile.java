@@ -10,7 +10,6 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import controller.Database;
-import controller.DatabaseConnector;
 
 /**
  * Die Klasse <code>Tile</code> stellt die Komponenten des {@link Cockpit} dar.
