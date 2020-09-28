@@ -2,6 +2,7 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -10,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import controller.DatabaseConnector;
+import controller.Database;
 
 /**
  * ActionListener, der das Event-Handlung für den KaufButton übernimmt. Hierbei
@@ -58,8 +59,13 @@ public class ActionListener_Buy implements ActionListener {
 			String sql_time = simpleTimeFormat.format(time);
 
 			// Der Einkauf wird als Statistik in der Datenbank hinterlegt.
-			DatabaseConnector.executeDBInsert("INSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('"+uuid+"'), '" + sql_date
-					+ "', '" + sql_time + "', " + gesamtpreis + ");");
+			try {
+				Database.get().executeDBInsert("INSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('"+uuid+"'), '" + sql_date
+						+ "', '" + sql_time + "', " + gesamtpreis + ");");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
       // Der Automat wird geschlossen, der Einkauf ist beendet
 			System.exit(0);
