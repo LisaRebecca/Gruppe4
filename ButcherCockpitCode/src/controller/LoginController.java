@@ -1,8 +1,10 @@
 package controller;
 
 public abstract class LoginController {
+	
 	private static LoginController loginController;
-
+//	private boolean isLoggedIn = false;
+	
 	public static LoginController get() {
 		return loginController;
 	}
@@ -11,7 +13,5 @@ public abstract class LoginController {
 		LoginController.loginController = loginController;
 	}
 
-	public abstract void startLoginProcess();
-
-	public abstract void establishConnection();
+	public abstract void giveControl();
 }

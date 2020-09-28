@@ -1,31 +1,19 @@
 package controller;
 
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
-import view.Cockpit;
-
-public class LoginControllerAutomat extends LoginController {
+public class LoginControllerFilled extends LoginController {
 
 	@Override
-	public void startLoginProcess() {
-		Credentials.setUsername("root");
-		Credentials.setPassword("sequel");
-		establishConnection();
-	}
-
-	@Override
-	public void establishConnection() {
-		String userName = Credentials.getUsername();
-		String password = Credentials.getPassword();
-
-		try {
-			((RealDatabase) Database.get()).setConn(DriverManager
-					.getConnection("jdbc:mysql://localhost:3306/metzgerei?user=" + userName + "&password=" + password));
-		} catch (SQLException e) {
-			e.printStackTrace();
+	public void giveControl() {
+		if (Credentials.getIsSet()) {
+			if (Database.get().isConnected) {
+				Main.construct();
+			} else {
+				Database.get().establishConnection();
+			}
+		} else {
+			Credentials.setUsername("root");
+			Credentials.setPassword("sequel");
+			giveControl();
 		}
-		new Automat();
 	}
-
 }
