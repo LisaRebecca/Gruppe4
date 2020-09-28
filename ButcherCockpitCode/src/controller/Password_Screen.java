@@ -32,6 +32,7 @@ public class Password_Screen extends JFrame implements ActionListener {
 		password_field = new JPasswordField("");
 		button = new JButton("Enter");
 		button.addActionListener(this);
+		button.requestFocusInWindow();
 
 		c.add(user_label);
 		c.add(user_field);
@@ -50,6 +51,6 @@ public class Password_Screen extends JFrame implements ActionListener {
 		Credentials.setPassword(password_field.getText());
 		Credentials.setUsername(user_field.getText());
 		this.dispose();
-		LoginController.get().establishConnection();
+		LoginController.get().giveControl();
 	}
 }
