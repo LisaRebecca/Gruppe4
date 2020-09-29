@@ -128,7 +128,7 @@ public class Panel_Selection extends JPanel {
 	 */
 	public double getPreis() {
 		String preis = jlbl_preis.getText().replace(',', '.');
-		int index = preis.indexOf("�");
+		int index = preis.indexOf("€");
 		if (index == -1) {
 		} else {
 			preis = preis.substring(0, index);

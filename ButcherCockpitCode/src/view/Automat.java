@@ -1,11 +1,13 @@
 package view;
 
-import controller.DatabaseConnector;
+import controller.Database;
 import controller.Portion;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+
 import javax.imageio.ImageIO;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ import Tools.MyTools;
 public class Automat extends JFrame {
 
 	/**
-	 * Schriftart f�r die �berschrift
+	 * Schriftart für die Überschrift
 	 */
 	private Font headerfont = new Font("Arial", Font.BOLD, 20);
 
@@ -65,8 +67,8 @@ public class Automat extends JFrame {
 	 * 
 	 * @param products die verf�gbaren Produkte
 	 */
-	public Automat(JTable products) {
-		this.jt_obtainableProducts = products;
+	public Automat() {
+		this.jt_obtainableProducts = this.readProductsFormDB();
 
 		/**
 		 * ------------------------------- Konfiguration JFrame -------------------------------
@@ -189,17 +191,19 @@ public class Automat extends JFrame {
 			jp_selectionPanel.add(productSelection);
 		}
 	}
-
-	/**
-	 * Anzeige des Automaten-UIs inklusive der Automatenbestandstabelle
-	 */
-	public static void main(String[] args) {
-		
+	private JTable readProductsFormDB() {
 		 // Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
 		 // Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
 		String select = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
-		JTable products = DatabaseConnector.executeDBQuery(select);
-		new Automat(products);
+		JTable products = null;
+		try {
+			products = Database.get().executeDBQuery(select);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return products;
 	}
+
 }
