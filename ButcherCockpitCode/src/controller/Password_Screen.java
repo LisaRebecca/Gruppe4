@@ -27,7 +27,7 @@ public class Password_Screen extends JFrame implements ActionListener {
 		c.setLayout(new GridLayout(3, 2));
 
 		user_label = new JLabel("Username : ");
-		user_field = new JTextField("");
+		user_field = new JTextField("root");
 		password_label = new JLabel("Password : ");
 		password_field = new JPasswordField("");
 		button = new JButton("Enter");
