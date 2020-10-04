@@ -46,3 +46,7 @@ INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 9,
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 10, DATE '2021-05-13', 'metzgerei', 6);
 
 CREATE TABLE Verkaeufe ( verkauf_id INT PRIMARY KEY AUTO_INCREMENT, datum DATE, uhrzeit TIME, gesamtpreis NUMERIC (5,2));
+
+
+CREATE USER 'Nutzer' @'localhost' IDENTIFIED BY 'nutzerpasswort';
+GRANT SELECT,UPDATE ON metzgerei .* TO 'Nutzer'@'localhost';
