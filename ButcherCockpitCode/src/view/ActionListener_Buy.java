@@ -60,11 +60,10 @@ public class ActionListener_Buy implements ActionListener {
 
 			// Der Einkauf wird als Statistik in der Datenbank hinterlegt.
 			try {
-				Database.get().executeDBInsert("INSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('"+uuid+"'), '" + sql_date
+				Database.get().executeDBInsert("NSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('"+uuid+"'), '" + sql_date
 						+ "', '" + sql_time + "', " + gesamtpreis + ");");
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				at.showException(e1);
 			}
 			
       // Der Automat wird geschlossen, der Einkauf ist beendet

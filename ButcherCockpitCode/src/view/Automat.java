@@ -26,12 +26,7 @@ import Tools.MyTools;
  */
 
 @SuppressWarnings("serial")
-public class Automat extends JFrame {
-
-	/**
-	 * Schriftart für die Überschrift
-	 */
-	private Font headerfont = new Font("Arial", Font.BOLD, 20);
+public class Automat extends DefaultFrame {
 
 	private JPanel jp_mainPanel;
 	private JPanel jp_selectionPanel;
@@ -57,8 +52,6 @@ public class Automat extends JFrame {
 	 * Tabelle der verf�gbaren Produkte
 	 */
 	JTable jt_obtainableProducts;
-
-	private Container c = getContentPane();
 	
 	
 	/**
@@ -68,21 +61,8 @@ public class Automat extends JFrame {
 	 * @param products die verf�gbaren Produkte
 	 */
 	public Automat() {
+		super("Kühlautomat", 800, 400);
 		this.jt_obtainableProducts = this.readProductsFormDB();
-
-		/**
-		 * ------------------------------- Konfiguration JFrame -------------------------------
-		 */
-		/**
-		 * Hier werden Titel, Sichtbarkeit, Groesse, Position und Close-Operation des
-		 * Automaten-Windows festgelegt
-		 */
-		this.setTitle("Kühlautomat");
-		this.setVisible(true);
-		this.setSize(800, 400);
-		this.setLocation(50, 20);
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setIcon();
 		
 		createBuyButton();
 		createBuyPanel();
@@ -157,12 +137,8 @@ public class Automat extends JFrame {
 		jlbl_total.setText(MyTools.formatAsCurrency(gesamtpreis));
 	}
 
-	/**
-	 * Setzen des Fenster-Icons. <br>
-	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
-	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
-	 */
-	private void setIcon() {
+	@Override
+	protected void setIcon() {
 		try {
 			BufferedImage image = ImageIO.read(new URL(
 					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
@@ -206,4 +182,8 @@ public class Automat extends JFrame {
 		return products;
 	}
 
+	@Override
+	protected void setExceptionMessage(Exception e) {
+		errorMessage = e.getMessage();
+	}
 }

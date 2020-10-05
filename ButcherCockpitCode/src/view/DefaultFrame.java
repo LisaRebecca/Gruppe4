@@ -46,6 +46,7 @@ public abstract class DefaultFrame extends JFrame {
 	public void showException(Exception e) {
 		setExceptionMessage(e);
 		buildPopUp();
+		e.printStackTrace();
 	};
 	
 	private void buildPopUp() {
