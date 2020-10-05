@@ -39,7 +39,7 @@ public class Panel_Selection extends JPanel {
 	/**
 	 * ButtonsListener, welcher die Aenderungen der Menge steuert
 	 */
-	ActionListener bl = new ActionListener_Amount();
+//	ActionListener bl = new ActionListener_Amount();
 	
 	/**
 	 * Kontruktor, welcher alle Buttons erstellt und die Labels mit Initialwerten
@@ -60,8 +60,8 @@ public class Panel_Selection extends JPanel {
 		setPortionInfo();
 		setAmountInfo();
 
-		setPlusButton();
-		setMinusButton();
+		initializePlusButton();
+		initializeMinusButton();
 		
 		setPreisLabel();
 	}
@@ -89,20 +89,30 @@ public class Panel_Selection extends JPanel {
 	/**
 	 * Button zum Erhoehen der Menge
 	 */
-	public void setPlusButton() {
+	public void initializePlusButton() {
 		setJb_more(new JButton("+"));
 		getJb_more().setBackground(Color.white);
-		getJb_more().addActionListener(bl);
+		getJb_more().addActionListener(e -> {
+			jlbl_amount.setText(""+(getAmount()+1));
+			aktualisierePreise();
+			refreshButtonVisibility();
+			automat.berechneGesamtpreis();
+		});
 		this.add(getJb_more());
 	}
 	
 	/**
 	 * Button zum Vermindern der Menge
 	 */
-	public void setMinusButton() {
+	public void initializeMinusButton() {
 		setJb_less(new JButton("-"));
 		getJb_less().setBackground(Color.white);
-		getJb_less().addActionListener(bl);
+		getJb_less().addActionListener(e -> {
+			jlbl_amount.setText(""+(getAmount()-1));
+			aktualisierePreise();
+			refreshButtonVisibility();
+			automat.berechneGesamtpreis();
+		});
 		//Anzahl ist zu Anfang 0, der Nutzer soll die Anzahl nur erhoehen koennen.
 		getJb_less().setVisible(false);
 		this.add(getJb_less());
@@ -179,5 +189,20 @@ public class Panel_Selection extends JPanel {
 
 	public void setJb_more(JButton jb_more) {
 		this.jb_more = jb_more;
+	}
+	
+	public void refreshButtonVisibility() {
+		// Ein-/Ausblenden der Buttons je nachdem ob weitere Portionen des Produktes
+		// vorhanden sind. Verhindert auch die Auswahl einer negativen Anzahl.
+		Panel_Selection ps = this;
+		if (getAmount() <= 0) {
+			jb_less.setVisible(false);
+		} else if (0 < getAmount() & getAmount() < ps.getPortion().getLagermenge()) {
+			jb_less.setVisible(true);
+			jb_more.setVisible(true);
+		} else if (getAmount() >= ps.getPortion().getLagermenge()) {
+			jb_more.setVisible(false);
+		}
+
 	}
 }
