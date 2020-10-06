@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import controller.Database;
+import controller.ExceptionHandler;
 
 /**
  * ActionListener, der das Event-Handlung für den KaufButton übernimmt. Hierbei
@@ -63,7 +64,7 @@ public class ActionListener_Buy implements ActionListener {
 				Database.get().executeDBInsert("NSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('"+uuid+"'), '" + sql_date
 						+ "', '" + sql_time + "', " + gesamtpreis + ");");
 			} catch (SQLException e1) {
-				at.showException(e1);
+				ExceptionHandler.get().showException(e1);
 			}
 			
       // Der Automat wird geschlossen, der Einkauf ist beendet

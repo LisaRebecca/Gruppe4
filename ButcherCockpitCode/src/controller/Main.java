@@ -11,11 +11,19 @@ public class Main {
 		Database.set(new RealDatabase());
 //		Database.set(new MockDatabase());
 		
+		ExceptionHandler.set(new ExceptionHandlerDebug());
+//		ExceptionHandler.set(new ExceptionHandlerUser());
+		
 		LoginController.get().giveControl();
 	}
 	
 	public static void construct() {
-		new Cockpit();
-		new Automat();		
+		try {
+			new Cockpit();
+			new Automat();		
+		}
+		catch (Exception e) {
+			ExceptionHandler.get().showException(e);
+		}
 	}
 }

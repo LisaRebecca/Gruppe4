@@ -60,7 +60,7 @@ public class Automat extends DefaultFrame {
 	 * 
 	 * @param products die verf�gbaren Produkte
 	 */
-	public Automat() {
+	public Automat() throws SQLException{
 		super("Kühlautomat", 800, 400);
 		this.jt_obtainableProducts = this.readProductsFormDB();
 		
@@ -167,23 +167,13 @@ public class Automat extends DefaultFrame {
 			jp_selectionPanel.add(productSelection);
 		}
 	}
-	private JTable readProductsFormDB() {
+	private JTable readProductsFormDB() throws SQLException{
 		 // Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
 		 // Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
 		String select = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
 		JTable products = null;
-		try {
-			products = Database.get().executeDBQuery(select);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return products;
 	}
-
-	@Override
-	protected void setExceptionMessage(Exception e) {
-		errorMessage = e.getMessage();
-	}
+	
 }

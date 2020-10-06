@@ -43,16 +43,4 @@ public abstract class DefaultFrame extends JFrame {
 		return;
 	}
 	
-	public void showException(Exception e) {
-		setExceptionMessage(e);
-		buildPopUp();
-		e.printStackTrace();
-	};
-	
-	private void buildPopUp() {
-		JOptionPane.showMessageDialog(null, errorMessage, errorTitle, JOptionPane.INFORMATION_MESSAGE);
-	}
-	
-	protected abstract void setExceptionMessage(Exception e);
-	
 }
