@@ -64,20 +64,15 @@ public class Automat extends DefaultFrame {
 	 */
 	public Automat() throws AbstractButcherException{
 		super("Kühlautomat", 800, 400);
-		try {
-			this.jt_obtainableProducts = this.readProductsFormDB();
+		this.jt_obtainableProducts = this.readProductsFormDB();
 		
-			createBuyButton();
-			createBuyPanel();
-			
-			createSelectionPanel();
-			// Füllen des Auswahlpanels mit den Produkten
-			loadProductsFromTable();
-		}
-		catch(SQLException e) {
-			throw new ButcherException(e, "Datenbankfehler", 
-					"Bitte wenden Sie sich an einen Mitarbeiter.");
-		}
+		createBuyButton();
+		createBuyPanel();
+		
+		createSelectionPanel();
+		// Füllen des Auswahlpanels mit den Produkten
+		loadProductsFromTable();
+		
 		
 		createMainPanel();
 
@@ -175,12 +170,18 @@ public class Automat extends DefaultFrame {
 			jp_selectionPanel.add(productSelection);
 		}
 	}
-	private JTable readProductsFormDB() throws SQLException{
+	private JTable readProductsFormDB() throws AbstractButcherException{
 		 // Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
 		 // Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
 		String select = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
 		JTable products = null;
+		try {
+			products = Database.get().executeDBQuery(select);
+		} catch(SQLException e) {
+			throw new ButcherException(e, "Datenbankfehler", 
+					"Bitte wenden Sie sich an einen Mitarbeiter.");
+		}
 		return products;
 	}
 	
