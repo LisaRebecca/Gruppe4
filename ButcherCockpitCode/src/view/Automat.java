@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import Tools.AbstractButcherException;
+import Tools.ButcherException;
 import Tools.MyTools;
 
 /**
@@ -60,16 +62,22 @@ public class Automat extends DefaultFrame {
 	 * 
 	 * @param products die verf�gbaren Produkte
 	 */
-	public Automat() throws SQLException{
+	public Automat() throws AbstractButcherException{
 		super("Kühlautomat", 800, 400);
-		this.jt_obtainableProducts = this.readProductsFormDB();
+		try {
+			this.jt_obtainableProducts = this.readProductsFormDB();
 		
-		createBuyButton();
-		createBuyPanel();
-		
-		createSelectionPanel();
-		// Füllen des Auswahlpanels mit den Produkten
-		loadProductsFromTable();
+			createBuyButton();
+			createBuyPanel();
+			
+			createSelectionPanel();
+			// Füllen des Auswahlpanels mit den Produkten
+			loadProductsFromTable();
+		}
+		catch(SQLException e) {
+			throw new ButcherException(e, "Datenbankfehler", 
+					"Bitte wenden Sie sich an einen Mitarbeiter.");
+		}
 		
 		createMainPanel();
 

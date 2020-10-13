@@ -1,6 +1,7 @@
 package controller;
 
 import view.Cockpit;
+import Tools.AbstractButcherException;
 import view.Automat;
 
 public class Main {
@@ -22,7 +23,7 @@ public class Main {
 			new Cockpit();
 			new Automat();		
 		}
-		catch (Exception e) {
+		catch (AbstractButcherException e) {
 			ExceptionHandler.get().showException(e);
 		}
 	}
