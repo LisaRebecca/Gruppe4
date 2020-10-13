@@ -5,3 +5,10 @@
 5. Authentification - User/Password eingeben --> Next
 6. Branch Selection: Nur Maven auswählen
 7. Select a Wizard -> Import using the new Project Wizard -> Import existing Eclipse projects
+8. Maven Porjekt auswählen und Kästchen ankreuzen "create a simple..."
+9. GroupID: Gruppe4
+10. ArtifactID: ButcherCockpitMaven (Name für das Projekt) 
+
+
+9 und 10 sind die zwei oberen Kästchen
+11. Finish
