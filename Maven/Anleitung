@@ -1,0 +1,7 @@
+1. Öffnet Eclipse in Java Ansicht
+2. Rechtsklick ins leere im Fenster wo eure Projekte angezeigt werden
+3. Import -> Git -> Projects from Git -> Clone Uri
+4. URL: https://github.com/LisaRebecca/Gruppe4.git
+5. Authentification - User/Password eingeben --> Next
+6. Branch Selection: Nur Maven auswählen
+7. Select a Wizard -> Import using the new Project Wizard -> Import existing Eclipse projects
