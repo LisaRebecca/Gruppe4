@@ -15,7 +15,12 @@ public class Main {
 //		ExceptionHandler.set(new ExceptionHandlerDebug());
 		ExceptionHandler.set(new ExceptionHandlerUser());
 		
-		LoginController.get().giveControl();
+		try {
+			LoginController.get().giveControl();
+		} catch (AbstractButcherException e) {
+			ExceptionHandler.get().showException(e);
+
+		}
 	}
 	
 	public static void construct() {

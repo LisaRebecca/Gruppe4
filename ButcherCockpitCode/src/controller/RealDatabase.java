@@ -10,6 +10,9 @@ import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Tools.AbstractButcherException;
+import Tools.ButcherException;
+
 /**
  * Der {@link DatabaseConnector} stellt die Schnittstelle zur Datenbank zur
  * Verfügung. Die Klasse kann Requests an die Datenbank senden um Daten
@@ -38,10 +41,15 @@ public class RealDatabase extends Database {
 	 * @throws SQLException
 	 */
 	@Override
-	public JTable executeDBQuery(String select_statement) throws SQLException {
+	public JTable executeDBQuery(String select_statement) throws AbstractButcherException {
 		ResultSet result = null;
-		result = conn.createStatement().executeQuery(select_statement);
-		return buildJTable(result);
+		try {
+			result = conn.createStatement().executeQuery(select_statement);
+			return buildJTable(result);
+		} catch (SQLException e) {
+			throw new ButcherException(e, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter");
+		}
+	
 	}
 
 	/**
@@ -52,8 +60,12 @@ public class RealDatabase extends Database {
 	 * @throws SQLException
 	 */
 	@Override
-	public void executeDBInsert(String insert_statement) throws SQLException {
-		conn.createStatement().execute(insert_statement);
+	public void executeDBInsert(String insert_statement) throws AbstractButcherException {
+		try {
+			conn.createStatement().execute(insert_statement);
+		} catch (SQLException e) {
+			throw new ButcherException(e, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter");
+		}
 
 	}
 
@@ -70,11 +82,14 @@ public class RealDatabase extends Database {
 	 *         beinhaltet
 	 * @throws SQLException beim auslesen der Daten kam es zu einem Fehler
 	 */
-	public static JTable buildJTable(ResultSet result) throws SQLException {
+	public static JTable buildJTable(ResultSet result) throws AbstractButcherException {
 		Vector<Vector<String>> rows;
 		Vector<String> columnLabels;
 
-		ResultSetMetaData metaData = result.getMetaData();
+		ResultSetMetaData metaData;
+		try {
+			metaData = result.getMetaData();
+		 
 
 		int columnCount = metaData.getColumnCount();
 		columnLabels = new Vector<String>();
@@ -93,18 +108,22 @@ public class RealDatabase extends Database {
 			rows.add(singleRow);
 		}
 		return new JTable(new DefaultTableModel(rows, columnLabels));
-
+		}
+		catch (SQLException e) {
+			throw new ButcherException(e, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter");
+		}
 	}
 
-	public void establishConnection() {
+	public void establishConnection() throws AbstractButcherException{
 		String userName = Credentials.getUsername();
 		String password = Credentials.getPassword();
 
 		try {
 			((RealDatabase) Database.get()).setConn(DriverManager
 					.getConnection("jdbc:mysql://localhost:3306/metzgerei?user=" + userName + "&password=" + password));
-		} catch (SQLException e) {
-			e.printStackTrace();
+		}
+		 catch (SQLException e) {
+			throw new ButcherException(e, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter");
 		}
 		isConnected = true;
 		LoginController.get().giveControl();

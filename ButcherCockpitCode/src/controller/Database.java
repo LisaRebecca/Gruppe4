@@ -4,6 +4,8 @@ import java.sql.SQLException;
 
 import javax.swing.JTable;
 
+import Tools.AbstractButcherException;
+
 public abstract class Database {
 	private static Database database;
 	public boolean isConnected = false;
@@ -16,7 +18,7 @@ public abstract class Database {
 		Database.database = database;
 	}
 	
-	public abstract void establishConnection();
-	public abstract JTable executeDBQuery(String select_statement) throws SQLException;
-	public abstract void executeDBInsert(String insert_statement) throws SQLException;
+	public abstract void establishConnection() throws AbstractButcherException;
+	public abstract JTable executeDBQuery(String select_statement) throws AbstractButcherException;
+	public abstract void executeDBInsert(String insert_statement) throws AbstractButcherException ;
 }

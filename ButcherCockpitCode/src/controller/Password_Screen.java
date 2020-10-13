@@ -9,10 +9,12 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
+import Tools.AbstractButcherException;
 import view.Automat;
 import view.Cockpit;
+import view.DefaultFrame;
 
-public class Password_Screen extends JFrame implements ActionListener {
+public class Password_Screen extends DefaultFrame implements ActionListener {
 
 	Container c;
 
@@ -22,8 +24,9 @@ public class Password_Screen extends JFrame implements ActionListener {
 	JLabel password_label;
 	JButton button;
 
-	public Password_Screen() {
-		c = getContentPane();
+	public Password_Screen() throws AbstractButcherException {
+		super("Login",250,125);
+		
 		c.setLayout(new GridLayout(3, 2));
 
 		user_label = new JLabel("Username : ");
@@ -40,10 +43,6 @@ public class Password_Screen extends JFrame implements ActionListener {
 		c.add(password_field);
 		c.add(button);
 
-		this.setTitle("Login");
-		this.setSize(250, 125);
-		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	@Override

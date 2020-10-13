@@ -120,14 +120,13 @@ public class Automat extends DefaultFrame {
 					Database.get().executeDBInsert(
 							"INSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('" + uuid
 									+ "'), '" + sql_date + "', '" + sql_time + "', " + gesamtpreis + ");");
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} catch (SQLException ex) {
+					throw new ButcherException (ex, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter");
 				}
 
 				// Der Automat wird geschlossen, der Einkauf ist beendet
 				System.exit(0);
-			}
+			} 
 		});
 	}
 
@@ -184,13 +183,13 @@ public class Automat extends DefaultFrame {
 	}
 
 	@Override
-	protected void setIcon() {
+	protected void setIcon() throws AbstractButcherException {
 		try {
 			BufferedImage image = ImageIO.read(new URL(
 					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
 			this.setIconImage(image);
 		} catch (IOException e) {
-			System.err.println("Icon des Automaten konnte nicht geladen werden.");
+			throw new ButcherException(e, "Bildladefehler","Icon des Automaten konnte nicht geladen werden.");
 		}
 	}
 
@@ -220,12 +219,7 @@ public class Automat extends DefaultFrame {
 		String select = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
 		JTable products = null;
-		try {
-			products = Database.get().executeDBQuery(select);
-		} catch(SQLException e) {
-			throw new ButcherException(e, "Datenbankfehler", 
-					"Bitte wenden Sie sich an einen Mitarbeiter.");
-		}
+		products = Database.get().executeDBQuery(select);
 		return products;
 	}
 	
