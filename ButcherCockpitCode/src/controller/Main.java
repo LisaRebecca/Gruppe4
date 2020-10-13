@@ -11,8 +11,8 @@ public class Main {
 		Database.set(new RealDatabase());
 //		Database.set(new MockDatabase());
 		
-		ExceptionHandler.set(new ExceptionHandlerDebug());
-//		ExceptionHandler.set(new ExceptionHandlerUser());
+//		ExceptionHandler.set(new ExceptionHandlerDebug());
+		ExceptionHandler.set(new ExceptionHandlerUser());
 		
 		LoginController.get().giveControl();
 	}

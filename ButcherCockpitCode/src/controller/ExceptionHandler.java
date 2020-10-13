@@ -1,5 +1,7 @@
 package controller;
 
+import Tools.AbstractButcherException;
+
 public abstract class ExceptionHandler {
 	
 	private static ExceptionHandler exceptionHandler;
@@ -12,6 +14,6 @@ public abstract class ExceptionHandler {
 		ExceptionHandler.exceptionHandler = exceptionHandler;
 	}
 	
-	public abstract void showException(Exception e);
+	public abstract void showException(AbstractButcherException e);
 	
 }
