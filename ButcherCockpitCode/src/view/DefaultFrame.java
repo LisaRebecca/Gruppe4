@@ -13,14 +13,14 @@ import Tools.AbstractButcherException;
 public abstract class DefaultFrame extends JFrame {
 	
 	/**
-	 * Schriftart für die Überschrift
+	 * Schriftart fï¿½r die ï¿½berschrift
 	 */
 	protected final Font headerfont = new Font("Arial", Font.BOLD, 20);
-	protected final Container c;
+	protected Container c;
 	protected String errorMessage;
 	protected String errorTitle;
 	
-	public DefaultFrame(String title, int width, int height) throws AbstractButcherException {
+	public DefaultFrame(String title, int width, int height){
 		/**
 		 * ------------------------------- Konfiguration JFrame -------------------------------
 		 */
@@ -43,7 +43,7 @@ public abstract class DefaultFrame extends JFrame {
 	 * Warnung, da das Bild nicht nÃ¶tig fÃ¼r das Funktionieren der Anwendung ist.
 	 * @throws AbstractButcherException 
 	 */
-	protected void setIcon() throws AbstractButcherException {
+	protected void setIcon(){
 		return;
 	}
 	

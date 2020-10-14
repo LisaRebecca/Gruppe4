@@ -16,7 +16,7 @@ import view.DefaultFrame;
 
 public class Password_Screen extends DefaultFrame implements ActionListener {
 
-	Container c;
+//	Container c;
 
 	JPasswordField password_field;
 	JTextField user_field;
@@ -24,7 +24,7 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 	JLabel password_label;
 	JButton button;
 
-	public Password_Screen() throws AbstractButcherException {
+	public Password_Screen(){
 		super("Login",250,125);
 		
 		c.setLayout(new GridLayout(3, 2));
@@ -42,7 +42,6 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 		c.add(password_label);
 		c.add(password_field);
 		c.add(button);
-
 	}
 
 	@Override
@@ -50,6 +49,11 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 		Credentials.setPassword(password_field.getText());
 		Credentials.setUsername(user_field.getText());
 		this.dispose();
-		LoginController.get().giveControl();
+		try {
+			LoginController.get().giveControl();
+		} catch (AbstractButcherException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 }

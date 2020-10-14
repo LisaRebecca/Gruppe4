@@ -5,7 +5,7 @@ import Tools.AbstractButcherException;
 public class LoginControllerStandard extends LoginController {
 
 	@Override
-	public void giveControl() throws AbstractButcherException {
+	public void giveControl() throws AbstractButcherException{
 		if (Credentials.getIsSet()) {
 			if (Database.get().isConnected) {
 				Main.construct();
