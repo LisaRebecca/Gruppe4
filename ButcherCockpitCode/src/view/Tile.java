@@ -9,6 +9,7 @@ import javax.swing.JViewport;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import Tools.AbstractButcherException;
 import controller.Database;
 
 /**
@@ -36,18 +37,13 @@ public class Tile extends JScrollPane {
 	 * @param select_statement MySQL-Statement, welches den Tabelleninhalt dieser
 	 * Kachel bestimmt
 	 */
-	public Tile(String select_statement) {
+	public Tile(String select_statement) throws AbstractButcherException {
 		/**
 		 * Ein <code>JTable</code> wird mit Daten aus der Datenbank gemäß des
 		 * <code>select_statement</code>s gefüllt.
 		 */
 		JTable jt = null;
-		try {
-			jt = Database.get().executeDBQuery(select_statement);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		jt = Database.get().executeDBQuery(select_statement);
 
 		/**
 		 * Optische Details: Tabellenrasterfarbe, Kachelhintergrund und

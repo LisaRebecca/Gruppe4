@@ -2,6 +2,8 @@ package controller;
 
 import javax.swing.JTable;
 
+import Tools.AbstractButcherException;
+
 public class MockDatabase extends Database {
 	private static Object[][] emptyRowData = { { "###" } };
 	private static Object[] emptyColumnNames = { "###" };
@@ -22,7 +24,7 @@ public class MockDatabase extends Database {
 	}
 
 	@Override
-	public void establishConnection() {
+	public void establishConnection() throws AbstractButcherException {
 		isConnected = true;
 		LoginController.get().giveControl();
 	}

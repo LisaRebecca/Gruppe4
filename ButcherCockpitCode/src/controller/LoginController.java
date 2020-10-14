@@ -1,5 +1,7 @@
 package controller;
 
+import Tools.AbstractButcherException;
+
 public abstract class LoginController {
 	
 	private static LoginController loginController;
@@ -13,5 +15,5 @@ public abstract class LoginController {
 		LoginController.loginController = loginController;
 	}
 
-	public abstract void giveControl();
+	public abstract void giveControl() throws AbstractButcherException;
 }

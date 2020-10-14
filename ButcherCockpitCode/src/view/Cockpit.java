@@ -8,12 +8,14 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import Tools.AbstractButcherException;
+
 /**
  * Die Klasse UserInterface dient der Darstellung des ButcherCockpits, also der
  * internen Benutzeroberflaeche fuer den Metzger.
  */
 @SuppressWarnings("serial")
-public class Cockpit extends JFrame {
+public class Cockpit extends DefaultFrame {
 
 	/**
 	 * Menuzeile unten im Cockpit-UI um zwischen den Tabellen/Kacheln zu wechseln
@@ -62,21 +64,19 @@ public class Cockpit extends JFrame {
 	
 	/**
 	 * Konstruktor erzeugt alle anzuzeigenden Objekte
+	 * @throws AbstractButcherException 
 	 */
-	public Cockpit() {
+	public Cockpit() throws AbstractButcherException {
+		super("ButcherCockpit", 500,550);
 
 		/**
-		 * Containerinstanz wird als ContentPane gesetzt, Tabs werden hinzugefügt
+		 *  Tabs werden hinzugefügt
 		 */
-		Container c = getContentPane();
+		
 		c.setLayout(new BorderLayout());
 		c.add(tabbedPane, BorderLayout.CENTER);
 
-		this.setTitle("ButcherCockpit");
-		this.setVisible(true);
-		this.setSize(500, 550);
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.setIcon();
+	
 
 		createStockPane();
 		createProductPane();
@@ -133,7 +133,8 @@ public class Cockpit extends JFrame {
 	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
 	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
 	 */
-	private void setIcon() {
+	@Override
+	protected void setIcon() {
 		try {
 			BufferedImage image = ImageIO.read(new URL(
 					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
