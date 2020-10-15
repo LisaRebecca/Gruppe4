@@ -1,6 +1,7 @@
 package view;
 
 import controller.Database;
+import controller.Payment;
 import controller.Portion;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,8 +18,6 @@ import java.util.UUID;
 
 import javax.swing.*;
 
-import Tools.AbstractButcherException;
-import Tools.ButcherException;
 import Tools.MyTools;
 
 /**
@@ -64,7 +63,7 @@ public class Automat extends DefaultFrame {
 	 * 
 	 * @param products die verf�gbaren Produkte
 	 */
-	public Automat() throws AbstractButcherException{
+	public Automat() {
 		super("Kühlautomat", 800, 400);
 		this.jt_obtainableProducts = this.readProductsFormDB();
 
@@ -74,6 +73,7 @@ public class Automat extends DefaultFrame {
 		createSelectionPanel();
 		// Füllen des Auswahlpanels mit den Produkten
 		loadProductsFromTable();
+
 		createMainPanel();
 
 		// Nach dem Einf�gen der Elemente wird der JFrame noch einmal aktualisiert.
@@ -98,9 +98,17 @@ public class Automat extends DefaultFrame {
 			}
 			// Nur falls er den Vorgang abschließen will erscheint ein neuer Dialog.
 			if (eingabe == 0) {
-				JOptionPane.showMessageDialog(null,
-						"Danke fuer Ihren Einkauf, der Kassenbetrag wurde von ihrer Gutscheinkarte abgezogen.",
-						"Danke!", JOptionPane.INFORMATION_MESSAGE);
+				try {
+					JOptionPane.showMessageDialog(null,
+							Payment.get().processPurchase(),
+							"Danke!", JOptionPane.INFORMATION_MESSAGE);
+				} catch (HeadlessException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				} catch (Exception e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 
 				// generieren eines Universally Unique Identifiers für jeden Einkauf
 				String uuid = UUID.randomUUID().toString();
@@ -118,15 +126,16 @@ public class Automat extends DefaultFrame {
 				// Der Einkauf wird als Statistik in der Datenbank hinterlegt.
 				try {
 					Database.get().executeDBInsert(
-							"INSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('" + uuid
+							"NSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('" + uuid
 									+ "'), '" + sql_date + "', '" + sql_time + "', " + gesamtpreis + ");");
-				} catch (SQLException ex) {
-					throw new ButcherException (ex, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter");
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 
 				// Der Automat wird geschlossen, der Einkauf ist beendet
 				System.exit(0);
-			} 
+			}
 		});
 	}
 
@@ -183,13 +192,13 @@ public class Automat extends DefaultFrame {
 	}
 
 	@Override
-	protected void setIcon() throws AbstractButcherException {
+	protected void setIcon() {
 		try {
 			BufferedImage image = ImageIO.read(new URL(
 					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
 			this.setIconImage(image);
 		} catch (IOException e) {
-			throw new ButcherException(e, "Bildladefehler","Icon des Automaten konnte nicht geladen werden.");
+			System.err.println("Icon des Automaten konnte nicht geladen werden.");
 		}
 	}
 
@@ -212,15 +221,24 @@ public class Automat extends DefaultFrame {
 			jp_selectionPanel.add(productSelection);
 		}
 	}
-	
-	private JTable readProductsFormDB() throws AbstractButcherException{
-		 // Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
-		 // Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
+
+	private JTable readProductsFormDB() {
+		// Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
+		// Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
 		String select = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
 		JTable products = null;
-		products = Database.get().executeDBQuery(select);
+		try {
+			products = Database.get().executeDBQuery(select);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return products;
 	}
-	
+
+	@Override
+	protected void setExceptionMessage(Exception e) {
+		errorMessage = e.getMessage();
+	}
 }
