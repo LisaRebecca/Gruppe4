@@ -9,27 +9,28 @@ public class Main {
 //		LoginController.set(new LoginControllerStandard());
 //		LoginController.set(new LoginControllerFilled());
 		
-		Database.set(new RealDatabase());
+//		Database.set(new RealDatabase());
 //		Database.set(new MockDatabase());
 		
-		Payment.set(new GiftCard());
+//		Payment.set(new GiftCard());
 //		Payment.set(new CreditCard());
 		
-		try {
-			LoginController.get().giveControl();
-		} catch (AbstractButcherException e) {
-			ExceptionHandler.get().showException(e);
-
-		}
+//		try {
+//			LoginController.get().giveControl();
+//		} catch (AbstractButcherException e) {
+//			ExceptionHandler.get().showException(e);
+//
+//		}
 	}
 	
 	public static void construct() {
-		try {
-			new Cockpit();
-			new Automat();		
-		}
-		catch (AbstractButcherException e) {
-			ExceptionHandler.get().showException(e);
-		}		
+		System.out.println("construct");
+//		try {
+//			new Cockpit();
+//			new Automat();		
+//		}
+//		catch (AbstractButcherException e) {
+//			ExceptionHandler.get().showException(e);
+//		}		
 	}
 }
