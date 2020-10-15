@@ -11,6 +11,9 @@ public class Main {
 		Database.set(new RealDatabase());
 //		Database.set(new MockDatabase());
 		
+		Payment.set(new GiftCard());
+//		Payment.set(new CreditCard());
+		
 		LoginController.get().giveControl();
 	}
 	

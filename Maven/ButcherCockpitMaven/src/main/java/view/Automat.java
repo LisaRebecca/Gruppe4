@@ -1,16 +1,20 @@
 package view;
 
 import controller.Database;
+import controller.Payment;
 import controller.Portion;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 import javax.imageio.ImageIO;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
 
 import javax.swing.*;
 
@@ -26,12 +30,7 @@ import Tools.MyTools;
  */
 
 @SuppressWarnings("serial")
-public class Automat extends JFrame {
-
-	/**
-	 * Schriftart für die Überschrift
-	 */
-	private Font headerfont = new Font("Arial", Font.BOLD, 20);
+public class Automat extends DefaultFrame {
 
 	private JPanel jp_mainPanel;
 	private JPanel jp_selectionPanel;
@@ -58,9 +57,6 @@ public class Automat extends JFrame {
 	 */
 	JTable jt_obtainableProducts;
 
-	private Container c = getContentPane();
-	
-	
 	/**
 	 * Erzeugen des Automaten-UI inklusive Ueberschrift, Tabelle, GesamtpreisLabel
 	 * und KaufButton mit ActionListener.
@@ -68,32 +64,19 @@ public class Automat extends JFrame {
 	 * @param products die verf�gbaren Produkte
 	 */
 	public Automat() {
+		super("Kühlautomat", 800, 400);
 		this.jt_obtainableProducts = this.readProductsFormDB();
 
-		/**
-		 * ------------------------------- Konfiguration JFrame -------------------------------
-		 */
-		/**
-		 * Hier werden Titel, Sichtbarkeit, Groesse, Position und Close-Operation des
-		 * Automaten-Windows festgelegt
-		 */
-		this.setTitle("Kühlautomat");
-		this.setVisible(true);
-		this.setSize(800, 400);
-		this.setLocation(50, 20);
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setIcon();
-		
 		createBuyButton();
 		createBuyPanel();
-		
+
 		createSelectionPanel();
 		// Füllen des Auswahlpanels mit den Produkten
 		loadProductsFromTable();
-		
+
 		createMainPanel();
 
-		//Nach dem Einf�gen der Elemente wird der JFrame noch einmal aktualisiert.
+		// Nach dem Einf�gen der Elemente wird der JFrame noch einmal aktualisiert.
 		this.revalidate();
 	}
 
@@ -103,23 +86,73 @@ public class Automat extends JFrame {
 	public void createBuyButton() {
 		jb_buy = new JButton("Kaufen");
 		jb_buy.setBackground(Color.white);
-		jb_buy.addActionListener(new ActionListener_Buy());
+		jb_buy.addActionListener(e -> {
+
+			// Zuerst wird der Kunde nach Bestätigung gefragt.
+			String[] options = { "Ja, bezahlen", "Nein, zurueck" };
+			int eingabe = JOptionPane.showOptionDialog(null, "Moechten Sie den Kaufvorgang abschliessen und bezahlen?",
+					"Bestätigung", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+			// Der Dialog schließt sich, der Kunde kann weiter einkaufen
+			if (eingabe == 1) {
+			}
+			// Nur falls er den Vorgang abschließen will erscheint ein neuer Dialog.
+			if (eingabe == 0) {
+				try {
+					JOptionPane.showMessageDialog(null,
+							Payment.get().processPurchase(),
+							"Danke!", JOptionPane.INFORMATION_MESSAGE);
+				} catch (HeadlessException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				} catch (Exception e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+
+				// generieren eines Universally Unique Identifiers für jeden Einkauf
+				String uuid = UUID.randomUUID().toString();
+				uuid = uuid.replace("-", "");
+
+				// Speichern des aktuellen Zeitstempels
+				Date date = new Date();
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String sql_date = simpleDateFormat.format(date);
+
+				Date time = new Date();
+				SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
+				String sql_time = simpleTimeFormat.format(time);
+
+				// Der Einkauf wird als Statistik in der Datenbank hinterlegt.
+				try {
+					Database.get().executeDBInsert(
+							"NSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('" + uuid
+									+ "'), '" + sql_date + "', '" + sql_time + "', " + gesamtpreis + ");");
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+				// Der Automat wird geschlossen, der Einkauf ist beendet
+				System.exit(0);
+			}
+		});
 	}
-	
+
 	/**
 	 * Panel zur Anzeige der Gesamtsumme und des Kaufenbuttons
 	 */
 	public void createBuyPanel() {
 		jp_buyPanel = new JPanel(new GridLayout(2, 1));
-		
-		//Anzeige der Gesamtsumme
+
+		// Anzeige der Gesamtsumme
 		jlbl_total = new JLabel();
 		berechneGesamtpreis();
-		
+
 		jp_buyPanel.add(jlbl_total);
 		jp_buyPanel.add(jb_buy);
 	}
-	
+
 	/**
 	 * Panel, welches die �berschrift und alle ausw�hlbaren Produkte beinhaltet
 	 */
@@ -129,7 +162,7 @@ public class Automat extends JFrame {
 		jp_selectionPanel = new JPanel(new GridLayout(0, 1));
 		jp_selectionPanel.add(jlbl_title);
 	}
-	
+
 	/**
 	 * Erzeugen des Hintergrund-Panels
 	 */
@@ -139,6 +172,7 @@ public class Automat extends JFrame {
 		jp_mainPanel.add(jp_selectionPanel);
 		jp_mainPanel.add(jp_buyPanel);
 	}
+
 	/**
 	 * @return Gesamtpreise dieses Einkaufs
 	 */
@@ -157,12 +191,8 @@ public class Automat extends JFrame {
 		jlbl_total.setText(MyTools.formatAsCurrency(gesamtpreis));
 	}
 
-	/**
-	 * Setzen des Fenster-Icons. <br>
-	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
-	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
-	 */
-	private void setIcon() {
+	@Override
+	protected void setIcon() {
 		try {
 			BufferedImage image = ImageIO.read(new URL(
 					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
@@ -185,15 +215,16 @@ public class Automat extends JFrame {
 			portion.setPortionsgewichtKG("" + jt_obtainableProducts.getValueAt(row, 4));
 
 			Panel_Selection productSelection = new Panel_Selection(portion, this);
-			
+
 			// Hinzuf�gen zum Warenkorb
 			list_productSelection.add(productSelection);
 			jp_selectionPanel.add(productSelection);
 		}
 	}
+
 	private JTable readProductsFormDB() {
-		 // Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
-		 // Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
+		// Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
+		// Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
 		String select = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
 		JTable products = null;
@@ -206,4 +237,8 @@ public class Automat extends JFrame {
 		return products;
 	}
 
+	@Override
+	protected void setExceptionMessage(Exception e) {
+		errorMessage = e.getMessage();
+	}
 }
