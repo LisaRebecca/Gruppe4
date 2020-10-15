@@ -4,7 +4,7 @@ import Tools.AbstractButcherException;
 
 public abstract class LoginController {
 	
-	private static LoginController loginController;
+	private static LoginController loginController = null;
 //	private boolean isLoggedIn = false;
 	
 	public static LoginController get() {

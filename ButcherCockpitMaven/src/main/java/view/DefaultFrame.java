@@ -53,6 +53,6 @@ public abstract class DefaultFrame extends JFrame {
 		JOptionPane.showMessageDialog(null, errorMessage, errorTitle, JOptionPane.INFORMATION_MESSAGE);
 	}
 	
-	protected abstract void setExceptionMessage(Exception e);
+//	protected abstract void setExceptionMessage(Exception e);
 	
 }
