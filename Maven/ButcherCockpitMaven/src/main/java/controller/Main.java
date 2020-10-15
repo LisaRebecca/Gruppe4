@@ -1,6 +1,7 @@
 package controller;
 
 import view.Cockpit;
+import Tools.AbstractButcherException;
 import view.Automat;
 
 public class Main {
@@ -14,11 +15,21 @@ public class Main {
 		Payment.set(new GiftCard());
 //		Payment.set(new CreditCard());
 		
-		LoginController.get().giveControl();
+		try {
+			LoginController.get().giveControl();
+		} catch (AbstractButcherException e) {
+			ExceptionHandler.get().showException(e);
+
+		}
 	}
 	
 	public static void construct() {
-		new Cockpit();
-		new Automat();		
+		try {
+			new Cockpit();
+			new Automat();		
+		}
+		catch (AbstractButcherException e) {
+			ExceptionHandler.get().showException(e);
+		}		
 	}
 }
