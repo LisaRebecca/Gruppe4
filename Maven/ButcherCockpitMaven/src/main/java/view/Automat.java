@@ -18,6 +18,7 @@ import java.util.UUID;
 
 import javax.swing.*;
 
+import Tools.AbstractButcherException;
 import Tools.MyTools;
 
 /**
@@ -124,14 +125,16 @@ public class Automat extends DefaultFrame {
 				String sql_time = simpleTimeFormat.format(time);
 
 				// Der Einkauf wird als Statistik in der Datenbank hinterlegt.
-				try {
-					Database.get().executeDBInsert(
-							"NSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('" + uuid
-									+ "'), '" + sql_date + "', '" + sql_time + "', " + gesamtpreis + ");");
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
+					try {
+						Database.get().executeDBInsert(
+								"NSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('" + uuid
+										+ "'), '" + sql_date + "', '" + sql_time + "', " + gesamtpreis + ");");
+					} catch (AbstractButcherException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				
 
 				// Der Automat wird geschlossen, der Einkauf ist beendet
 				System.exit(0);
@@ -228,12 +231,14 @@ public class Automat extends DefaultFrame {
 		String select = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
 		JTable products = null;
-		try {
-			products = Database.get().executeDBQuery(select);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+			try {
+				products = Database.get().executeDBQuery(select);
+			} catch (AbstractButcherException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
 		return products;
 	}
 
