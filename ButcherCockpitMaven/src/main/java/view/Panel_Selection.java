@@ -13,6 +13,8 @@ import Tools.MyTools;
 
 @SuppressWarnings("serial")
 public class Panel_Selection extends JPanel {
+	
+	private final ResourceBundle language;
 	/**
 	 * urspr�nglich sind keine Produkte ausgewählt, Menge = 0
 	 */
@@ -43,8 +45,16 @@ public class Panel_Selection extends JPanel {
 	 * @param portion das darzustellende Produkt als einzelne {@link Portion}
 	 * @return
 	 */
+<<<<<<< Upstream, based on master
 
 	public Panel_Selection(Portion portion) {
+=======
+	
+	public Panel_Selection(Portion portion, Automat automat) {
+		
+		this.language = ResourceBundle.getBundle("i18n/panel_selection/panel_selection_de");
+		
+>>>>>>> daf20bb Resource Language Pakete zu allen Klassen in denen Strings beschrieben werden, die später im Frontend zu sehen sind, sowie entsprechende Anpassungen in den Klassen.
 		this.setPortion(portion);
 
 		this.setLayout(new GridLayout(1, 0));
@@ -65,9 +75,9 @@ public class Panel_Selection extends JPanel {
 	 */
 	public void setPortionInfo() {
 		this.add(new JLabel(portion.getName(), SwingConstants.LEFT));
-		this.add(new JLabel("" + portion.getKilopreis() + " �/kg", SwingConstants.RIGHT));
-		this.add(new JLabel("" + portion.getLagermenge() + " Portionen � ", SwingConstants.RIGHT));
-		this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + "g auf Lager", SwingConstants.LEFT));
+		this.add(new JLabel("" + portion.getKilopreis() + this.language.getString("unit"), SwingConstants.RIGHT));
+		this.add(new JLabel("" + portion.getLagermenge() + this.language.getString("portions"), SwingConstants.RIGHT));
+		this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + this.language.getString("grams"), SwingConstants.LEFT));
 	}
 
 	/**
