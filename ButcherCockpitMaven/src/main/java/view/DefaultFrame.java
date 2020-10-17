@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public abstract class DefaultFrame extends JFrame {
-	
+
 	/**
 	 * Schriftart für die Überschrift
 	 */
@@ -17,10 +17,11 @@ public abstract class DefaultFrame extends JFrame {
 	protected Container c = getContentPane();
 	protected String errorMessage;
 	protected String errorTitle;
-	
+
 	public DefaultFrame(String title, int width, int height) {
 		/**
-		 * ------------------------------- Konfiguration JFrame -------------------------------
+		 * ------------------------------- Konfiguration JFrame
+		 * -------------------------------
 		 */
 		/**
 		 * Hier werden Titel, Sichtbarkeit, Groesse, Position und Close-Operation des
@@ -33,7 +34,7 @@ public abstract class DefaultFrame extends JFrame {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setIcon();
 	}
-	
+
 	/**
 	 * Setzen des Fenster-Icons. <br>
 	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
@@ -42,17 +43,17 @@ public abstract class DefaultFrame extends JFrame {
 	protected void setIcon() {
 		return;
 	}
-	
+
 	public void showException(Exception e) {
 		setExceptionMessage(e);
 		buildPopUp();
 		e.printStackTrace();
 	};
-	
+
 	private void buildPopUp() {
 		JOptionPane.showMessageDialog(null, errorMessage, errorTitle, JOptionPane.INFORMATION_MESSAGE);
 	}
-	
-//	protected abstract void setExceptionMessage(Exception e);
-	
+
+	protected abstract void setExceptionMessage(Exception e);
+
 }

@@ -248,4 +248,10 @@ public class Automat extends DefaultFrame {
 			System.exit(0);
 		}
 	}
+
+	@Override
+	protected void setExceptionMessage(Exception e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
