@@ -13,8 +13,8 @@ public class LoginControllerFilled extends LoginController {
 				Database.get().establishConnection();
 			}
 		} else {
-			Credentials.setUsername("root");
-			Credentials.setPassword("sequel");
+			Credentials.setUsername("Nutzer");
+			Credentials.setPassword("nutzerpasswort");
 			giveControl();
 		}
 	}
