@@ -42,6 +42,7 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 		c.add(password_label);
 		c.add(password_field);
 		c.add(button);
+		revalidate();
 	}
 
 	@Override
