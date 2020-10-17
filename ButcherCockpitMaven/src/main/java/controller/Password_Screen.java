@@ -30,7 +30,7 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 		c.setLayout(new GridLayout(3, 2));
 
 		user_label = new JLabel("Username : ");
-		user_field = new JTextField("root");
+		user_field = new JTextField("");
 		password_label = new JLabel("Password : ");
 		password_field = new JPasswordField("");
 		button = new JButton("Enter");
