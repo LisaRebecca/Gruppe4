@@ -4,6 +4,8 @@ import controller.Database;
 import controller.Payment;
 import controller.Portion;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -87,57 +89,11 @@ public class Automat extends DefaultFrame {
 	public void createBuyButton() {
 		jb_buy = new JButton("Kaufen");
 		jb_buy.setBackground(Color.white);
-		jb_buy.addActionListener(e -> {
-
-			// Zuerst wird der Kunde nach Bestätigung gefragt.
-			String[] options = { "Ja, bezahlen", "Nein, zurueck" };
-			int eingabe = JOptionPane.showOptionDialog(null, "Moechten Sie den Kaufvorgang abschliessen und bezahlen?",
-					"Bestätigung", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-
-			// Der Dialog schließt sich, der Kunde kann weiter einkaufen
-			if (eingabe == 1) {
-			}
-			// Nur falls er den Vorgang abschließen will erscheint ein neuer Dialog.
-			if (eingabe == 0) {
-				try {
-					JOptionPane.showMessageDialog(null,
-							Payment.get().processPurchase(),
-							"Danke!", JOptionPane.INFORMATION_MESSAGE);
-				} catch (HeadlessException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				} catch (Exception e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-
-				// generieren eines Universally Unique Identifiers für jeden Einkauf
-				String uuid = UUID.randomUUID().toString();
-				uuid = uuid.replace("-", "");
-
-				// Speichern des aktuellen Zeitstempels
-				Date date = new Date();
-				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				String sql_date = simpleDateFormat.format(date);
-
-				Date time = new Date();
-				SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
-				String sql_time = simpleTimeFormat.format(time);
-
-				// Der Einkauf wird als Statistik in der Datenbank hinterlegt.
-				
-					try {
-						Database.get().executeDBInsert(
-								"NSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('" + uuid
-										+ "'), '" + sql_date + "', '" + sql_time + "', " + gesamtpreis + ");");
-					} catch (AbstractButcherException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				
-
-				// Der Automat wird geschlossen, der Einkauf ist beendet
-				System.exit(0);
+		jb_buy.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				buyButtonPressed();			
 			}
 		});
 	}
@@ -231,19 +187,65 @@ public class Automat extends DefaultFrame {
 		String select = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
 				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
 		JTable products = null;
-		
-			try {
-				products = Database.get().executeDBQuery(select);
-			} catch (AbstractButcherException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	
+
+		try {
+			products = Database.get().executeDBQuery(select);
+		} catch (AbstractButcherException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return products;
 	}
 
-	@Override
-	protected void setExceptionMessage(Exception e) {
-		errorMessage = e.getMessage();
+	private void buyButtonPressed() {
+		// Zuerst wird der Kunde nach Bestätigung gefragt.
+		String[] options = { "Ja, bezahlen", "Nein, zurueck" };
+		int eingabe = JOptionPane.showOptionDialog(null, "Moechten Sie den Kaufvorgang abschliessen und bezahlen?",
+				"Bestätigung", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+		// Der Dialog schließt sich, der Kunde kann weiter einkaufen
+		if (eingabe == 1) {
+		}
+		// Nur falls er den Vorgang abschließen will erscheint ein neuer Dialog.
+		if (eingabe == 0) {
+			try {
+				JOptionPane.showMessageDialog(null, Payment.get().processPurchase(), "Danke!",
+						JOptionPane.INFORMATION_MESSAGE);
+			} catch (HeadlessException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			} catch (Exception e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+
+			// generieren eines Universally Unique Identifiers für jeden Einkauf
+			String uuid = UUID.randomUUID().toString();
+			uuid = uuid.replace("-", "");
+
+			// Speichern des aktuellen Zeitstempels
+			Date date = new Date();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String sql_date = simpleDateFormat.format(date);
+
+			Date time = new Date();
+			SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
+			String sql_time = simpleTimeFormat.format(time);
+
+			// Der Einkauf wird als Statistik in der Datenbank hinterlegt.
+
+			try {
+				Database.get().executeDBInsert(
+						"INSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('" + uuid
+								+ "'), '" + sql_date + "', '" + sql_time + "', " + gesamtpreis + ");");
+			} catch (AbstractButcherException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			// Der Automat wird geschlossen, der Einkauf ist beendet
+			System.exit(0);
+		}
 	}
 }
