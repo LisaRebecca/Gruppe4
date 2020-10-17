@@ -3,7 +3,7 @@ package controller;
 import org.junit.Test;
 
 /**
- * Mit Hilfe der Klasse PortionTest werden die Get-Methoden der Klasse Portion geprüft,
+ * Mit Hilfe der Klasse PortionTest werden die Get-Methoden der Klasse Portion geprï¿½ft,
  * sowie sichergestellt, dass Exceptions nur in den gewollten Szenarien geworfen werden.
  *
  */
@@ -75,5 +75,4 @@ public class PortionTest {
 		newPortion.setLagermenge("kein int");
 		Assert.assertNotNull(portion.getLagermenge());
 	}
-
 }
