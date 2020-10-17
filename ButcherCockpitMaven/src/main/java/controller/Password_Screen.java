@@ -14,7 +14,7 @@ import view.Automat;
 import view.Cockpit;
 import view.DefaultFrame;
 
-public class Password_Screen1 extends DefaultFrame implements ActionListener {
+public class Password_Screen extends DefaultFrame implements ActionListener {
 
 //	Container c;
 
@@ -24,7 +24,7 @@ public class Password_Screen1 extends DefaultFrame implements ActionListener {
 	JLabel password_label;
 	JButton button;
 
-	public Password_Screen1(){
+	public Password_Screen(){
 		super("Login",250,125);
 		
 		c.setLayout(new GridLayout(3, 2));
@@ -55,5 +55,11 @@ public class Password_Screen1 extends DefaultFrame implements ActionListener {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	}
+
+	@Override
+	protected void setExceptionMessage(Exception e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
