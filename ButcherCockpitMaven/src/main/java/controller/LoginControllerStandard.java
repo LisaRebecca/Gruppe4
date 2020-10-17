@@ -13,7 +13,7 @@ public class LoginControllerStandard extends LoginController {
 				Database.get().establishConnection();
 			}
 		} else {
-//			new Password_Screen();
+			new Password_Screen();
 		}
 	}
 }
