@@ -1,10 +1,11 @@
-package Tools;
+package tools;
 
 import org.junit.Assert;
 import org.junit.Test;
 
+import Tools.MyTools;
+
 public class MyToolsTest {
-	
 	@Test
 	public void testFormatAsCurrency1() {
 	Assert.assertEquals("350,00€", MyTools.formatAsCurrency(350.0000));
