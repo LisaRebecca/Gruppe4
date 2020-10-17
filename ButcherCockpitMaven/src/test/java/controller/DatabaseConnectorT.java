@@ -16,10 +16,10 @@ import org.junit.Test;
  */
 
 @SuppressWarnings("serial")
-public class DatabaseConnectorTest extends JFrame {
+public class DatabaseConnectorT extends JFrame {
 
 	/**
-	 * Auch wenn der SQL-Ausdruck fehlerhaft ist, soll kein null-Ergebnis übergeben
+	 * Auch wenn der SQL-Ausdruck fehlerhaft ist, soll kein null-Ergebnis ï¿½bergeben
 	 * werden.
 	 */
 	@Test

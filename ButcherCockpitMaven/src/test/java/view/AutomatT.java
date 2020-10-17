@@ -10,7 +10,7 @@ import org.junit.Test;
  * korrekt zum Gesamtpreis aufsummiert werden.
  *
  */
-public class AutomatTest {
+public class AutomatT {
 	Object[][] data = {{"Lendchen", "5", "2021-12-31", "15.00", "0.5"}, {"Rippchen", "3", "2021-09-05", "8.00", "0.25"}};
 	Object[] colNames = {"","","","",""};
 	

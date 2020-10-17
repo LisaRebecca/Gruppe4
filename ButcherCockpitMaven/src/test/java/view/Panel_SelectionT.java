@@ -13,10 +13,10 @@ import controller.Portion;
  *
  */
 
-public class Panel_SelectionTest {
+public class Panel_SelectionT{
 
 	/**
-	 * Prüft, ob der Preis in der <code>Panel_Selection</code> richtig berechnet
+	 * Prï¿½ft, ob der Preis in der <code>Panel_Selection</code> richtig berechnet
 	 * wird. <br>
 	 * Hinweis: aktualisierePreis() wird beim Clicken des Buttons aufgerufen, wird
 	 * hier also nicht explizit aufgerufen.
