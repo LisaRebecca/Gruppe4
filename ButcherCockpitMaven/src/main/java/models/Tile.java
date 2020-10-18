@@ -21,6 +21,16 @@ import errorhandling.AbstractButcherException;
 @SuppressWarnings("serial")
 public class Tile extends JScrollPane {
 	
+	private String tilename;
+	
+	public String getTilename() {
+		return tilename;
+	}
+
+	public void setTilename(String tilename) {
+		this.tilename = tilename;
+	}
+
 	/** Instanz der Klasse Border um den Kachelrahmen festzulegen
 	 */
 	Border margin = new LineBorder(Color.gray, 1);
@@ -37,7 +47,8 @@ public class Tile extends JScrollPane {
 	 * @param select_statement MySQL-Statement, welches den Tabelleninhalt dieser
 	 * Kachel bestimmt
 	 */
-	public Tile(String select_statement){
+	public Tile(String select_statement, String name){
+		this.tilename = name;
 		/**
 		 * Ein <code>JTable</code> wird mit Daten aus der Datenbank gemäß des
 		 * <code>select_statement</code>s gefüllt.
