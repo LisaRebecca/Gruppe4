@@ -1,5 +1,6 @@
 package controller.login;
 
+import view.Factory;
 import controller.Main;
 import data.Database;
 import errorhandling.AbstractButcherException;
@@ -11,7 +12,7 @@ public class LoginControllerFilled extends LoginController {
 	public void giveControl() throws AbstractButcherException {
 		if (Credentials.getIsSet()) {
 			if (Database.get().isConnected) {
-				Main.construct();
+				Factory.get().construct();
 			} else {
 				Database.get().establishConnection();
 			}

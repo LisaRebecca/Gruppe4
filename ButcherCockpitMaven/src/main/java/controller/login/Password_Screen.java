@@ -11,8 +11,6 @@ import javax.swing.*;
 
 import errorhandling.AbstractButcherException;
 import models.Credentials;
-import view.Automat;
-import view.Cockpit;
 import view.DefaultFrame;
 
 public class Password_Screen extends DefaultFrame implements ActionListener {

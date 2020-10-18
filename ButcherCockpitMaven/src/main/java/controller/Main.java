@@ -1,6 +1,5 @@
 package controller;
 
-import view.Cockpit;
 import controller.login.LoginController;
 import controller.login.LoginControllerStandard;
 import data.Database;
@@ -9,7 +8,8 @@ import errorhandling.AbstractButcherException;
 import errorhandling.ExceptionHandler;
 import payment.GiftCard;
 import payment.Payment;
-import view.Automat;
+import view.CockpitFactory;
+import view.Factory;
 
 public class Main {
 	public static void main(String[] args) {
@@ -28,16 +28,6 @@ public class Main {
  			ExceptionHandler.get().showException(e);
  
  		}
-	}
-	
-	public static void construct() {
-		System.out.println("construct");
- 		try {
- 			new Cockpit();
- 			new Automat();		
- 		}
- 		catch (AbstractButcherException e) {
- 			ExceptionHandler.get().showException(e);
- 		}		
+ 		Factory.set(new CockpitFactory());
 	}
 }
