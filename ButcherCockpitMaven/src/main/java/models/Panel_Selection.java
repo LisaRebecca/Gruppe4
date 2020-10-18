@@ -1,6 +1,5 @@
-package view;
+package models;
 
-import controller.Portion;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -8,6 +7,7 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import Tools.MyTools;
+import view.Automat;
 
 @SuppressWarnings("serial")
 public class Panel_Selection extends JPanel {

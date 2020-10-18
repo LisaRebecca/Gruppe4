@@ -8,7 +8,8 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import Tools.AbstractButcherException;
+import errorhandling.AbstractButcherException;
+import models.Tile;
 
 /**
  * Die Klasse UserInterface dient der Darstellung des ButcherCockpits, also der

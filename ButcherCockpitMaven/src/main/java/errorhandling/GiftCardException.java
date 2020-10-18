@@ -1,4 +1,4 @@
-package Tools;
+package errorhandling;
 
 public class GiftCardException extends Exception{
 	GiftCardException() {

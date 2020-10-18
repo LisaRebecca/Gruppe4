@@ -1,8 +1,11 @@
 package view;
 
-import controller.Database;
-import controller.Payment;
-import controller.Portion;
+import data.Database;
+import errorhandling.AbstractButcherException;
+import models.Panel_Selection;
+import models.Portion;
+import payment.Payment;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +23,6 @@ import java.util.UUID;
 
 import javax.swing.*;
 
-import Tools.AbstractButcherException;
 import Tools.MyTools;
 
 /**
@@ -181,7 +183,7 @@ public class Automat extends DefaultFrame {
 		}
 	}
 
-	private JTable readProductsFormDB() {
+	private JTable setProductTable(Database database) {
 		// Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
 		// Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
 		String select = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "

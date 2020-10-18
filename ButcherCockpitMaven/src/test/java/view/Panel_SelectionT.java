@@ -5,7 +5,8 @@ import javax.swing.JTable;
 import org.junit.Assert;
 import org.junit.Test;
 
-import controller.Portion;
+import models.Panel_Selection;
+import models.Portion;
 
 /**
  * Mit Hilfe der Klasse Panel_SelectionTest soll bestaetigt werden, dass die die

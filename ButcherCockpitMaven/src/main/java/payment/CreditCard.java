@@ -1,6 +1,6 @@
-package controller;
+package payment;
 
-import Tools.CreditCardException;
+import errorhandling.CreditCardException;
 
 public class CreditCard extends Payment{
 	public String processPurchase() throws CreditCardException{

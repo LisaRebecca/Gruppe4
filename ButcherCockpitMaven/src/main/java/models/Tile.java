@@ -1,4 +1,4 @@
-package view;
+package models;
 
 import java.awt.*;
 import java.sql.SQLException;
@@ -9,8 +9,8 @@ import javax.swing.JViewport;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import Tools.AbstractButcherException;
-import controller.Database;
+import data.Database;
+import errorhandling.AbstractButcherException;
 
 /**
  * Die Klasse <code>Tile</code> stellt die Komponenten des {@link Cockpit} dar.

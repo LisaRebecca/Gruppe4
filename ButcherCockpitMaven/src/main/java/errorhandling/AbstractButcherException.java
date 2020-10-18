@@ -1,4 +1,4 @@
-package Tools;
+package errorhandling;
 
 public abstract class AbstractButcherException extends Exception {
 	final private String errorMessage;

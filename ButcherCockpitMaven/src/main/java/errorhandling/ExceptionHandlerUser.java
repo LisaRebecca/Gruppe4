@@ -1,8 +1,6 @@
-package controller;
+package errorhandling;
 
 import javax.swing.JOptionPane;
-
-import Tools.AbstractButcherException;
 
 public class ExceptionHandlerUser extends ExceptionHandler {
 

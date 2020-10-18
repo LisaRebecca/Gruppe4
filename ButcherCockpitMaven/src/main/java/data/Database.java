@@ -1,10 +1,10 @@
-package controller;
+package data;
 
 import java.sql.SQLException;
 
 import javax.swing.JTable;
 
-import Tools.AbstractButcherException;
+import errorhandling.AbstractButcherException;
 
 public abstract class Database {
 	private static Database database;

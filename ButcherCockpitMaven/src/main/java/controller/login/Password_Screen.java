@@ -1,4 +1,4 @@
-package controller;
+package controller.login;
 
 import java.awt.Container;
 import java.awt.Dimension;
@@ -9,7 +9,8 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
-import Tools.AbstractButcherException;
+import errorhandling.AbstractButcherException;
+import models.Credentials;
 import view.Automat;
 import view.Cockpit;
 import view.DefaultFrame;

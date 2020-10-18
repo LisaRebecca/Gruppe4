@@ -1,6 +1,6 @@
-package controller;
+package payment;
 
-import Tools.GiftCardException;
+import errorhandling.GiftCardException;
 
 public class GiftCard extends Payment{
 	

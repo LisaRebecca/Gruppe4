@@ -1,6 +1,4 @@
-package controller;
-
-import Tools.AbstractButcherException;
+package errorhandling;
 
 public class ExceptionHandlerDebug extends ExceptionHandler {
 
