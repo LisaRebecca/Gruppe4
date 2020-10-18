@@ -1,5 +1,10 @@
 package view;
 
-public class AutomatFactory {
+public class AutomatFactory extends Factory {
+
+	@Override
+	public void construct() {
+		new Automat();
+	}
 
 }
