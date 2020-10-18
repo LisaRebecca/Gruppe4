@@ -17,7 +17,7 @@ import models.Tile;
  * internen Benutzeroberflaeche fuer den Metzger.
  */
 @SuppressWarnings("serial")
-public class Cockpit extends DefaultFrame {
+class Cockpit extends DefaultFrame {
 
 	/**
 	 * Menuzeile unten im Cockpit-UI um zwischen den Tabellen/Kacheln zu wechseln

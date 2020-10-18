@@ -35,7 +35,7 @@ import Tools.MyTools;
  */
 
 @SuppressWarnings("serial")
-public class Automat extends DefaultFrame {
+class Automat extends DefaultFrame {
 
 	private JPanel jp_mainPanel;
 	private JPanel jp_selectionPanel;
