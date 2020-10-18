@@ -8,6 +8,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import controller.Select_Statements;
 import errorhandling.AbstractButcherException;
 import models.Tile;
 
@@ -32,16 +33,13 @@ public class Cockpit extends DefaultFrame {
 	 * Anzeige des Lagerbestands
 	 */
 	private JLabel label_stock = new JLabel("Lagerbestand Gesamt");
-	public Tile stock = new Tile(
-			"SELECT name as Produktname, haltbar_bis as Haltbarkeit, lagerort as Lagerort, portionen as Vorraetig from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id;");
+	public Tile stock = new Tile(Select_Statements.select_full_stock);
 
 	/**
 	 * Anzeige des Produktportfolios
 	 */
 	private JLabel label_products = new JLabel("Produktportfolio");
-	public Tile products = new Tile(
-
-			"SELECT name as Produktname, produkt_id as 'Produkt-ID' , kilopreis as '[â‚¬/kg]', gewicht_portion as '[kg/Portion]' FROM Produkte;");
+	public Tile products = new Tile(Select_Statements.select_products);
 
 	/**
 	 * Anzeige des Füllstandes des Kühlautomaten
@@ -49,44 +47,35 @@ public class Cockpit extends DefaultFrame {
 
 	private JLabel label_automat = new JLabel("Füllstand Kühlautomat");
 
-	public Tile automat = new Tile(
-			"SELECT name as Produktname, haltbar_bis as Haltbarkeit, portionen as Vorraetig from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';");
+	public Tile automat = new Tile(Select_Statements.select_automat);
 
 	/**
-
+	 * 
 	 * Anzeige der Verkaufsstatistiken für den Kühlautomat
 	 */
 	private JLabel label_verkaeufe = new JLabel("VerkÃ¤ufe Kühlautomat");
 
-	private Tile verkaeufe = new Tile(
-			"SELECT HEX(verkauf_id) as 'Verkauf-ID', datum as Datum, uhrzeit as Uhrzeit, gesamtpreis as Gesamtpreis FROM Verkaeufe;");
+	private Tile verkaeufe = new Tile(Select_Statements.select_purchases);
 
-	
-	
 	/**
 	 * Konstruktor erzeugt alle anzuzeigenden Objekte
-	 * @throws AbstractButcherException 
+	 * 
+	 * @throws AbstractButcherException
 	 */
-	public Cockpit() throws AbstractButcherException {
-		super("ButcherCockpit", 500,550);
+	public Cockpit(){
+		super("ButcherCockpit", 500, 550);
 
-		/**
-		 *  Tabs werden hinzugefügt
-		 */
-		
 		c.setLayout(new BorderLayout());
 		c.add(tabbedPane, BorderLayout.CENTER);
-
-	
 
 		createStockPane();
 		createProductPane();
 		createAutomatPane();
 		createSalesPane();
 	}
-	
 
-	/** Hinzufuegen eines weißen Panels zum Tab, dem wiederum Lagertabelle und Label
+	/**
+	 * Hinzufuegen eines weißen Panels zum Tab, dem wiederum Lagertabelle und Label
 	 * hinzugefügt werden
 	 */
 	public void createStockPane() {
@@ -96,8 +85,10 @@ public class Cockpit extends DefaultFrame {
 		jp_1.add(stock);
 		tabbedPane.add("Lager", jp_1);
 	}
-	/** Hinzufuegen eines weißen Panels zum Tab, dem wiederum Produkttabelle und Label
-	 * hinzugefügt werden
+
+	/**
+	 * Hinzufuegen eines weißen Panels zum Tab, dem wiederum Produkttabelle und
+	 * Label hinzugefügt werden
 	 */
 	public void createProductPane() {
 		jp_2.setBackground(Color.WHITE);
@@ -106,9 +97,10 @@ public class Cockpit extends DefaultFrame {
 		jp_2.add(products);
 		tabbedPane.add("Produkte", jp_2);
 	}
-	
-	/** Hinzufuegen eines weißen Panels zum Tab, dem wiederum Automatenbestandstabelle und Label
-	 * hinzugefügt werden
+
+	/**
+	 * Hinzufuegen eines weißen Panels zum Tab, dem wiederum
+	 * Automatenbestandstabelle und Label hinzugefügt werden
 	 */
 	public void createAutomatPane() {
 		jp_3.setBackground(Color.WHITE);
@@ -117,9 +109,10 @@ public class Cockpit extends DefaultFrame {
 		jp_3.add(automat);
 		tabbedPane.add("Automat", jp_3);
 	}
-	
-	/** Hinzufuegen eines weißen Panels zum Tab, dem wiederum Verkaufstabelle und Label
-	 * hinzugefügt werden
+
+	/**
+	 * Hinzufuegen eines weißen Panels zum Tab, dem wiederum Verkaufstabelle und
+	 * Label hinzugefügt werden
 	 */
 	public void createSalesPane() {
 		jp_4.setBackground(Color.WHITE);
@@ -145,10 +138,9 @@ public class Cockpit extends DefaultFrame {
 		}
 	}
 
-
 	@Override
 	protected void setExceptionMessage(Exception e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

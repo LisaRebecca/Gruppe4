@@ -37,13 +37,18 @@ public class Tile extends JScrollPane {
 	 * @param select_statement MySQL-Statement, welches den Tabelleninhalt dieser
 	 * Kachel bestimmt
 	 */
-	public Tile(String select_statement) throws AbstractButcherException {
+	public Tile(String select_statement){
 		/**
 		 * Ein <code>JTable</code> wird mit Daten aus der Datenbank gemäß des
 		 * <code>select_statement</code>s gefüllt.
 		 */
 		JTable jt = null;
-		jt = Database.get().executeDBQuery(select_statement);
+		try {
+			jt = Database.get().executeDBQuery(select_statement);
+		} catch (AbstractButcherException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		/**
 		 * Optische Details: Tabellenrasterfarbe, Kachelhintergrund und
