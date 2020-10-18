@@ -1,3 +1,4 @@
+package view;
 
 public abstract class Factory {
 

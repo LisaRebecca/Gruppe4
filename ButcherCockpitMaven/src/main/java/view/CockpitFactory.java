@@ -1,4 +1,4 @@
-import view.Cockpit;
+package view;
 
 public class CockpitFactory extends Factory{
 
