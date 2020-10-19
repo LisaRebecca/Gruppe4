@@ -2,7 +2,11 @@ package view;
 
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,7 +45,14 @@ public abstract class DefaultFrame extends JFrame {
 	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
 	 * Warnung, da das Bild nicht nÃ¶tig fÃ¼r das Funktionieren der Anwendung ist.
 	 */
+
 	protected void setIcon() {
-		return;
+		try {
+			BufferedImage image = ImageIO.read(new URL(
+					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
+			this.setIconImage(image);
+		} catch (IOException e) {
+			System.err.println("Icon des Automaten konnte nicht geladen werden.");
+		}
 	}
 }

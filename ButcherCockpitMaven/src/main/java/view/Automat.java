@@ -146,18 +146,6 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 		jlbl_total.setText(MyTools.formatAsCurrency(gesamtpreis));
 	}
 
-	@Override
-	protected void setIcon() {
-		try {
-			BufferedImage image = ImageIO.read(new URL(
-					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
-			this.setIconImage(image);
-		} catch (IOException e) {
-			System.err.println("Icon des Automaten konnte nicht geladen werden.");
-		}
-	}
-
-
 	public void addPanel(Panel_Selection ps) {
 		warenkorb.add(ps);
 		jp_selectionPanel.add(ps);
