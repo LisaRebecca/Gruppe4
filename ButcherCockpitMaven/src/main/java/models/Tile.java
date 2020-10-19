@@ -9,6 +9,7 @@ import javax.swing.JViewport;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
+import Tools.MyTools;
 import data.Database;
 import errorhandling.AbstractButcherException;
 
@@ -55,7 +56,7 @@ public class Tile extends JScrollPane {
 		 */
 		JTable jt = null;
 		try {
-			jt = Database.get().executeDBQuery(select_statement);
+			jt = MyTools.resultSetToTable(Database.get().executeDBQuery(select_statement));
 		} catch (AbstractButcherException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
