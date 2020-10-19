@@ -1,5 +1,7 @@
 package data;
 
+import java.sql.ResultSet;
+
 import javax.swing.JTable;
 
 import controller.login.LoginController;
@@ -15,8 +17,8 @@ public class MockDatabase extends Database {
 	}
 
 	@Override
-	public JTable executeDBQuery(String select_statement) {
-		return emptyTable;
+	public ResultSet executeDBQuery(String select_statement) {
+		return (ResultSet) emptyTable;
 	}
 
 	@Override

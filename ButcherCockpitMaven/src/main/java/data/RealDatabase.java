@@ -43,15 +43,12 @@ public class RealDatabase extends Database {
 	 * @throws SQLException
 	 */
 	@Override
-	public JTable executeDBQuery(String select_statement) throws AbstractButcherException {
-		ResultSet result = null;
+	public ResultSet executeDBQuery(String select_statement) throws AbstractButcherException {
 		try {
-			result = conn.createStatement().executeQuery(select_statement);
-			return buildJTable(result);
+			return conn.createStatement().executeQuery(select_statement);
 		} catch (SQLException e) {
 			throw new ButcherException(e, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter");
 		}
-	
 	}
 
 	/**
@@ -84,38 +81,7 @@ public class RealDatabase extends Database {
 	 *         beinhaltet
 	 * @throws SQLException beim auslesen der Daten kam es zu einem Fehler
 	 */
-	public static JTable buildJTable(ResultSet result) throws AbstractButcherException {
-		Vector<Vector<String>> rows;
-		Vector<String> columnLabels;
-
-		ResultSetMetaData metaData;
-		try {
-			metaData = result.getMetaData();
-		 
-
-		int columnCount = metaData.getColumnCount();
-		columnLabels = new Vector<String>();
-
-		for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-			columnLabels.add(metaData.getColumnLabel(columnIndex));
-		}
-
-		rows = new Vector<Vector<String>>();
-		Vector<String> singleRow;
-		while (result.next()) {
-			singleRow = new Vector<String>();
-			for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-				singleRow.add("" + result.getObject(columnIndex));
-			}
-			rows.add(singleRow);
-		}
-		return new JTable(new DefaultTableModel(rows, columnLabels));
-		}
-		catch (SQLException e) {
-			throw new ButcherException(e, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter");
-		}
-	}
-
+		
 	public void establishConnection() throws AbstractButcherException{
 		String userName = Credentials.getUsername();
 		String password = Credentials.getPassword();
