@@ -1,12 +1,11 @@
 package view;
 
+import java.sql.SQLException;
+
 import javax.swing.JTable;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import models.Panel_Selection;
-import models.Portion;
 
 /**
  * Mit Hilfe der Klasse Panel_SelectionTest soll bestaetigt werden, dass die die
@@ -28,9 +27,14 @@ public class Panel_SelectionT{
 		portion.setKilopreis(5.00);
 		portion.setPortionsgewichtKG(0.5);
 
-		Automat automat = new Automat(new JTable());
+		try {
+			Automat automat = new Automat();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		Panel_Selection selection = new Panel_Selection(portion, automat);
+		Panel_Selection selection = new Panel_Selection(portion);
 
 		selection.getJb_more().doClick();
 		Assert.assertEquals(selection.getPreis(), 2.50, 1);
