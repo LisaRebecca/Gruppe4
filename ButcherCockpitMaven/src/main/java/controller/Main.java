@@ -1,6 +1,7 @@
 package controller;
 
 import controller.login.LoginController;
+import controller.login.LoginControllerFilled;
 import controller.login.LoginControllerStandard;
 import data.Database;
 import data.RealDatabase;
@@ -8,6 +9,7 @@ import errorhandling.AbstractButcherException;
 import errorhandling.ExceptionHandler;
 import payment.GiftCard;
 import payment.Payment;
+import view.AutomatFactory;
 import view.CockpitFactory;
 import view.Factory;
 
@@ -28,6 +30,7 @@ public class Main {
  			ExceptionHandler.get().showException(e);
  
  		}
- 		Factory.set(new CockpitFactory());
+// 		Factory.set(new CockpitFactory());
+ 		Factory.set(new AutomatFactory());
 	}
 }
