@@ -56,10 +56,4 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 			e1.printStackTrace();
 		}
 	}
-
-	@Override
-	protected void setExceptionMessage(Exception e) {
-		// TODO Auto-generated method stub
-		
-	}
 }
