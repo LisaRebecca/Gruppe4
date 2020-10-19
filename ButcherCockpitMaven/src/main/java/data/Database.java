@@ -1,10 +1,6 @@
 package data;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import javax.swing.JTable;
-
 import errorhandling.AbstractButcherException;
 
 public abstract class Database {

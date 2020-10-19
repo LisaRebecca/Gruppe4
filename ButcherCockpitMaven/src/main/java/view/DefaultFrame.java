@@ -14,7 +14,7 @@ public abstract class DefaultFrame extends JFrame {
 	 * Schriftart für die Überschrift
 	 */
 	protected final Font headerfont = new Font("Arial", Font.BOLD, 20);
-	protected Container c = getContentPane();
+	protected Container c;
 	protected String errorMessage;
 	protected String errorTitle;
 
@@ -27,6 +27,7 @@ public abstract class DefaultFrame extends JFrame {
 		 * Hier werden Titel, Sichtbarkeit, Groesse, Position und Close-Operation des
 		 * Default-Windows festgelegt
 		 */
+		c = getContentPane();
 		this.setTitle(title);
 		this.setVisible(true);
 		this.setSize(width, height);
@@ -43,17 +44,4 @@ public abstract class DefaultFrame extends JFrame {
 	protected void setIcon() {
 		return;
 	}
-
-	public void showException(Exception e) {
-		setExceptionMessage(e);
-		buildPopUp();
-		e.printStackTrace();
-	};
-
-	private void buildPopUp() {
-		JOptionPane.showMessageDialog(null, errorMessage, errorTitle, JOptionPane.INFORMATION_MESSAGE);
-	}
-
-	protected abstract void setExceptionMessage(Exception e);
-
 }

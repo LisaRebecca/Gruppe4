@@ -7,6 +7,8 @@ import data.Database;
 import data.RealDatabase;
 import errorhandling.AbstractButcherException;
 import errorhandling.ExceptionHandler;
+import errorhandling.ExceptionHandlerDebug;
+import errorhandling.ExceptionHandlerUser;
 import payment.GiftCard;
 import payment.Payment;
 import view.AutomatFactory;
@@ -20,6 +22,9 @@ public class Main {
  		
  		Database.set(new RealDatabase());
 // 		Database.set(new MockDatabase());
+ 		
+ 		ExceptionHandler.set(new ExceptionHandlerDebug());
+//		ExceptionHandler.set(new ExceptionHandlerUser());
  		
  		Payment.set(new GiftCard());
 // 		Payment.set(new CreditCard());
