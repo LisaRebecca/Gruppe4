@@ -1,4 +1,4 @@
-package models;
+package view;
 
 import java.text.NumberFormat;
 

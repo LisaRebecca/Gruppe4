@@ -9,7 +9,7 @@ import org.junit.Test;
  */
 
 import junit.framework.Assert;
-import models.Portion;
+import view.Portion;
 
 @SuppressWarnings("deprecation")
 public class PortionTest {
