@@ -2,20 +2,22 @@ package view;
 
 import data.Database;
 import errorhandling.AbstractButcherException;
-import models.Panel_Selection;
-import models.Portion;
 import payment.Payment;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Port;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,7 +37,7 @@ import Tools.MyTools;
  */
 
 @SuppressWarnings("serial")
-class Automat extends DefaultFrame {
+class Automat extends DefaultFrame implements PropertyChangeListener{
 
 	private JPanel jp_mainPanel;
 	private JPanel jp_selectionPanel;
@@ -50,35 +52,27 @@ class Automat extends DefaultFrame {
 	 * Warenkorb, enth�lt alle ausgew�hlten Produkte in Form von
 	 * {@link Panel_Selection}
 	 */
-	public ArrayList<Panel_Selection> list_productSelection = new ArrayList<Panel_Selection>();
+	public ArrayList<Panel_Selection> warenkorb = new ArrayList<Panel_Selection>();
 
 	/**
 	 * Gesamtpreis dieses Einkaufs
 	 */
 	private double gesamtpreis;
 
-	/**
-	 * Tabelle der verf�gbaren Produkte
-	 */
-	JTable jt_obtainableProducts;
 
 	/**
 	 * Erzeugen des Automaten-UI inklusive Ueberschrift, Tabelle, GesamtpreisLabel
 	 * und KaufButton mit ActionListener.
 	 * 
-	 * @param products die verf�gbaren Produkte
+	 * @param resultSet die verf�gbaren Produkte
+	 * @throws SQLException 
 	 */
-	public Automat() {
+	public Automat() throws SQLException {
 		super("Kühlautomat", 800, 400);
-		this.jt_obtainableProducts = this.readProductsFormDB();
 
 		createBuyButton();
 		createBuyPanel();
-
 		createSelectionPanel();
-		// Füllen des Auswahlpanels mit den Produkten
-		loadProductsFromTable();
-
 		createMainPanel();
 
 		// Nach dem Einf�gen der Elemente wird der JFrame noch einmal aktualisiert.
@@ -92,10 +86,10 @@ class Automat extends DefaultFrame {
 		jb_buy = new JButton("Kaufen");
 		jb_buy.setBackground(Color.white);
 		jb_buy.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				buyButtonPressed();			
+				buyButtonPressed();
 			}
 		});
 	}
@@ -146,7 +140,7 @@ class Automat extends DefaultFrame {
 	 */
 	public void berechneGesamtpreis() {
 		gesamtpreis = 0.00;
-		for (Panel_Selection selection : list_productSelection) {
+		for (Panel_Selection selection : warenkorb) {
 			gesamtpreis += selection.getPreis();
 		}
 		jlbl_total.setText(MyTools.formatAsCurrency(gesamtpreis));
@@ -163,43 +157,11 @@ class Automat extends DefaultFrame {
 		}
 	}
 
-	/**
-	 * Hinzufügen der Portionen, Darstellung der Eigenschaften in Labels
-	 */
-	private void loadProductsFromTable() {
-		for (int row = 0; row < jt_obtainableProducts.getRowCount(); row++) {
-			Portion portion = new Portion();
-			portion.setName("" + jt_obtainableProducts.getValueAt(row, 0));
-			portion.setLagermenge("" + jt_obtainableProducts.getValueAt(row, 1));
-			portion.setHaltbarBis("" + jt_obtainableProducts.getValueAt(row, 2));
-			portion.setKilopreis("" + jt_obtainableProducts.getValueAt(row, 3));
-			portion.setPortionsgewichtKG("" + jt_obtainableProducts.getValueAt(row, 4));
 
-			Panel_Selection productSelection = new Panel_Selection(portion, this);
-
-			// Hinzuf�gen zum Warenkorb
-			list_productSelection.add(productSelection);
-			jp_selectionPanel.add(productSelection);
-		}
+	public void addPanel(Panel_Selection ps) {
+		warenkorb.add(ps);
+		jp_selectionPanel.add(ps);
 	}
-
-	private JTable setProductTable(Database database) {
-		// Konkatenieren des Strings, der das SQL-Select-Statement zum Auslesen der
-		// Produkte (und ihrer Daten), die sich im Automaten befinden, darstellt
-		String select = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand "
-				+ "left join produkte on lagerbestand.produkt = produkte.produkt_id " + "WHERE lagerort='automat1';";
-		JTable products = null;
-
-		try {
-			products = Database.get().executeDBQuery(select);
-		} catch (AbstractButcherException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return products;
-	}
-
 	private void buyButtonPressed() {
 		// Zuerst wird der Kunde nach Bestätigung gefragt.
 		String[] options = { "Ja, bezahlen", "Nein, zurueck" };
@@ -245,7 +207,6 @@ class Automat extends DefaultFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
 			// Der Automat wird geschlossen, der Einkauf ist beendet
 			System.exit(0);
 		}
@@ -254,6 +215,11 @@ class Automat extends DefaultFrame {
 	@Override
 	protected void setExceptionMessage(Exception e) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		berechneGesamtpreis();		
 	}
 }

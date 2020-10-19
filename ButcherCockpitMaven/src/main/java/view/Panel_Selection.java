@@ -1,13 +1,15 @@
-package models;
+package view;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import Tools.MyTools;
-import view.Automat;
 
 @SuppressWarnings("serial")
 public class Panel_Selection extends JPanel {
@@ -15,10 +17,8 @@ public class Panel_Selection extends JPanel {
 	 * urspr�nglich sind keine Produkte ausgewählt, Menge = 0
 	 */
 	public static final int initialAmount = 0;
-	/**
-	 * Automat welcher dieses Panel enthält.
-	 */
-	private Automat automat;
+
+	private PropertyChangeSupport changes = new PropertyChangeSupport(this);
 	/**
 	 * Label fuer die ausgewählte Anzahl an Portionen.
 	 */
@@ -37,21 +37,15 @@ public class Panel_Selection extends JPanel {
 	private JButton jb_more, jb_less;
 
 	/**
-	 * ButtonsListener, welcher die Aenderungen der Menge steuert
-	 */
-//	ActionListener bl = new ActionListener_Amount();
-	
-	/**
 	 * Kontruktor, welcher alle Buttons erstellt und die Labels mit Initialwerten
 	 * beschriftet.
 	 * 
 	 * @param portion das darzustellende Produkt als einzelne {@link Portion}
-	 * @return 
+	 * @return
 	 */
-	
-	public Panel_Selection(Portion portion, Automat automat) {
+
+	public Panel_Selection(Portion portion) {
 		this.setPortion(portion);
-		this.automat = automat;
 
 		this.setLayout(new GridLayout(1, 0));
 		this.setBackground(Color.WHITE);
@@ -62,11 +56,10 @@ public class Panel_Selection extends JPanel {
 
 		initializePlusButton();
 		initializeMinusButton();
-		
+
 		setPreisLabel();
 	}
 
-	
 	/**
 	 * Darstellen der Portion, welche zur Auswahl steht.
 	 */
@@ -76,7 +69,7 @@ public class Panel_Selection extends JPanel {
 		this.add(new JLabel("" + portion.getLagermenge() + " Portionen � ", SwingConstants.RIGHT));
 		this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + "g auf Lager", SwingConstants.LEFT));
 	}
-	
+
 	/**
 	 * Ausgewaehlte Menge anzeigen
 	 */
@@ -85,7 +78,7 @@ public class Panel_Selection extends JPanel {
 		getJlbl_amount().setBackground(Color.white);
 		this.add(getJlbl_amount());
 	}
-	
+
 	/**
 	 * Button zum Erhoehen der Menge
 	 */
@@ -93,14 +86,13 @@ public class Panel_Selection extends JPanel {
 		setJb_more(new JButton("+"));
 		getJb_more().setBackground(Color.white);
 		getJb_more().addActionListener(e -> {
-			jlbl_amount.setText(""+(getAmount()+1));
-			aktualisierePreise();
+			jlbl_amount.setText("" + (getAmount() + 1));
+			aktualisierePreis();
 			refreshButtonVisibility();
-			automat.berechneGesamtpreis();
 		});
 		this.add(getJb_more());
 	}
-	
+
 	/**
 	 * Button zum Vermindern der Menge
 	 */
@@ -108,29 +100,27 @@ public class Panel_Selection extends JPanel {
 		setJb_less(new JButton("-"));
 		getJb_less().setBackground(Color.white);
 		getJb_less().addActionListener(e -> {
-			jlbl_amount.setText(""+(getAmount()-1));
-			aktualisierePreise();
+			jlbl_amount.setText("" + (getAmount() - 1));
+			aktualisierePreis();
 			refreshButtonVisibility();
-			automat.berechneGesamtpreis();
 		});
-		//Anzahl ist zu Anfang 0, der Nutzer soll die Anzahl nur erhoehen koennen.
+		// Anzahl ist zu Anfang 0, der Nutzer soll die Anzahl nur erhoehen koennen.
 		getJb_less().setVisible(false);
 		this.add(getJb_less());
 	}
-	
+
 	public void setPreisLabel() {
 		jlbl_preis = new JLabel(MyTools.formatAsCurrency(0), SwingConstants.RIGHT);
 		this.add(jlbl_preis);
 	}
+
 	/**
 	 * der gesamte Preis der ausgewaelten Portionen wird aktualisiert
 	 */
-	public void aktualisierePreise() {
-		jlbl_preis.setText("" + MyTools.formatAsCurrency((getPortion().getPortionspreis() * getAmount())));
-	}
-
-	public Automat getAutomat() {
-		return this.automat;
+	public void aktualisierePreis() {
+		double new_preis = (getPortion().getPortionspreis() * getAmount());
+		changes.firePropertyChange("preis", getPreis(), new_preis);
+		jlbl_preis.setText("" + MyTools.formatAsCurrency(new_preis));
 	}
 
 	/**
@@ -190,7 +180,7 @@ public class Panel_Selection extends JPanel {
 	public void setJb_more(JButton jb_more) {
 		this.jb_more = jb_more;
 	}
-	
+
 	public void refreshButtonVisibility() {
 		// Ein-/Ausblenden der Buttons je nachdem ob weitere Portionen des Produktes
 		// vorhanden sind. Verhindert auch die Auswahl einer negativen Anzahl.
@@ -203,6 +193,13 @@ public class Panel_Selection extends JPanel {
 		} else if (getAmount() >= ps.getPortion().getLagermenge()) {
 			jb_more.setVisible(false);
 		}
+	}
 
+	public void addPropertyChangeListener(PropertyChangeListener l) {
+		changes.addPropertyChangeListener(l);
+	}
+
+	public void removePropertyChangeListener(PropertyChangeListener l) {
+		changes.removePropertyChangeListener(l);
 	}
 }
