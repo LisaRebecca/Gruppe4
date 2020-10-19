@@ -213,12 +213,6 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 	}
 
 	@Override
-	protected void setExceptionMessage(Exception e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		berechneGesamtpreis();		
 	}

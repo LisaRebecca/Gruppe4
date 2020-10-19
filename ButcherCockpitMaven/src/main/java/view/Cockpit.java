@@ -55,8 +55,4 @@ class Cockpit extends DefaultFrame {
 			System.err.println("Icon des Automaten konnte nicht geladen werden.");
 		}
 	}
-
-	@Override
-	protected void setExceptionMessage(Exception e) {
-	}
 }
