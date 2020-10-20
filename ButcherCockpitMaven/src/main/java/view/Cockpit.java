@@ -39,20 +39,4 @@ class Cockpit extends DefaultFrame {
 		tabbedPane.add(panel);
 		tabbedPane.add(""+tile.getTilename(), panel);
 	}
-
-	/**
-	 * Setzen des Fenster-Icons. <br>
-	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
-	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
-	 */
-	@Override
-	protected void setIcon() {
-		try {
-			BufferedImage image = ImageIO.read(new URL(
-					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
-			this.setIconImage(image);
-		} catch (IOException e) {
-			System.err.println("Icon des Automaten konnte nicht geladen werden.");
-		}
-	}
 }
