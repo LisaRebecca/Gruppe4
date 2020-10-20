@@ -1,4 +1,4 @@
-package models;
+package view;
 
 import java.awt.*;
 import java.sql.SQLException;
@@ -20,7 +20,7 @@ import errorhandling.AbstractButcherException;
  */
 
 @SuppressWarnings("serial")
-public class Tile extends JScrollPane {
+class Tile extends JScrollPane {
 	
 	private String tilename;
 	
@@ -48,20 +48,8 @@ public class Tile extends JScrollPane {
 	 * @param select_statement MySQL-Statement, welches den Tabelleninhalt dieser
 	 * Kachel bestimmt
 	 */
-	public Tile(String select_statement, String name){
+	public Tile(JTable jt, String name){
 		this.tilename = name;
-		/**
-		 * Ein <code>JTable</code> wird mit Daten aus der Datenbank gemäß des
-		 * <code>select_statement</code>s gefüllt.
-		 */
-		JTable jt = null;
-		try {
-			jt = MyTools.resultSetToTable(Database.get().executeDBQuery(select_statement));
-		} catch (AbstractButcherException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 		/**
 		 * Optische Details: Tabellenrasterfarbe, Kachelhintergrund und
 		 * Rahmenfarbe/-stärke der Kachel festgelegt

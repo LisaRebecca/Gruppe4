@@ -10,7 +10,6 @@ import javax.swing.*;
 
 import controller.Select_Statements;
 import errorhandling.AbstractButcherException;
-import models.Tile;
 
 /**
  * Die Klasse UserInterface dient der Darstellung des ButcherCockpits, also der

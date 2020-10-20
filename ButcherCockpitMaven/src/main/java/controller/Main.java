@@ -35,7 +35,7 @@ public class Main {
  			ExceptionHandler.get().showException(e);
  
  		}
-// 		Factory.set(new CockpitFactory());
- 		Factory.set(new AutomatFactory());
+ 		Factory.set(new CockpitFactory());
+// 		Factory.set(new AutomatFactory());
 	}
 }
