@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="controller.Select_Statements" project="ButcherCockpitMaven" 
     file="/ButcherCockpitMaven/src/main/java/controller/Select_Statements.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1013" y="105"/>    
+    <position height="-1" width="-1" x="1258" y="182"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="data.RealDatabase" project="ButcherCockpitMaven" 
     file="/ButcherCockpitMaven/src/main/java/data/RealDatabase.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="490" y="668"/>    
+    <position height="-1" width="-1" x="119" y="122"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -57,7 +57,7 @@
   </class>  
   <class id="7" language="java" name="view.Cockpit" project="ButcherCockpitMaven" 
     file="/ButcherCockpitMaven/src/main/java/view/Cockpit.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1000" y="724"/>    
+    <position height="-1" width="-1" x="1245" y="567"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -66,20 +66,25 @@
   </class>  
   <class id="8" language="java" name="view.Tile" project="ButcherCockpitMaven" 
     file="/ButcherCockpitMaven/src/main/java/view/Tile.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="452" y="953"/>    
+    <position height="-1" width="-1" x="908" y="845"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <dependency id="9">    
+  <class id="9" language="java" name="view.TileFactory" project="ButcherCockpitMaven" 
+    file="/ButcherCockpitMaven/src/main/java/view/TileFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="657" y="527"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <dependency id="10">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="6"/>  
-  </dependency>  
-  <dependency id="10">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="8"/>  
   </dependency>  
   <dependency id="11">    
     <end type="SOURCE" refId="1"/>    
@@ -106,22 +111,34 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <dependency id="17">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="18">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="5"/>  
   </dependency>  
-  <generalization id="18">    
+  <generalization id="19">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="3"/>  
   </generalization>  
-  <dependency id="19">    
+  <dependency id="20">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="7"/>  
   </dependency>  
-  <dependency id="20">    
+  <dependency id="21">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="8"/>  
   </dependency>  
-  <dependency id="21">    
+  <dependency id="22">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="23">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="24">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="3"/>  
   </dependency>  

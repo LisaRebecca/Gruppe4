@@ -57,7 +57,7 @@
   </class>  
   <class id="7" language="java" name="payment.GiftCard" project="ButcherCockpitMaven" 
     file="/ButcherCockpitMaven/src/main/java/payment/GiftCard.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="120" y="1102"/>    
+    <position height="-1" width="-1" x="-13" y="813"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -66,7 +66,7 @@
   </class>  
   <class id="8" language="java" name="payment.CreditCard" project="ButcherCockpitMaven" 
     file="/ButcherCockpitMaven/src/main/java/payment/CreditCard.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="109" y="470"/>    
+    <position height="-1" width="-1" x="199" y="621"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
