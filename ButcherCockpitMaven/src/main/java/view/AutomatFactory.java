@@ -20,7 +20,7 @@ public class AutomatFactory extends Factory {
 
 		ResultSet rs_products = null;
 		try {
-			rs_products = Database.get().executeDBQuery(Select_Statements.AUTOMAT);
+			rs_products = Database.get().executeDBQuery(Select_Statements.AUTOMAT_PRODUCTS);
 		} catch (AbstractButcherException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
