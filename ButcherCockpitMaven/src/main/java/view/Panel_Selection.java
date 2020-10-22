@@ -117,8 +117,9 @@ public class Panel_Selection extends JPanel {
 	 */
 	public void aktualisierePreis() {
 		double new_preis = (getPortion().getPortionspreis() * getAmount());
-		changes.firePropertyChange("preis", getPreis(), new_preis);
+		double old_price = getPreis();
 		jlbl_preis.setText("" + MyTools.formatAsCurrency(new_preis));
+		changes.firePropertyChange("preis", old_price, new_preis);
 	}
 
 	/**
