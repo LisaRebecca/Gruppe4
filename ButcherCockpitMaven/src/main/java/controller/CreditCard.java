@@ -1,6 +1,9 @@
 package controller;
 
+import java.util.ResourceBundle;
+
 import Tools.CreditCardException;
+import payment.Payment;
 
 public class CreditCard extends Payment{
 	private final ResourceBundle language;

@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ResourceBundle;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -16,13 +17,13 @@ public class Panel_Selection extends JPanel {
 	
 	private final ResourceBundle language;
 	/**
-	 * ursprï¿½nglich sind keine Produkte ausgewÃ¤hlt, Menge = 0
+	 * urspr nglich sind keine Produkte ausgewählt, Menge = 0
 	 */
 	public static final int initialAmount = 0;
 
 	private PropertyChangeSupport changes = new PropertyChangeSupport(this);
 	/**
-	 * Label fuer die ausgewÃ¤hlte Anzahl an Portionen.
+	 * Label fuer die ausgewählte Anzahl an Portionen.
 	 */
 	private JLabel jlbl_amount;
 	/**
@@ -45,16 +46,11 @@ public class Panel_Selection extends JPanel {
 	 * @param portion das darzustellende Produkt als einzelne {@link Portion}
 	 * @return
 	 */
-<<<<<<< Upstream, based on master
 
 	public Panel_Selection(Portion portion) {
-=======
-	
-	public Panel_Selection(Portion portion, Automat automat) {
 		
 		this.language = ResourceBundle.getBundle("i18n/panel_selection/panel_selection_de");
 		
->>>>>>> daf20bb Resource Language Pakete zu allen Klassen in denen Strings beschrieben werden, die spÃ¤ter im Frontend zu sehen sind, sowie entsprechende Anpassungen in den Klassen.
 		this.setPortion(portion);
 
 		this.setLayout(new GridLayout(1, 0));
@@ -138,7 +134,7 @@ public class Panel_Selection extends JPanel {
 	 */
 	public double getPreis() {
 		String preis = jlbl_preis.getText().replace(',', '.');
-		int index = preis.indexOf("â‚¬");
+		int index = preis.indexOf("€");
 		if (index == -1) {
 		} else {
 			preis = preis.substring(0, index);
@@ -147,7 +143,7 @@ public class Panel_Selection extends JPanel {
 	}
 
 	/**
-	 * @return ausgewï¿½hlte Menge als natï¿½rliche Zahl
+	 * @return ausgew hlte Menge als nat rliche Zahl
 	 */
 	public int getAmount() {
 		return Integer.parseInt(getJlbl_amount().getText());
@@ -212,4 +208,5 @@ public class Panel_Selection extends JPanel {
 	public void removePropertyChangeListener(PropertyChangeListener l) {
 		changes.removePropertyChangeListener(l);
 	}
+	
 }

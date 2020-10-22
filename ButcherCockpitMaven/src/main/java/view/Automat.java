@@ -21,6 +21,7 @@ import javax.sound.sampled.Port;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
 import javax.swing.*;
@@ -37,13 +38,9 @@ import Tools.MyTools;
  */
 
 @SuppressWarnings("serial")
-<<<<<<< Upstream, based on master
-class Automat extends DefaultFrame implements PropertyChangeListener{
-=======
-public class Automat extends DefaultFrame {
-	
+class Automat extends DefaultFrame implements PropertyChangeListener {
+
 	private final ResourceBundle language;
->>>>>>> daf20bb Resource Language Pakete zu allen Klassen in denen Strings beschrieben werden, die später im Frontend zu sehen sind, sowie entsprechende Anpassungen in den Klassen.
 
 	private JPanel jp_mainPanel;
 	private JPanel jp_selectionPanel;
@@ -55,7 +52,7 @@ public class Automat extends DefaultFrame {
 	private JButton jb_buy;
 
 	/**
-	 * Warenkorb, enth�lt alle ausgew�hlten Produkte in Form von
+	 * Warenkorb, enth lt alle ausgew hlten Produkte in Form von
 	 * {@link Panel_Selection}
 	 */
 	public ArrayList<Panel_Selection> warenkorb = new ArrayList<Panel_Selection>();
@@ -65,32 +62,24 @@ public class Automat extends DefaultFrame {
 	 */
 	private double gesamtpreis;
 
-
 	/**
 	 * Erzeugen des Automaten-UI inklusive Ueberschrift, Tabelle, GesamtpreisLabel
 	 * und KaufButton mit ActionListener.
 	 * 
-	 * @param resultSet die verf�gbaren Produkte
-	 * @throws SQLException 
+	 * @param resultSet die verf gbaren Produkte
+	 * @throws SQLException
 	 */
-<<<<<<< Upstream, based on master
 	public Automat() throws SQLException {
-		super("Kühlautomat", 800, 400);
-=======
-	public Automat() {
-		
+		super("K�hlautomat", 800, 400);
+
 		this.language = ResourceBundle.getBundle("i18n/automat/automat_de");
-		
-		super(this.language.getString("title"), 800, 400);
-		this.jt_obtainableProducts = this.readProductsFormDB();
->>>>>>> daf20bb Resource Language Pakete zu allen Klassen in denen Strings beschrieben werden, die später im Frontend zu sehen sind, sowie entsprechende Anpassungen in den Klassen.
 
 		createBuyButton();
 		createBuyPanel();
 		createSelectionPanel();
 		createMainPanel();
 
-		// Nach dem Einf�gen der Elemente wird der JFrame noch einmal aktualisiert.
+		// Nach dem Einf gen der Elemente wird der JFrame noch einmal aktualisiert.
 		this.revalidate();
 	}
 
@@ -102,61 +91,9 @@ public class Automat extends DefaultFrame {
 		jb_buy.setBackground(Color.white);
 		jb_buy.addActionListener(new ActionListener() {
 
-<<<<<<< Upstream, based on master
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				buyButtonPressed();
-=======
-			// Zuerst wird der Kunde nach Bestätigung gefragt.
-			String[] options = { this.language.getString("option_yes"), this.language.getString("option_no") };
-			int eingabe = JOptionPane.showOptionDialog(null, this.language.getString("buy_question"),
-					this.language.getString("confirmation"), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-
-			// Der Dialog schließt sich, der Kunde kann weiter einkaufen
-			if (eingabe == 1) {
-			}
-			// Nur falls er den Vorgang abschließen will erscheint ein neuer Dialog.
-			if (eingabe == 0) {
-				try {
-					JOptionPane.showMessageDialog(null,
-							Payment.get().processPurchase(),
-							this.language.getString("thanks"), JOptionPane.INFORMATION_MESSAGE);
-				} catch (HeadlessException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				} catch (Exception e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-
-				// generieren eines Universally Unique Identifiers für jeden Einkauf
-				String uuid = UUID.randomUUID().toString();
-				uuid = uuid.replace("-", "");
-
-				// Speichern des aktuellen Zeitstempels
-				Date date = new Date();
-				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				String sql_date = simpleDateFormat.format(date);
-
-				Date time = new Date();
-				SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
-				String sql_time = simpleTimeFormat.format(time);
-
-				// Der Einkauf wird als Statistik in der Datenbank hinterlegt.
-				
-					try {
-						Database.get().executeDBInsert(
-								"INSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('" + uuid
-										+ "'), '" + sql_date + "', '" + sql_time + "', " + gesamtpreis + ");");
-					} catch (AbstractButcherException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				
-
-				// Der Automat wird geschlossen, der Einkauf ist beendet
-				System.exit(0);
->>>>>>> daf20bb Resource Language Pakete zu allen Klassen in denen Strings beschrieben werden, die später im Frontend zu sehen sind, sowie entsprechende Anpassungen in den Klassen.
 			}
 		});
 	}
@@ -176,7 +113,7 @@ public class Automat extends DefaultFrame {
 	}
 
 	/**
-	 * Panel, welches die �berschrift und alle ausw�hlbaren Produkte beinhaltet
+	 * Panel, welches die  berschrift und alle ausw hlbaren Produkte beinhaltet
 	 */
 	public void createSelectionPanel() {
 		jlbl_title = new JLabel(this.language.getString("product_selection"));
@@ -213,35 +150,25 @@ public class Automat extends DefaultFrame {
 		jlbl_total.setText(MyTools.formatAsCurrency(gesamtpreis));
 	}
 
-<<<<<<< Upstream, based on master
 	public void addPanel(Panel_Selection ps) {
 		warenkorb.add(ps);
 		jp_selectionPanel.add(ps);
-=======
-	@Override
-	protected void setIcon() {
-		try {
-			BufferedImage image = ImageIO.read(new URL(
-					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
-			this.setIconImage(image);
-		} catch (IOException e) {
-			System.err.println(this.language.getString("icon_error"));
-		}
->>>>>>> daf20bb Resource Language Pakete zu allen Klassen in denen Strings beschrieben werden, die später im Frontend zu sehen sind, sowie entsprechende Anpassungen in den Klassen.
 	}
-	private void buyButtonPressed() {
-		// Zuerst wird der Kunde nach Bestätigung gefragt.
-		String[] options = { "Ja, bezahlen", "Nein, zurueck" };
-		int eingabe = JOptionPane.showOptionDialog(null, "Moechten Sie den Kaufvorgang abschliessen und bezahlen?",
-				"Bestätigung", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
-		// Der Dialog schließt sich, der Kunde kann weiter einkaufen
+	private void buyButtonPressed() {
+		// Zuerst wird der Kunde nach Best�tigung gefragt.
+		String[] options = { this.language.getString("option_yes"), this.language.getString("option_no") };
+		int eingabe = JOptionPane.showOptionDialog(null, this.language.getString("buy_question"),
+				this.language.getString("confirmation"), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+				options, options[0]);
+
+		// Der Dialog schlie�t sich, der Kunde kann weiter einkaufen
 		if (eingabe == 1) {
 		}
-		// Nur falls er den Vorgang abschließen will erscheint ein neuer Dialog.
+		// Nur falls er den Vorgang abschlie�en will erscheint ein neuer Dialog.
 		if (eingabe == 0) {
 			try {
-				JOptionPane.showMessageDialog(null, Payment.get().processPurchase(), "Danke!",
+				JOptionPane.showMessageDialog(null, Payment.get().processPurchase(), this.language.getString("thanks"),
 						JOptionPane.INFORMATION_MESSAGE);
 			} catch (HeadlessException e2) {
 				// TODO Auto-generated catch block
@@ -251,7 +178,7 @@ public class Automat extends DefaultFrame {
 				e2.printStackTrace();
 			}
 
-			// generieren eines Universally Unique Identifiers für jeden Einkauf
+			// generieren eines Universally Unique Identifiers f�r jeden Einkauf
 			String uuid = UUID.randomUUID().toString();
 			uuid = uuid.replace("-", "");
 
@@ -274,6 +201,7 @@ public class Automat extends DefaultFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+
 			// Der Automat wird geschlossen, der Einkauf ist beendet
 			System.exit(0);
 		}
@@ -281,6 +209,7 @@ public class Automat extends DefaultFrame {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		berechneGesamtpreis();		
+		berechneGesamtpreis();
 	}
 }
+
