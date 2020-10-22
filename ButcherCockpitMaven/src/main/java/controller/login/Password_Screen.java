@@ -1,11 +1,8 @@
 package controller.login;
 
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 import javax.swing.*;
 
@@ -13,9 +10,8 @@ import errorhandling.AbstractButcherException;
 import models.Credentials;
 import view.DefaultFrame;
 
+@SuppressWarnings("serial")
 public class Password_Screen extends DefaultFrame implements ActionListener {
-
-//	Container c;
 
 	JPasswordField password_field;
 	JTextField user_field;

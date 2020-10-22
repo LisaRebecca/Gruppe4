@@ -1,15 +1,7 @@
 package view;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import data.Select_Statements;
-import errorhandling.AbstractButcherException;
 
 /**
  * Die Klasse UserInterface dient der Darstellung des ButcherCockpits, also der

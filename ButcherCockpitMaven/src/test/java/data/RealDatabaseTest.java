@@ -1,18 +1,12 @@
 package data;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import javax.swing.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import errorhandling.AbstractButcherException;
-import junit.framework.Assert;
 import models.Credentials;
 
 @SuppressWarnings("serial")

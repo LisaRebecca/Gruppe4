@@ -3,7 +3,6 @@ package models;
 public class Credentials {
 	private static String username;
 	private static String password;
-	private static boolean isSet;
 
 	public static void setUsername(String username) {
 		Credentials.username = username;

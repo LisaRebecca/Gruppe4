@@ -1,9 +1,5 @@
 package payment;
 
-import java.sql.SQLException;
-
-import javax.swing.JTable;
-
 public abstract class Payment {
 	
 //**ActionListener Zahlungsmethode auswählen 

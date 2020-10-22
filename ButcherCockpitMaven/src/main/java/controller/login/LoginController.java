@@ -5,7 +5,6 @@ import errorhandling.AbstractButcherException;
 public abstract class LoginController {
 	
 	private static LoginController loginController = null;
-//	private boolean isLoggedIn = false;
 	
 	public static LoginController get() {
 		return loginController;

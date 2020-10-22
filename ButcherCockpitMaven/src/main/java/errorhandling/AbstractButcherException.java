@@ -1,5 +1,6 @@
 package errorhandling;
 
+@SuppressWarnings("serial")
 public abstract class AbstractButcherException extends Exception {
 	final private String errorMessage;
 	final private String errorTitle;

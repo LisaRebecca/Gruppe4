@@ -1,12 +1,10 @@
 package view;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import Tools.MyTools;
