@@ -17,7 +17,7 @@ public class MockDatabase extends Database {
 	}
 
 	@Override
-	public ResultSet executeDBQuery(String select_statement) {
+	public ResultSet executeDBQuery(Select_Statements stmt) {
 		return (ResultSet) emptyTable;
 	}
 
