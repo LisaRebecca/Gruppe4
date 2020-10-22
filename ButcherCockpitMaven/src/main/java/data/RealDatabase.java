@@ -3,9 +3,7 @@ package data;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.Vector;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -43,9 +41,9 @@ public class RealDatabase extends Database {
 	 * @throws SQLException
 	 */
 	@Override
-	public ResultSet executeDBQuery(String select_statement) throws AbstractButcherException {
+	public ResultSet executeDBQuery(Select_Statements stmt) throws AbstractButcherException {
 		try {
-			return conn.createStatement().executeQuery(select_statement);
+			return conn.createStatement().executeQuery(stmt.getStatement());
 		} catch (SQLException e) {
 			throw new ButcherException(e, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter");
 		}

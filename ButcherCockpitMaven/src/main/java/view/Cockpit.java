@@ -9,9 +9,6 @@ import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import controller.Select_Statements;
-import errorhandling.AbstractButcherException;
-
 /**
  * Die Klasse UserInterface dient der Darstellung des ButcherCockpits, also der
  * internen Benutzeroberflaeche fuer den Metzger.
@@ -39,7 +36,7 @@ class Cockpit extends DefaultFrame {
 
 
 		/**
-		 * Tabs werden hinzugefügt
+		 * Tabs werden hinzugefï¿½gt
 		 */
 
 		c.setLayout(new BorderLayout());

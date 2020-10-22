@@ -1,13 +1,11 @@
 package view;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ResourceBundle;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import Tools.MyTools;
@@ -125,8 +123,9 @@ public class Panel_Selection extends JPanel {
 	 */
 	public void aktualisierePreis() {
 		double new_preis = (getPortion().getPortionspreis() * getAmount());
-		changes.firePropertyChange("preis", getPreis(), new_preis);
+		double old_price = getPreis();
 		jlbl_preis.setText("" + MyTools.formatAsCurrency(new_preis));
+		changes.firePropertyChange("preis", old_price, new_preis);
 	}
 
 	/**
