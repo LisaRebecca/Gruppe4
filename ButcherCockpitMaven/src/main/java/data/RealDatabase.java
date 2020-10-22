@@ -1,16 +1,21 @@
 package data;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
+import java.util.Vector;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import controller.login.LoginController;
 import errorhandling.AbstractButcherException;
 import errorhandling.ButcherException;
+import controller.login.LoginController;
+import data.Database;
 import models.Credentials;
 
 /**
@@ -19,6 +24,9 @@ import models.Credentials;
  * auszulesen. Zusätzlich kann diese Klasse auch Tupel in Tabellen einf�gen.
  */
 public class RealDatabase extends Database {
+	
+	private final ResourceBundle language;
+	
 	/**
 	 * Verbindung zur Datenbank
 	 */
@@ -29,6 +37,8 @@ public class RealDatabase extends Database {
 	}
 
 	public RealDatabase() {
+		this.language = ResourceBundle.getBundle("i18n/real_database/real_database_de");
+		
 		isConnected = false;
 	}
 
@@ -40,13 +50,16 @@ public class RealDatabase extends Database {
 	 * @return die angefragten Daten in der Form eines {@link JTable}
 	 * @throws SQLException
 	 */
-	@Override
-	public ResultSet executeDBQuery(Select_Statements stmt) throws AbstractButcherException {
+	
+	public JTable executeDBQuery(String select_statement) throws AbstractButcherException {
+		ResultSet result = null;
 		try {
-			return conn.createStatement().executeQuery(stmt.getStatement());
+			result = conn.createStatement().executeQuery(select_statement);
+			return buildJTable(result);
 		} catch (SQLException e) {
-			throw new ButcherException(e, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter");
+			throw new ButcherException(e, this.language.getString("error"), this.language.getString("error_message"));
 		}
+	
 	}
 
 	/**
@@ -61,7 +74,7 @@ public class RealDatabase extends Database {
 		try {
 			conn.createStatement().execute(insert_statement);
 		} catch (SQLException e) {
-			throw new ButcherException(e, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter");
+			throw new ButcherException(e, this.language.getString("error"), this.language.getString("error_message"));
 		}
 
 	}
@@ -79,7 +92,38 @@ public class RealDatabase extends Database {
 	 *         beinhaltet
 	 * @throws SQLException beim auslesen der Daten kam es zu einem Fehler
 	 */
-		
+	public JTable buildJTable(ResultSet result) throws AbstractButcherException {
+		Vector<Vector<String>> rows;
+		Vector<String> columnLabels;
+
+		ResultSetMetaData metaData;
+		try {
+			metaData = result.getMetaData();
+		 
+
+		int columnCount = metaData.getColumnCount();
+		columnLabels = new Vector<String>();
+
+		for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+			columnLabels.add(metaData.getColumnLabel(columnIndex));
+		}
+
+		rows = new Vector<Vector<String>>();
+		Vector<String> singleRow;
+		while (result.next()) {
+			singleRow = new Vector<String>();
+			for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+				singleRow.add("" + result.getObject(columnIndex));
+			}
+			rows.add(singleRow);
+		}
+		return new JTable(new DefaultTableModel(rows, columnLabels));
+		}
+		catch (SQLException e) {
+			throw new ButcherException(e, this.language.getString("error"), this.language.getString("error_message"));
+		}
+	}
+
 	public void establishConnection() throws AbstractButcherException{
 		String userName = Credentials.getUsername();
 		String password = Credentials.getPassword();
@@ -89,9 +133,15 @@ public class RealDatabase extends Database {
 					.getConnection("jdbc:mysql://localhost:3306/metzgerei?user=" + userName + "&password=" + password));
 		}
 		 catch (SQLException e) {
-			throw new ButcherException(e, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter");
+			throw new ButcherException(e, this.language.getString("error"), this.language.getString("error_message"));
 		}
 		isConnected = true;
 		LoginController.get().giveControl();
+	}
+
+	@Override
+	public ResultSet executeDBQuery(Select_Statements stmt) throws AbstractButcherException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -3,8 +3,8 @@ package errorhandling;
 public class CreditCardException extends Exception{
 	CreditCardException() {
 		super("Ihre Kreditkartenzahlung ist leider fehlgeschlagen." 
-				+ "HÃ¤ufigste Ursache: Eingabe eines falschen Pincodes."
-				+ "Bitte versuchen Sie es erneut oder wÃ¤hlen Sie eine andere Zahlungsmethode." 
-				+ "Wir entschuldigen uns fÃ¼r die Unannehmlichkeit.");
+				+ "Häufigste Ursache: Eingabe eines falschen Pincodes."
+				+ "Bitte versuchen Sie es erneut oder wählen Sie eine andere Zahlungsmethode." 
+				+ "Wir entschuldigen uns für die Unannehmlichkeit.");
 	}
 }

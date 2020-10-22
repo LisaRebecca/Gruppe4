@@ -1,23 +1,17 @@
 package view;
 
 import data.Database;
+
 import errorhandling.AbstractButcherException;
 import payment.Payment;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-
-import javax.imageio.ImageIO;
-import javax.sound.sampled.Port;
 
 import java.util.ArrayList;
 import java.util.Date;

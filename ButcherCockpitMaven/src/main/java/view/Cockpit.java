@@ -1,12 +1,7 @@
 package view;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
@@ -16,8 +11,6 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 class Cockpit extends DefaultFrame {
 
-	private final ResourceBundle language;
-
 	/**
 	 * Menuzeile unten im Cockpit-UI um zwischen den Tabellen/Kacheln zu wechseln
 	 */
@@ -25,7 +18,6 @@ class Cockpit extends DefaultFrame {
 
 	public Cockpit() {
 		super("ButcherCockpit", 500, 550);
-		this.language = ResourceBundle.getBundle("i18n/cockpit/cockpit_de");
 		/**
 		 * Konstruktor erzeugt alle anzuzeigenden Objekte
 		 * 
@@ -36,7 +28,7 @@ class Cockpit extends DefaultFrame {
 
 
 		/**
-		 * Tabs werden hinzugefï¿½gt
+		 * Tabs werden hinzugefügt
 		 */
 
 		c.setLayout(new BorderLayout());
