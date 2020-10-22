@@ -21,6 +21,7 @@ import javax.sound.sampled.Port;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
 import javax.swing.*;
@@ -37,7 +38,9 @@ import Tools.MyTools;
  */
 
 @SuppressWarnings("serial")
-class Automat extends DefaultFrame implements PropertyChangeListener{
+class Automat extends DefaultFrame implements PropertyChangeListener {
+
+	private final ResourceBundle language;
 
 	private JPanel jp_mainPanel;
 	private JPanel jp_selectionPanel;
@@ -49,7 +52,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 	private JButton jb_buy;
 
 	/**
-	 * Warenkorb, enthï¿½lt alle ausgewï¿½hlten Produkte in Form von
+	 * Warenkorb, enth lt alle ausgew hlten Produkte in Form von
 	 * {@link Panel_Selection}
 	 */
 	public ArrayList<Panel_Selection> warenkorb = new ArrayList<Panel_Selection>();
@@ -59,23 +62,24 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 	 */
 	private double gesamtpreis;
 
-
 	/**
 	 * Erzeugen des Automaten-UI inklusive Ueberschrift, Tabelle, GesamtpreisLabel
 	 * und KaufButton mit ActionListener.
 	 * 
-	 * @param resultSet die verfï¿½gbaren Produkte
-	 * @throws SQLException 
+	 * @param resultSet die verf gbaren Produkte
+	 * @throws SQLException
 	 */
 	public Automat() throws SQLException {
-		super("KÃ¼hlautomat", 800, 400);
+		super("Kühlautomat", 800, 400);
+
+		this.language = ResourceBundle.getBundle("i18n/automat/automat_de");
 
 		createBuyButton();
 		createBuyPanel();
 		createSelectionPanel();
 		createMainPanel();
 
-		// Nach dem Einfï¿½gen der Elemente wird der JFrame noch einmal aktualisiert.
+		// Nach dem Einf gen der Elemente wird der JFrame noch einmal aktualisiert.
 		this.revalidate();
 	}
 
@@ -83,7 +87,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 	 * Button zum Kaufen wird erstellt
 	 */
 	public void createBuyButton() {
-		jb_buy = new JButton("Kaufen");
+		jb_buy = new JButton(this.language.getString("buy_btn"));
 		jb_buy.setBackground(Color.white);
 		jb_buy.addActionListener(new ActionListener() {
 
@@ -109,10 +113,10 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 	}
 
 	/**
-	 * Panel, welches die ï¿½berschrift und alle auswï¿½hlbaren Produkte beinhaltet
+	 * Panel, welches die  berschrift und alle ausw hlbaren Produkte beinhaltet
 	 */
 	public void createSelectionPanel() {
-		jlbl_title = new JLabel("Bitte waehlen Sie Ihre Produkte aus:");
+		jlbl_title = new JLabel(this.language.getString("product_selection"));
 		jlbl_title.setFont(headerfont);
 		jp_selectionPanel = new JPanel(new GridLayout(0, 1));
 		jp_selectionPanel.add(jlbl_title);
@@ -150,19 +154,21 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 		warenkorb.add(ps);
 		jp_selectionPanel.add(ps);
 	}
-	private void buyButtonPressed() {
-		// Zuerst wird der Kunde nach BestÃ¤tigung gefragt.
-		String[] options = { "Ja, bezahlen", "Nein, zurueck" };
-		int eingabe = JOptionPane.showOptionDialog(null, "Moechten Sie den Kaufvorgang abschliessen und bezahlen?",
-				"BestÃ¤tigung", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
-		// Der Dialog schlieÃŸt sich, der Kunde kann weiter einkaufen
+	private void buyButtonPressed() {
+		// Zuerst wird der Kunde nach Bestätigung gefragt.
+		String[] options = { this.language.getString("option_yes"), this.language.getString("option_no") };
+		int eingabe = JOptionPane.showOptionDialog(null, this.language.getString("buy_question"),
+				this.language.getString("confirmation"), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+				options, options[0]);
+
+		// Der Dialog schließt sich, der Kunde kann weiter einkaufen
 		if (eingabe == 1) {
 		}
-		// Nur falls er den Vorgang abschlieÃŸen will erscheint ein neuer Dialog.
+		// Nur falls er den Vorgang abschließen will erscheint ein neuer Dialog.
 		if (eingabe == 0) {
 			try {
-				JOptionPane.showMessageDialog(null, Payment.get().processPurchase(), "Danke!",
+				JOptionPane.showMessageDialog(null, Payment.get().processPurchase(), this.language.getString("thanks"),
 						JOptionPane.INFORMATION_MESSAGE);
 			} catch (HeadlessException e2) {
 				// TODO Auto-generated catch block
@@ -172,7 +178,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 				e2.printStackTrace();
 			}
 
-			// generieren eines Universally Unique Identifiers fÃ¼r jeden Einkauf
+			// generieren eines Universally Unique Identifiers für jeden Einkauf
 			String uuid = UUID.randomUUID().toString();
 			uuid = uuid.replace("-", "");
 
@@ -195,6 +201,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+
 			// Der Automat wird geschlossen, der Einkauf ist beendet
 			System.exit(0);
 		}
@@ -202,6 +209,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		berechneGesamtpreis();		
+		berechneGesamtpreis();
 	}
 }
+
