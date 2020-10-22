@@ -2,7 +2,8 @@ package payment;
 
 import java.util.ResourceBundle;
 
-import Tools.GiftCardException;
+
+import errorhandling.GiftCardException;
 import payment.Payment;
 
 public class GiftCard extends Payment{

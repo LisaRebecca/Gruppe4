@@ -2,7 +2,8 @@ package payment;
 
 import java.util.ResourceBundle;
 
-import Tools.CreditCardException;
+
+import errorhandling.CreditCardException;
 import payment.Payment;
 
 public class CreditCard extends Payment{
