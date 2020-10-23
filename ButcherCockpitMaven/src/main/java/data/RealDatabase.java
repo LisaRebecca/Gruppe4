@@ -1,6 +1,5 @@
 package data;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,9 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import errorhandling.AbstractButcherException;
 import errorhandling.ButcherException;
-
 import errorhandling.SQLButcherException;
-
 import controller.login.LoginController;
 import data.Database;
 
@@ -28,9 +25,9 @@ import models.Credentials;
  * auszulesen. Zusätzlich kann diese Klasse auch Tupel in Tabellen einf�gen.
  */
 public class RealDatabase extends Database {
-	
+
 	private final ResourceBundle language;
-	
+
 	/**
 	 * Verbindung zur Datenbank
 	 */
@@ -42,7 +39,7 @@ public class RealDatabase extends Database {
 
 	public RealDatabase() {
 		this.language = ResourceBundle.getBundle("i18n/real_database/real_database_de");
-		
+
 		isConnected = false;
 	}
 
@@ -55,20 +52,16 @@ public class RealDatabase extends Database {
 	 * @throws SQLException
 	 */
 
-
-	
-	public JTable executeDBQuery(String select_statement) throws AbstractButcherException {
-		ResultSet result = null;
-
+	@Override
+	public ResultSet executeDBQuery(Select_Statements stmt) throws AbstractButcherException {
 		try {
-			result = conn.createStatement().executeQuery(select_statement);
-			return buildJTable(result);
+			return conn.createStatement().executeQuery(stmt.getStatement());
 		} catch (SQLException e) {
 
 			throw new ButcherException(e, this.language.getString("error"), this.language.getString("error_message"));
 
 		}
-	
+
 	}
 
 	/**
@@ -110,50 +103,42 @@ public class RealDatabase extends Database {
 		ResultSetMetaData metaData;
 		try {
 			metaData = result.getMetaData();
-		 
 
-		int columnCount = metaData.getColumnCount();
-		columnLabels = new Vector<String>();
+			int columnCount = metaData.getColumnCount();
+			columnLabels = new Vector<String>();
 
-		for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-			columnLabels.add(metaData.getColumnLabel(columnIndex));
-		}
-
-		rows = new Vector<Vector<String>>();
-		Vector<String> singleRow;
-		while (result.next()) {
-			singleRow = new Vector<String>();
 			for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-				singleRow.add("" + result.getObject(columnIndex));
+				columnLabels.add(metaData.getColumnLabel(columnIndex));
 			}
-			rows.add(singleRow);
-		}
-		return new JTable(new DefaultTableModel(rows, columnLabels));
-		}
-		catch (SQLException e) {
+
+			rows = new Vector<Vector<String>>();
+			Vector<String> singleRow;
+			while (result.next()) {
+				singleRow = new Vector<String>();
+				for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+					singleRow.add("" + result.getObject(columnIndex));
+				}
+				rows.add(singleRow);
+			}
+			return new JTable(new DefaultTableModel(rows, columnLabels));
+		} catch (SQLException e) {
 			throw new ButcherException(e, this.language.getString("error"), this.language.getString("error_message"));
 		}
 	}
 
-	public void establishConnection() throws AbstractButcherException{
+	public void establishConnection() throws AbstractButcherException {
 		String userName = Credentials.getUsername();
 		String password = Credentials.getPassword();
 
 		try {
 			((RealDatabase) Database.get()).setConn(DriverManager
 					.getConnection("jdbc:mysql://localhost:3306/metzgerei?user=" + userName + "&password=" + password));
-		}
-		 catch (SQLException e) {
-			throw new ButcherException(e, this.language.getString("error"), this.language.getString("error_message"));
+		} catch (SQLException e) {
+			ExceptionHandler.get().showException(new ButcherException(e, this.language.getString("error"),
+					this.language.getString("error_message")));
 		}
 
 		isConnected = true;
 		LoginController.get().giveControl();
-	}
-
-	@Override
-	public ResultSet executeDBQuery(Select_Statements stmt) throws AbstractButcherException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
