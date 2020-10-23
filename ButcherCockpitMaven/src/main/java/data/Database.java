@@ -17,7 +17,7 @@ public abstract class Database {
 	}
 	
 	public abstract void establishConnection() throws  AbstractButcherException;
-	public abstract ResultSet executeDBQuery(String select_statement) throws SQLButcherException;
+	public abstract ResultSet executeDBQuery(Select_Statements stmt) throws SQLButcherException;
 	public abstract void executeDBInsert(String insert_statement) throws SQLButcherException ;
 
 }
