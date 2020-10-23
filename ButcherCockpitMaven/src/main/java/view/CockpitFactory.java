@@ -9,7 +9,7 @@ public class CockpitFactory extends Factory{
 	private final ResourceBundle language;
 	
 	public CockpitFactory() {
-		this.language = ResourceBundle.getBundle("i18n/automat/automat_de");
+		this.language = ResourceBundle.getBundle("i18n/cockpit/cockpit_de");
 	}
 
 	@Override
