@@ -10,6 +10,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import errorhandling.ButcherException;
+import errorhandling.ExceptionHandler;
 
 public class MyTools {
 	public static final NumberFormat currencyFormatter = NumberFormat.getInstance();
@@ -26,22 +27,20 @@ public class MyTools {
 		return currencyFormatter.format(d) + Currency_Symbol.getCurrency_Symbol();
 	}
 
-	public static JTable resultSetToTable(ResultSet result) throws ButcherException {
-		Vector<Vector<String>> rows;
-		Vector<String> columnLabels;
+	public static JTable resultSetToTable(ResultSet result) {
+		Vector<Vector<String>> rows = new Vector<Vector<String>>();
+		Vector<String> columnLabels = new Vector<String>();
 
 		ResultSetMetaData metaData;
 		try {
 			metaData = result.getMetaData();
 
 			int columnCount = metaData.getColumnCount();
-			columnLabels = new Vector<String>();
 
 			for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
 				columnLabels.add(metaData.getColumnLabel(columnIndex));
 			}
 
-			rows = new Vector<Vector<String>>();
 			Vector<String> singleRow;
 			while (result.next()) {
 				singleRow = new Vector<String>();
@@ -50,9 +49,11 @@ public class MyTools {
 				}
 				rows.add(singleRow);
 			}
-			return new JTable(new DefaultTableModel(rows, columnLabels));
 		} catch (SQLException e) {
-			throw new ButcherException(e, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter");
+			ExceptionHandler.get().showException(
+					new ButcherException(e, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter"));
+			columnLabels.add("Error while loading Database...");
 		}
+		return new JTable(new DefaultTableModel(rows, columnLabels));
 	}
 }

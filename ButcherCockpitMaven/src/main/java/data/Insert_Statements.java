@@ -1,5 +1,5 @@
 package data;
 
-public class Insert_Statement {
+public class Insert_Statements {
 
 }

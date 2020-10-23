@@ -6,25 +6,27 @@ import java.sql.SQLException;
 import data.Database;
 import data.Select_Statements;
 import errorhandling.AbstractButcherException;
+import errorhandling.ButcherException;
+import errorhandling.ExceptionHandler;
+import errorhandling.SQLButcherException;
 
 public class AutomatFactory extends Factory {
 
 	@Override
-	public void construct() {
+	public void construct() throws AbstractButcherException{
 		Automat automat = null;
-		try {
-			automat = new Automat();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
+		automat = new Automat();
+		
 		ResultSet rs_products = null;
+
+		
 		try {
 			rs_products = Database.get().executeDBQuery(Select_Statements.AUTOMAT_PRODUCTS);
 		} catch (AbstractButcherException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		try {
 			while (rs_products.next()) {
 				Portion portion = new Portion();
@@ -39,7 +41,7 @@ public class AutomatFactory extends Factory {
 				automat.addPanel(ps);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new SQLButcherException(e);
 		}
 	}
 }

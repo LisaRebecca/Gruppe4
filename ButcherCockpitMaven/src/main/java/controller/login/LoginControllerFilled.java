@@ -4,6 +4,7 @@ import view.Factory;
 import controller.Main;
 import data.Database;
 import errorhandling.AbstractButcherException;
+import errorhandling.ButcherException;
 import models.Credentials;
 
 public class LoginControllerFilled extends LoginController {
@@ -12,7 +13,12 @@ public class LoginControllerFilled extends LoginController {
 	public void giveControl() throws AbstractButcherException {
 		if (Credentials.getIsSet()) {
 			if (Database.get().isConnected) {
-				Factory.get().construct();
+				try {
+					Factory.get().construct();
+				} catch (AbstractButcherException e) {
+					throw new ButcherException(e, "Fehler in der Darstellung",
+							"Bitte Mitarbeiter/ IT-support kontaktieren");
+				}
 			} else {
 				Database.get().establishConnection();
 			}
