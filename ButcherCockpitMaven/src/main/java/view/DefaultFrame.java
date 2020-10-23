@@ -54,5 +54,9 @@ public abstract class DefaultFrame extends JFrame {
 		} catch (IOException e) {
 			System.err.println("Icon des Automaten konnte nicht geladen werden.");
 		}
+
+		
+	
+	
 	}
 }

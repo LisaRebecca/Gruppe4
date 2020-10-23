@@ -17,8 +17,8 @@ import view.Factory;
 
 public class Main {
 	public static void main(String[] args) {
- 		LoginController.set(new LoginControllerStandard());
-// 		LoginController.set(new LoginControllerFilled());
+ 	LoginController.set(new LoginControllerStandard());
+ 		//LoginController.set(new LoginControllerFilled());
  		
  		Database.set(new RealDatabase());
 // 		Database.set(new MockDatabase());
@@ -35,7 +35,7 @@ public class Main {
  			ExceptionHandler.get().showException(e);
  
  		}
- 		Factory.set(new CockpitFactory());
-// 		Factory.set(new AutomatFactory());
+ 		//Factory.set(new CockpitFactory());
+		Factory.set(new AutomatFactory());
 	}
 }
