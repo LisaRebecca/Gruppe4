@@ -13,9 +13,10 @@ import javax.swing.table.DefaultTableModel;
 
 import errorhandling.AbstractButcherException;
 import errorhandling.ButcherException;
-import errorhandling.ExceptionHandler;
+import errorhandling.SQLButcherException;
 import controller.login.LoginController;
 import data.Database;
+
 import models.Credentials;
 
 /**
@@ -56,7 +57,9 @@ public class RealDatabase extends Database {
 		try {
 			return conn.createStatement().executeQuery(stmt.getStatement());
 		} catch (SQLException e) {
+
 			throw new ButcherException(e, this.language.getString("error"), this.language.getString("error_message"));
+
 		}
 
 	}
@@ -69,11 +72,13 @@ public class RealDatabase extends Database {
 	 * @throws SQLException
 	 */
 	@Override
-	public void executeDBInsert(String insert_statement) throws AbstractButcherException {
+	public void executeDBInsert(String insert_statement) throws SQLButcherException {
 		try {
 			conn.createStatement().execute(insert_statement);
 		} catch (SQLException e) {
+
 			throw new ButcherException(e, this.language.getString("error"), this.language.getString("error_message"));
+
 		}
 
 	}
@@ -132,6 +137,7 @@ public class RealDatabase extends Database {
 			ExceptionHandler.get().showException(new ButcherException(e, this.language.getString("error"),
 					this.language.getString("error_message")));
 		}
+
 		isConnected = true;
 		LoginController.get().giveControl();
 	}

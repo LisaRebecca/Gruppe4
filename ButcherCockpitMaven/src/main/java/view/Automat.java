@@ -3,6 +3,9 @@ package view;
 import data.Database;
 
 import errorhandling.AbstractButcherException;
+import errorhandling.ExceptionHandler;
+import errorhandling.PaymentButcherException;
+import errorhandling.SQLButcherException;
 import payment.Payment;
 
 import java.awt.*;
@@ -63,10 +66,12 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 	 * @param resultSet die verf gbaren Produkte
 	 * @throws SQLException
 	 */
-	public Automat() throws SQLException {
-		super("K¸hlautomat", 800, 400);
+
+	public Automat() throws AbstractButcherException {
+		super("K√É¬ºhlautomat", 800, 400);
 
 		this.language = ResourceBundle.getBundle("i18n/automat/automat_de");
+
 
 		createBuyButton();
 		createBuyPanel();
@@ -86,8 +91,12 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 		jb_buy.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				buyButtonPressed();
+			public void actionPerformed(ActionEvent ae){
+				try {
+					buyButtonPressed();
+				} catch (AbstractButcherException e) {
+					ExceptionHandler.get().showException(e);
+				}
 			}
 		});
 	}
@@ -149,30 +158,28 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 		jp_selectionPanel.add(ps);
 	}
 
-	private void buyButtonPressed() {
-		// Zuerst wird der Kunde nach Best‰tigung gefragt.
+	private void buyButtonPressed() throws AbstractButcherException{
+		// Zuerst wird der Kunde nach Best√§tigung gefragt.
 		String[] options = { this.language.getString("option_yes"), this.language.getString("option_no") };
 		int eingabe = JOptionPane.showOptionDialog(null, this.language.getString("buy_question"),
 				this.language.getString("confirmation"), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 				options, options[0]);
 
-		// Der Dialog schlieﬂt sich, der Kunde kann weiter einkaufen
+
+		// Der Dialog schlie√üt sich, der Kunde kann weiter einkaufen
 		if (eingabe == 1) {
 		}
-		// Nur falls er den Vorgang abschlieﬂen will erscheint ein neuer Dialog.
+		// Nur falls er den Vorgang abschlie√üen will erscheint ein neuer Dialog.
 		if (eingabe == 0) {
 			try {
 				JOptionPane.showMessageDialog(null, Payment.get().processPurchase(), this.language.getString("thanks"),
 						JOptionPane.INFORMATION_MESSAGE);
-			} catch (HeadlessException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
 			} catch (Exception e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
+				throw new PaymentButcherException(e2);
+			
 			}
 
-			// generieren eines Universally Unique Identifiers f¸r jeden Einkauf
+			// generieren eines Universally Unique Identifiers f√ºr jeden Einkauf
 			String uuid = UUID.randomUUID().toString();
 			uuid = uuid.replace("-", "");
 
@@ -187,14 +194,11 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 
 			// Der Einkauf wird als Statistik in der Datenbank hinterlegt.
 
-			try {
-				Database.get().executeDBInsert(
-						"INSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('" + uuid
-								+ "'), '" + sql_date + "', '" + sql_time + "', " + gesamtpreis + ");");
-			} catch (AbstractButcherException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			Database.get().executeDBInsert(
+					"INSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('" + uuid
+							+ "'), '" + sql_date + "', '" + sql_time + "', " + gesamtpreis + ");");
+			
+			
 
 			// Der Automat wird geschlossen, der Einkauf ist beendet
 			System.exit(0);

@@ -1,5 +1,7 @@
 package view;
 
+import errorhandling.AbstractButcherException;
+
 public abstract class Factory {
 
 	
@@ -13,5 +15,5 @@ public abstract class Factory {
 		Factory.factory = factory;
 	}
 	
-	public abstract void construct();
+	public abstract void construct() throws AbstractButcherException;
 }

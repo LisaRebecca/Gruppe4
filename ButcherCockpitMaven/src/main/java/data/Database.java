@@ -2,6 +2,7 @@ package data;
 
 import java.sql.ResultSet;
 import errorhandling.AbstractButcherException;
+import errorhandling.SQLButcherException;
 
 public abstract class Database {
 	private static Database database;
@@ -15,7 +16,8 @@ public abstract class Database {
 		Database.database = database;
 	}
 	
-	public abstract void establishConnection() throws AbstractButcherException;
-	public abstract ResultSet executeDBQuery(Select_Statements stmt) throws AbstractButcherException;
-	public abstract void executeDBInsert(String insert_statement) throws AbstractButcherException ;
+	public abstract void establishConnection() throws  AbstractButcherException;
+	public abstract ResultSet executeDBQuery(String select_statement) throws SQLButcherException;
+	public abstract void executeDBInsert(String insert_statement) throws SQLButcherException ;
+
 }

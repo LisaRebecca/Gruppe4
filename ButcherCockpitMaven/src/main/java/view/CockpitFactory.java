@@ -1,8 +1,13 @@
 package view;
 
+
+import controller.Select_Statements;
+import errorhandling.AbstractButcherException;
+import errorhandling.ButcherException;
 import java.util.ResourceBundle;
 
 import data.Select_Statements;
+
 
 public class CockpitFactory extends Factory{
 	
@@ -13,12 +18,14 @@ public class CockpitFactory extends Factory{
 	}
 
 	@Override
-	public void construct() {
+
+	public void construct() throws AbstractButcherException {
 		Cockpit cockpit = new Cockpit();
 		cockpit.addTile(TileFactory.getTile(Select_Statements.AUTOMAT, this.language.getString("automat_label")));
 		cockpit.addTile(TileFactory.getTile(Select_Statements.FULL_STOCK, this.language.getString("stock_label")));
 		cockpit.addTile(TileFactory.getTile(Select_Statements.PRODUCTS, this.language.getString("product_label")));
 		cockpit.addTile(TileFactory.getTile(Select_Statements.PURCHASES, this.language.getString("sales_label")));
+
 	}
 
 }
