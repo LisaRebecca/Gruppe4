@@ -5,6 +5,9 @@ import java.sql.SQLException;
 
 import data.Database;
 import errorhandling.AbstractButcherException;
+import errorhandling.ButcherException;
+import errorhandling.ExceptionHandler;
+import errorhandling.SQLButcherException;
 
 public class AutomatFactory extends Factory {
 
@@ -12,21 +15,13 @@ public class AutomatFactory extends Factory {
 			+ "WHERE lagerort='automat1';";
 
 	@Override
-	public void construct() {
+	public void construct() throws AbstractButcherException{
 		Automat automat = null;
-		try {
-			automat = new Automat();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
+		automat = new Automat();
+		
 		ResultSet rs_products = null;
-		try {
-			rs_products = Database.get().executeDBQuery(select);
-		} catch (AbstractButcherException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		rs_products = Database.get().executeDBQuery(select);
+		
 		try {
 			while (rs_products.next()) {
 				Portion portion = new Portion();
@@ -41,7 +36,7 @@ public class AutomatFactory extends Factory {
 				automat.addPanel(ps);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new SQLButcherException(e);
 		}
 	}
 }

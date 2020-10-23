@@ -2,6 +2,9 @@ package view;
 
 import data.Database;
 import errorhandling.AbstractButcherException;
+import errorhandling.ExceptionHandler;
+import errorhandling.PaymentButcherException;
+import errorhandling.SQLButcherException;
 import payment.Payment;
 
 import java.awt.*;
@@ -67,7 +70,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 	 * @param resultSet die verf�gbaren Produkte
 	 * @throws SQLException 
 	 */
-	public Automat() throws SQLException {
+	public Automat() throws AbstractButcherException {
 		super("Kühlautomat", 800, 400);
 
 		createBuyButton();
@@ -88,8 +91,12 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 		jb_buy.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				buyButtonPressed();
+			public void actionPerformed(ActionEvent ae){
+				try {
+					buyButtonPressed();
+				} catch (AbstractButcherException e) {
+					ExceptionHandler.get().showException(e);
+				}
 			}
 		});
 	}
@@ -150,7 +157,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 		warenkorb.add(ps);
 		jp_selectionPanel.add(ps);
 	}
-	private void buyButtonPressed() {
+	private void buyButtonPressed() throws AbstractButcherException {
 		// Zuerst wird der Kunde nach Bestätigung gefragt.
 		String[] options = { "Ja, bezahlen", "Nein, zurueck" };
 		int eingabe = JOptionPane.showOptionDialog(null, "Moechten Sie den Kaufvorgang abschliessen und bezahlen?",
@@ -164,12 +171,9 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 			try {
 				JOptionPane.showMessageDialog(null, Payment.get().processPurchase(), "Danke!",
 						JOptionPane.INFORMATION_MESSAGE);
-			} catch (HeadlessException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
 			} catch (Exception e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
+				throw new PaymentButcherException(e2);
+			
 			}
 
 			// generieren eines Universally Unique Identifiers für jeden Einkauf
@@ -187,14 +191,12 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 
 			// Der Einkauf wird als Statistik in der Datenbank hinterlegt.
 
-			try {
-				Database.get().executeDBInsert(
-						"INSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('" + uuid
-								+ "'), '" + sql_date + "', '" + sql_time + "', " + gesamtpreis + ");");
-			} catch (AbstractButcherException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+	
+			Database.get().executeDBInsert(
+					"INSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('" + uuid
+							+ "'), '" + sql_date + "', '" + sql_time + "', " + gesamtpreis + ");");
+			
+			
 			// Der Automat wird geschlossen, der Einkauf ist beendet
 			System.exit(0);
 		}

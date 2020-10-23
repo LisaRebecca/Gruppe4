@@ -1,12 +1,16 @@
 package view;
 
 import controller.Select_Statements;
+import errorhandling.AbstractButcherException;
+import errorhandling.ButcherException;
 
 public class CockpitFactory extends Factory{
 
 	@Override
-	public void construct() {
-		Cockpit cockpit = new Cockpit();
+	public void construct() throws AbstractButcherException {
+	Cockpit cockpit = new Cockpit();
+	
+		
 		cockpit.addTile(TileFactory.getTile(Select_Statements.select_automat, "Füllstand Automat"));
 		cockpit.addTile(TileFactory.getTile(Select_Statements.select_full_stock, "Lagerbestand"));
 		cockpit.addTile(TileFactory.getTile(Select_Statements.select_products, "Produktportfolio"));

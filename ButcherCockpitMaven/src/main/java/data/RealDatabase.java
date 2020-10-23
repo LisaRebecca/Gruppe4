@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import controller.login.LoginController;
 import errorhandling.AbstractButcherException;
 import errorhandling.ButcherException;
+import errorhandling.SQLButcherException;
 import models.Credentials;
 
 /**
@@ -43,11 +44,11 @@ public class RealDatabase extends Database {
 	 * @throws SQLException
 	 */
 	@Override
-	public ResultSet executeDBQuery(String select_statement) throws AbstractButcherException {
+	public ResultSet executeDBQuery(String select_statement) throws SQLButcherException {
 		try {
 			return conn.createStatement().executeQuery(select_statement);
 		} catch (SQLException e) {
-			throw new ButcherException(e, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter");
+			throw new SQLButcherException(e);
 		}
 	}
 
@@ -59,11 +60,11 @@ public class RealDatabase extends Database {
 	 * @throws SQLException
 	 */
 	@Override
-	public void executeDBInsert(String insert_statement) throws AbstractButcherException {
+	public void executeDBInsert(String insert_statement) throws SQLButcherException {
 		try {
 			conn.createStatement().execute(insert_statement);
 		} catch (SQLException e) {
-			throw new ButcherException(e, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter");
+			throw new SQLButcherException(e);
 		}
 
 	}
@@ -91,8 +92,8 @@ public class RealDatabase extends Database {
 					.getConnection("jdbc:mysql://localhost:3306/metzgerei?user=" + userName + "&password=" + password));
 		}
 		 catch (SQLException e) {
-			throw new ButcherException(e, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter");
-		}
+			throw new SQLButcherException(e);
+		 }
 		isConnected = true;
 		LoginController.get().giveControl();
 	}
