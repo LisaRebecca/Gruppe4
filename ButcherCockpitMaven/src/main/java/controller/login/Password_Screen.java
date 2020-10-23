@@ -9,6 +9,8 @@ import javax.swing.*;
 
 import controller.login.LoginController;
 import errorhandling.AbstractButcherException;
+import errorhandling.ButcherException;
+import errorhandling.ExceptionHandler;
 import models.Credentials;
 import view.DefaultFrame;
 
@@ -24,7 +26,8 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 	JLabel password_label;
 	JButton button;
 
-	public Password_Screen(){
+	public Password_Screen() throws AbstractButcherException {
+	
 		
 		super("Login",250,125);
 		this.language = ResourceBundle.getBundle("i18n/password_screen/password_screen_de");
@@ -45,6 +48,12 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 		c.add(password_label);
 		c.add(password_field);
 		c.add(button);
+
+		revalidate();
+		}
+		catch (AbstractButcherException e) {
+			throw new ButcherException(e, "Anmelden fehlgeschlagen", "Bitte wenden Sie sich an einen Mitarbeiter");
+		}
 	}
 
 	@Override
@@ -55,8 +64,7 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 		try {
 			LoginController.get().giveControl();
 		} catch (AbstractButcherException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			ExceptionHandler.get().showException(e1);
 		}
 	}
 }
