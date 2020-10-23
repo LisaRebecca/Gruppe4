@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import errorhandling.ButcherException;
 import errorhandling.ExceptionHandler;
+import errorhandling.SQLButcherException;
 
 public class MyTools {
 	public static final NumberFormat currencyFormatter = NumberFormat.getInstance();
@@ -51,7 +52,7 @@ public class MyTools {
 			}
 		} catch (SQLException e) {
 			ExceptionHandler.get().showException(
-					new ButcherException(e, "Datenbankfehler", "Bitte wenden Sie sich an einen Mitarbeiter"));
+					new SQLButcherException(e));
 			columnLabels.add("Error while loading Database...");
 		}
 		return new JTable(new DefaultTableModel(rows, columnLabels));

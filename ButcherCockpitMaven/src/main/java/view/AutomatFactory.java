@@ -23,8 +23,7 @@ public class AutomatFactory extends Factory {
 		try {
 			rs_products = Database.get().executeDBQuery(Select_Statements.AUTOMAT_PRODUCTS);
 		} catch (AbstractButcherException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ButcherException(e, "Fehler in der Datenbank", "Bitte wenden Sie sich an einen Mitarbeiter");
 		}
 
 		try {

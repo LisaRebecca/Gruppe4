@@ -17,7 +17,7 @@ public class LoginControllerStandard extends LoginController {
 				Factory.get().construct();
 				}
 				catch (AbstractButcherException e) {
-					throw new ButcherException(e, "Fehler in der Darstellung", "Bitte Mitarbeiter/ IT-support kontaktieren");
+					throw new ButcherException(e, "Fehler in der Darstellung", "Bitte Mitarbeiter/ IT-Support kontaktieren");
 				}
 			} else {
 				Database.get().establishConnection();
