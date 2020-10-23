@@ -1,6 +1,7 @@
 package view;
 
 import data.Database;
+
 import errorhandling.AbstractButcherException;
 import errorhandling.ExceptionHandler;
 import errorhandling.PaymentButcherException;
@@ -10,20 +11,14 @@ import payment.Payment;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
-import javax.imageio.ImageIO;
-import javax.sound.sampled.Port;
-
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
 import javax.swing.*;
@@ -40,7 +35,9 @@ import Tools.MyTools;
  */
 
 @SuppressWarnings("serial")
-class Automat extends DefaultFrame implements PropertyChangeListener{
+class Automat extends DefaultFrame implements PropertyChangeListener {
+
+	private final ResourceBundle language;
 
 	private JPanel jp_mainPanel;
 	private JPanel jp_selectionPanel;
@@ -52,7 +49,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 	private JButton jb_buy;
 
 	/**
-	 * Warenkorb, enth�lt alle ausgew�hlten Produkte in Form von
+	 * Warenkorb, enth lt alle ausgew hlten Produkte in Form von
 	 * {@link Panel_Selection}
 	 */
 	public ArrayList<Panel_Selection> warenkorb = new ArrayList<Panel_Selection>();
@@ -62,23 +59,26 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 	 */
 	private double gesamtpreis;
 
-
 	/**
 	 * Erzeugen des Automaten-UI inklusive Ueberschrift, Tabelle, GesamtpreisLabel
 	 * und KaufButton mit ActionListener.
 	 * 
-	 * @param resultSet die verf�gbaren Produkte
-	 * @throws SQLException 
+	 * @param resultSet die verf gbaren Produkte
+	 * @throws SQLException
 	 */
+
 	public Automat() throws AbstractButcherException {
-		super("Kühlautomat", 800, 400);
+		super("KÃ¼hlautomat", 800, 400);
+
+		this.language = ResourceBundle.getBundle("i18n/automat/automat_de");
+
 
 		createBuyButton();
 		createBuyPanel();
 		createSelectionPanel();
 		createMainPanel();
 
-		// Nach dem Einf�gen der Elemente wird der JFrame noch einmal aktualisiert.
+		// Nach dem Einf gen der Elemente wird der JFrame noch einmal aktualisiert.
 		this.revalidate();
 	}
 
@@ -86,7 +86,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 	 * Button zum Kaufen wird erstellt
 	 */
 	public void createBuyButton() {
-		jb_buy = new JButton("Kaufen");
+		jb_buy = new JButton(this.language.getString("buy_btn"));
 		jb_buy.setBackground(Color.white);
 		jb_buy.addActionListener(new ActionListener() {
 
@@ -116,10 +116,10 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 	}
 
 	/**
-	 * Panel, welches die �berschrift und alle ausw�hlbaren Produkte beinhaltet
+	 * Panel, welches die  berschrift und alle ausw hlbaren Produkte beinhaltet
 	 */
 	public void createSelectionPanel() {
-		jlbl_title = new JLabel("Bitte waehlen Sie Ihre Produkte aus:");
+		jlbl_title = new JLabel(this.language.getString("product_selection"));
 		jlbl_title.setFont(headerfont);
 		jp_selectionPanel = new JPanel(new GridLayout(0, 1));
 		jp_selectionPanel.add(jlbl_title);
@@ -157,11 +157,14 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 		warenkorb.add(ps);
 		jp_selectionPanel.add(ps);
 	}
-	private void buyButtonPressed() throws AbstractButcherException {
+
+	private void buyButtonPressed() throws AbstractButcherException{
 		// Zuerst wird der Kunde nach Bestätigung gefragt.
-		String[] options = { "Ja, bezahlen", "Nein, zurueck" };
-		int eingabe = JOptionPane.showOptionDialog(null, "Moechten Sie den Kaufvorgang abschliessen und bezahlen?",
-				"Bestätigung", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		String[] options = { this.language.getString("option_yes"), this.language.getString("option_no") };
+		int eingabe = JOptionPane.showOptionDialog(null, this.language.getString("buy_question"),
+				this.language.getString("confirmation"), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+				options, options[0]);
+
 
 		// Der Dialog schließt sich, der Kunde kann weiter einkaufen
 		if (eingabe == 1) {
@@ -169,7 +172,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 		// Nur falls er den Vorgang abschließen will erscheint ein neuer Dialog.
 		if (eingabe == 0) {
 			try {
-				JOptionPane.showMessageDialog(null, Payment.get().processPurchase(), "Danke!",
+				JOptionPane.showMessageDialog(null, Payment.get().processPurchase(), this.language.getString("thanks"),
 						JOptionPane.INFORMATION_MESSAGE);
 			} catch (Exception e2) {
 				throw new PaymentButcherException(e2);
@@ -191,12 +194,12 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 
 			// Der Einkauf wird als Statistik in der Datenbank hinterlegt.
 
-	
 			Database.get().executeDBInsert(
 					"INSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('" + uuid
 							+ "'), '" + sql_date + "', '" + sql_time + "', " + gesamtpreis + ");");
 			
 			
+
 			// Der Automat wird geschlossen, der Einkauf ist beendet
 			System.exit(0);
 		}
@@ -204,6 +207,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener{
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		berechneGesamtpreis();		
+		berechneGesamtpreis();
 	}
 }
+

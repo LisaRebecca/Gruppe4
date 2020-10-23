@@ -1,17 +1,11 @@
 package view;
 
 import java.awt.*;
-import java.sql.SQLException;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JViewport;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
-
-import Tools.MyTools;
-import data.Database;
-import errorhandling.AbstractButcherException;
 
 /**
  * Die Klasse <code>Tile</code> stellt die Komponenten des {@link Cockpit} dar.
@@ -19,7 +13,6 @@ import errorhandling.AbstractButcherException;
  * Tabellen auf den Kacheln zu gewährleisten.
  */
 
-@SuppressWarnings("serial")
 class Tile extends JScrollPane {
 	
 	private String tilename;

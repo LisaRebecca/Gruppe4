@@ -1,14 +1,13 @@
 package controller.login;
 
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import javax.swing.*;
 
+import controller.login.LoginController;
 import errorhandling.AbstractButcherException;
 import errorhandling.ButcherException;
 import errorhandling.ExceptionHandler;
@@ -18,6 +17,8 @@ import view.DefaultFrame;
 public class Password_Screen extends DefaultFrame implements ActionListener {
 
 //	Container c;
+	
+	private final ResourceBundle language;
 
 	JPasswordField password_field;
 	JTextField user_field;
@@ -26,15 +27,19 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 	JButton button;
 
 	public Password_Screen() throws AbstractButcherException {
+	
+		
 		super("Login",250,125);
+		this.language = ResourceBundle.getBundle("i18n/password_screen/password_screen_de");
+		
 		
 		c.setLayout(new GridLayout(3, 2));
 
-		user_label = new JLabel("Username : ");
-		user_field = new JTextField("");
-		password_label = new JLabel("Password : ");
+		user_label = new JLabel(this.language.getString("username"));
+		user_field = new JTextField("root");
+		password_label = new JLabel(this.language.getString("password"));
 		password_field = new JPasswordField("");
-		button = new JButton("Enter");
+		button = new JButton(this.language.getString("enter"));
 		button.addActionListener(this);
 		button.requestFocusInWindow();
 
@@ -43,6 +48,7 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 		c.add(password_label);
 		c.add(password_field);
 		c.add(button);
+
 		revalidate();
 		}
 		catch (AbstractButcherException e) {

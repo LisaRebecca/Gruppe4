@@ -23,7 +23,7 @@ public class MyTools {
 	public static String formatAsCurrency(double d) {
 		currencyFormatter.setMaximumFractionDigits(2);
 		currencyFormatter.setMinimumFractionDigits(2);
-		return currencyFormatter.format(d) + "€";
+		return currencyFormatter.format(d) + Currency_Symbol.getCurrency_Symbol();
 	}
 
 	public static JTable resultSetToTable(ResultSet result) throws ButcherException {

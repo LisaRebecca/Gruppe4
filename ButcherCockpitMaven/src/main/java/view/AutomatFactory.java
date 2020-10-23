@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import data.Database;
+import data.Select_Statements;
 import errorhandling.AbstractButcherException;
 import errorhandling.ButcherException;
 import errorhandling.ExceptionHandler;
@@ -11,17 +12,21 @@ import errorhandling.SQLButcherException;
 
 public class AutomatFactory extends Factory {
 
-	private static final String select = "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand left join produkte on lagerbestand.produkt = produkte.produkt_id "
-			+ "WHERE lagerort='automat1';";
-
 	@Override
 	public void construct() throws AbstractButcherException{
 		Automat automat = null;
 		automat = new Automat();
 		
 		ResultSet rs_products = null;
-		rs_products = Database.get().executeDBQuery(select);
+
 		
+		try {
+			rs_products = Database.get().executeDBQuery(Select_Statements.AUTOMAT_PRODUCTS);
+		} catch (AbstractButcherException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		try {
 			while (rs_products.next()) {
 				Portion portion = new Portion();
