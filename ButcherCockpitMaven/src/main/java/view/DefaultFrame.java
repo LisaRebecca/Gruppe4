@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public abstract class DefaultFrame extends JFrame {
 
 	/**
-	 * Schriftart fÃ¼r die Ãœberschrift
+	 * Schriftart für die Überschrift
 	 */
 	protected final Font headerfont = new Font("Arial", Font.BOLD, 20);
 	protected Container c;
@@ -43,7 +43,7 @@ public abstract class DefaultFrame extends JFrame {
 	/**
 	 * Setzen des Fenster-Icons. <br>
 	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
-	 * Warnung, da das Bild nicht nÃƒÂ¶tig fÃƒÂ¼r das Funktionieren der Anwendung ist.
+	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
 	 */
 
 	protected void setIcon() {

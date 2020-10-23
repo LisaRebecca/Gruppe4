@@ -3,6 +3,7 @@ package view;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ResourceBundle;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -12,8 +13,10 @@ import Tools.MyTools;
 
 @SuppressWarnings("serial")
 public class Panel_Selection extends JPanel {
+	
+	private final ResourceBundle language;
 	/**
-	 * urspr�nglich sind keine Produkte ausgewählt, Menge = 0
+	 * urspr nglich sind keine Produkte ausgewählt, Menge = 0
 	 */
 	public static final int initialAmount = 0;
 
@@ -44,6 +47,9 @@ public class Panel_Selection extends JPanel {
 	 */
 
 	public Panel_Selection(Portion portion) {
+		
+		this.language = ResourceBundle.getBundle("i18n/panel_selection/panel_selection_de");
+		
 		this.setPortion(portion);
 
 		this.setLayout(new GridLayout(1, 0));
@@ -64,10 +70,16 @@ public class Panel_Selection extends JPanel {
 	 */
 	public void setPortionInfo() {
 		this.add(new JLabel(portion.getName(), SwingConstants.LEFT));
-		this.add(new JLabel("" + portion.getKilopreis() + Currency_Symbol.getCurrency_Symbol() + "/kg",
-				SwingConstants.RIGHT));
-		this.add(new JLabel("" + portion.getLagermenge() + " Portionen " + "à", SwingConstants.RIGHT));
-		this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + "g auf Lager", SwingConstants.LEFT));
+
+		//this.add(new JLabel("" + portion.getKilopreis() + Currency_Symbol.getCurrency_Symbol() + "/kg",
+	//			SwingConstants.RIGHT));
+		//this.add(new JLabel("" + portion.getLagermenge() + " Portionen " + "Ã ", SwingConstants.RIGHT));
+		//this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + "g auf Lager", SwingConstants.LEFT));
+
+		this.add(new JLabel("" + portion.getKilopreis() + this.language.getString("unit"), SwingConstants.RIGHT));
+		this.add(new JLabel("" + portion.getLagermenge() + this.language.getString("portions"), SwingConstants.RIGHT));
+		this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + this.language.getString("grams"), SwingConstants.LEFT));
+
 	}
 
 	/**
@@ -129,7 +141,9 @@ public class Panel_Selection extends JPanel {
 	 */
 	public double getPreis() {
 		String preis = jlbl_preis.getText().replace(',', '.');
+
 		int index = preis.indexOf(Currency_Symbol.getCurrency_Symbol());
+
 		if (index == -1) {
 		} else {
 			preis = preis.substring(0, index);
@@ -138,7 +152,7 @@ public class Panel_Selection extends JPanel {
 	}
 
 	/**
-	 * @return ausgew�hlte Menge als nat�rliche Zahl
+	 * @return ausgew hlte Menge als nat rliche Zahl
 	 */
 	public int getAmount() {
 		return Integer.parseInt(jlbl_amount.getText());
@@ -173,4 +187,5 @@ public class Panel_Selection extends JPanel {
 	public void removePropertyChangeListener(PropertyChangeListener l) {
 		changes.removePropertyChangeListener(l);
 	}
+	
 }

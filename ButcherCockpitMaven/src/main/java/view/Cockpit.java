@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.*;
+
 import javax.swing.*;
 
 /**
@@ -15,19 +16,31 @@ class Cockpit extends DefaultFrame {
 	 */
 	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
 
-	public Cockpit(){
+	public Cockpit() {
 		super("ButcherCockpit", 500, 550);
+		/**
+		 * Konstruktor erzeugt alle anzuzeigenden Objekte
+		 * 
+		 * @throws AbstractButcherException
+		 *
+
+		this.language = ResourceBundle.getBundle("i18n/cockpit/cockpit_de");
+
+
+		/**
+		 * Tabs werden hinzugefügt
+		 */
 
 		c.setLayout(new BorderLayout());
 		c.add(tabbedPane, BorderLayout.CENTER);
 	}
-	
+
 	public void addTile(Tile tile) {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.add(new JLabel(""+tile.getTilename()));
+		panel.add(new JLabel("" + tile.getTilename()));
 		panel.add(tile);
 		tabbedPane.add(panel);
-		tabbedPane.add(""+tile.getTilename(), panel);
+		tabbedPane.add("" + tile.getTilename(), panel);
 	}
 }
