@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
+import Tools.Currency_Symbol;
 import Tools.MyTools;
 
 @SuppressWarnings("serial")
@@ -15,13 +16,13 @@ public class Panel_Selection extends JPanel {
 	
 	private final ResourceBundle language;
 	/**
-	 * urspr nglich sind keine Produkte ausgewählt, Menge = 0
+	 * urspr nglich sind keine Produkte ausgewÃ¤hlt, Menge = 0
 	 */
 	public static final int initialAmount = 0;
 
 	private PropertyChangeSupport changes = new PropertyChangeSupport(this);
 	/**
-	 * Label fuer die ausgewählte Anzahl an Portionen.
+	 * Label fuer die ausgewÃ¤hlte Anzahl an Portionen.
 	 */
 	private JLabel jlbl_amount;
 	/**
@@ -69,48 +70,55 @@ public class Panel_Selection extends JPanel {
 	 */
 	public void setPortionInfo() {
 		this.add(new JLabel(portion.getName(), SwingConstants.LEFT));
+
+		//this.add(new JLabel("" + portion.getKilopreis() + Currency_Symbol.getCurrency_Symbol() + "/kg",
+	//			SwingConstants.RIGHT));
+		//this.add(new JLabel("" + portion.getLagermenge() + " Portionen " + "ÃƒÂ ", SwingConstants.RIGHT));
+		//this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + "g auf Lager", SwingConstants.LEFT));
+
 		this.add(new JLabel("" + portion.getKilopreis() + this.language.getString("unit"), SwingConstants.RIGHT));
 		this.add(new JLabel("" + portion.getLagermenge() + this.language.getString("portions"), SwingConstants.RIGHT));
 		this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + this.language.getString("grams"), SwingConstants.LEFT));
+
 	}
 
 	/**
 	 * Ausgewaehlte Menge anzeigen
 	 */
 	public void setAmountInfo() {
-		setJlbl_amount(new JLabel("" + initialAmount, SwingConstants.CENTER));
-		getJlbl_amount().setBackground(Color.white);
-		this.add(getJlbl_amount());
+		jlbl_amount = new JLabel("" + initialAmount, SwingConstants.CENTER);
+		jlbl_amount.setBackground(Color.white);
+		this.add(jlbl_amount);
 	}
 
 	/**
 	 * Button zum Erhoehen der Menge
 	 */
 	public void initializePlusButton() {
-		setJb_more(new JButton("+"));
-		getJb_more().setBackground(Color.white);
-		getJb_more().addActionListener(e -> {
+		jb_more = new JButton("+");
+		jb_more.setBackground(Color.white);
+		jb_more.addActionListener(e -> {
 			jlbl_amount.setText("" + (getAmount() + 1));
 			aktualisierePreis();
 			refreshButtonVisibility();
 		});
-		this.add(getJb_more());
+		this.add(jb_more);
 	}
 
 	/**
 	 * Button zum Vermindern der Menge
 	 */
 	public void initializeMinusButton() {
-		setJb_less(new JButton("-"));
-		getJb_less().setBackground(Color.white);
-		getJb_less().addActionListener(e -> {
+		jb_less = new JButton("-");
+		jb_less.setBackground(Color.white);
+		jb_less.addActionListener(e -> {
 			jlbl_amount.setText("" + (getAmount() - 1));
 			aktualisierePreis();
 			refreshButtonVisibility();
 		});
 		// Anzahl ist zu Anfang 0, der Nutzer soll die Anzahl nur erhoehen koennen.
-		getJb_less().setVisible(false);
-		this.add(getJb_less());
+		jb_less.setVisible(false);
+		this.add(jb_less);
 	}
 
 	public void setPreisLabel() {
@@ -133,7 +141,9 @@ public class Panel_Selection extends JPanel {
 	 */
 	public double getPreis() {
 		String preis = jlbl_preis.getText().replace(',', '.');
-		int index = preis.indexOf("€");
+
+		int index = preis.indexOf(Currency_Symbol.getCurrency_Symbol());
+
 		if (index == -1) {
 		} else {
 			preis = preis.substring(0, index);
@@ -145,21 +155,7 @@ public class Panel_Selection extends JPanel {
 	 * @return ausgew hlte Menge als nat rliche Zahl
 	 */
 	public int getAmount() {
-		return Integer.parseInt(getJlbl_amount().getText());
-	}
-
-	/**
-	 * @return MengenJLabel
-	 */
-	public JLabel getJlbl_amount() {
-		return jlbl_amount;
-	}
-
-	/**
-	 * @param jlbl_amount Zahl, auf die das MengenJLabel gesetzt werden soll
-	 */
-	public void setJlbl_amount(JLabel jlbl_amount) {
-		this.jlbl_amount = jlbl_amount;
+		return Integer.parseInt(jlbl_amount.getText());
 	}
 
 	public Portion getPortion() {
@@ -168,22 +164,6 @@ public class Panel_Selection extends JPanel {
 
 	public void setPortion(Portion portion) {
 		this.portion = portion;
-	}
-
-	public JButton getJb_less() {
-		return jb_less;
-	}
-
-	public void setJb_less(JButton jb_less) {
-		this.jb_less = jb_less;
-	}
-
-	public JButton getJb_more() {
-		return jb_more;
-	}
-
-	public void setJb_more(JButton jb_more) {
-		this.jb_more = jb_more;
 	}
 
 	public void refreshButtonVisibility() {
