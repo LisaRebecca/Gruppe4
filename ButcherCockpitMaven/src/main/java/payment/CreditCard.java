@@ -10,7 +10,7 @@ public class CreditCard extends Payment{
 	private final ResourceBundle language;
 	
 	public CreditCard() {
-		this.language = ResourceBundle.getBundle("i18n/creditcard/creditcard_de");
+		this.language = ResourceBundle.getBundle("i18n/creditcard/creditcard_en");
 	}
 	
 	public String processPurchase() throws CreditCardException{

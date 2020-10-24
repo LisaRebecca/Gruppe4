@@ -11,6 +11,7 @@ import errorhandling.ExceptionHandler;
 import errorhandling.ExceptionHandlerDebug;
 import payment.GiftCard;
 import payment.Payment;
+import view.AutomatFactory;
 import view.CockpitFactory;
 import view.Factory;
 
@@ -29,8 +30,8 @@ public class Main {
  		Payment.set(new GiftCard());
 // 		Payment.set(new CreditCard());
  		
- 		Factory.set(new CockpitFactory());
-// 		Factory.set(new AutomatFactory());
+		Factory.set(new CockpitFactory());
+//		Factory.set(new AutomatFactory());
 
  		try {
  			LoginController.get().giveControl();

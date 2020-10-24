@@ -42,5 +42,6 @@ public class AutomatFactory extends Factory {
 		} catch (SQLException e) {
 			throw new SQLButcherException(e);
 		}
+		automat.revalidate();
 	}
 }
