@@ -11,6 +11,7 @@ import errorhandling.ExceptionHandler;
 import errorhandling.ExceptionHandlerDebug;
 import payment.GiftCard;
 import payment.Payment;
+import view.AutomatFactory;
 import view.CockpitFactory;
 import view.Factory;
 

@@ -24,8 +24,6 @@ class Cockpit extends DefaultFrame {
 		 * @throws AbstractButcherException
 		 *
 
-		this.language = ResourceBundle.getBundle("i18n/cockpit/cockpit_de");
-
 
 		/**
 		 * Tabs werden hinzugefügt

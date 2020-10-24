@@ -27,7 +27,7 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 	public Password_Screen() {
 
 		super("Login", 250, 125);
-		this.language = ResourceBundle.getBundle("i18n/password_screen/password_screen_de");
+		this.language = ResourceBundle.getBundle("i18n/password_screen/password_screen_en");
 
 		c.setLayout(new GridLayout(3, 2));
 

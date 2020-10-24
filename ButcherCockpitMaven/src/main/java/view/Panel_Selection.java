@@ -48,7 +48,7 @@ public class Panel_Selection extends JPanel {
 
 	public Panel_Selection(Portion portion) {
 		
-		this.language = ResourceBundle.getBundle("i18n/panel_selection/panel_selection_de");
+		this.language = ResourceBundle.getBundle("i18n/panel_selection/panel_selection_en");
 		
 		this.setPortion(portion);
 

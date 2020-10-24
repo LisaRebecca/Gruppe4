@@ -14,7 +14,7 @@ public class MockDatabase extends Database {
 	}
 
 	@Override
-	public ResultSet executeDBQuery(Select_Statements stmt) {		
+	public ResultSet executeDBQuery(Select_Statements.Statements stmt) {		
 		return (ResultSet) null;
 	}
 

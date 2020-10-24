@@ -2,17 +2,17 @@ package view;
 
 import java.sql.ResultSet;
 
+
 import javax.swing.JTable;
 
 import Tools.MyTools;
 import data.Database;
 import data.Select_Statements;
 import errorhandling.AbstractButcherException;
-import errorhandling.ButcherException;
 import errorhandling.ExceptionHandler;
 
 public class TileFactory {
-	public static Tile getTile(Select_Statements stmt, String name) {
+	public static Tile getTile(Select_Statements stmt, Select_Statements.Statements sstmt, String name) {
 		/**
 		 * Ein <code>JTable</code> wird mit Daten aus der Datenbank gemäß des
 		 * <code>select_statement</code>s gefüllt.
@@ -21,7 +21,7 @@ public class TileFactory {
 
 			ResultSet result = null;
 			try {
-				result = Database.get().executeDBQuery(stmt);
+				result = Database.get().executeDBQuery(stmt, sstmt);
 				table = MyTools.resultSetToTable(result);
 			} catch (AbstractButcherException e) {
 				ExceptionHandler.get().showException(e);

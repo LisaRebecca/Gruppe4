@@ -1,13 +1,13 @@
 package view;
 
 import java.sql.ResultSet;
+
+
 import java.sql.SQLException;
 
 import data.Database;
 import data.Select_Statements;
 import errorhandling.AbstractButcherException;
-import errorhandling.ButcherException;
-import errorhandling.ExceptionHandler;
 import errorhandling.SQLButcherException;
 
 public class AutomatFactory extends Factory {
@@ -21,7 +21,7 @@ public class AutomatFactory extends Factory {
 
 		
 		try {
-			rs_products = Database.get().executeDBQuery(Select_Statements.AUTOMAT_PRODUCTS);
+			rs_products = Database.get().executeDBQuery(Select_Statements.Statements.AUTOMAT_PRODUCTS);
 		} catch (AbstractButcherException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
