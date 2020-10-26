@@ -7,11 +7,14 @@ import java.util.ResourceBundle;
 
 import javax.swing.*;
 
+import controller.Main;
 import controller.login.LoginController;
 import errorhandling.AbstractButcherException;
 import errorhandling.ButcherException;
 import errorhandling.ExceptionHandler;
+import errorhandling.SQLButcherException;
 import models.Credentials;
+import view.CockpitFactory;
 import view.DefaultFrame;
 
 public class Password_Screen extends DefaultFrame implements ActionListener {
@@ -23,6 +26,7 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 	JLabel user_label;
 	JLabel password_label;
 	JButton button;
+	static boolean laeuft;
 
 	public Password_Screen() {
 
@@ -50,14 +54,23 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent ev) {
+
 		Credentials.setPassword(password_field.getText());
 		Credentials.setUsername(user_field.getText());
 		this.dispose();
 		try {
 			LoginController.get().giveControl();
-		} catch (AbstractButcherException exc) {
-			ExceptionHandler.get().showException(
-					new ButcherException(exc, "Anmelden fehlgeschlagen", "Bitte wenden Sie sich an einen Mitarbeiter"));
+		}
+		// catch (AbstractButcherException exc) {
+		// ExceptionHandler.get().showException(
+		// new ButcherException(exc, "Anmelden fehlgeschlagen", "Bitte wenden Sie sich
+		// an einen Mitarbeiter"));
+
+		catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Access denied! Please run again!!");
+			System.exit(0);
+
 		}
 	}
+
 }
