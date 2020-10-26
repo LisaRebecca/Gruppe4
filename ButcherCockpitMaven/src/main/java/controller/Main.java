@@ -1,5 +1,6 @@
 package controller;
 
+import Tools.Currency_Symbol;
 import controller.login.LoginController;
 import controller.login.LoginControllerFilled;
 import controller.login.LoginControllerStandard;
@@ -19,6 +20,8 @@ import view.Factory;
 							// 'unused'
 public class Main {
 	public static void main(String[] args) {
+		
+		Currency_Symbol.setCurrency_Symbol("€");
 
 		LoginController.set(new LoginControllerStandard());
 
