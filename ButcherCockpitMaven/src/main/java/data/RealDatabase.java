@@ -37,7 +37,7 @@ public class RealDatabase extends Database {
 	}
 
 	public RealDatabase() {
-		this.language = ResourceBundle.getBundle("i18n/real_database/real_database_de");
+		this.language = ResourceBundle.getBundle("i18n/real_database/real_database_en");
 
 		isConnected = false;
 	}

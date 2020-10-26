@@ -11,7 +11,7 @@ public class GiftCard extends Payment{
 	private final ResourceBundle language;
 	
 	public GiftCard () {
-		this.language = ResourceBundle.getBundle("i18n/giftcard/giftcard_de");
+		this.language = ResourceBundle.getBundle("i18n/giftcard/giftcard_en");
 	}
 	
 	public String processPurchase() throws GiftCardException{

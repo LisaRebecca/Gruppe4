@@ -48,7 +48,7 @@ public class Panel_Selection extends JPanel {
 
 	public Panel_Selection(Portion portion) {
 		
-		this.language = ResourceBundle.getBundle("i18n/panel_selection/panel_selection_de");
+		this.language = ResourceBundle.getBundle("i18n/panel_selection/panel_selection_en");
 		
 		this.setPortion(portion);
 
@@ -76,7 +76,7 @@ public class Panel_Selection extends JPanel {
 		//this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + " g auf Lager", SwingConstants.LEFT));
 
 		this.add(new JLabel("" + portion.getKilopreis() + this.language.getString("unit"), SwingConstants.RIGHT));
-		this.add(new JLabel("" + portion.getLagermenge() + this.language.getString("portions"), SwingConstants.RIGHT));
+		this.add(new JLabel("" + portion.getLagermenge() +" "+ this.language.getString("portions") + " ", SwingConstants.RIGHT));
 		this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + this.language.getString("grams"), SwingConstants.LEFT));
 
 	}

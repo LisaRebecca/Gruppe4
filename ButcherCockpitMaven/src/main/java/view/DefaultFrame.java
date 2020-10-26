@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,7 +16,7 @@ import javax.swing.JOptionPane;
 public abstract class DefaultFrame extends JFrame {
 
 	/**
-	 * Schriftart für die Überschrift
+	 * Schriftart fï¿½r die ï¿½berschrift
 	 */
 	protected final Font headerfont = new Font("Arial", Font.BOLD, 20);
 	protected Container c;
@@ -43,20 +44,14 @@ public abstract class DefaultFrame extends JFrame {
 	/**
 	 * Setzen des Fenster-Icons. <br>
 	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
-	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
+	 * Warnung, da das Bild nicht nï¿½tig fï¿½r das Funktionieren der Anwendung ist.
 	 */
 
 	protected void setIcon() {
-		try {
-			BufferedImage image = ImageIO.read(new URL(
-					"https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuzBtedlLeHnfd8uGFz57BYsRIej7Op8mJLA&usqp=CAU"));
-			this.setIconImage(image);
-		} catch (IOException e) {
-			System.err.println("Icon des Automaten konnte nicht geladen werden.");
-		}
-
+ Currency_Symbol_Test&Anpassungen_in_Panel_Selection
 		
-	
-	
+		ImageIcon icon = new ImageIcon("src/main/resources/kuh.jpg");
+		this.setIconImage(icon.getImage());
+
 	}
 }

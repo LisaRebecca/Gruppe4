@@ -33,8 +33,11 @@ public class Main {
 		Payment.set(new GiftCard());
 // 		Payment.set(new CreditCard());
 
+
+ 		
 		Factory.set(new CockpitFactory());
-// 		Factory.set(new AutomatFactory());
+//		Factory.set(new AutomatFactory());
+
 
 		try {
 			LoginController.get().giveControl();
