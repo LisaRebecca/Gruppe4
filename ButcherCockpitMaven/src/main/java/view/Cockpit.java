@@ -18,6 +18,7 @@ class Cockpit extends DefaultFrame {
 
 	public Cockpit() {
 		super("ButcherCockpit", 500, 550);
+		//716 x 677
 		/**
 		 * Konstruktor erzeugt alle anzuzeigenden Objekte
 		 * 
@@ -25,7 +26,7 @@ class Cockpit extends DefaultFrame {
 		 *
 
 		/**
-		 * Tabs werden hinzugefügt
+		 * Tabs werden hinzugefï¿½gt
 		 */
 
 		c.setLayout(new BorderLayout());

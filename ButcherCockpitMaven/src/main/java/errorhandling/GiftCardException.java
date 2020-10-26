@@ -1,11 +1,11 @@
 package errorhandling;
 
 public class GiftCardException extends Exception{
-	GiftCardException() {
+	public GiftCardException() {
 		super("Die Zahlung mit Ihrer Gutscheinkarte konnte nicht abgeschlossen werden." 
-				+ "Häufigste Ursache: Nicht genügend Guthaben"
-				+ "Bitte fragen Sie bei Gelegenheit einen verfügbaren Mitarbeiter oder wählen Sie eine andere Zahlungsmethode." 
-				+ "Wir entschuldigen uns für die Unannehmlichkeit.");
+				+ "HÃ¤ufigste Ursache: Nicht genÃ¼gend Guthaben"
+				+ "Bitte fragen Sie bei Gelegenheit einen verfÃ¼gbaren Mitarbeiter oder wÃ¤hlen Sie eine andere Zahlungsmethode." 
+				+ "Wir entschuldigen uns fÃ¼r die Unannehmlichkeit.");
 	}
 
 }

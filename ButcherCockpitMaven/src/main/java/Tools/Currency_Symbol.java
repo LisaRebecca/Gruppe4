@@ -1,7 +1,7 @@
 package Tools;
 
 public class Currency_Symbol {
-	private static String currency_symbol = "$";
+	private static String currency_symbol = "€";
 
 	public static String getCurrency_Symbol() {
 

@@ -2,13 +2,13 @@ package view;
 
 import java.sql.ResultSet;
 
+
 import javax.swing.JTable;
 
 import Tools.MyTools;
 import data.Database;
 import data.Select_Statements;
 import errorhandling.AbstractButcherException;
-import errorhandling.ButcherException;
 import errorhandling.ExceptionHandler;
 
 public class TileFactory {
