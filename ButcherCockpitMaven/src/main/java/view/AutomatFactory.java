@@ -1,21 +1,20 @@
 package view;
 
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 
 import data.Database;
 import data.Select_Statements;
 import errorhandling.AbstractButcherException;
 import errorhandling.ButcherException;
-import errorhandling.ExceptionHandler;
 import errorhandling.SQLButcherException;
 
 public class AutomatFactory extends Factory {
 
 	@Override
 	public void construct() throws AbstractButcherException{
-		Automat automat = null;
-		automat = new Automat();
+		Automat automat = new Automat();
 		
 		ResultSet rs_products = null;
 

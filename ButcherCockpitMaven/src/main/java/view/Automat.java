@@ -2,10 +2,10 @@ package view;
 
 import data.Database;
 
+
 import errorhandling.AbstractButcherException;
 import errorhandling.ExceptionHandler;
 import errorhandling.PaymentButcherException;
-import errorhandling.SQLButcherException;
 import payment.Payment;
 
 import java.awt.*;
@@ -68,7 +68,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 	 */
 
 	public Automat() throws AbstractButcherException {
-		super("Kühlautomat", 800, 400);
+		super("Kï¿½hlautomat", 800, 400);
 
 		this.language = ResourceBundle.getBundle("i18n/automat/automat_en");
 
@@ -159,7 +159,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 	}
 
 	private void buyButtonPressed() throws AbstractButcherException{
-		// Zuerst wird der Kunde nach Bestätigung gefragt.
+		// Zuerst wird der Kunde nach Bestï¿½tigung gefragt.
 		String[] options = { this.language.getString("option_yes"), this.language.getString("option_no") };
 		int eingabe = JOptionPane.showOptionDialog(null, this.language.getString("buy_question"),
 				this.language.getString("confirmation"), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
