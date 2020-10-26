@@ -26,7 +26,7 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 	JLabel user_label;
 	JLabel password_label;
 	JButton button;
-	static boolean laeuft;
+	
 
 	public Password_Screen() {
 
