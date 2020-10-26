@@ -48,7 +48,10 @@ public abstract class DefaultFrame extends JFrame {
 	 */
 
 	protected void setIcon() {
+ Currency_Symbol_Test&Anpassungen_in_Panel_Selection
+		
 		ImageIcon icon = new ImageIcon("src/main/resources/kuh.jpg");
 		this.setIconImage(icon.getImage());
+
 	}
 }
