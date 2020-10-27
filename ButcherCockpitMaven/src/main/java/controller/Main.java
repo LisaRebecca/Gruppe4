@@ -6,7 +6,6 @@ import controller.login.LoginController;
 import controller.login.LoginControllerFilled;
 import controller.login.LoginControllerStandard;
 import data.Database;
-import data.MockDatabase;
 import data.RealDatabase;
 import errorhandling.AbstractButcherException;
 import errorhandling.ExceptionHandler;
@@ -30,7 +29,6 @@ public class Main {
 		// LoginController.set(new LoginControllerFilled());
 
 		Database.set(new RealDatabase());
-// 		Database.set(new MockDatabase());
 
 		ExceptionHandler.set(new ExceptionHandlerDebug());
 //		ExceptionHandler.set(new ExceptionHandlerUser());
