@@ -1,20 +1,8 @@
 package Tools;
 
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.text.NumberFormat;
-import java.util.ResourceBundle;
-import java.util.Vector;
 
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
-import errorhandling.ButcherException;
-import errorhandling.ExceptionHandler;
-import errorhandling.SQLButcherException;
-
-public class MyTools {
+public class Formatter {
 	public static final NumberFormat currencyFormatter = NumberFormat.getInstance();
 
 	/**
