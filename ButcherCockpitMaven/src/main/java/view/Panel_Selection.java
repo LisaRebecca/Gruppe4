@@ -3,13 +3,13 @@ package view;
 import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Formatter;
 import java.util.ResourceBundle;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
 import Tools.Currency_Symbol;
-import Tools.MyTools;
 
 @SuppressWarnings("serial")
 public class Panel_Selection extends JPanel {
@@ -121,7 +121,7 @@ public class Panel_Selection extends JPanel {
 	}
 
 	public void setPreisLabel() {
-		jlbl_preis = new JLabel(MyTools.formatAsCurrency(0), SwingConstants.RIGHT);
+		jlbl_preis = new JLabel(Tools.Formatter.formatAsCurrency(0), SwingConstants.RIGHT);
 		this.add(jlbl_preis);
 	}
 
@@ -131,7 +131,7 @@ public class Panel_Selection extends JPanel {
 	public void aktualisierePreis() {
 		double new_price = (getPortion().getPortionspreis() * getAmount());
 		double old_price = getPreis();
-		jlbl_preis.setText("" + MyTools.formatAsCurrency(new_price));
+		jlbl_preis.setText("" + Tools.Formatter.formatAsCurrency(new_price));
 		changes.firePropertyChange("preis", old_price, new_price);
 	}
 
