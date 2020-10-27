@@ -6,11 +6,11 @@ import java.util.ResourceBundle;
 import errorhandling.GiftCardException;
 import payment.Payment;
 
-public class GiftCard extends Payment{
+public class GiftCardPayment extends Payment{
 	
 	private final ResourceBundle language;
 	
-	public GiftCard () {
+	public GiftCardPayment () {
 		this.language = ResourceBundle.getBundle("i18n/giftcard/giftcard_en");
 	}
 	

@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 public abstract class DefaultFrame extends JFrame {
 
 	/**
-	 * Schriftart f�r die �berschrift
+	 * Schriftart für die Überschrift
 	 */
 	protected final Font headerfont = new Font("Arial", Font.BOLD, 20);
 	protected Container c;
@@ -44,11 +44,11 @@ public abstract class DefaultFrame extends JFrame {
 	/**
 	 * Setzen des Fenster-Icons. <br>
 	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
-	 * Warnung, da das Bild nicht n�tig f�r das Funktionieren der Anwendung ist.
+	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
 	 */
 
 	protected void setIcon() {
- Currency_Symbol_Test&Anpassungen_in_Panel_Selection
+ //Currency_Symbol_Test&Anpassungen_in_Panel_Selection
 		
 		ImageIcon icon = new ImageIcon("src/main/resources/kuh.jpg");
 		this.setIconImage(icon.getImage());

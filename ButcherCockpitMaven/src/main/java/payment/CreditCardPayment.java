@@ -6,10 +6,10 @@ import java.util.ResourceBundle;
 import errorhandling.CreditCardException;
 import payment.Payment;
 
-public class CreditCard extends Payment{
+public class CreditCardPayment extends Payment{
 	private final ResourceBundle language;
 	
-	public CreditCard() {
+	public CreditCardPayment() {
 		this.language = ResourceBundle.getBundle("i18n/creditcard/creditcard_en");
 	}
 	

@@ -1,6 +1,7 @@
 package controller;
 
 import Tools.Currency_Symbol;
+
 import controller.login.LoginController;
 import controller.login.LoginControllerFilled;
 import controller.login.LoginControllerStandard;
@@ -10,7 +11,8 @@ import data.RealDatabase;
 import errorhandling.AbstractButcherException;
 import errorhandling.ExceptionHandler;
 import errorhandling.ExceptionHandlerDebug;
-import payment.GiftCard;
+import payment.CreditCardPayment;
+import payment.GiftCardPayment;
 import payment.Payment;
 import view.AutomatFactory;
 import view.CockpitFactory;
@@ -33,8 +35,8 @@ public class Main {
 		ExceptionHandler.set(new ExceptionHandlerDebug());
 //		ExceptionHandler.set(new ExceptionHandlerUser());
 
-		Payment.set(new GiftCard());
-// 		Payment.set(new CreditCard());
+		Payment.set(new GiftCardPayment());
+ 		Payment.set(new CreditCardPayment());
 
 
  		

@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.NumberFormat;
+import java.util.ResourceBundle;
 import java.util.Vector;
 
 import javax.swing.JTable;
@@ -53,7 +54,7 @@ public class MyTools {
 		} catch (SQLException e) {
 			ExceptionHandler.get().showException(
 					new SQLButcherException(e));
-			columnLabels.add("Error while loading Database...");
+			columnLabels.add(ResourceBundle.getBundle("i18n/sqlbutcher_exception/sqlbutcher_exception_en").getString("loading_error"));
 		}
 		return new JTable(new DefaultTableModel(rows, columnLabels));
 	}

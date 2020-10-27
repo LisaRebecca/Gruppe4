@@ -1,8 +1,11 @@
 package errorhandling;
 
+import java.util.ResourceBundle;
+
 public class PaymentButcherException extends AbstractButcherException{
 
 	public PaymentButcherException (Exception e) {
-		super (e, "Fehler beim Kaufvorgang", "Bitte wenden Sie sich an einen Mitarbeiter");
+		super (e, ResourceBundle.getBundle("i18n/giftcard_exception/giftcard_exception_en").getString("title"), 
+				ResourceBundle.getBundle("i18n/giftcard_exception/giftcard_exception_en").getString("error_text"));
 	}
 }

@@ -67,7 +67,7 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 		// an einen Mitarbeiter"));
 
 		catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Access denied! Please run again!!");
+			JOptionPane.showMessageDialog(null, this.language.getString("access_denied"));
 			System.exit(0);
 
 		}
