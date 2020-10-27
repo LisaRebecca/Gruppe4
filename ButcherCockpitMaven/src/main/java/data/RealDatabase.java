@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import errorhandling.AbstractButcherException;
 import errorhandling.ButcherException;
 import errorhandling.ExceptionHandler;
+import errorhandling.SQLButcherException;
 import controller.login.LoginController;
 import data.Database;
 import models.Credentials;
@@ -53,6 +54,9 @@ public class RealDatabase extends Database {
 
 	@Override
 	public ResultSet executeDBQuery(Select_Statements stmt) {
+		if(! isConnected) {
+			ExceptionHandler.get().showException(new SQLButcherException(new SQLException(this.language.getString("not_logged_in"))));
+		}
 		try {
 			return conn.createStatement().executeQuery(stmt.getStatement());
 		} catch (SQLException e) {
@@ -85,11 +89,11 @@ public class RealDatabase extends Database {
 		try {
 			((RealDatabase) Database.get()).setConn(DriverManager
 					.getConnection("jdbc:mysql://localhost:3306/metzgerei?user=" + userName + "&password=" + password));
+			isConnected = true;
+			LoginController.get().giveControl();
 		} catch (SQLException e) {
 			ExceptionHandler.get().showException(new ButcherException(e, this.language.getString("error"),
 					this.language.getString("error_message")));
 		}
-		isConnected = true;
-		LoginController.get().giveControl();
 	}
 }

@@ -1,6 +1,6 @@
 package data;
 
-org.junit.jupiter.api;
+import static org.junit.Assert.assertTrue;
 
 import javax.swing.*;
 
@@ -18,11 +18,6 @@ public class RealDatabaseTest extends JFrame {
 	@BeforeAll
 	public void initialize() {
 		Database.set(new RealDatabase());
-	}
-	
-	@Test
-	public void testTest() {
-		assertTrue(true);
 	}
 
 	@Nested
