@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javax.swing.*;
 
-import Tools.MyTools;
-
 /**
  * Die Klasse Automat dient der Anzeige des Kaufbildschirms. Der Kunde kann mit
  * Hilfe dieser Klasse sehen, welche Produkte zu welchen Mengen im Automaten
@@ -135,7 +133,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 		for (Panel_Selection selection : warenkorb) {
 			gesamtpreis += selection.getPreis();
 		}
-		jlbl_total.setText(MyTools.formatAsCurrency(gesamtpreis));
+		jlbl_total.setText(Tools.Formatter.formatAsCurrency(gesamtpreis));
 	}
 
 	public void addPanel(Panel_Selection ps) {
