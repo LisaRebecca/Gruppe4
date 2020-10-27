@@ -70,11 +70,6 @@ public class Panel_Selection extends JPanel {
 	 */
 	public void setPortionInfo() {
 		this.add(new JLabel(portion.getName(), SwingConstants.LEFT));
-
-		//this.add(new JLabel("" + portion.getKilopreis() + Currency_Symbol.getCurrency_Symbol() + "/kg",SwingConstants.RIGHT));
-		//this.add(new JLabel("" + portion.getLagermenge() + " Portionen " + " à ", SwingConstants.RIGHT));
-		//this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + " g auf Lager", SwingConstants.LEFT));
-
 		this.add(new JLabel("" + portion.getKilopreis() + this.language.getString("unit"), SwingConstants.RIGHT));
 		this.add(new JLabel("" + portion.getLagermenge() +" "+ this.language.getString("portions") + " ", SwingConstants.RIGHT));
 		this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + this.language.getString("grams"), SwingConstants.LEFT));
@@ -165,9 +160,11 @@ public class Panel_Selection extends JPanel {
 		this.portion = portion;
 	}
 
-	public void refreshButtonVisibility() {
-		// Ein-/Ausblenden der Buttons je nachdem ob weitere Portionen des Produktes
-		// vorhanden sind. Verhindert auch die Auswahl einer negativen Anzahl.
+/**
+ * 		Ein-/Ausblenden der Buttons je nachdem ob weitere Portionen des Produktes
+ *		vorhanden sind. Verhindert auch die Auswahl einer negativen Anzahl.
+ */
+		public void refreshButtonVisibility() {
 		Panel_Selection ps = this;
 		if (getAmount() <= 0) {
 			jb_less.setVisible(false);
