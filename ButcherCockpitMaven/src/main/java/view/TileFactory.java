@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 
 import javax.swing.JTable;
 
-import Tools.MyTools;
+import Tools.Converter;
 import data.Database;
 import data.Select_Statements;
 import errorhandling.AbstractButcherException;
@@ -22,7 +22,7 @@ public class TileFactory {
 			ResultSet result = null;
 			try {
 				result = Database.get().executeDBQuery(stmt);
-				table = MyTools.resultSetToTable(result);
+				table = Converter.resultSetToTable(result);
 			} catch (AbstractButcherException e) {
 				ExceptionHandler.get().showException(e);
 			}
