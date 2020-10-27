@@ -1,11 +1,6 @@
 package view;
 
-import data.Database;
-
-
-import errorhandling.AbstractButcherException;
-import errorhandling.ExceptionHandler;
-import errorhandling.PaymentButcherException;
+import errorhandling.*;
 import payment.Payment;
 
 import java.awt.*;
@@ -14,13 +9,8 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.UUID;
-
 import javax.swing.*;
 
 import Tools.MyTools;
@@ -72,7 +62,6 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 
 		this.language = ResourceBundle.getBundle("i18n/automat/automat_en");
 
-
 		createBuyButton();
 		createBuyPanel();
 		createSelectionPanel();
@@ -91,12 +80,8 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 		jb_buy.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent ae){
-				try {
-					buyButtonPressed();
-				} catch (AbstractButcherException e) {
-					ExceptionHandler.get().showException(e);
-				}
+			public void actionPerformed(ActionEvent ae) {
+				buyButtonPressed();
 			}
 		});
 	}
@@ -116,7 +101,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 	}
 
 	/**
-	 * Panel, welches die  berschrift und alle ausw hlbaren Produkte beinhaltet
+	 * Panel, welches die berschrift und alle ausw hlbaren Produkte beinhaltet
 	 */
 	public void createSelectionPanel() {
 		jlbl_title = new JLabel(this.language.getString("product_selection"));
@@ -158,48 +143,26 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 		jp_selectionPanel.add(ps);
 	}
 
-	private void buyButtonPressed() throws AbstractButcherException{
+	private void buyButtonPressed() {
 		// Zuerst wird der Kunde nach Best�tigung gefragt.
 		String[] options = { this.language.getString("option_yes"), this.language.getString("option_no") };
 		int eingabe = JOptionPane.showOptionDialog(null, this.language.getString("buy_question"),
 				this.language.getString("confirmation"), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,
 				options, options[0]);
 
-
-		// Der Dialog schließt sich, der Kunde kann weiter einkaufen
 		if (eingabe == 1) {
+			// Der Dialog schließt sich, der Kunde kann weiter einkaufen
 		}
 		// Nur falls er den Vorgang abschließen will erscheint ein neuer Dialog.
 		if (eingabe == 0) {
-			try {
-				JOptionPane.showMessageDialog(null, Payment.get().processPurchase(), this.language.getString("thanks"),
-						JOptionPane.INFORMATION_MESSAGE);
-			} catch (Exception e2) {
-				throw new PaymentButcherException(e2);
-			
-			}
-
-			// generieren eines Universally Unique Identifiers für jeden Einkauf
-			String uuid = UUID.randomUUID().toString();
-			uuid = uuid.replace("-", "");
-
-			// Speichern des aktuellen Zeitstempels
-			Date date = new Date();
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			String sql_date = simpleDateFormat.format(date);
-
-			Date time = new Date();
-			SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm:ss");
-			String sql_time = simpleTimeFormat.format(time);
-
-			// Der Einkauf wird als Statistik in der Datenbank hinterlegt.
-
-			Database.get().executeDBInsert(
-					"INSERT INTO Verkaeufe( verkauf_id, datum, uhrzeit, gesamtpreis) VALUES ( UNHEX('" + uuid
-							+ "'), '" + sql_date + "', '" + sql_time + "', " + gesamtpreis + ");");
-			
-			
-
+					try {
+						JOptionPane.showMessageDialog(null, Payment.get().processPurchase(getGesamtpreis()),
+								this.language.getString("thanks"), JOptionPane.INFORMATION_MESSAGE);
+					} catch (PaymentButcherException e1) {
+						ExceptionHandler.get().showException(e1);
+					} catch (SQLButcherException e2) {
+						ExceptionHandler.get().showException(e2);
+					}
 			// Der Automat wird geschlossen, der Einkauf ist beendet
 			System.exit(0);
 		}
@@ -210,4 +173,3 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 		berechneGesamtpreis();
 	}
 }
-
