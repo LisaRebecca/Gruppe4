@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 import com.mockrunner.jdbc.FileResultSetFactory;
 
+import Tools.Converter;
 import errorhandling.AbstractButcherException;
 
 public class MockDatabase extends Database {
@@ -51,5 +52,9 @@ public class MockDatabase extends Database {
 		}catch(SQLException e) {
 //			throw new AbstractButcherException();
 		}
+	}
+	public static void main(String[] args) {
+		MockDatabase md = new MockDatabase();
+		System.out.println(Converter.resultSetToTable(md.rsf.create("hi")));
 	}
 }
