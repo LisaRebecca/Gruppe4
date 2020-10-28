@@ -3,6 +3,7 @@ package view;
 import java.sql.ResultSet;
 
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 import data.Database;
 import data.Select_Statements;
@@ -11,6 +12,12 @@ import errorhandling.ButcherException;
 import errorhandling.SQLButcherException;
 
 public class AutomatFactory extends Factory {
+	
+	private final ResourceBundle language;
+	
+	public AutomatFactory() {
+		this.language = ResourceBundle.getBundle("i18n/sqlbutcher_exception/sqlbutcher_exception_en");		
+	}
 
 	@Override
 	public void construct() throws AbstractButcherException{
@@ -22,7 +29,7 @@ public class AutomatFactory extends Factory {
 		try {
 			rs_products = Database.get().executeDBQuery(Select_Statements.AUTOMAT_PRODUCTS);
 		} catch (AbstractButcherException e) {
-			throw new ButcherException(e, "Fehler in der Datenbank", "Bitte wenden Sie sich an einen Mitarbeiter");
+			throw new ButcherException(e, this.language.getString("loading_error"), this.language.getString("error_message"));
 		}
 
 		try {

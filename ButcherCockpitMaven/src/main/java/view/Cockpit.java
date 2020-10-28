@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.*;
+import java.util.ResourceBundle;
 
 import javax.swing.*;
 
@@ -17,7 +18,7 @@ class Cockpit extends DefaultFrame {
 	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
 
 	public Cockpit() {
-		super("ButcherCockpit", 500, 550);
+		super(ResourceBundle.getBundle("i18n/cockpit/cockpit_en").getString("title"), 500, 550);
 		//716 x 677
 		/**
 		 * Konstruktor erzeugt alle anzuzeigenden Objekte
@@ -26,7 +27,7 @@ class Cockpit extends DefaultFrame {
 		 *
 
 		/**
-		 * Tabs werden hinzugef�gt
+		 * Tabs werden hinzugefügt
 		 */
 
 		c.setLayout(new BorderLayout());

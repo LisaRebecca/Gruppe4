@@ -1,5 +1,7 @@
 package view;
 
+import java.util.ResourceBundle;
+
 import errorhandling.AbstractButcherException;
 import errorhandling.ButcherException;
 
@@ -12,7 +14,8 @@ public abstract class Factory {
 		try {
 			return factory;}
 		catch(NullPointerException e) {
-			throw new ButcherException(e, "technische Probleme", "Bitte an IT-Support wenden"); }
+			throw new ButcherException(e, ResourceBundle.getBundle("i18n/butcher_exception/butcher_exception_en").getString("error"), 
+					ResourceBundle.getBundle("i18n/butcher_exception/butcher_exception_en").getString("error_text")); }
 		
 		}
 	

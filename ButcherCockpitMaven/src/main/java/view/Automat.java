@@ -56,7 +56,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 	 */
 
 	public Automat() throws AbstractButcherException {
-		super("K�hlautomat", 800, 400);
+		super(ResourceBundle.getBundle("i18n/automat/automat_en").getString("title"), 800, 400);
 
 		this.language = ResourceBundle.getBundle("i18n/automat/automat_en");
 
