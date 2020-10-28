@@ -37,7 +37,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 	private JButton jb_buy;
 
 	/**
-	 * Warenkorb, enth lt alle ausgew hlten Produkte in Form von
+	 * Warenkorb, enthält alle ausgewählten Produkte in Form von
 	 * {@link Panel_Selection}
 	 */
 	public ArrayList<Panel_Selection> warenkorb = new ArrayList<Panel_Selection>();
@@ -99,7 +99,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 	}
 
 	/**
-	 * Panel, welches die berschrift und alle ausw hlbaren Produkte beinhaltet
+	 * Panel, welches die Überschrift und alle auswählbaren Produkte beinhaltet
 	 */
 	public void createSelectionPanel() {
 		jlbl_title = new JLabel(this.language.getString("product_selection"));
@@ -156,10 +156,8 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 					try {
 						JOptionPane.showMessageDialog(null, Payment.get().processPurchase(getGesamtpreis()),
 								this.language.getString("thanks"), JOptionPane.INFORMATION_MESSAGE);
-					} catch (PaymentButcherException e1) {
+					} catch (AbstractButcherException e1) {
 						ExceptionHandler.get().showException(e1);
-					} catch (SQLButcherException e2) {
-						ExceptionHandler.get().showException(e2);
 					}
 			// Der Automat wird geschlossen, der Einkauf ist beendet
 			System.exit(0);

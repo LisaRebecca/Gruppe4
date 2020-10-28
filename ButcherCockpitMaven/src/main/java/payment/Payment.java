@@ -1,12 +1,19 @@
 package payment;
 
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
 import java.util.UUID;
 
 import data.Database;
+import errorhandling.AbstractButcherException;
 import errorhandling.PaymentButcherException;
 import errorhandling.SQLButcherException;
+
+/**
+ * Die abstrakte Klasse Payment beschreibt die Kauf- und Zahlungsvorgänge, beim Kauf von Produkten aus dem Automaten. 
+ *
+ */
 
 public abstract class Payment {
 
@@ -22,9 +29,17 @@ public abstract class Payment {
 	public static void set(Payment payment) {
 		Payment.payment = payment;
 	}
+	
+	/**
+	 * Methode zur Zahlungsabwicklung
+	 * 
+	 * @param gesamtpreis Summe der Einzelpreise der beim Automaten ausgewählten Produkte
+	 * @return gibt in den erbenden Klassen einen entsprechenden Text zur Bestätigung zurück
+	 * @throws AbstractButcherException bzw. eine Sonderform dieser: je nach Zahlungsart eine CreditCardException oder GiftCardException
+	 * @throws SQLButcherException wenn das Schreiben in die Verkaufstabelle der Datenbank fehlschlägt
+	 */
 
-	// **throws neue Exception?
-	public abstract String processPurchase(double gesamtpreis) throws PaymentButcherException, SQLButcherException;
+	public abstract String processPurchase(double gesamtpreis) throws AbstractButcherException, SQLButcherException;
 
 	protected void saveIntoDatabase(double gesamtpreis) throws SQLButcherException {
 		// generieren eines Universally Unique Identifiers für jeden Einkauf

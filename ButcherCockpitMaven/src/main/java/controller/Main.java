@@ -34,7 +34,7 @@ public class Main {
 //		ExceptionHandler.set(new ExceptionHandlerUser());
 
 		Payment.set(new GiftCardPayment());
- 		Payment.set(new CreditCardPayment());
+// 		Payment.set(new CreditCardPayment());
 
 
  		
