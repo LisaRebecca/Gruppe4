@@ -61,13 +61,8 @@ public class Password_Screen extends DefaultFrame implements ActionListener {
 		try {
 			LoginController.get().giveControl();
 		}
-		// catch (AbstractButcherException exc) {
-		// ExceptionHandler.get().showException(
-		// new ButcherException(exc, "Anmelden fehlgeschlagen", "Bitte wenden Sie sich
-		// an einen Mitarbeiter"));
-
 		catch (Exception e) {
-			JOptionPane.showMessageDialog(null, this.language.getString("access_denied"));
+			JOptionPane.showMessageDialog(null, this.language.getString("error_message"));
 			System.exit(0);
 
 		}

@@ -93,7 +93,7 @@ public class RealDatabase extends Database {
 			LoginController.get().giveControl();
 		} catch (SQLException e) {
 			ExceptionHandler.get().showException(new ButcherException(e, this.language.getString("error"),
-					this.language.getString("error_message")));
+					this.language.getString("no_access")));
 		}
 	}
 }

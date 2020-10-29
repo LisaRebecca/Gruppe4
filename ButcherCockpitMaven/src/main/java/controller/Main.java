@@ -10,6 +10,7 @@ import data.RealDatabase;
 import errorhandling.AbstractButcherException;
 import errorhandling.ExceptionHandler;
 import errorhandling.ExceptionHandlerDebug;
+import errorhandling.ExceptionHandlerUser;
 import payment.CreditCardPayment;
 import payment.GiftCardPayment;
 import payment.Payment;
@@ -30,8 +31,8 @@ public class Main {
 
 		Database.set(new RealDatabase());
 
-		ExceptionHandler.set(new ExceptionHandlerDebug());
-//		ExceptionHandler.set(new ExceptionHandlerUser());
+//		ExceptionHandler.set(new ExceptionHandlerDebug());
+		ExceptionHandler.set(new ExceptionHandlerUser());
 
 		Payment.set(new GiftCardPayment());
 // 		Payment.set(new CreditCardPayment());
