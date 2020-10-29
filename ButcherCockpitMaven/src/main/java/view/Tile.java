@@ -35,34 +35,29 @@ class Tile extends JScrollPane {
 	JViewport jvp_table;
 	
 	/**
-	 * Erzeugt eine Kachel mit Tabelleninhalt und dazugeh�riger überschrift, sowie
+	 * Erzeugt eine Kachel mit Tabelleninhalt und dazugehöriger überschrift, sowie
 	 * festgelegter Hintergrundfarbe und Rahmen
 	 * 
-	 * @param select_statement MySQL-Statement, welches den Tabelleninhalt dieser
-	 * Kachel bestimmt
+	 * @param jt name der anzuzeigenden Tabelle
+	 * @param name Name der Kachel
 	 */
 	public Tile(JTable jt, String name){
 		this.tilename = name;
-		/**
-		 * Optische Details: Tabellenrasterfarbe, Kachelhintergrund und
-		 * Rahmenfarbe/-stärke der Kachel festgelegt
-		 */
+		
+		//Optische Details: Tabellenrasterfarbe, Kachelhintergrund und
+		//Rahmenfarbe/-stärke der Kachel festgelegt
 		jt.setGridColor(Color.orange);
 		this.setBackground(Color.WHITE);
 		this.setBorder(margin);
 
-		/**
-		 * <code>JViewPort</code> um die Spaltenbezeichner der Tabelle darzustellen.
-		 * Hinweis: Da sich die Kopfzeile und Inhalt der Tabelle in unterschiedlichen
-		 * ViewPorts befinden, bleibt die Kopfzeile beim vertikalen Scrollen unbewegt.
-		 */
+		//JViewPort um die Spaltenbezeichner der Tabelle darzustellen.
+		//Hinweis: Da sich die Kopfzeile und Inhalt der Tabelle in unterschiedlichen
+		//ViewPorts befinden, bleibt die Kopfzeile beim vertikalen Scrollen unbewegt.
 		jvp_title = new JViewport();
 		jvp_title.add(jt.getTableHeader());
 		this.setColumnHeader(jvp_title);
 
-		/**
-		 * <code>JViewPort</code> für den Inhalt der Tabelle.
-		 */
+		//JViewPort für den Inhalt der Tabelle.
 		jvp_table = new JViewport();
 		jvp_table.add(jt);
 		this.setViewportView(jvp_table);

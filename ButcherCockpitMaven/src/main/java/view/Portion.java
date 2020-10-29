@@ -31,17 +31,11 @@ public class Portion {
 	/**
 	 * Konstruktor, welcher die Instanzvariablen aus String-Objekten ausliest.
 	 * 
-	 * @throws NumberFormatException falls lagermenge, kilopreis oder
-	 *                               portionsgewichtKG keine Zahl repr�sentieren. In
-	 *                               diesem Fall wird behält die betroffene Variable
-	 *                               ihren Default-Wert, welcher im
-	 *                               Standard-Konstruktor gesetzt wurde.
-	 * 
 	 * @param name              Produktname
 	 * @param lagermenge        zurzeit gelagerte Menge
+	 * @param haltbarBis        Mindesthaltbarkeitsdatum
 	 * @param kilopreis         Preis pro Kilo
 	 * @param portionsgewichtKG das Gewicht einer Portion des Pordukts in Kilogramm
-	 * @param haltbarBis        Mindesthaltbarkeitsdatum
 	 */
 	public Portion(String name, String lagermenge, String haltbarBis, String kilopreis, String portionsgewichtKG) {
 		setName(name);
@@ -58,7 +52,6 @@ public class Portion {
 	/**
 	 * @return das Gewicht einer Portion in Kilogramm
 	 */
-
 	public double getPortionsgewichtKG() {
 		return portionsgewichtKG;
 	}
@@ -66,7 +59,6 @@ public class Portion {
 	/**
 	 * @return das Gewicht einer Portion in Gramm
 	 */
-
 	public int getPortionsgewichtGramm() {
 		NumberFormat formatter = NumberFormat.getInstance();
 		formatter.setMaximumFractionDigits(2);
@@ -78,6 +70,9 @@ public class Portion {
 		return lagermenge;
 	}
 
+	/**
+	 * @return Preis einer Portion, indem der Kilopreis mit dem Gewicht der Portion in KG multipliziert wird
+	 */
 	public double getPortionspreis() {
 		return this.kilopreis * this.portionsgewichtKG;
 	}

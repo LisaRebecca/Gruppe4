@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 import javax.swing.*;
 
 /**
- * Die Klasse UserInterface dient der Darstellung des ButcherCockpits, also der
+ * Die Klasse Cockpit dient der Darstellung des ButcherCockpits, also der
  * internen Benutzeroberflaeche fuer den Metzger.
  */
 @SuppressWarnings("serial")
@@ -17,23 +17,22 @@ class Cockpit extends DefaultFrame {
 	 */
 	private JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
 
+	
+	/**
+	 * im Konstruktor werden Titel und Layout gesetzt, sowie die Tabs zum JFrame hinzugefügt
+	 */
 	public Cockpit() {
+		//internationalisierter Titel und Maße des JFrames
 		super(ResourceBundle.getBundle("i18n/cockpit/cockpit_en").getString("title"), 500, 550);
-		//716 x 677
-		/**
-		 * Konstruktor erzeugt alle anzuzeigenden Objekte
-		 * 
-		 * @throws AbstractButcherException
-		 *
-
-		/**
-		 * Tabs werden hinzugefügt
-		 */
 
 		c.setLayout(new BorderLayout());
 		c.add(tabbedPane, BorderLayout.CENTER);
 	}
 
+	/**
+	 * Hinzufügen der entsprechenden Tabellen-Kacheln je Tab
+	 * @param tile übergibt als Instanz der Klasse Tile den Namen der anzuzeigenden Kachel
+	 */
 	public void addTile(Tile tile) {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);

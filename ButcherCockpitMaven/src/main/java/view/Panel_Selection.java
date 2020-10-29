@@ -14,9 +14,12 @@ import Tools.Currency_Symbol;
 @SuppressWarnings("serial")
 public class Panel_Selection extends JPanel {
 	
+	/**
+	 * ResourceBundle zum Auslesen der Texte, abhängig von der festgelegten Sprache
+	 */
 	private final ResourceBundle language;
 	/**
-	 * urspr nglich sind keine Produkte ausgewählt, Menge = 0
+	 * ursprünglich sind keine Produkte ausgewählt, Menge = 0
 	 */
 	public static final int initialAmount = 0;
 
@@ -43,7 +46,6 @@ public class Panel_Selection extends JPanel {
 	 * beschriftet.
 	 * 
 	 * @param portion das darzustellende Produkt als einzelne {@link Portion}
-	 * @return
 	 */
 
 	public Panel_Selection(Portion portion) {
@@ -114,7 +116,10 @@ public class Panel_Selection extends JPanel {
 		jb_less.setVisible(false);
 		this.add(jb_less);
 	}
-
+	
+	/**
+	 * Label zur Preisanzeige
+	 */
 	public void setPreisLabel() {
 		jlbl_preis = new JLabel(Tools.Formatter.formatAsCurrency(0), SwingConstants.RIGHT);
 		this.add(jlbl_preis);
@@ -146,7 +151,7 @@ public class Panel_Selection extends JPanel {
 	}
 
 	/**
-	 * @return ausgew hlte Menge als nat rliche Zahl
+	 * @return ausgewählte Menge als natürliche Zahl
 	 */
 	public int getAmount() {
 		return Integer.parseInt(jlbl_amount.getText());
