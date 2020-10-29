@@ -2,13 +2,13 @@ package view;
 
 import java.sql.SQLException;
 
+
 import javax.swing.JTable;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import Tools.Currency_Symbol;
-import Tools.MyTools;
 
 /**
  * Mit Hilfe der Klasse Panel_SelectionTest soll bestaetigt werden, dass die die
@@ -43,9 +43,9 @@ public class Panel_SelectionT{
 //		Assert.assertEquals(selection.getPreis(), 2.50, 1);
 //	}
 	@Test
-	public void getPreis() {
+	public void testGetPreis() {
 		Portion portion = new Portion();
-		String preis = "3,00";
+		String preis = "3,00€";
 		portion.setKilopreis(preis);
 		portion.setPortionsgewichtKG(1);
 		
@@ -53,7 +53,7 @@ public class Panel_SelectionT{
 		selection.aktualisierePreis();
 		selection.setPreisLabel();
 
-		Assert.assertEquals(selection.getPreis(), "3,00€");
+		Assert.assertEquals(selection.getPreis(), 3.00, 0.1);
 		
 //		public double getPreis() {
 //			String preis = jlbl_preis.getText().replace(',', '.');

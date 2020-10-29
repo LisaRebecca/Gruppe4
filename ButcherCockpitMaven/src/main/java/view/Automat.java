@@ -25,6 +25,9 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 class Automat extends DefaultFrame implements PropertyChangeListener {
 
+	/**
+	 * ResourceBundle zum Auslesen der Texte, abhängig von der festgelegten Sprache
+	 */
 	private final ResourceBundle language;
 
 	private JPanel jp_mainPanel;
@@ -48,14 +51,11 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 	private double gesamtpreis;
 
 	/**
-	 * Erzeugen des Automaten-UI inklusive Ueberschrift, Tabelle, GesamtpreisLabel
+	 * Erzeugen des Automaten-UI inklusive Titel und Panels mit Produktauswahl-Tabelle, Gesamtpreisanzeige
 	 * und KaufButton mit ActionListener.
-	 * 
-	 * @param resultSet die verf gbaren Produkte
-	 * @throws SQLException
 	 */
-
 	public Automat() throws AbstractButcherException {
+		//internationalisierter Titel und Maße des JFrames
 		super(ResourceBundle.getBundle("i18n/automat/automat_en").getString("title"), 800, 400);
 
 		this.language = ResourceBundle.getBundle("i18n/automat/automat_en");
@@ -142,7 +142,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 	}
 
 	private void buyButtonPressed() {
-		// Zuerst wird der Kunde nach Best�tigung gefragt.
+		// Zuerst wird der Kunde nach Bestätigung gefragt.
 		String[] options = { this.language.getString("option_yes"), this.language.getString("option_no") };
 		int eingabe = JOptionPane.showOptionDialog(null, this.language.getString("buy_question"),
 				this.language.getString("confirmation"), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,

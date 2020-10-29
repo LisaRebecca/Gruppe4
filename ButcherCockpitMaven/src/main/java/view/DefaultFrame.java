@@ -13,6 +13,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+/**
+ * Abstrakte Klasse von der unsere beiden UIs Automat und Cockpit erben. 
+ * Dient dem setzen allgemeiner Parameter, die beide Klassen verwenden, wie Schriftart, JFrame-Eigenschaften und Icon.
+ *
+ */
 public abstract class DefaultFrame extends JFrame {
 
 	/**
@@ -23,15 +28,17 @@ public abstract class DefaultFrame extends JFrame {
 	protected String errorMessage;
 	protected String errorTitle;
 
+	/**
+	 * Konstruktur legt Konfiguration des JFrames fest
+	 * 
+	 * @param title
+	 * @param width
+	 * @param height
+	 */
 	public DefaultFrame(String title, int width, int height) {
-		/**
-		 * ------------------------------- Konfiguration JFrame
-		 * -------------------------------
-		 */
-		/**
-		 * Hier werden Titel, Sichtbarkeit, Groesse, Position und Close-Operation des
-		 * Default-Windows festgelegt
-		 */
+
+		//Hier werden Titel, Sichtbarkeit, Groesse, Position und Close-Operation des
+		//Default-Windows festgelegt
 		c = getContentPane();
 		this.setTitle(title);
 		this.setVisible(true);
@@ -46,7 +53,6 @@ public abstract class DefaultFrame extends JFrame {
 	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
 	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
 	 */
-
 	protected void setIcon() {
  //Currency_Symbol_Test&Anpassungen_in_Panel_Selection
 		
