@@ -25,7 +25,5 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.49-bin.jar"/>
-	<classpathentry kind="lib" path="lib/mockrunner-jdbc-2.0.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/I518232/Downloads/mockrunner-jdbc-2.0.6.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
