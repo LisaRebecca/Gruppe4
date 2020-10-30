@@ -13,7 +13,7 @@ import Tools.Currency_Symbol;
 
 @SuppressWarnings("serial")
 public class Panel_Selection extends JPanel {
-	
+
 	/**
 	 * ResourceBundle zum Auslesen der Texte, abhängig von der festgelegten Sprache
 	 */
@@ -49,9 +49,9 @@ public class Panel_Selection extends JPanel {
 	 */
 
 	public Panel_Selection(Portion portion) {
-		
+
 		this.language = ResourceBundle.getBundle("i18n/panel_selection/panel_selection_en");
-		
+
 		this.setPortion(portion);
 
 		this.setLayout(new GridLayout(1, 0));
@@ -73,8 +73,10 @@ public class Panel_Selection extends JPanel {
 	public void setPortionInfo() {
 		this.add(new JLabel(portion.getName(), SwingConstants.LEFT));
 		this.add(new JLabel("" + portion.getKilopreis() + this.language.getString("unit"), SwingConstants.RIGHT));
-		this.add(new JLabel("" + portion.getLagermenge() +" "+ this.language.getString("portions") + " ", SwingConstants.RIGHT));
-		this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + this.language.getString("grams"), SwingConstants.LEFT));
+		this.add(new JLabel("" + portion.getLagermenge() + " " + this.language.getString("portions") + " ",
+				SwingConstants.RIGHT));
+		this.add(new JLabel("" + this.getPortion().getPortionsgewichtGramm() + this.language.getString("grams"),
+				SwingConstants.LEFT));
 
 	}
 
@@ -90,7 +92,7 @@ public class Panel_Selection extends JPanel {
 	/**
 	 * Button zum Erhoehen der Menge
 	 */
-	public void initializePlusButton() {
+	void initializePlusButton() {
 		jb_more = new JButton("+");
 		jb_more.setBackground(Color.white);
 		jb_more.addActionListener(e -> {
@@ -104,7 +106,7 @@ public class Panel_Selection extends JPanel {
 	/**
 	 * Button zum Vermindern der Menge
 	 */
-	public void initializeMinusButton() {
+	void initializeMinusButton() {
 		jb_less = new JButton("-");
 		jb_less.setBackground(Color.white);
 		jb_less.addActionListener(e -> {
@@ -116,7 +118,7 @@ public class Panel_Selection extends JPanel {
 		jb_less.setVisible(false);
 		this.add(jb_less);
 	}
-	
+
 	/**
 	 * Label zur Preisanzeige
 	 */
@@ -128,7 +130,7 @@ public class Panel_Selection extends JPanel {
 	/**
 	 * der gesamte Preis der ausgewaelten Portionen wird aktualisiert
 	 */
-	public void aktualisierePreis() {
+	void aktualisierePreis() {
 		double new_price = (getPortion().getPortionspreis() * getAmount());
 		double old_price = getPreis();
 		jlbl_preis.setText("" + Tools.Formatter.formatAsCurrency(new_price));
@@ -165,11 +167,11 @@ public class Panel_Selection extends JPanel {
 		this.portion = portion;
 	}
 
-/**
- * 		Ein-/Ausblenden der Buttons je nachdem ob weitere Portionen des Produktes
- *		vorhanden sind. Verhindert auch die Auswahl einer negativen Anzahl.
- */
-		public void refreshButtonVisibility() {
+	/**
+	 * Ein-/Ausblenden der Buttons je nachdem ob weitere Portionen des Produktes
+	 * vorhanden sind. Verhindert auch die Auswahl einer negativen Anzahl.
+	 */
+	void refreshButtonVisibility() {
 		Panel_Selection ps = this;
 		if (getAmount() <= 0) {
 			jb_less.setVisible(false);
@@ -188,5 +190,5 @@ public class Panel_Selection extends JPanel {
 	public void removePropertyChangeListener(PropertyChangeListener l) {
 		changes.removePropertyChangeListener(l);
 	}
-	
+
 }

@@ -43,7 +43,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 	 * Warenkorb, enthält alle ausgewählten Produkte in Form von
 	 * {@link Panel_Selection}
 	 */
-	public ArrayList<Panel_Selection> warenkorb = new ArrayList<Panel_Selection>();
+	private ArrayList<Panel_Selection> warenkorb = new ArrayList<Panel_Selection>();
 
 	/**
 	 * Gesamtpreis dieses Einkaufs
@@ -72,7 +72,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 	/**
 	 * Button zum Kaufen wird erstellt
 	 */
-	public void createBuyButton() {
+	void createBuyButton() {
 		jb_buy = new JButton(this.language.getString("buy_btn"));
 		jb_buy.setBackground(Color.white);
 		jb_buy.addActionListener(new ActionListener() {
@@ -87,7 +87,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 	/**
 	 * Panel zur Anzeige der Gesamtsumme und des Kaufenbuttons
 	 */
-	public void createBuyPanel() {
+	void createBuyPanel() {
 		jp_buyPanel = new JPanel(new GridLayout(2, 1));
 
 		// Anzeige der Gesamtsumme
@@ -101,7 +101,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 	/**
 	 * Panel, welches die Überschrift und alle auswählbaren Produkte beinhaltet
 	 */
-	public void createSelectionPanel() {
+	void createSelectionPanel() {
 		jlbl_title = new JLabel(this.language.getString("product_selection"));
 		jlbl_title.setFont(headerfont);
 		jp_selectionPanel = new JPanel(new GridLayout(0, 1));
@@ -111,7 +111,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 	/**
 	 * Erzeugen des Hintergrund-Panels
 	 */
-	public void createMainPanel() {
+	void createMainPanel() {
 		jp_mainPanel = new JPanel(new FlowLayout());
 		c.add(jp_mainPanel);
 		jp_mainPanel.add(jp_selectionPanel);
@@ -128,7 +128,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 	/**
 	 * Berechnung des Gesamtpreises dieses Einkaufs, aktualisieren der Anzeige
 	 */
-	public void berechneGesamtpreis() {
+	void berechneGesamtpreis() {
 		gesamtpreis = 0.00;
 		for (Panel_Selection selection : warenkorb) {
 			gesamtpreis += selection.getPreis();
