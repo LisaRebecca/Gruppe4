@@ -2,6 +2,11 @@ package data;
 
 import java.util.ResourceBundle;
 
+/**
+ * Stellt SQL Select Statements bereit.
+ * @author I518232
+ *
+ */
 public enum Select_Statements {
 
 	FULL_STOCK, PRODUCTS, AUTOMAT, PURCHASES, AUTOMAT_PRODUCTS;
@@ -18,13 +23,14 @@ public enum Select_Statements {
 		case AUTOMAT:
 			return "SELECT name as '" + this.language.getString("name") + "', produkt_id as '" + this.language.getString("produkt_id") + "', kilopreis as '" + this.language.getString("kilopreis") + "', gewicht_portion as '" + this.language.getString("gewicht_portion") + "' FROM Produkte;";
 		case PRODUCTS:
-			return "SELECT name as '" +"x" /*this.language.getString("name")*/ + "', haltbar_bis as '" + this.language.getString("haltbar_bis") + "', portionen as '" + this.language.getString("portionen") + "' from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';";
+			return "SELECT name as '" + this.language.getString("name") + "', haltbar_bis as '" + this.language.getString("haltbar_bis") + "', portionen as '" + this.language.getString("portionen") + "' from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';";
 		case PURCHASES:
 			return "SELECT HEX(verkauf_id) as '" + this.language.getString("verkauf_id") + "', datum as '" + this.language.getString("datum") + "', uhrzeit as '" + this.language.getString("uhrzeit") + "', gesamtpreis as '" + this.language.getString("gesamtpreis") + "' FROM Verkaeufe;";
 		case AUTOMAT_PRODUCTS:
 			return "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand left join produkte on lagerbestand.produkt = produkte.produkt_id "
 					+ "WHERE lagerort='automat1';";
 		default:
+			// In unvorhergesehenen Fällen soll eine Übersicht über die verfügbaren Tabellen gezeigt werden.
 			return "SHOW TABLES as 'BAD SQL_SELECT, Datenbanktabellen'';";
 		}
 	}

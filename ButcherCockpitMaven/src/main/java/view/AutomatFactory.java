@@ -11,27 +11,36 @@ import errorhandling.AbstractButcherException;
 import errorhandling.ButcherException;
 import errorhandling.SQLButcherException;
 
+/**
+ * Diese Factory-Klasse erstellt {@link Automat}en. Der Automat wird mit Daten
+ * aus der Datenbank gefüllt.
+ * 
+ * @author I518232
+ *
+ */
 public class AutomatFactory extends Factory {
-	
+
 	private final ResourceBundle language;
-	
+
 	public AutomatFactory() {
-		this.language = ResourceBundle.getBundle("i18n/sqlbutcher_exception/sqlbutcher_exception_en");		
+		this.language = ResourceBundle.getBundle("i18n/sqlbutcher_exception/sqlbutcher_exception_en");
 	}
 
+	/**
+	 * Der Automat wird erstellt und mit Daten gefüllt.
+	 */
 	@Override
-	public void construct() throws AbstractButcherException{
+	public void construct() throws AbstractButcherException {
 		Automat automat = new Automat();
-		
+
 		ResultSet rs_products = null;
 
-		
 		try {
 			rs_products = Database.get().executeDBQuery(Select_Statements.AUTOMAT_PRODUCTS);
 		} catch (AbstractButcherException e) {
-			throw new ButcherException(e, this.language.getString("loading_error"), this.language.getString("error_message"));
+			throw new ButcherException(e, this.language.getString("loading_error"),
+					this.language.getString("error_message"));
 		}
-
 		try {
 			while (rs_products.next()) {
 				Portion portion = new Portion();
@@ -40,8 +49,9 @@ public class AutomatFactory extends Factory {
 				portion.setHaltbarBis(rs_products.getString("haltbar_bis"));
 				portion.setKilopreis(rs_products.getString("kilopreis"));
 				portion.setPortionsgewichtKG(rs_products.getString("gewicht_portion"));
-				
+
 				Panel_Selection ps = new Panel_Selection(portion);
+				// Ein Listener wird registriert, damit der Automat von den Panels benachrichtigt werden kann.
 				ps.addPropertyChangeListener(automat);
 				automat.addPanel(ps);
 			}

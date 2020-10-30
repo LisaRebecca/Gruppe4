@@ -19,11 +19,6 @@ import controller.login.LoginController;
 import data.Database;
 import models.Credentials;
 
-/**
- * Der {@link DatabaseConnector} stellt die Schnittstelle zur Datenbank zur
- * Verfügung. Die Klasse kann Requests an die Datenbank senden um Daten
- * auszulesen. Zusätzlich kann diese Klasse auch Tupel in Tabellen einf�gen.
- */
 public class RealDatabase extends Database {
 
 	private final ResourceBundle language;
@@ -39,45 +34,31 @@ public class RealDatabase extends Database {
 
 	public RealDatabase() {
 		this.language = ResourceBundle.getBundle("i18n/real_database/real_database_en");
-
 		isConnected = false;
 	}
 
-	/**
-	 * Eine Anfrage an die in {@link DatabaseConnection} angebundene Datenbank kann
-	 * gesendet werden.
-	 * 
-	 * @param select_statement Eine Datenbankanfrage im MySQL-Syntax
-	 * @return die angefragten Daten in der Form eines {@link JTable}
-	 * @throws SQLException
-	 */
-
 	@Override
 	public ResultSet executeDBQuery(Select_Statements stmt) {
-		if(! isConnected) {
-			ExceptionHandler.get().showException(new SQLButcherException(new SQLException(this.language.getString("not_logged_in"))));
+		if (!isConnected) {
+			ExceptionHandler.get()
+					.showException(new SQLButcherException(new SQLException(this.language.getString("not_logged_in"))));
 		}
 		try {
 			return conn.createStatement().executeQuery(stmt.getStatement());
 		} catch (SQLException e) {
-			ExceptionHandler.get().showException(new ButcherException(e, this.language.getString("error"), this.language.getString("error_message")));
+			ExceptionHandler.get().showException(new ButcherException(e, this.language.getString("error"),
+					this.language.getString("error_message")));
 			return null;
 		}
 	}
 
-	/**
-	 * Die Datenbank wird bef�llt.
-	 * 
-	 * @param insert_statement beschreibt, welche Daten in die Tabelle geschrieben
-	 *                         werden
-	 * @throws SQLException
-	 */
 	@Override
 	public void executeDBInsert(String insert_statement) {
 		try {
 			conn.createStatement().execute(insert_statement);
 		} catch (SQLException e) {
-			ExceptionHandler.get().showException(new ButcherException(e, this.language.getString("error"), this.language.getString("error_message")));
+			ExceptionHandler.get().showException(new ButcherException(e, this.language.getString("error"),
+					this.language.getString("error_message")));
 		}
 
 	}
@@ -92,8 +73,8 @@ public class RealDatabase extends Database {
 			isConnected = true;
 			LoginController.get().giveControl();
 		} catch (SQLException e) {
-			ExceptionHandler.get().showException(new ButcherException(e, this.language.getString("error"),
-					this.language.getString("no_access")));
+			ExceptionHandler.get().showException(
+					new ButcherException(e, this.language.getString("error"), this.language.getString("no_access")));
 		}
 	}
 }
