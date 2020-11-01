@@ -16,7 +16,7 @@ public abstract class ExceptionHandler {
 	public ExceptionHandler() {
 		logger = Logger.getLogger(ExceptionHandlerUser.class.getName());
 		try {
-			handler = new FileHandler("/logs/exception_logging.log");
+			handler = new FileHandler("logs/exception_logging.log");
 		} catch (SecurityException e) {
 			exceptionHandler.showException(new ButcherException(e, "Sicherheitsfehler beim Logging",
 					"Bitte wenden Sie sich an den IT-Support"));
