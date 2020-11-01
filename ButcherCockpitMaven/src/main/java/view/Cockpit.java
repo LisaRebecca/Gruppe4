@@ -38,7 +38,6 @@ class Cockpit extends DefaultFrame {
 		panel.setBackground(Color.WHITE);
 		panel.add(new JLabel("" + tile.getTilename()));
 		panel.add(tile);
-		tabbedPane.add(panel);
-		tabbedPane.add("" + tile.getTilename(), panel);
+		tabbedPane.add(tile.getTilename(), panel);
 	}
 }
