@@ -13,7 +13,7 @@ import errorhandling.AbstractButcherException;
 public abstract class LoginController {
 
 	/**
-	 * Die aktuell ausgewählt Ausprägung für den LoginController.
+	 * Die aktuell ausgewählte Ausprägung für den LoginController.
 	 */
 	private static LoginController loginController = null;
 
