@@ -85,9 +85,8 @@ public class Panel_SelectionTest {
 
 	@Test
 	public void observerTest() throws AbstractButcherException {
-		Portion portion = new Portion();
-
-		Panel_Selection ps = new Panel_Selection(portion);
+		Panel_Selection ps = new Panel_Selection(new Portion());
+		
 		MockAutomat mockAutomat = new MockAutomat();
 		ps.addPropertyChangeListener(mockAutomat);
 		
