@@ -1,7 +1,8 @@
 package view;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
-
 
 import javax.swing.JTable;
 
@@ -9,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import Tools.Currency_Symbol;
+import errorhandling.AbstractButcherException;
 
 /**
  * Mit Hilfe der Klasse Panel_SelectionTest soll bestaetigt werden, dass die die
@@ -16,13 +18,15 @@ import Tools.Currency_Symbol;
  *
  */
 
-public class Panel_SelectionT{
+public class Panel_SelectionT {
 
 	/**
 	 * Pr�ft, ob der Preis in der <code>Panel_Selection</code> richtig berechnet
 	 * wird. <br>
 	 * Hinweis: aktualisierePreis() wird beim Clicken des Buttons aufgerufen, wird
 	 * hier also nicht explizit aufgerufen.
+	 * 
+	 * @throws AbstractButcherException
 	 */
 //	@Test
 //	public void testAktualisierePreis() {
@@ -48,13 +52,14 @@ public class Panel_SelectionT{
 		String preis = "3,00€";
 		portion.setKilopreis(preis);
 		portion.setPortionsgewichtKG(1);
-		
+
 		Panel_Selection selection = new Panel_Selection(portion);
 		selection.aktualisierePreis();
 		selection.setPreisLabel();
 
 		Assert.assertEquals(selection.getPreis(), 3.00, 0.1);
-		
+	}
+
 //		public double getPreis() {
 //			String preis = jlbl_preis.getText().replace(',', '.');
 //
@@ -66,17 +71,20 @@ public class Panel_SelectionT{
 //			}
 //			return Double.parseDouble(preis);
 //		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+	@Test
+	public void observerTest() throws AbstractButcherException {
+		Portion portion = new Portion();
+
+		Panel_Selection ps = new Panel_Selection(portion);
+		ps.addPropertyChangeListener(new PropertyChangeListener() {
+
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				Assert.assertTrue(true);
+			}
+		});
+
 	}
+
 }

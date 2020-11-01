@@ -14,6 +14,8 @@ public abstract class ExceptionHandler {
 
 	public ExceptionHandler() {
 		logger = Logger.getLogger(ExceptionHandlerUser.class.getName());
+		logger.setUseParentHandlers(false);
+		// only print to file not to console
 
 		try {
 			handler = new FileHandler("exception_logging.txt");
