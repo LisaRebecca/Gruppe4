@@ -2,7 +2,11 @@ package errorhandling;
 
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-
+/**
+ * Exception die bei Fehlfunktionen in Verbindung mit der Datenbank auftritt.
+ * @author a-sch
+ *
+ */
 public class SQLButcherException extends AbstractButcherException {
 	
 	public SQLButcherException(SQLException e) {
