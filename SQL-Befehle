@@ -45,8 +45,7 @@ INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 8,
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 9, DATE '2020-12-24', 'metzgerei', 7);
 INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 10, DATE '2021-05-13', 'metzgerei', 6);
 
-CREATE TABLE Verkaeufe ( verkauf_id INT PRIMARY KEY AUTO_INCREMENT, datum DATE, uhrzeit TIME, gesamtpreis NUMERIC (5,2));
-
+CREATE TABLE Verkaeufe ( verkauf_id BINARY(16) PRIMARY KEY, datum DATE, uhrzeit TIME, gesamtpreis NUMERIC (5,2));
 
 CREATE USER 'DefaultUser' @'localhost' IDENTIFIED BY 'DefaultPassword';
 GRANT SELECT,UPDATE,INSERT ON metzgerei .* TO 'DefaultUser'@'localhost';
