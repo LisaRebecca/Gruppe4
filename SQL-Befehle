@@ -49,4 +49,4 @@ CREATE TABLE Verkaeufe ( verkauf_id INT PRIMARY KEY AUTO_INCREMENT, datum DATE, 
 
 
 CREATE USER 'DefaultUser' @'localhost' IDENTIFIED BY 'DefaultPassword';
-GRANT SELECT,UPDATE,INSERT ON metzgerei .* TO 'Nutzer'@'localhost';
+GRANT SELECT,UPDATE,INSERT ON metzgerei .* TO 'DefaultUser'@'localhost';
