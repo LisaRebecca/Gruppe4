@@ -1,6 +1,7 @@
 package data;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import javax.swing.*;
 
@@ -29,9 +30,11 @@ public class RealDatabaseTest extends JFrame {
 			Credentials.setUsername("wrong username");
 		}
 
-		@Test(expected = AbstractButcherException.class)
+		@Test
 		void establishConnectionTest1() throws AbstractButcherException {
-			Database.get().establishConnection();
+			assertThrows(AbstractButcherException.class, () -> {
+				Database.get().establishConnection();
+			});
 		}
 
 		@Test(expected = AbstractButcherException.class)
@@ -42,8 +45,8 @@ public class RealDatabaseTest extends JFrame {
 	}
 
 	@Nested
-	public class CorrectCredentialsTest{
-		
+	public class CorrectCredentialsTest {
+
 		@Test
 		void establishConnectionTest1() throws AbstractButcherException {
 			Credentials.setPassword("Nutzer");
@@ -51,7 +54,7 @@ public class RealDatabaseTest extends JFrame {
 			Database.get().establishConnection();
 			assertTrue(Database.get().isConnected);
 		}
-		
+
 	}
 
 }

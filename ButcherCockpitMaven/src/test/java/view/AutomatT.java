@@ -2,7 +2,7 @@ package view;
 
 import javax.swing.JTable;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Test;
 import org.junit.Test;
 
 /**

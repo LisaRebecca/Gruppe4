@@ -58,12 +58,10 @@ public class Select_StatementTest {
 						portion.setHaltbarBis(rs_products.getString("haltbar_bis"));
 						portion.setKilopreis(rs_products.getString("kilopreis"));
 						portion.setPortionsgewichtKG(rs_products.getString("gewicht_portion"));
-						System.out.println(portion.toString());
 					}
 				} catch (SQLException e) {
 					assertTrue(false);
 				}
-				System.out.println(stmt.toString() + " tested.");
 			}
 		}
 	}

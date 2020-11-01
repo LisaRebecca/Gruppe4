@@ -167,6 +167,14 @@ public class Panel_Selection extends JPanel {
 		this.portion = portion;
 	}
 
+	public JButton getJb_more() {
+		return jb_more;
+	}
+
+	public JButton getJb_less() {
+		return jb_less;
+	}
+
 	/**
 	 * Ein-/Ausblenden der Buttons je nachdem ob weitere Portionen des Produktes
 	 * vorhanden sind. Verhindert auch die Auswahl einer negativen Anzahl.
