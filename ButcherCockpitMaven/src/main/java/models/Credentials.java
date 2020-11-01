@@ -37,6 +37,6 @@ public class Credentials {
 	 * @return True, unter der Bedingung, dass sowohl Passwort als auch Username ungleich "null" sind
 	 */
 	public static boolean getIsSet() {
-		return !(password == null && username == null);
+		return !(password == null || username == null);
 	}
 }

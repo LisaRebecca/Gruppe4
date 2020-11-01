@@ -17,13 +17,21 @@ public class Credentials_Test {
 	@Test
 	public void getIsSetTest2() {
 		Credentials.setUsername(null);
-		Credentials.setPassword("test");
+		Credentials.setPassword("testpassword");
+		Assert.assertEquals(false, Credentials.getIsSet());
+
+	}
+	
+	@Test
+	public void getIsSetTest3() {
+		Credentials.setUsername("testUsername");
+		Credentials.setPassword(null);
 		Assert.assertEquals(false, Credentials.getIsSet());
 
 	}
 
 	@Test
-	public void getIsSetTest3() {
+	public void getIsSetTest4() {
 		Credentials.setPassword(null);
 		Credentials.setUsername(null);
 		Assert.assertEquals(false, Credentials.getIsSet());
