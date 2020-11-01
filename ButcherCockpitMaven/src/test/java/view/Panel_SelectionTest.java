@@ -1,5 +1,7 @@
 package view;
 
+import static org.junit.Assert.assertTrue;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
@@ -18,7 +20,7 @@ import errorhandling.AbstractButcherException;
  *
  */
 
-public class Panel_SelectionT {
+public class Panel_SelectionTest {
 
 	/**
 	 * Pr�ft, ob der Preis in der <code>Panel_Selection</code> richtig berechnet
@@ -72,19 +74,23 @@ public class Panel_SelectionT {
 //			return Double.parseDouble(preis);
 //		}
 
+	class MockAutomat implements PropertyChangeListener {
+		public int wasNotified = 0;
+
+		@Override
+		public void propertyChange(PropertyChangeEvent evt) {
+			wasNotified++;
+		}
+	}
+
 	@Test
 	public void observerTest() throws AbstractButcherException {
 		Portion portion = new Portion();
 
 		Panel_Selection ps = new Panel_Selection(portion);
-		ps.addPropertyChangeListener(new PropertyChangeListener() {
-
-			@Override
-			public void propertyChange(PropertyChangeEvent evt) {
-				Assert.assertTrue(true);
-			}
-		});
-
+		MockAutomat mockAutomat = new MockAutomat();
+		ps.addPropertyChangeListener(mockAutomat);
+		
+		assertTrue(mockAutomat.wasNotified > 0);
 	}
-
 }
