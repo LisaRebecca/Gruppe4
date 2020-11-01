@@ -7,13 +7,31 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.mockrunner.jdbc.FileResultSetFactory;
 
 import Tools.Converter;
 import errorhandling.AbstractButcherException;
+import errorhandling.SQLButcherException;
 
 public class MockDatabase extends Database {
-	
+
+	@Override
+	public void establishConnection() throws AbstractButcherException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ResultSet executeDBQuery(Select_Statements stmt) throws SQLButcherException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void executeDBInsert(String insert_statement) throws SQLButcherException {
+		// TODO Auto-generated method stub
+		
+	}
+/*	
 	private Connection connection;
 	FileResultSetFactory rsf;
 	public void disconnect() throws SQLException {
@@ -57,4 +75,5 @@ public class MockDatabase extends Database {
 		MockDatabase md = new MockDatabase();
 		System.out.println(Converter.resultSetToTable(md.rsf.create("hi")));
 	}
+	*/
 }

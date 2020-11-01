@@ -1,7 +1,7 @@
 package data;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,9 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import controller.login.LoginController;
 import errorhandling.AbstractButcherException;
-import errorhandling.ButcherException;
 import errorhandling.SQLButcherException;
-import view.Panel_Selection;
 import view.Portion;
 
 public class Select_StatementTest {
@@ -58,12 +56,10 @@ public class Select_StatementTest {
 						portion.setHaltbarBis(rs_products.getString("haltbar_bis"));
 						portion.setKilopreis(rs_products.getString("kilopreis"));
 						portion.setPortionsgewichtKG(rs_products.getString("gewicht_portion"));
-						System.out.println(portion.toString());
 					}
 				} catch (SQLException e) {
 					assertTrue(false);
 				}
-				System.out.println(stmt.toString() + " tested.");
 			}
 		}
 	}

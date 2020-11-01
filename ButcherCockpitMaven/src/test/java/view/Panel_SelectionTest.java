@@ -1,17 +1,14 @@
 package view;
 
-import static org.junit.Assert.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.sql.SQLException;
 
-import javax.swing.JTable;
-
-import org.junit.Assert;
-import org.junit.Test;
-
-import Tools.Currency_Symbol;
 import errorhandling.AbstractButcherException;
 
 /**
@@ -34,11 +31,11 @@ public class Panel_SelectionTest {
 	@Test
 	public void testGetPreis() {
 		Portion portion = new Portion();
-		portion.setKilopreis("3,00€");
+		portion.setKilopreis("3.00");
 		Panel_Selection selection = new Panel_Selection(portion);
 		selection.aktualisierePreis();
 		selection.setPreisLabel();
-		Assert.assertEquals(selection.getPreis(), 3.00, 0.1);
+		assertEquals(selection.getPreis(), 3.00, 0.1);
 	}
 
 	class MockAutomat implements PropertyChangeListener {
@@ -52,11 +49,19 @@ public class Panel_SelectionTest {
 
 	@Test
 	public void observerTest() throws AbstractButcherException {
-		Panel_Selection ps = new Panel_Selection(new Portion());
+		Portion portion = new Portion();
+		portion.setName("Wurst");
+		portion.setLagermenge("3");
+		portion.setHaltbarBis("");
+		portion.setKilopreis("4.00");
+		portion.setPortionsgewichtKG("6.00");
+		
+		Panel_Selection ps = new Panel_Selection(portion);
 
 		MockAutomat mockAutomat = new MockAutomat();
 		ps.addPropertyChangeListener(mockAutomat);
-
+		
+		ps.getJb_less().doClick();
 		assertTrue(mockAutomat.wasNotified > 0);
 	}
 }
