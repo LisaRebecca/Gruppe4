@@ -1,8 +1,8 @@
 package models;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import junit.framework.Assert;
+import org.junit.jupiter.api.Test;
 
 public class Credentials_Test {
 
@@ -10,7 +10,7 @@ public class Credentials_Test {
 	public void getIsSetTest1() {
 		Credentials.setPassword("testpassword");
 		Credentials.setUsername("testusername");
-		Assert.assertEquals(true, Credentials.getIsSet());
+		assertEquals(true, Credentials.getIsSet());
 
 	}
 
@@ -18,7 +18,7 @@ public class Credentials_Test {
 	public void getIsSetTest2() {
 		Credentials.setUsername(null);
 		Credentials.setPassword("testpassword");
-		Assert.assertEquals(false, Credentials.getIsSet());
+		assertEquals(false, Credentials.getIsSet());
 
 	}
 	
@@ -26,7 +26,7 @@ public class Credentials_Test {
 	public void getIsSetTest3() {
 		Credentials.setUsername("testUsername");
 		Credentials.setPassword(null);
-		Assert.assertEquals(false, Credentials.getIsSet());
+		assertEquals(false, Credentials.getIsSet());
 
 	}
 
@@ -34,7 +34,7 @@ public class Credentials_Test {
 	public void getIsSetTest4() {
 		Credentials.setPassword(null);
 		Credentials.setUsername(null);
-		Assert.assertEquals(false, Credentials.getIsSet());
+		assertEquals(false, Credentials.getIsSet());
 
 	}
 

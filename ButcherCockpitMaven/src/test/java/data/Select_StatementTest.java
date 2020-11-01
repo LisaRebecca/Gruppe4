@@ -1,7 +1,7 @@
 package data;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,9 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import controller.login.LoginController;
 import errorhandling.AbstractButcherException;
-import errorhandling.ButcherException;
 import errorhandling.SQLButcherException;
-import view.Panel_Selection;
 import view.Portion;
 
 public class Select_StatementTest {

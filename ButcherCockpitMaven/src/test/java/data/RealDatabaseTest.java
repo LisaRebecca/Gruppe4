@@ -1,14 +1,10 @@
 package data;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 import javax.swing.*;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import errorhandling.AbstractButcherException;
 import models.Credentials;
@@ -37,9 +33,9 @@ public class RealDatabaseTest extends JFrame {
 			});
 		}
 
-		@Test(expected = AbstractButcherException.class)
+		@Test
 		void establishConnectionTest2() throws AbstractButcherException {
-			Database.get().establishConnection();
+			assertThrows(AbstractButcherException.class, () -> Database.get().establishConnection());
 			assertFalse(Database.get().isConnected);
 		}
 	}

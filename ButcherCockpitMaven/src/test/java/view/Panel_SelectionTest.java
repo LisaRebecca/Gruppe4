@@ -3,15 +3,10 @@ package view;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.sql.SQLException;
-
-import javax.swing.JTable;
-
-
-import Tools.Currency_Symbol;
 import errorhandling.AbstractButcherException;
 
 /**
@@ -54,11 +49,10 @@ public class Panel_SelectionTest {
 	public void observerTest() throws AbstractButcherException {
 		Portion portion = new Portion();
 		portion.setName("Wurst");
-		portion.setLagermenge(rs_products.getString("portionen"));
-		portion.setHaltbarBis(rs_products.getString("haltbar_bis"));
-		portion.setKilopreis(rs_products.getString("kilopreis"));
-		portion.setPortionsgewichtKG(rs_products.getString("gewicht_portion"));
-		portion.setKilopreis("3.00");
+		portion.setLagermenge("3");
+		portion.setHaltbarBis("");
+		portion.setKilopreis("4.00");
+		portion.setPortionsgewichtKG("6.00");
 		
 		Panel_Selection ps = new Panel_Selection(portion);
 

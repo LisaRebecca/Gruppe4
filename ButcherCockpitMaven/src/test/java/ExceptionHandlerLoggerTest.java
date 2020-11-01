@@ -1,4 +1,3 @@
-import errorhandling.AbstractButcherException;
 import errorhandling.ButcherException;
 import errorhandling.ExceptionHandler;
 import errorhandling.ExceptionHandlerUser;
