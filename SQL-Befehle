@@ -48,5 +48,5 @@ INSERT INTO Lagerbestand (produkt, haltbar_bis, lagerort, portionen) VALUES ( 10
 CREATE TABLE Verkaeufe ( verkauf_id INT PRIMARY KEY AUTO_INCREMENT, datum DATE, uhrzeit TIME, gesamtpreis NUMERIC (5,2));
 
 
-CREATE USER 'Nutzer' @'localhost' IDENTIFIED BY 'nutzerpasswort';
+CREATE USER 'DefaultUser' @'localhost' IDENTIFIED BY 'DefaultPassword';
 GRANT SELECT,UPDATE,INSERT ON metzgerei .* TO 'Nutzer'@'localhost';
