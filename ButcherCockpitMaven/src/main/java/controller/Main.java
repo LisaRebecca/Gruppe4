@@ -23,8 +23,8 @@ import view.Factory;
 public class Main {
 	public static void main(String[] args) {
 
-//		LoginController.set(new LoginControllerStandard());
-		LoginController.set(new LoginControllerFilled());
+		LoginController.set(new LoginControllerStandard());
+//		LoginController.set(new LoginControllerFilled());
 
 		Database.set(new RealDatabase());
 

@@ -35,8 +35,14 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
+
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
 					<finalName>ButcherCockpit</finalName>
