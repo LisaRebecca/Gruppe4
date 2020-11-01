@@ -14,8 +14,6 @@ public class ExceptionHandlerUser extends ExceptionHandler {
 		JOptionPane.showMessageDialog(null, e.getErrorMessage(), 
 				e.getErrorTitle(), 
 				JOptionPane.INFORMATION_MESSAGE);
-		logging(e);
-
+		logException(e);
 	}
-
 }

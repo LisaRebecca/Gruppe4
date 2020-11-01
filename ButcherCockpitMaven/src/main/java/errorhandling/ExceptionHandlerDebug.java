@@ -6,7 +6,6 @@ public class ExceptionHandlerDebug extends ExceptionHandler {
 	public void showException(AbstractButcherException e) {
 		System.out.println(e.getMessage());
 		e.printStackTrace();
-		logging(e);
+		logException(e);
 	}
-	
 }
