@@ -1,0 +1,21 @@
+Nov. 01, 2020 3:44:32 PM errorhandling.ExceptionHandler logException
+INFO: Exception geworfen
+errorhandling.ButcherException: java.lang.Exception
+	at ExceptionHandlerLoggerTest.main(ExceptionHandlerLoggerTest.java:9)
+Caused by: java.lang.Exception
+	... 1 more
+
+Nov. 01, 2020 3:44:33 PM errorhandling.ExceptionHandler logException
+INFO: Exception geworfen
+errorhandling.ButcherException: java.lang.Exception
+	at ExceptionHandlerLoggerTest.main(ExceptionHandlerLoggerTest.java:10)
+Caused by: java.lang.Exception
+	... 1 more
+
+Nov. 01, 2020 3:44:33 PM errorhandling.ExceptionHandler logException
+INFO: Exception geworfen
+errorhandling.ButcherException: java.lang.Exception
+	at ExceptionHandlerLoggerTest.main(ExceptionHandlerLoggerTest.java:11)
+Caused by: java.lang.Exception
+	... 1 more
+
