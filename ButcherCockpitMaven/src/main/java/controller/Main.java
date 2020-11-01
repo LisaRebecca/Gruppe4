@@ -22,12 +22,9 @@ import view.Factory;
 							// 'unused'
 public class Main {
 	public static void main(String[] args) {
-		
-		Currency_Symbol.setCurrency_Symbol("€");
 
 		LoginController.set(new LoginControllerStandard());
-
-		// LoginController.set(new LoginControllerFilled());
+//		LoginController.set(new LoginControllerFilled());
 
 		Database.set(new RealDatabase());
 
@@ -37,11 +34,8 @@ public class Main {
 		Payment.set(new GiftCardPayment());
 // 		Payment.set(new CreditCardPayment());
 
-
- 		
 		Factory.set(new CockpitFactory());
 //		Factory.set(new AutomatFactory());
-
 
 		try {
 			LoginController.get().giveControl();
@@ -49,9 +43,5 @@ public class Main {
 			ExceptionHandler.get().showException(e);
 
 		}
-
-		// Factory.set(new CockpitFactory());
-		Factory.set(new AutomatFactory());
-
 	}
 }

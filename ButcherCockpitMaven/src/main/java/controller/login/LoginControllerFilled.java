@@ -37,8 +37,8 @@ public class LoginControllerFilled extends LoginController {
 				Database.get().establishConnection();
 			}
 		} else {
-			Credentials.setUsername("Standard_Nutzer");
-			Credentials.setPassword("Fleischer_Passwort");
+			Credentials.setUsername("DefaultUser");
+			Credentials.setPassword("DefaultPassword");
 			giveControl();
 		}
 	}

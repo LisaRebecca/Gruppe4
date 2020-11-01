@@ -9,14 +9,10 @@ import view.Factory;
 public class LoginControllerForTesting extends LoginController {
 	@Override
 	public void giveControl() throws AbstractButcherException {
-		if (Credentials.getIsSet()) {
-			if (!Database.get().isConnected) {
-				Database.get().establishConnection();
-			}
-		} else {
-			Credentials.setUsername("Nutzer");
-			Credentials.setPassword("nutzerpasswort");
-			giveControl();
+		Credentials.setUsername("DefaultUser");
+		Credentials.setPassword("DefaultPassword");
+		if (!Database.get().isConnected) {
+			Database.get().establishConnection();
 		}
 	}
 }

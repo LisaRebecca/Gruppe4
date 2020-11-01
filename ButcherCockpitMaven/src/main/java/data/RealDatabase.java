@@ -75,6 +75,7 @@ public class RealDatabase extends Database {
 		} catch (SQLException e) {
 			ExceptionHandler.get().showException(
 					new ButcherException(e, this.language.getString("error"), this.language.getString("no_access")));
+			isConnected = false;
 		}
 	}
 }

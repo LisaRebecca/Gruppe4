@@ -9,7 +9,7 @@ import java.util.logging.SimpleFormatter;
 
 public abstract class ExceptionHandler {
 
-	private static ExceptionHandler exceptionHandler;
+	private static ExceptionHandler exceptionHandler = new ExceptionHandlerUser();
 	private static Logger logger;
 	private static Handler handler;
 

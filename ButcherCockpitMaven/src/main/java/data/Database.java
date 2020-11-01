@@ -13,7 +13,7 @@ public abstract class Database {
 	/**
 	 * Die aktuell 
 	 */
-	private static Database database;
+	private static Database database = new RealDatabase();
 	public boolean isConnected = false;
 
 	public static Database get() {

@@ -1,6 +1,6 @@
 package view;
 
-
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,15 +27,22 @@ public class Panel_SelectionTest {
 	 * 
 	 * @throws AbstractButcherException
 	 */
+	static Portion portion = new Portion();
+
+	@BeforeAll
+	public static void init() {
+		portion.setName("Wurst");
+		portion.setLagermenge("3");
+		portion.setHaltbarBis("0000-00-00");
+		portion.setKilopreis("4.00");
+		portion.setPortionsgewichtKG("0.5");
+	}
 
 	@Test
 	public void testGetPreis() {
-		Portion portion = new Portion();
-		portion.setKilopreis("3.00");
 		Panel_Selection selection = new Panel_Selection(portion);
-		selection.aktualisierePreis();
-		selection.setPreisLabel();
-		assertEquals(selection.getPreis(), 3.00, 0.1);
+		selection.getJb_more().doClick();
+		assertEquals(2.00, selection.getPreis());
 	}
 
 	class MockAutomat implements PropertyChangeListener {
@@ -49,18 +56,11 @@ public class Panel_SelectionTest {
 
 	@Test
 	public void observerTest() throws AbstractButcherException {
-		Portion portion = new Portion();
-		portion.setName("Wurst");
-		portion.setLagermenge("3");
-		portion.setHaltbarBis("");
-		portion.setKilopreis("4.00");
-		portion.setPortionsgewichtKG("6.00");
-		
 		Panel_Selection ps = new Panel_Selection(portion);
 
 		MockAutomat mockAutomat = new MockAutomat();
 		ps.addPropertyChangeListener(mockAutomat);
-		
+
 		ps.getJb_less().doClick();
 		assertTrue(mockAutomat.wasNotified > 0);
 	}

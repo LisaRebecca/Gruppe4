@@ -20,7 +20,7 @@ public abstract class Payment {
 //**ActionListener Zahlungsmethode auswählen 
 //Errorhandling und richtige Ausgabe je nach implementierender Klasse
 
-	private static Payment payment;
+	private static Payment payment = new GiftCardPayment();
 
 	public static Payment get() {
 		return Payment.payment;

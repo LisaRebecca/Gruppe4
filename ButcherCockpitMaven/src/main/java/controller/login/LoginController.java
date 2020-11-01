@@ -15,7 +15,7 @@ public abstract class LoginController {
 	/**
 	 * Die aktuell ausgewählt Ausprägung für den LoginController.
 	 */
-	private static LoginController loginController = null;
+	private static LoginController loginController = new LoginControllerStandard();
 
 	public static LoginController get() {
 		return loginController;

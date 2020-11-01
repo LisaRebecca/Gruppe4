@@ -13,7 +13,7 @@ import errorhandling.ButcherException;
  */
 public abstract class Factory {
 
-	private static Factory factory;
+	private static Factory factory = new CockpitFactory();
 
 	public static Factory get() throws ButcherException {
 		try {
