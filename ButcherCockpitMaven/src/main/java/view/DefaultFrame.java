@@ -57,14 +57,12 @@ public abstract class DefaultFrame extends JFrame {
 	 * Hinweis: Falls das Bild nicht gesetzt werden kann erscheint lediglich eine
 	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
 	 */
-	protected void setIcon() {
-
+	protected void setIcon() { 
 		try {
 			ImageIcon icon = new ImageIcon("src/main/resources/kuh.jpg");
 			this.setIconImage(icon.getImage());
 		} catch (Exception fne) {
 			ExceptionHandler.get().logException(fne);
 		}
-
 	}
 }
