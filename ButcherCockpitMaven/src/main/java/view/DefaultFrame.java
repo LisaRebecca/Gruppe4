@@ -3,6 +3,7 @@ package view;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 
@@ -13,9 +14,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import errorhandling.ExceptionHandler;
+
 /**
- * Abstrakte Klasse von der unsere beiden UIs Automat und Cockpit erben. 
- * Dient dem setzen allgemeiner Parameter, die beide Klassen verwenden, wie Schriftart, JFrame-Eigenschaften und Icon.
+ * Abstrakte Klasse von der unsere beiden UIs Automat und Cockpit erben. Dient
+ * dem setzen allgemeiner Parameter, die beide Klassen verwenden, wie
+ * Schriftart, JFrame-Eigenschaften und Icon.
  *
  */
 public abstract class DefaultFrame extends JFrame {
@@ -37,8 +41,8 @@ public abstract class DefaultFrame extends JFrame {
 	 */
 	public DefaultFrame(String title, int width, int height) {
 
-		//Hier werden Titel, Sichtbarkeit, Groesse, Position und Close-Operation des
-		//Default-Windows festgelegt
+		// Hier werden Titel, Sichtbarkeit, Groesse, Position und Close-Operation des
+		// Default-Windows festgelegt
 		c = getContentPane();
 		this.setTitle(title);
 		this.setVisible(true);
@@ -54,10 +58,13 @@ public abstract class DefaultFrame extends JFrame {
 	 * Warnung, da das Bild nicht nötig für das Funktionieren der Anwendung ist.
 	 */
 	protected void setIcon() {
- //Currency_Symbol_Test&Anpassungen_in_Panel_Selection
-		
-		ImageIcon icon = new ImageIcon("src/main/resources/kuh.jpg");
-		this.setIconImage(icon.getImage());
+
+		try {
+			ImageIcon icon = new ImageIcon("src/main/resources/kuh.jpg");
+			this.setIconImage(icon.getImage());
+		} catch (Exception fne) {
+			ExceptionHandler.get().logException(fne);
+		}
 
 	}
 }
