@@ -53,8 +53,8 @@ public abstract class ExceptionHandler {
 	 * Setter
 	 * @param exceptionHandler
 	 */
-	public static void set(ExceptionHandler exceptionHandler) {
-		ExceptionHandler.exceptionHandler = exceptionHandler;
+	public static void set(ExceptionHandler exceptionHandler) { 
+		ExceptionHandler.exceptionHandler = exceptionHandler; 
 	}
 
 	/**
@@ -62,7 +62,7 @@ public abstract class ExceptionHandler {
 	 * 
 	 * @param Exception e
 	 */
-	protected void logException(Exception e) {
+	public void logException(Exception e) {
 		logger.log(Level.INFO, "Exception geworfen", e);
 	}
 
