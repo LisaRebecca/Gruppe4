@@ -1,6 +1,7 @@
 package view;
 
 import java.text.NumberFormat;
+import java.util.Objects;
 
 /**
  * Die Klasse Portion modelliert ein abgepacktes Produkt, welches sich in der
@@ -13,6 +14,39 @@ public class Portion {
 	private double kilopreis;
 	private double portionsgewichtKG;
 	private String haltbarBis;
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, lagermenge, kilopreis, portionsgewichtKG, haltbarBis);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Portion other = (Portion) obj;
+		if (haltbarBis == null) {
+			if (other.haltbarBis != null)
+				return false;
+		} else if (!haltbarBis.equals(other.haltbarBis))
+			return false;
+		if (Double.doubleToLongBits(kilopreis) != Double.doubleToLongBits(other.kilopreis))
+			return false;
+		if (lagermenge != other.lagermenge)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (Double.doubleToLongBits(portionsgewichtKG) != Double.doubleToLongBits(other.portionsgewichtKG))
+			return false;
+		return true;
+	}
 
 	/**
 	 * Der Standard-Konstruktor setzt die Instanzvariablen auf Standard-Werte, damit
@@ -117,4 +151,5 @@ public class Portion {
 		this.haltbarBis = haltbarBis;
 	}
 
+	
 }

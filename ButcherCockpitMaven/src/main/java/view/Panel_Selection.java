@@ -4,6 +4,7 @@ import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Formatter;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javax.swing.*;
@@ -65,6 +66,28 @@ public class Panel_Selection extends JPanel {
 		initializeMinusButton();
 
 		setPreisLabel();
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(portion);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Panel_Selection other = (Panel_Selection) obj;
+		if (portion == null) {
+			if (other.portion != null)
+				return false;
+		} else if (!portion.equals(other.portion))
+			return false;
+		return true;
 	}
 
 	/**
