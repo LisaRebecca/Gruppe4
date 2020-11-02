@@ -13,7 +13,7 @@ public enum Select_Statements {
 	private final ResourceBundle language;
 	
 	private Select_Statements() {
-		this.language = ResourceBundle.getBundle("i18n/Select_Statements/select_statements_en");
+		this.language = ResourceBundle.getBundle("i18n/select_statements/select_statements_en"); 
 	}
 
 	public String getStatement() {

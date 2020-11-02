@@ -10,6 +10,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 import javax.swing.*;
 
@@ -43,7 +44,7 @@ class Automat extends DefaultFrame implements PropertyChangeListener {
 	 * Warenkorb, enthält alle ausgewählten Produkte in Form von
 	 * {@link Panel_Selection}
 	 */
-	private ArrayList<Panel_Selection> warenkorb = new ArrayList<Panel_Selection>();
+	private HashSet<Panel_Selection> warenkorb = new HashSet<Panel_Selection>();
 
 	/**
 	 * Gesamtpreis dieses Einkaufs
