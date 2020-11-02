@@ -12,7 +12,17 @@ import javax.swing.table.DefaultTableModel;
 import errorhandling.ExceptionHandler;
 import errorhandling.SQLButcherException;
 
+/**
+ * Klasse stellt Funktion bereit, um ResultSet in einen JTable zu konvertieren bzw. einzulesen.
+ * @author I518232
+ *
+ */
 public class Converter {
+	/**
+	 * Konvertiert ein <code>ResultSet</code> in einen <code>JTable</code>.
+	 * @param result Abfrageergebnis aus Datenbank
+	 * @return JTable, der mit dem Ergebnis gefüllt ist
+	 */
 	public static JTable resultSetToTable(ResultSet result) {
 		Vector<Vector<String>> rows = new Vector<Vector<String>>();
 		Vector<String> columnLabels = new Vector<String>();
@@ -40,6 +50,6 @@ public class Converter {
 			columnLabels.add(ResourceBundle.getBundle("i18n/sqlbutcher_exception/sqlbutcher_exception_en")
 					.getString("loading_error"));
 		}
-		return new JTable(new DefaultTableModel(rows, columnLabels));
+		return new JTable(new DefaultTableModel(rows, columnLabels)); 
 	}
 }
