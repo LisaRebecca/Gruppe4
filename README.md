@@ -9,5 +9,16 @@ Eine intuitive ERP-Lösung für mittelständische Metzgereibetriebe, welche auch
 Erstellen Sie eine lokale Datenbank auf Ihrem Rechner, indem Sie die SQL-Befehle aus gleichnamigen Dokument in ihre MySQL-Kommandozeile einfügen.
 
 ## Benutzung
-Die Klassen Cockpit und Automat sind ausführbare Java Klassen.
-- Beim Ausführen der Klasse Cockpit geben Sie ihr persönliches Passwort und ihren Benutzernamen ihrer MySQL-Datenbank im Login-Screen ein.
+
+#### A Einfache Verwendung
+Starten Sie die ausführbaren Java-Dateien 'ButcherCockpit.jar' oder 'Automat.jar'.
+Sie werden im Hintergrund an der Datenbank angemeldet.
+
+#### B Fortgeschritten
+Sie können sich je nach Präferenz verschiedene Anmeldearten, Fehlerbehandlung, Bezahlung und Programme in der Klasse controller.Main konfigurieren.
+
+### Im Fehlerfall
+Sie haben verschiedene Möglichkeiten, falls sich die Anwendung nicht so verhält wie gewünscht.
+
+Kontaktieren Sie unseren Customer-Support:
+Falls Sie das einen Support-Vertrag abgeschlossen haben, wird sich ein Mitarbeiter bei Ihnen innerhalb eines Werktages melden.
