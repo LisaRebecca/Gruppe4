@@ -95,8 +95,9 @@ public class Portion {
 	 */
 	public int getPortionsgewichtGramm() {
 		NumberFormat formatter = NumberFormat.getInstance();
-		formatter.setMaximumFractionDigits(2);
-		return Integer.parseInt("" +(portionsgewichtKG * 1000));
+		formatter.setMaximumFractionDigits(0);
+		String gewicht = formatter.format(portionsgewichtKG * 1000);
+		return Integer.parseInt(""+gewicht);
 	}
 
 	public int getLagermenge() {
