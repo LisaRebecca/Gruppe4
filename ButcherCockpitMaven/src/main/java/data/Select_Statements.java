@@ -2,6 +2,8 @@ package data;
 
 import java.util.ResourceBundle;
 
+import Tools.Currency_Symbol;
+
 /**
  * Stellt SQL Select Statements bereit.
  * @author I518232
@@ -25,7 +27,7 @@ public enum Select_Statements {
 		case PRODUCTS:
 			return "SELECT name as '" + this.language.getString("name") + "', haltbar_bis as '" + this.language.getString("haltbar_bis") + "', portionen as '" + this.language.getString("portionen") + "' from lagerbestand LEFT JOIN produkte ON lagerbestand.produkt = produkte.produkt_id WHERE lagerort='automat1';";
 		case PURCHASES:
-			return "SELECT HEX(verkauf_id) as '" + this.language.getString("verkauf_id") + "', datum as '" + this.language.getString("datum") + "', uhrzeit as '" + this.language.getString("uhrzeit") + "', gesamtpreis as '" + this.language.getString("gesamtpreis") + "' FROM Verkaeufe;";
+			return "SELECT HEX(verkauf_id) as '" + this.language.getString("verkauf_id") + "', datum as '" + this.language.getString("datum") + "', uhrzeit as '" + this.language.getString("uhrzeit") + "', gesamtpreis as '" + this.language.getString("gesamtpreis") + " " +  Currency_Symbol.getCurrency_Symbol() + "' FROM Verkaeufe;";
 		case AUTOMAT_PRODUCTS:
 			return "select name, portionen, haltbar_bis, kilopreis, gewicht_portion from lagerbestand left join produkte on lagerbestand.produkt = produkte.produkt_id "
 					+ "WHERE lagerort='automat1';";
