@@ -6,7 +6,7 @@ Eine intuitive ERP-Lösung für mittelständische Metzgereibetriebe, welche auch
 - Java (wir haben Version 13 benutzt)
 
 ## Setup
-1. Erstellen Sie eine lokale Datenbank auf Ihrem Rechner, indem Sie die SQL-Befehle aus gleichnamigen Dokument in ihre MySQL-Kommandozeile einfügen.
+Erstellen Sie eine lokale Datenbank auf Ihrem Rechner, indem Sie die SQL-Befehle aus gleichnamigen Dokument in ihre MySQL-Kommandozeile einfügen.
 
 ## Benutzung
 Die Klassen Cockpit und Automat sind ausführbare Java Klassen.
