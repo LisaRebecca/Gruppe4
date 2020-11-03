@@ -20,5 +20,12 @@ Sie können sich je nach Präferenz verschiedene Anmeldearten, Fehlerbehandlung,
 ### Im Fehlerfall
 Sie haben verschiedene Möglichkeiten, falls sich die Anwendung nicht so verhält wie gewünscht.
 
-Kontaktieren Sie unseren Customer-Support:
+1. Kontaktieren Sie unseren Customer-Support:
 Falls Sie das einen Support-Vertrag abgeschlossen haben, wird sich ein Mitarbeiter bei Ihnen innerhalb eines Werktages melden.
+
+2. Erstellen Sie ein issue mit dem Label 'bug'.
+Ein Mitarbeiter wird sich mit weiteren Hinweisen an Sie melden.
+
+3. Lesen Sie ihre Log-Dateien aus. Diese befinden sich im Ordner 'logs' ihres Projekts.
+
+## Danke, dass Sie sich für das ButcherCockpit entschieden haben.
