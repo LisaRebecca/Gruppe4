@@ -29,13 +29,15 @@ public class Panel_SelectionTest {
 	 */
 	@Test
 	public void testGetPreis() {
-		Portion portion = new Portion("Schnitzel", "5", "16.09.2020", "1.0", "1.0");
+		Portion portion = new Portion();
+		portion.setKilopreis(15);
+		portion.setPortionsgewichtKG(0.5);
 		Panel_Selection selection = new Panel_Selection(portion);
 		selection.getJb_more().doClick();
-		assertEquals(1.0, selection.getPreis());
+		assertEquals(7.5, selection.getPreis());
 	}
 
-	class MockAutomat implements PropertyChangeListener {
+	class MockAutomat implements PropertyChangeListener { 
 		public int wasNotified = 0;
 
 		@Override
