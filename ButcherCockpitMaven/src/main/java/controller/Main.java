@@ -34,8 +34,8 @@ public class Main {
 		Payment.set(new GiftCardPayment());
 // 		Payment.set(new CreditCardPayment());
 
-		Factory.set(new CockpitFactory());
-//		Factory.set(new AutomatFactory());
+//		Factory.set(new CockpitFactory());
+		Factory.set(new AutomatFactory());
 
 		try {
 			LoginController.get().giveControl();

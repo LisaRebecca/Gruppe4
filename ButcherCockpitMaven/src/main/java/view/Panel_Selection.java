@@ -164,7 +164,7 @@ public class Panel_Selection extends JPanel {
 	 * @return Preis als reine Kommazahl
 	 */
 	public double getPreis() {
-		String preis = jlbl_preis.getText().replace(',', '.');
+		String preis = jlbl_preis.getText().replace(',', '.'); 
 
 		int index = preis.indexOf(Currency_Symbol.getCurrency_Symbol());
 
