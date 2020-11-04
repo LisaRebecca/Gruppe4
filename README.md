@@ -12,7 +12,8 @@ Erstellen Sie eine lokale Datenbank auf Ihrem Rechner, indem Sie die SQL-Befehle
 
 #### A Einfache Verwendung
 Starten Sie die ausführbaren Java-Dateien [ButcherCockpit.jar](https://github.com/LisaRebecca/Gruppe4/blob/master/ButcherCockpitMaven/target/ButcherCockpit.jar) oder [Automat.jar](https://github.com/LisaRebecca/Gruppe4/blob/master/ButcherCockpitMaven/target/ButcherAutomat.jar).
-Sie werden im Hintergrund an der Datenbank angemeldet.
+Cockpit:  Geben Sie ihren MySQL-Benutzernamen und Passwort zum anmelden ein.
+Automat:  Sie werden im Hintergrund an der Datenbank angemeldet.
 
 #### B Fortgeschritten
 Sie können sich je nach Präferenz verschiedene Anmeldearten, Fehlerbehandlung, Bezahlung und Programme in der Klasse controller.Main konfigurieren.
