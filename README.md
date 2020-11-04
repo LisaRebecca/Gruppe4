@@ -11,7 +11,7 @@ Erstellen Sie eine lokale Datenbank auf Ihrem Rechner, indem Sie die SQL-Befehle
 ## Benutzung
 
 #### A Einfache Verwendung
-Starten Sie die ausführbaren Java-Dateien 'ButcherCockpit.jar' oder 'Automat.jar'.
+Starten Sie die ausführbaren Java-Dateien [ButcherCockpit.jar](https://github.com/LisaRebecca/Gruppe4/blob/master/ButcherCockpitMaven/target/ButcherCockpit.jar) oder [Automat.jar](https://github.com/LisaRebecca/Gruppe4/blob/master/ButcherCockpitMaven/target/ButcherAutomat.jar).
 Sie werden im Hintergrund an der Datenbank angemeldet.
 
 #### B Fortgeschritten
