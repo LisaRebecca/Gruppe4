@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>Gruppe4</groupId>
-	<artifactId>ButcherCockpit</artifactId>
+	<artifactId>ButcherAutomat</artifactId>
 	<version>2</version>
 
 	<!-- <properties> <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
